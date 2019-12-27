@@ -1,0 +1,62 @@
+<div *ngIf="mData">
+    <div background-whitesmoke>
+        <div class="container header">
+            <div>
+                <img logo [src]="mData.login.logo">
+            </div>
+            <div center-line padding-start>
+                <div>
+                    <h4 bold>{{mData.login.company_name}}</h4>
+                    <h4>{{mData.login.company_name1}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div center padding-vertical>
+            <div padding-top>
+                <img logo1 [src]="mData.login.logo1">
+                <div padding-vertical>
+                    <h4 bold>{{mData.login.title}}</h4>
+                    <h4 bold>{{mData.login.title1}}</h4>
+                </div>
+
+                <div padding-vertical>
+                    <div padding-bottom>
+                        <input type="text" class="form-control" [placeholder]="mData.login.username">
+                    </div>
+                    <div padding-bottom>
+                        <input type="password" class="form-control" [placeholder]="mData.login.password">
+                    </div>
+                </div>
+
+                <div padding-bottom>
+                    <button type="button"
+                        class="btn background-primary color-white width-100">{{mData.login.btn_login}}</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div padding-vertical center>
+            <div class="text-center">
+                <h6 bold>{{mData.login.sub}}</h6>
+                <h6>{{mData.login.sub1}}</h6>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer background-secondary">
+        <div class="container">
+            <h6 bold>{{mData.login.ft_title}}</h6>
+            <h6>{{mData.login.ft_name}}</h6>
+            <h6>{{mData.login.ft_address}}</h6>
+            <h6>{{mData.login.ft_email}}</h6>
+            <h6>{{mData.login.ft_website}}</h6>
+            <h6>{{mData.login.ft_phone}}</h6>
+        </div>
+    </div>
+</div>

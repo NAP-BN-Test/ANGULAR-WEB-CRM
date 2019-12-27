@@ -1,0 +1,22 @@
+{
+    "version": "1.0.0",
+    "name": "Logistic Crm",
+    "device": {
+        "uuid_default": "",
+        "name_default": "Web"
+    },
+    "http": {
+        "debug": true,
+        "api_server": "api_primary",
+        "api_primary": {
+            "host": "http://163.44.192.123:8684/"
+        },
+        "api_test": {
+            "host": "http://192.168.1.131:8686/api/"
+        },
+        "api_local": {
+            "host": "http://localhost:63687/"
+        }
+        
+    }
+}

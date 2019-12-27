@@ -1,0 +1,23 @@
+{
+    "VI": {
+        "login": {
+            "logo": "../../assets/img/logo.png",
+            "company_name": "NAM AN PHÚ",
+            "company_name1": "TECHNOLOGIES JSC",
+            "logo1": "../../assets/img/logo1.png",
+            "title": "GIẢI PHÁP PHẦN MỀM QUẢN LÝ",
+            "title1": "DỊCH VỤ LOGISTICS",
+            "username": "Tên đăng nhập",
+            "password": "Mật khẩu",
+            "btn_login": "Đăng nhập",
+            "sub": "Hệ thống quản trị quan hệ khách hàng CRM",
+            "sub1": "Nếu bạn chưa có tài khoản vui lòng nhấn vào đây để đăng ký sử dụng",
+            "ft_title": "THÔNG TIN LIÊN HỆ",
+            "ft_name": "CÔNG TY CỔ PHẦN CÔNG NGHỆ NAM AN PHÚ",
+            "ft_address": "Địa chỉ: Linh Đàm, Hà Nội, Việt Nam",
+            "ft_email": "Email: info.namanphu@gmail.com",
+            "ft_website": "Website: http://www/namanphu.com.vn",
+            "ft_phone": "Điện thoại: 024 35550 1618"
+        }
+    }
+}
