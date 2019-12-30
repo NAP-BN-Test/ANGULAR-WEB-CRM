@@ -1,0 +1,40 @@
+<div *ngIf="mData" padding>
+    <div border-bottom padding-top>
+        <mat-icon>double_arrow</mat-icon>
+    </div>
+
+    <div padding-vertical between>
+        <div flex bold>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+            <div>{{mData.contact}}({{'2'}})</div>
+        </div>
+        <div color-primary>{{mData.add_contact}}</div>
+    </div>
+
+    <div padding-top>
+        <app-company-sub-detail-contact></app-company-sub-detail-contact>
+    </div>
+
+    <div padding-top>
+        <app-company-sub-detail-contact></app-company-sub-detail-contact>
+    </div>
+
+    <div>{{mData.view_contact}}</div>
+
+    <div padding-vertical between>
+        <div flex bold>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+            <div>{{mData.company}}({{'2'}})</div>
+        </div>
+        <div color-primary>{{mData.add_company}}</div>
+    </div>
+
+    <div padding-vertical between>
+        <div flex bold>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+            <div>{{mData.deal}}({{'2'}})</div>
+        </div>
+        <div color-primary>{{mData.add_deal}}</div>
+    </div>
+
+</div>

@@ -1,1 +1,17 @@
-<p>home works!</p>
+<div *ngIf="mData">
+    <div class="m-header">
+        <app-header-menu></app-header-menu>
+    </div>
+
+    <div class="row m-content">
+        <div class="col-md-3" padding-top>
+            <app-company-info></app-company-info>
+        </div>
+        <div class="col-md-6" padding-top>
+            <app-company-detail></app-company-detail>
+        </div>
+        <div class="col-md-3">
+            <app-company-sub-detail></app-company-sub-detail>
+        </div>
+    </div>
+</div>

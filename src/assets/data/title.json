@@ -18,6 +18,137 @@
             "ft_email": "Email: info.namanphu@gmail.com",
             "ft_website": "Website: http://www/namanphu.com.vn",
             "ft_phone": "Điện thoại: 024 35550 1618"
+        },
+        "header": {
+            "logo": "../../assets/img/logo_light.png",
+            "list_menu": [
+                {
+                    "name": "Contacts",
+                    "icon": "keyboard_arrow_down"
+                },
+                {
+                    "name": "Activitys",
+                    "icon": "keyboard_arrow_down"
+                },
+                {
+                    "name": "Sales",
+                    "icon": "keyboard_arrow_down"
+                },
+                {
+                    "name": "Report",
+                    "icon": "keyboard_arrow_down"
+                }
+            ],
+            "list_icon": [
+                "search",
+                "notification"
+            ]
+        },
+        "company_info": {
+            "btn_edit": "edit",
+            "btn_task": {
+                "name": "Companies",
+                "icon": "home_work"
+            },
+            "action": "Action",
+            "list_icon": [
+                {
+                    "icon": "note_circle",
+                    "name": "Note"
+                },
+                {
+                    "icon": "task_circle",
+                    "name": "Task"
+                },
+                {
+                    "icon": "call_circle",
+                    "name": "Call"
+                },
+                {
+                    "icon": "email_circle",
+                    "name": "Email"
+                },
+                {
+                    "icon": "meet_circle",
+                    "name": "Meet"
+                }
+            ],
+            "info": {
+                "title": "About this company",
+                "name": "Name",
+                "short_name": "Short name",
+                "address": "Address",
+                "phone": "Phone",
+                "email": "Email",
+                "country": "Country"
+            }
+        },
+        "company_detail": {
+            "menu": [
+                "Activity",
+                "Notes",
+                "Tasks",
+                "Emails",
+                "Calls",
+                "Meets"
+            ],
+            "task": {
+                "name": "Task",
+                "create": "Created by ",
+                "icon": "check_circle",
+                "icon_type": "task",
+                "assign_to": "Assigned to",
+                "due_date": "Due date",
+                "add_description": "Add description",
+                "detail": "Detail",
+                "type": "Type",
+                "remind": "Riminder",
+                "icon_date": "event",
+                "icon_time": "alarm"
+            },
+            "call": {
+                "name": "Call",
+                "icon_type": "phone",
+                "create": "Created by ",
+                "call": "Gọi điện đến khách hàng",
+                "contact": "Contact",
+                "out_come": "Outcome",
+                "date": "Date",
+                "add_comment": "Add Comment",
+                "icon_date": "event",
+                "icon_time": "alarm",
+                "icon_chat": "chat"
+            },
+            "note": {
+                "name": "Note",
+                "icon_type": "note",
+                "associate": "Associated with 2 records",
+                "delete": "Delete",
+                "placeholder": "Gọi điện đến khách hàng",
+                "add_comment": "Add Comment",
+                "icon_chat": "chat"
+            },
+            "meet": {
+                "name": "Meet",
+                "icon_type": "calendar",
+                "create": "Created by ",
+                "meet": "Đi gặp khách hàng",
+                "attend": "Attended",
+                "duration": "Duration",
+                "start_time": "Start time",
+                "comment": "Comment",
+                "add_comment": "Add Comment",
+                "icon_chat": "chat"
+            }
+        },
+        "company_sub_detail": {
+            "contact": "Contacts ",
+            "add_contact": "+ Add contact",
+            "view_contact": "View 2 contact in filtered view",
+            "company": "Companies ",
+            "add_company": "+ Add company",
+            "deal": "Deals ",
+            "add_deal": "+ Add deal"
         }
     }
 }

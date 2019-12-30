@@ -1,0 +1,27 @@
+.m-box {
+    border-radius: 5px;
+}
+
+.m-box:hover .btn-detail {
+    display: inline-block;
+}
+
+.m-icon {
+    padding: 0 !important;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: var(--color-primary);
+}
+
+.btn-detail {
+    display: none;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    .m-btn {
+        background-color: #F0E9F4;
+        border: 1px solid #702C90;
+        padding: 0px 10px;
+    }
+}

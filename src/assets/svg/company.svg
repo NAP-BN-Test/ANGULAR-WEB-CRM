@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.89" height="20" viewBox="0 0 19.89 20">
+  <g id="company" transform="translate(-944.211 -524.179)">
+    <path id="Path_10" data-name="Path 10" d="M964.1,527.549h-19.89l9.946-3.37,9.944,3.37Z" fill-rule="evenodd"/>
+    <path id="Path_11" data-name="Path 11" d="M946.194,530.148V540l8.763-2.958L963.72,540v-9.853Zm0,15.8h6.732v-4.056h4.061v4.056h6.733v-5.107H946.194Z" transform="translate(-0.801 -1.768)" fill-rule="evenodd"/>
+    <g id="Group_5" data-name="Group 5" transform="translate(946.61 539.113)">
+      <g id="Group_3" data-name="Group 3">
+        <rect id="Rectangle_7" data-name="Rectangle 7" width="0.795" height="4.359" transform="translate(0.201 0.354)"/>
+        <path id="Path_12" data-name="Path 12" d="M948.447,548.375h.771c.118,0,.213-.05.213-.114s-.1-.111-.213-.111h-.771c-.115,0-.212.051-.212.111S948.332,548.375,948.447,548.375Z" transform="translate(-948.235 -548.15)" fill-rule="evenodd"/>
+        <path id="Path_13" data-name="Path 13" d="M949.218,556.27h-.771c-.115,0-.212.051-.212.113s.1.112.212.112h.771c.118,0,.213-.051.213-.112S949.336,556.27,949.218,556.27Z" transform="translate(-948.235 -551.429)" fill-rule="evenodd"/>
+      </g>
+      <g id="Group_4" data-name="Group 4" transform="translate(13.897)">
+        <rect id="Rectangle_8" data-name="Rectangle 8" width="0.794" height="4.359" transform="translate(0.201 0.354)"/>
+        <path id="Path_14" data-name="Path 14" d="M970.685,548.375h.772c.116,0,.212-.05.212-.114s-.1-.111-.212-.111h-.772c-.116,0-.212.051-.212.111S970.568,548.375,970.685,548.375Z" transform="translate(-970.473 -548.15)" fill-rule="evenodd"/>
+        <path id="Path_15" data-name="Path 15" d="M971.457,556.27h-.772c-.116,0-.212.051-.212.113s.1.112.212.112h.772c.116,0,.212-.051.212-.112S971.573,556.27,971.457,556.27Z" transform="translate(-970.473 -551.429)" fill-rule="evenodd"/>
+      </g>
+    </g>
+    <g id="Group_9" data-name="Group 9" transform="translate(947.57 528.965)">
+      <g id="Group_6" data-name="Group 6" transform="translate(0 0)">
+        <rect id="Rectangle_9" data-name="Rectangle 9" width="1.689" height="1.688"/>
+        <rect id="Rectangle_10" data-name="Rectangle 10" width="1.688" height="1.688" transform="translate(2.872)"/>
+        <rect id="Rectangle_11" data-name="Rectangle 11" width="1.688" height="1.688" transform="translate(5.742)"/>
+        <rect id="Rectangle_12" data-name="Rectangle 12" width="1.689" height="1.688" transform="translate(8.613)"/>
+        <rect id="Rectangle_13" data-name="Rectangle 13" width="1.689" height="1.688" transform="translate(11.483)"/>
+      </g>
+      <g id="Group_7" data-name="Group 7" transform="translate(0 2.87)">
+        <rect id="Rectangle_14" data-name="Rectangle 14" width="1.689" height="1.689"/>
+        <rect id="Rectangle_15" data-name="Rectangle 15" width="1.688" height="1.689" transform="translate(2.872)"/>
+        <rect id="Rectangle_16" data-name="Rectangle 16" width="1.688" height="1.689" transform="translate(5.742)"/>
+        <rect id="Rectangle_17" data-name="Rectangle 17" width="1.689" height="1.689" transform="translate(8.613)"/>
+        <rect id="Rectangle_18" data-name="Rectangle 18" width="1.689" height="1.689" transform="translate(11.483)"/>
+      </g>
+      <g id="Group_8" data-name="Group 8" transform="translate(0 5.741)">
+        <rect id="Rectangle_19" data-name="Rectangle 19" width="1.689" height="1.688"/>
+        <rect id="Rectangle_20" data-name="Rectangle 20" width="1.688" height="1.688" transform="translate(2.872)"/>
+        <rect id="Rectangle_21" data-name="Rectangle 21" width="1.688" height="1.688" transform="translate(5.742)"/>
+        <rect id="Rectangle_22" data-name="Rectangle 22" width="1.689" height="1.688" transform="translate(8.613)"/>
+        <rect id="Rectangle_23" data-name="Rectangle 23" width="1.689" height="1.688" transform="translate(11.483)"/>
+      </g>
+    </g>
+    <path id="Path_16" data-name="Path 16" d="M963.93,545.433H945.1l9.417-3.186,9.418,3.186Z" transform="translate(-0.357 -6.868)" fill-rule="evenodd"/>
+  </g>
+</svg>

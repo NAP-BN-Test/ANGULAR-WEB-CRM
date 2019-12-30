@@ -1,0 +1,30 @@
+<div *ngIf="mData">
+    <div class="m-header" between>
+        <div flex>
+            <div padding32-start padding8 style="height: 66px;">
+                <img height-100 [src]="mData.logo">
+            </div>
+
+            <div padding32-start flex>
+                <div color-white center-line padding *ngFor="let item of mData.list_menu; let i = index"
+                    [class.selected]="menuSelected==i" (click)="onClickMenu(i)" tappable>
+                    <div padding-end>{{item.name}}</div>
+                    <mat-icon [class.icon-selected]="menuSelected==i">{{item.icon}}</mat-icon>
+                </div>
+            </div>
+        </div>
+
+        <div padding32-end flex>
+
+            <div center-line class="fadeIn" [hidden]="!showSearchBar">
+                <input type="search" class="form-control" />
+            </div>
+
+            <div color-white center-line *ngFor="let item of mData.list_icon">
+                <button class="btn btn-default color-white center" (click)="onClickSearch()">
+                    <mat-icon color-white [svgIcon]="item"></mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

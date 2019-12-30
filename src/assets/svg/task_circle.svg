@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="task_cricle" transform="translate(-121 -272)">
+    <g id="Group_108" data-name="Group 108" transform="translate(-50 140)">
+      <path id="Path_139" data-name="Path 139" d="M187,132.5A15.5,15.5,0,1,1,171.5,148,15.5,15.5,0,0,1,187,132.5m0-.5a16,16,0,1,0,16,16,16,16,0,0,0-16-16Z"/>
+    </g>
+    <g id="Group_119" data-name="Group 119" transform="translate(-50 140)">
+      <path id="Path_149" data-name="Path 149" d="M184.3,140l1.3,1.3-5.3,5.3-1.3-1.3Z"/>
+      <path id="Path_150" data-name="Path 150" d="M189.2,151.5l4.5,4.5H195v-1.3l-4.5-4.5Z"/>
+      <path id="Path_151" data-name="Path 151" d="M193.4,146l-1.3-1.3-1.3,1.3-5.2-3.3-3.8,3.8,3.3,5.2-1.3,1.3,1.3,1.3Z"/>
+    </g>
+  </g>
+</svg>

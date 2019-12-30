@@ -1,0 +1,12 @@
+<div *ngIf="mData" background-whitesmoke>
+    <div flex padding-horizontal>
+        <div *ngFor="let item of mData.menu; let i = index" (click)="onClickMenu(i)">
+            <div class="m-menu" [class.menu-selected]="menuSelected==i" tappable>{{item}}</div>
+        </div>
+    </div>
+
+    <div padding>
+        <app-company-detail-activity></app-company-detail-activity>
+        <!-- <app-company-detail-activity></app-company-detail-activity> -->
+    </div>
+</div>

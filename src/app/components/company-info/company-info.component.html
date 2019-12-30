@@ -1,0 +1,79 @@
+<div *ngIf="mData&&mDataSv">
+    <div between padding32-bottom>
+        <div class="m-title" tappable>
+            <div center padding-start>
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </div>
+            <div padding-end>{{mData.btn_task.name}}</div>
+            <div center padding8-end>
+                <mat-icon>{{mData.btn_task.icon}}</mat-icon>
+            </div>
+        </div>
+        <div color-primary bold center-line tappable>
+            <div>{{mData.action}}</div>
+            <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+    </div>
+    <div padding32 center>
+        <div bold font3 padding8-end>{{mDataSv.name}}</div>
+        <mat-icon color-primary>{{mData.btn_edit}}</mat-icon>
+    </div>
+
+    <div padding32 border-bottom center>
+        <div padding8 *ngFor="let item of mData.list_icon">
+            <div center>
+                <mat-icon mat-icon-size color-primary [svgIcon]="item.icon"></mat-icon>
+            </div>
+            <div>{{item.name}}</div>
+        </div>
+    </div>
+
+    <div padding32>
+        <div bold>{{mData.info.title}}</div>
+        <div padding-top>
+            <div font7>{{mData.info.name}}</div>
+            <div relative class="m-input">
+                <input class="form-control border-0" type="text" [placeholder]="mData.name" [value]="mDataSv.name">
+                <button class="m-btn btn btn-sm">Detail</button>
+            </div>
+        </div>
+        <div padding-top>
+            <div font7>{{mData.info.short_name}}</div>
+            <div relative class="m-input">
+                <input class="form-control border-0" type="text" [placeholder]="mData.short_name"
+                    [value]="mDataSv.shortName">
+                <button class="m-btn btn btn-sm">Detail</button>
+            </div>
+        </div>
+        <div padding-top>
+            <div font7>{{mData.info.address}}</div>
+            <div relative class="m-input">
+                <input class="form-control border-0" type="text" [placeholder]="mData.address"
+                    [value]="mDataSv.address">
+                <button class="m-btn btn btn-sm">Detail</button>
+            </div>
+        </div>
+        <div padding-top>
+            <div font7>{{mData.info.phone}}</div>
+            <div relative class="m-input">
+                <input class="form-control border-0" type="text" [placeholder]="mData.phone" [value]="mDataSv.phone">
+                <button class="m-btn btn btn-sm">Detail</button>
+            </div>
+        </div>
+        <div padding-top>
+            <div font7>{{mData.info.email}}</div>
+            <div relative class="m-input">
+                <input class="form-control border-0" type="text" [placeholder]="mData.email" [value]="mDataSv.email">
+                <button class="m-btn btn btn-sm">Detail</button>
+            </div>
+        </div>
+        <div padding-top>
+            <div font7>{{mData.info.country}}</div>
+            <div relative class="m-input">
+                <input class="form-control border-0" type="text" [placeholder]="mData.country"
+                    [value]="mDataSv.country">
+                <button class="m-btn btn btn-sm">Detail</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="email_circle" transform="translate(-221 -272)">
+    <g id="Group_110" data-name="Group 110" transform="translate(-50 140)">
+      <path id="Path_141" data-name="Path 141" d="M287,132.5A15.5,15.5,0,1,1,271.5,148,15.5,15.5,0,0,1,287,132.5m0-.5a16,16,0,1,0,16,16,16,16,0,0,0-16-16Z"/>
+    </g>
+    <g id="Group_120" data-name="Group 120" transform="translate(-50 140)">
+      <path id="Path_153" data-name="Path 153" d="M295,153V143l-5.5,5Z"/>
+      <path id="Path_154" data-name="Path 154" d="M287,150.2l-1.6-1.4-5.5,5h14.2l-5.5-5Z"/>
+      <path id="Path_155" data-name="Path 155" d="M294.1,142.2H279.9l7.1,6.4Z"/>
+      <path id="Path_156" data-name="Path 156" d="M279,143v9.9l5.5-5Z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,197 @@
+<div class="m-activity" *ngIf="mData">
+    <div between>
+        <div bold color-primary flex>
+            <mat-icon height-100 [svgIcon]="mData.task.icon_type"></mat-icon>
+            <div padding8-start center-line>{{mData.task.name}}</div>
+        </div>
+        <div flex font6>
+            <div padding-end>{{mData.task.create}} {{mObj.created}}</div>
+            <div>{{mObj.time}}</div>
+        </div>
+    </div>
+
+    <div flex padding-top>
+        <mat-icon color-gray>{{mData.task.icon}}</mat-icon>
+        <div color-primary padding8-start bold>{{mObj.name}}</div>
+    </div>
+
+    <div class="row" padding-top>
+        <div class="col-5">
+            <div font7>{{mData.task.assign_to}}</div>
+            <div font6 color-primary>{{mObj.assignTo}}</div>
+        </div>
+        <div class="col-7">
+            <div font7>{{mData.task.due_date}}</div>
+            <div font6 color-primary>
+                <div flex>
+                    <div center-line padding8-end>{{mObj.assignDate}}</div>
+                    <mat-icon>{{mData.task.icon_date}}</mat-icon>
+                    <div center-line padding8-horizontal>{{mObj.assignTime}}</div>
+                    <mat-icon>{{mData.task.icon_time}}</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div padding-top>{{mData.task.add_description}}</div>
+
+    <div padding-top flex>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+        <div font7 center-line>{{mData.task.detail}}</div>
+    </div>
+
+    <div class="row" padding-top>
+        <div class="col-2">
+            <div font7>{{mData.task.type}}</div>
+            <div font6 color-primary flex>
+                <div center-line>{{mObj.typeTask}}</div>
+                <mat-icon>arrow_drop_down</mat-icon>
+            </div>
+        </div>
+        <div class="col-3">
+            <div font7>{{mData.task.type}}</div>
+            <div font6 color-primary flex>{{mObj.created}}</div>
+        </div>
+        <div class="col-7">
+            <div font7>{{mData.task.remind}}</div>
+            <div font6 color-primary flex>
+                <div center-line padding8-end>{{mObj.remindDate}}</div>
+                <mat-icon>{{mData.task.icon_date}}</mat-icon>
+                <div center-line padding8-horizontal>{{mObj.remindTime}}</div>
+                <mat-icon>{{mData.task.icon_time}}</mat-icon>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div padding></div>
+
+<div class="m-activity" *ngIf="mData">
+    <div between>
+        <div bold color-primary flex>
+            <mat-icon height-100 [svgIcon]="mData.call.icon_type"></mat-icon>
+            <div padding8-start center-line>{{mData.call.name}}</div>
+        </div>
+        <div flex font6>
+            <div padding-end>{{mData.task.create}} {{'Lò A Páo'}}</div>
+            <div>{{'26/12/ 2019 at 8:46 AM'}}</div>
+        </div>
+    </div>
+
+    <div flex padding-top>{{mData.call.call}}</div>
+
+    <div class="row" padding-top>
+        <div class="col-5" flex>
+            <div width-50>
+                <div font7>{{mData.call.contact}}</div>
+                <div font6 flex color-primary>
+                    <div>{{'Namldv'}}</div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+            </div>
+            <div width-50>
+                <div font7>{{mData.call.out_come}}</div>
+                <div font6 flex color-primary>
+                    <div>{{'No answer'}}</div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <div font7>{{mData.task.due_date}}</div>
+            <div font6 color-primary>
+                <div flex>
+                    <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
+                    <mat-icon>{{mData.call.icon_date}}</mat-icon>
+                    <div center-line padding8-horizontal>{{'08 : 30'}}</div>
+                    <mat-icon>{{mData.call.icon_time}}</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div flex padding-top font6 color-gray>
+        <mat-icon>{{mData.call.icon_chat}}</mat-icon>
+        <div padding8-start>{{mData.call.add_comment}}</div>
+    </div>
+
+</div>
+
+<div padding></div>
+
+<div class="m-activity" *ngIf="mData">
+    <div between>
+        <div bold color-primary flex>
+            <mat-icon height-100 [svgIcon]="mData.note.icon_type"></mat-icon>
+            <div padding8-start center-line>{{mData.note.name}}</div>
+        </div>
+        <div flex font6>
+            <div padding-end>{{mData.note.associate}}</div>
+            <mat-icon>arrow_drop_down</mat-icon>
+            <div>{{mData.note.delete}}</div>
+        </div>
+    </div>
+
+    <div padding-top>
+        <input type="text" class="form-control" [placeholder]="mData.note.placeholder">
+    </div>
+
+    <div flex padding-top font6 color-gray>
+        <mat-icon>{{mData.call.icon_chat}}</mat-icon>
+        <div padding8-start>{{mData.call.add_comment}}</div>
+    </div>
+
+</div>
+
+<div padding></div>
+
+<div class="m-activity" *ngIf="mData">
+    <div between>
+        <div bold color-primary flex>
+            <mat-icon height-100 [svgIcon]="mData.meet.icon_type"></mat-icon>
+            <div padding8-start center-line>{{mData.meet.name}}</div>
+        </div>
+        <div flex font6>
+            <div padding-end>{{mData.task.create}} {{'Lò A Páo'}}</div>
+            <div>{{'26/12/ 2019 at 8:46 AM'}}</div>
+        </div>
+    </div>
+
+    <div flex padding-top>{{mData.meet.meet}}</div>
+
+    <div class="row" padding-top>
+        <div class="col-5" flex>
+            <div width-50>
+                <div font7>{{mData.meet.attend}}</div>
+                <div font6 flex color-primary>
+                    <div>{{'1 attenders'}}</div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+            </div>
+            <div width-50>
+                <div font7>{{mData.meet.duration}}</div>
+                <div font6 flex color-primary>
+                    <div>{{'1 hour'}}</div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <div font7>{{mData.meet.start_time}}</div>
+            <div font6 color-primary>
+                <div flex>
+                    <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
+                    <mat-icon>{{mData.meet.icon_date}}</mat-icon>
+                    <div center-line padding8-horizontal>{{'08 : 30'}}</div>
+                    <mat-icon>{{mData.meet.icon_time}}</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div flex padding-top font6 color-gray>
+        <mat-icon>{{mData.meet.icon_chat}}</mat-icon>
+        <div padding8-start>{{mData.meet.add_comment}}</div>
+    </div>
+
+</div>

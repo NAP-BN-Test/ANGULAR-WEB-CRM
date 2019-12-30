@@ -1,0 +1,8 @@
+.m-menu {
+    padding: 16px 32px;
+    border-bottom: 5px solid transparent;
+}
+.menu-selected {
+    border-bottom: 5px solid #451B58;
+    transition: all ease-in-out 500ms;
+}
