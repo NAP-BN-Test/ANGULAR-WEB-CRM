@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppModuleService } from 'src/app/services/app-module.service';
 
 @Component({
   selector: 'app-company-sub-detail-company',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanySubDetailCompanyComponent implements OnInit {
 
-  constructor() { }
+  mData: any;
+
+  constructor(
+    public mService: AppModuleService,
+  ) { }
 
   ngOnInit() {
+    this.mService.LoadTitle(1).then((data: any) => {
+      this.mData = data.company_sub_detail;
+    })
   }
 
 }

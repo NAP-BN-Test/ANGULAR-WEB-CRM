@@ -20,7 +20,7 @@
     </div>
 
     <div padding32 border-bottom center>
-        <div padding8 *ngFor="let item of mData.list_icon">
+        <div padding8 *ngFor="let item of mData.list_icon" (click)="onClickItem(item.index)" tappable>
             <div center>
                 <mat-icon mat-icon-size color-primary [svgIcon]="item.icon"></mat-icon>
             </div>
@@ -34,7 +34,7 @@
             <div font7>{{mData.info.name}}</div>
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.name" [value]="mDataSv.name">
-                <button class="m-btn btn btn-sm">Detail</button>
+                <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
         <div padding-top>
@@ -42,7 +42,7 @@
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.short_name"
                     [value]="mDataSv.shortName">
-                <button class="m-btn btn btn-sm">Detail</button>
+                <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
         <div padding-top>
@@ -50,21 +50,21 @@
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.address"
                     [value]="mDataSv.address">
-                <button class="m-btn btn btn-sm">Detail</button>
+                <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
         <div padding-top>
             <div font7>{{mData.info.phone}}</div>
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.phone" [value]="mDataSv.phone">
-                <button class="m-btn btn btn-sm">Detail</button>
+                <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
         <div padding-top>
             <div font7>{{mData.info.email}}</div>
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.email" [value]="mDataSv.email">
-                <button class="m-btn btn btn-sm">Detail</button>
+                <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
         <div padding-top>
@@ -72,7 +72,7 @@
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.country"
                     [value]="mDataSv.country">
-                <button class="m-btn btn btn-sm">Detail</button>
+                <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
     </div>

@@ -86,13 +86,15 @@
 }
 
 .between {
-    display: flex;
-    justify-content: space-between;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
 }
 [between] {
-    display: flex;
-    justify-content: space-between;
-}
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    }
 
 .justify-end {
     justify-content: flex-end;
@@ -126,18 +128,18 @@
 }
 
 [border-bottom] {
-    border-bottom: .5px solid lightgray;
+    border-bottom: .5px solid #cccccc;
 }
 .border-bottom {
-    border-bottom: .5px solid lightgray;
+    border-bottom: .5px solid #cccccc;
 }
 
 [box-border] {
-    border: .5px solid gray;
+    border: .5px solid #cccccc;
 }
 
 .box-border {
-    border: .5px solid gray;
+    border: .5px solid #cccccc;
 }
 
 
@@ -288,6 +290,13 @@
 }
 .padding32-horizontal {
     padding: 0 32px;
+}
+
+[padding0] {
+    padding: 0 !important;
+}
+.padding0 {
+    padding: 0 !important;
 }
 
 
@@ -869,3 +878,8 @@
 
 
 /* ===============================End Flex CSS========================================= */
+
+
+
+/* ===============================Global CSS========================================= */
+

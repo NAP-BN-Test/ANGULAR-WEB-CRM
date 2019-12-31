@@ -5,13 +5,53 @@
 
     <div class="row m-content">
         <div class="col-md-3" padding-top>
-            <app-company-info></app-company-info>
+            <app-company-info (createAction)="onClickCreateAction($event)"></app-company-info>
         </div>
-        <div class="col-md-6" padding-top>
+        <div [class]="colDetail" padding-top relative>
             <app-company-detail></app-company-detail>
+
+            <div class="box-create" [class.show-div]="createTabIndex==1">
+                <app-create-note (closeCreateAction)="onClickCloseCreateAction()"></app-create-note>
+            </div>
+
+            <div class="box-create" [class.show-div]="createTabIndex==2">
+                <app-create-task (closeCreateAction)="onClickCloseCreateAction()"></app-create-task>
+            </div>
+
+            <div class="box-create" [class.show-div]="createTabIndex==3">
+                <app-create-call (closeCreateAction)="onClickCloseCreateAction()"></app-create-call>
+            </div>
+
+            <div class="box-create" [class.show-div]="createTabIndex==4">
+                <app-create-email (closeCreateAction)="onClickCloseCreateAction()"></app-create-email>
+            </div>
+
+            <div class="box-create" [class.show-div]="createTabIndex==5">
+                <app-create-meet (closeCreateAction)="onClickCloseCreateAction()"></app-create-meet>
+            </div>
+
         </div>
-        <div class="col-md-3">
-            <app-company-sub-detail></app-company-sub-detail>
+        <div [class]="colSubDetail">
+            <div border-bottom padding-top tappable (click)="onClickShowSubDetail()">
+                <mat-icon>{{iconSubDetail}}</mat-icon>
+            </div>
+            <div [class.hide-div]="!iconSubDetailState">
+                <app-company-sub-detail (addSubDetail)="onClickAddSubDetail($event)"></app-company-sub-detail>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="box-add" [class.show-div]="addSubDetail==1">
+            <app-add-contact (closeAddSub)="onClickCloseSubDetail()"></app-add-contact>
+        </div>
+
+        <div class="box-add" [class.show-div]="addSubDetail==2">
+            <app-add-deal (closeAddSub)="onClickCloseSubDetail()"></app-add-deal>
+        </div>
+
+        <div class="box-add" [class.show-div]="addSubDetail==3">
+            <app-add-company (closeAddSub)="onClickCloseSubDetail()"></app-add-company>
         </div>
     </div>
 </div>

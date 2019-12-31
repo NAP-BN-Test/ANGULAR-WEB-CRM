@@ -1,14 +1,10 @@
 <div *ngIf="mData" padding>
-    <div border-bottom padding-top>
-        <mat-icon>double_arrow</mat-icon>
-    </div>
-
     <div padding-vertical between>
         <div flex bold>
             <mat-icon>keyboard_arrow_down</mat-icon>
             <div>{{mData.contact}}({{'2'}})</div>
         </div>
-        <div color-primary>{{mData.add_contact}}</div>
+        <div color-primary (click)="onClickAddSubDetail(1)" tappable>{{mData.add_contact}}</div>
     </div>
 
     <div padding-top>
@@ -26,7 +22,15 @@
             <mat-icon>keyboard_arrow_down</mat-icon>
             <div>{{mData.company}}({{'2'}})</div>
         </div>
-        <div color-primary>{{mData.add_company}}</div>
+        <div color-primary (click)="onClickAddSubDetail(2)" tappable>{{mData.add_company}}</div>
+    </div>
+
+    <div padding-top>
+        <app-company-sub-detail-company></app-company-sub-detail-company>
+    </div>
+
+    <div padding-top>
+        <app-company-sub-detail-company></app-company-sub-detail-company>
     </div>
 
     <div padding-vertical between>
@@ -34,7 +38,15 @@
             <mat-icon>keyboard_arrow_down</mat-icon>
             <div>{{mData.deal}}({{'2'}})</div>
         </div>
-        <div color-primary>{{mData.add_deal}}</div>
+        <div color-primary (click)="onClickAddSubDetail(3)" tappable>{{mData.add_deal}}</div>
+    </div>
+
+    <div padding-top>
+        <app-company-sub-detail-deal></app-company-sub-detail-deal>
+    </div>
+
+    <div padding-top>
+        <app-company-sub-detail-deal></app-company-sub-detail-deal>
     </div>
 
 </div>

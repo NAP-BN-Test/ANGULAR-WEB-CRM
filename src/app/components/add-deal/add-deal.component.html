@@ -1,0 +1,145 @@
+<div shadow height-100 *ngIf="mData">
+    <div class="m-header" padding between>
+        <div bold font3>{{mData.add_deal}}</div>
+        <div (click)="onClickClose()" tappable>
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <div padding>
+        <div>{{mData.deal_intro}}</div>
+
+        <div bold padding>{{mData.create_new_deal}}</div>
+
+        <div padding-bottom>
+            <div padding-start center-line>
+                <div class="col-3" font6>{{mData.deal_name}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.pipe_line}}</div>
+                <div class="col-9">
+                    <div ngbDropdown>
+                        <button class="btn btn-outline-primary color-primary between width-100"
+                            ngbDropdownToggle>{{gender}}</button>
+                        <div ngbDropdownMenu width-100>
+                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
+                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.deal_stage}}</div>
+                <div class="col-9">
+                    <div ngbDropdown>
+                        <button class="btn btn-outline-primary color-primary between width-100"
+                            ngbDropdownToggle>{{gender}}</button>
+                        <div ngbDropdownMenu width-100>
+                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
+                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.amount}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.close_date}}</div>
+                <div class="col-9">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+                            #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn m-btn-calendar btn-outline-secondary" (click)="d.toggle()">
+                                <mat-icon>date_range</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.deal_owner}}</div>
+                <div class="col-9">
+                    <div ngbDropdown>
+                        <button class="btn btn-outline-primary color-primary between width-100"
+                            ngbDropdownToggle>{{gender}}</button>
+                        <div ngbDropdownMenu width-100>
+                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
+                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div bold padding>{{mData.associate_deal}}</div>
+
+        <div padding-bottom>
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.company}}</div>
+                <div class="col-9">
+                    <div ngbDropdown>
+                        <button class="btn btn-outline-primary color-primary between width-100"
+                            ngbDropdownToggle>{{gender}}</button>
+                        <div ngbDropdownMenu width-100>
+                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
+                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.contact}}</div>
+                <div class="col-9">
+                    <div ngbDropdown>
+                        <button class="btn btn-outline-primary color-primary between width-100"
+                            ngbDropdownToggle>{{gender}}</button>
+                        <div ngbDropdownMenu width-100>
+                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
+                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div padding center-line between>
+            <div flex>
+                <div padding-start>
+                    <input type="checkbox">
+                </div>
+                <div padding8-start>{{mData.add_timeline}}</div>
+            </div>
+            <div flex padding8-start color-primary>
+                <div padding8-end>26 / 12 / 2019</div>
+                <mat-icon>event</mat-icon>
+            </div>
+        </div>
+    </div>
+
+    <div padding class="m-footer">
+        <div flex>
+            <div padding-vertical>
+                <button class="btn m-btn-footer" [disabled]="!btnCanClicked"
+                    [class.btn-footer-cant-clicked]="!btnCanClicked" (click)="onClickSave()">{{mData.save}}</button>
+            </div>
+            <div padding>
+                <button class="btn m-btn-footer" (click)="onClickClose()">{{mData.cancel}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

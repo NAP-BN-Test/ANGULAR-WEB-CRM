@@ -1,0 +1,32 @@
+.m-box {
+    border-radius: 5px;
+}
+
+.m-box:hover .btn-detail {
+    display: inline-block;
+}
+
+.btn-detail {
+    display: none;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    .m-btn {
+        background-color: #F0E9F4;
+        border: 1px solid #702C90;
+        padding: 0px 10px;
+    }
+}
+
+.m-week {
+    width: 14.2857%;
+    padding: 0 3px;
+}
+.m-week-in {
+    height: 5px;
+    border-radius: 5px;
+    background-color: #E4E4E4;
+}
+.week-has-val {
+    background-color: #F8BC15;
+}

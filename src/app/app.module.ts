@@ -10,9 +10,10 @@ import { MainComponent } from './components/main/main.component';
 import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatIconModule} from '@angular/material/icon';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { QuillModule } from 'ngx-quill';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
 import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
@@ -21,6 +22,15 @@ import { CompanyDetailActivityComponent } from './components/company-detail-acti
 import { CompanySubDetailContactComponent } from './components/company-sub-detail-contact/company-sub-detail-contact.component';
 import { CompanySubDetailCompanyComponent } from './components/company-sub-detail-company/company-sub-detail-company.component';
 import { CompanySubDetailDealComponent } from './components/company-sub-detail-deal/company-sub-detail-deal.component';
+import { CreateEmailComponent } from './components/create-email/create-email.component';
+import { CreateNoteComponent } from './components/create-note/create-note.component';
+import { CreateCallComponent } from './components/create-call/create-call.component';
+import { CreateTaskComponent } from './components/create-task/create-task.component';
+import { CreateMeetComponent } from './components/create-meet/create-meet.component';
+import { AddContactComponent } from './components/add-contact/add-contact.component';
+import { AddCompanyComponent } from './components/add-company/add-company.component';
+import { AddDealComponent } from './components/add-deal/add-deal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +45,15 @@ import { CompanySubDetailDealComponent } from './components/company-sub-detail-d
     CompanyDetailActivityComponent,
     CompanySubDetailContactComponent,
     CompanySubDetailCompanyComponent,
-    CompanySubDetailDealComponent
+    CompanySubDetailDealComponent,
+    CreateEmailComponent,
+    CreateNoteComponent,
+    CreateCallComponent,
+    CreateTaskComponent,
+    CreateMeetComponent,
+    AddContactComponent,
+    AddCompanyComponent,
+    AddDealComponent
   ],
   imports: [
     BrowserModule,
@@ -43,8 +61,10 @@ import { CompanySubDetailDealComponent } from './components/company-sub-detail-d
     HttpModule,
     BrowserAnimationsModule,
     MatIconModule,
+    HttpClientModule,
+    QuillModule.forRoot(),
     NgbModule,
-    HttpClientModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

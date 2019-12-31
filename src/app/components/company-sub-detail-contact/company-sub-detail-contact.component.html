@@ -1,4 +1,4 @@
-<div shadow padding relative class="m-box">
+<div shadow padding relative class="m-box" *ngIf="mData">
     <div class="row">
         <div class="col-2"></div>
         <div class="col-10">
@@ -21,6 +21,6 @@
     </div>
 
     <div class="btn-detail">
-        <button class="m-btn btn btn-sm">Detail</button>
+        <button class="m-btn btn btn-sm">{{mData.detail}}</button>
     </div>
 </div>

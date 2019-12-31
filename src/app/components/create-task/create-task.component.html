@@ -1,0 +1,85 @@
+<div shadow *ngIf="mData">
+    <div padding background-secondary between>
+        <div bold font3>{{mData.task_tag}}</div>
+        <div (click)="onClickClose()" tappable>
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <div flex box-border>
+        <div class="col-6 padding0">
+            <div padding>
+                <div font7>{{mData.mission_name}}</div>
+                <div font6 color-primary>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-6 padding0">
+            <div padding>
+                <div font7>{{mData.due_date}}</div>
+                <div font6 color-primary flex>
+                    <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
+                    <mat-icon>{{mData.icon_date}}</mat-icon>
+                    <div center-line padding8-horizontal>{{'08 : 30'}}</div>
+                    <mat-icon>{{mData.icon_time}}</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div relative style="height: 200px; margin-bottom: 42px;">
+        <quill-editor [modules]="mConfig"></quill-editor>
+
+        <div font6 center-line color-primary class="associate">
+            <div padding8-end>{{mData.associate}} 4 {{mData.record}}</div>
+            <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+    </div>
+
+    <div flex box-border>
+        <div class="col-3 padding0">
+            <div padding>
+                <div font7>{{mData.assign_to}}</div>
+                <div font6 color-primary flex>
+                    <div>Namldv</div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 padding0">
+            <div padding-vertical>
+                <div font7>{{mData.type}}</div>
+                <div font6 color-primary flex>
+                    <div>To do</div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 padding0">
+            <div padding>
+                <div font7>{{mData.remind}}</div>
+                <div font6 color-primary flex>
+                    <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
+                    <mat-icon>{{mData.icon_date}}</mat-icon>
+                    <div center-line padding8-horizontal>{{'08 : 30'}}</div>
+                    <mat-icon>{{mData.icon_time}}</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div padding8 center-line box-border>
+        <div>
+            <button class="button m-btn">{{mData.save}}</button>
+        </div>
+        <div padding-start>
+            <input type="checkbox">
+        </div>
+        <div padding8-start>{{mData.follow_up}}</div>
+        <div flex padding8-start color-primary>
+            <div>3 daies</div>
+            <mat-icon padding8-start>arrow_drop_down</mat-icon>
+        </div>
+    </div>
+</div>

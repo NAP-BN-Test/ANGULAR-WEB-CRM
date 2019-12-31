@@ -1,0 +1,48 @@
+<div shadow height-100 *ngIf="mData">
+    <div class="m-header" padding between>
+        <div bold font3>{{mData.add_contact}}</div>
+        <div (click)="onClickClose()" tappable>
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <div padding>
+        <div>{{mData.contact_intro}}</div>
+
+        <div flex>
+            <div padding-vertical>
+                <button class="btn m-btn" [class.m-btn-clicked]="btnType==1"
+                    (click)="onClickAdd(1)">{{mData.add_parent_company}}</button>
+            </div>
+            <div padding>
+                <button class="btn m-btn" [class.m-btn-clicked]="btnType==2"
+                    (click)="onClickAdd(2)">{{mData.add_child_company}}</button>
+            </div>
+            <div padding-vertical>
+                <button class="btn m-btn" [class.m-btn-clicked]="btnType==3"
+                    (click)="onClickAdd(3)">{{mData.create_new_comapny}}</button>
+            </div>
+        </div>
+
+        <div [hidden]="btnType!=1">
+            <div padding>
+                <input type="search" [placeholder]="mData.placeholder" class="form-control" />
+            </div>
+        </div>
+
+
+    </div>
+
+    <div padding class="m-footer">
+        <div flex>
+            <div padding-vertical>
+                <button class="btn m-btn-footer" [disabled]="!btnCanClicked"
+                    [class.btn-footer-cant-clicked]="!btnCanClicked" (click)="onClickSave()">{{mData.save}}</button>
+            </div>
+            <div padding>
+                <button class="btn m-btn-footer" (click)="onClickClose()">{{mData.cancel}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

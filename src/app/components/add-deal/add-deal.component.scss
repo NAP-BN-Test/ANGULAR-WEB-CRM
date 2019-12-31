@@ -1,0 +1,51 @@
+.m-header {
+    background-color: #F0E9F4;
+}
+.m-btn-clicked {
+    background-color: #F0E9F4 !important;
+    color: #707070 !important;
+}
+.m-btn {
+    background-color: #F5F5F5;
+    color: #707070;
+}
+.m-btn-calendar {
+    justify-content: center;
+    display: flex;
+    padding: 0 5px;
+    border: 1px solid;
+    background-color: #F5F5F5;
+    color: var(--color-primary);
+}
+
+.m-btn-footer {
+    padding: 5px 32px;
+    background-color: #F0E9F4;
+    color: #707070;
+    border-radius: 20px;
+    border: 1px solid #702C90;
+}
+
+.btn-footer-cant-clicked {
+    background-color: #F5F5F5 !important;
+    color: #707070 !important;
+    border: 1px solid #E4E4E4;
+}
+
+.m-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #cccccc;
+}
+
+.btn-outline-primary {
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    background-color: #F5F5F5 !important;
+}
+
+.form-control {
+    background-color: #F5F5F5 !important;
+    border-color: var(--color-primary) !important;
+}

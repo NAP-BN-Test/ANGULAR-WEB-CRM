@@ -50,27 +50,33 @@
                 "name": "Companies",
                 "icon": "home_work"
             },
+            "detail": "Detail",
             "action": "Action",
             "list_icon": [
                 {
                     "icon": "note_circle",
-                    "name": "Note"
+                    "name": "Note",
+                    "index": 1
                 },
                 {
                     "icon": "task_circle",
-                    "name": "Task"
+                    "name": "Task",
+                    "index": 2
                 },
                 {
                     "icon": "call_circle",
-                    "name": "Call"
+                    "name": "Call",
+                    "index": 3
                 },
                 {
                     "icon": "email_circle",
-                    "name": "Email"
+                    "name": "Email",
+                    "index": 4
                 },
                 {
                     "icon": "meet_circle",
-                    "name": "Meet"
+                    "name": "Meet",
+                    "index": 5
                 }
             ],
             "info": {
@@ -142,13 +148,77 @@
             }
         },
         "company_sub_detail": {
-            "contact": "Contacts ",
+            "contact": "Contacts",
             "add_contact": "+ Add contact",
             "view_contact": "View 2 contact in filtered view",
             "company": "Companies ",
             "add_company": "+ Add company",
             "deal": "Deals ",
-            "add_deal": "+ Add deal"
+            "add_deal": "+ Add deal",
+            "detail": "Detail",
+            "stage": "Stages",
+            "close_date": "Close date"
+        },
+        "create_tag": {
+            "note_tag": "Note",
+            "add_note": "Thêm mới note",
+            "associate": "Associated with ",
+            "record": "records",
+            "save": "Save",
+            "follow_up": "Create a task to follow up",
+            "task_tag": "Task",
+            "mission_name": "Tên nhiệm vụ",
+            "due_date": "Due date",
+            "add_call": "Thêm mới call",
+            "assign_to": "Assigned to",
+            "type": "Type",
+            "remind": "Riminder",
+            "icon_date": "event",
+            "icon_time": "alarm",
+            "email_tag": "Email",
+            "contact": "Contact",
+            "out_come": "Outcome",
+            "datetime": "Datetime",
+            "add_email": "Thêm mới email",
+            "attend": "Attended",
+            "duration": "Duration",
+            "start_time":"Start time",
+            "call_tag": "Call",
+            "meet_tag": "Meet"
+        },
+        "add_sub_detail": {
+            "add_contact": "Add contact",
+            "contact_intro": "Keep track of which contacts are part of this company.",
+            "add_exist": "Add existing contact",
+            "add_new": "Create a new contact",
+            "name": "Name",
+            "gender": "Gender",
+            "job_tile": "Job tile",
+            "hand_phone": "Hand phone",
+            "home_phone": "Home phone",
+            "email": "Email",
+            "address": "Address",
+            "contact_owner": "Contact owner",
+            "save": "Save",
+            "cancel": "Cancel",
+            "placeholder": "Tìm kiếm",
+            "add_deal": "Add deal",
+            "deal_intro": "Track revenue opportunities for your company by associating a deal.",
+            "create_new_deal": "Create a new deal",
+            "associate_deal": "Associate deal with",
+            "deal_name": "Deal name",
+            "pipe_line": "Pipe line",
+            "deal_stage": "Deal stage",
+            "amount": "Amount",
+            "close_date": "Close date",
+            "deal_owner": "Deal owner",
+            "company": "Company",
+            "contact": "Contact",
+            "add_timeline": "Add timeline activities of deal",
+            "company_intro": "Keep track of which contacts are part of this company.",
+            "add_parent_company": "Add parent company",
+            "add_child_company": "Add child company",
+            "create_new_comapny": "Create a new company"
         }
     }
 }

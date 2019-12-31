@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { AppModuleService } from 'src/app/services/app-module.service';
   styleUrls: ['./company-sub-detail.component.scss']
 })
 export class CompanySubDetailComponent implements OnInit {
+
+  @Output('addSubDetail') addSubDetail = new EventEmitter();
 
   mData: any;
 
@@ -18,6 +20,10 @@ export class CompanySubDetailComponent implements OnInit {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.company_sub_detail;
     })
+  }
+
+  onClickAddSubDetail(index: number) {
+    this.addSubDetail.emit(index);
   }
 
 }
