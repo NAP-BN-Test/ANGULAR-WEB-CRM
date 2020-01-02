@@ -73,6 +73,10 @@
     cursor: pointer;
 }
 
+[no-wrap] {
+    white-space: nowrap;
+}
+
 /*Dòng ở giữa khung và align left*/
 .center-line {
     display: flex;
@@ -140,6 +144,14 @@
 
 .box-border {
     border: .5px solid #cccccc;
+}
+
+[border0] {
+    border: none !important;
+}
+
+.border0 {
+    border: none !important;
 }
 
 
@@ -568,6 +580,13 @@
     width: 66.6667% !important;
 }
 
+[width-fill] {
+    width: -webkit-fill-available !important;
+}
+.width-fill {
+    width: -webkit-fill-available !important;
+}
+
 
 /*Font size*/
 
@@ -883,3 +902,17 @@
 
 /* ===============================Global CSS========================================= */
 
+input[type=checkbox] {
+    height: 18px !important;
+    width: 18px !important;
+}
+
+.page-item.active .page-link {
+    color: #451B58 !important;
+    background-color: #F0E9F4 !important;
+    border-color: #451B58 !important;
+    font-weight: bold !important;
+}
+.page-link {
+    color: gray !important;
+}

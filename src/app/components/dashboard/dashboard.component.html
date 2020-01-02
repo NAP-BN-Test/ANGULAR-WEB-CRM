@@ -1,0 +1,176 @@
+<div *ngIf="mData">
+    <div class="m-header">
+        <app-header-menu></app-header-menu>
+    </div>
+
+    <div padding32>
+        <div font2 bold>{{mData.name}}</div>
+
+        <div class="row">
+            <div class="col-6">
+                <div between padding-top>
+                    <div font3>{{mData.activity}}</div>
+                    <div font5 bold color-primary>{{mData.action}}</div>
+                </div>
+                <div box-border padding height-100>
+                    <div>
+                        <div flex>
+                            <div padding-end bold color-primary>Task</div>
+                            <div padding-end>{{mData.create_by}} Lò A Páo</div>
+                            <div>26/12/ 2019 at 8:46 AM</div>
+                        </div>
+                        <div color-primary bold border-bottom between padding-top>
+                            <div>Làm việc với khách hàng này nhé</div>
+                            <mat-icon>keyboard_arrow_down</mat-icon>
+                        </div>
+                    </div>
+                    <div padding-top>
+                        <div flex>
+                            <div padding-end bold color-primary>Call</div>
+                            <div padding-end>{{mData.create_by}} Lò A Páo</div>
+                            <div>26/12/ 2019 at 8:46 AM</div>
+                        </div>
+                        <div padding-top>
+                            <div>Gọi điện đến khách hàng</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div between padding-top>
+                    <div font3>{{mData.sumary}}</div>
+                    <div font5 bold color-primary>{{mData.action}}</div>
+                </div>
+                <div box-border padding height-100>
+                    <div between color-primary bold>
+                        <div>{{mData.tasks}}</div>
+                        <div>10</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.calls}}</div>
+                        <div>5</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.emails}}</div>
+                        <div>4</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.meets}}</div>
+                        <div>7</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.notes}}</div>
+                        <div>4</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.notifications}}</div>
+                        <div>23</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div padding-top>
+                    <div font3>{{mData.notification_list}}</div>
+                </div>
+                <div box-border padding height-100>
+
+                </div>
+            </div>
+        </div>
+
+        <div padding32></div>
+
+        <div class="row">
+            <div class="col-6">
+                <div between padding-top>
+                    <div font3>{{mData.deal}}</div>
+                    <div font5 bold color-primary>{{mData.action}}</div>
+                </div>
+                <div box-border padding height-100>
+
+                </div>
+            </div>
+            <div class="col-3">
+                <div between padding-top>
+                    <div font3>{{mData.life_cycle}}</div>
+                    <div font5 bold color-primary>{{mData.action}}</div>
+                </div>
+                <div box-border padding height-100>
+                    <div between color-primary bold>
+                        <div>{{mData.create}}</div>
+                        <div>10</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.assign}}</div>
+                        <div>5</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.work}}</div>
+                        <div>4</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.deal_created}}</div>
+                        <div>7</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.deal_won}}</div>
+                        <div>4</div>
+                    </div>
+                    <div between color-primary bold padding-top>
+                        <div>{{mData.create_job}}</div>
+                        <div>23</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div between padding-top>
+                    <div font3>{{mData.stage_kpi}}</div>
+                    <div font5 bold color-primary>{{mData.action}}</div>
+                </div>
+                <div box-border padding height-100>
+                    <div flex bold color-primary>
+                        <div width-40>{{mData.stage}}</div>
+                        <div width-60 flex>
+                            <div width-33 center>{{mData.total}}</div>
+                            <div width-33 center>{{mData.quota}}</div>
+                            <div width-33 center>{{mData.done}}</div>
+                        </div>
+                    </div>
+
+                    <div flex padding-top>
+                        <div width-40>{{mData.contact}}</div>
+                        <div width-60 flex>
+                            <div width-33 center>5</div>
+                            <div width-33 center bold color-primary>10</div>
+                            <div width-33 center bold color-primary>15</div>
+                        </div>
+                    </div>
+                    <div flex padding-top>
+                        <div width-40>{{mData.send_email}}</div>
+                        <div width-60 flex>
+                            <div width-33 center>5</div>
+                            <div width-33 center bold color-primary>10</div>
+                            <div width-33 center bold color-primary>15</div>
+                        </div>
+                    </div>
+                    <div flex padding-top>
+                        <div width-40>{{mData.send_quote}}</div>
+                        <div width-60 flex>
+                            <div width-33 center>5</div>
+                            <div width-33 center bold color-primary>10</div>
+                            <div width-33 center bold color-primary>15</div>
+                        </div>
+                    </div>
+                    <div flex padding-top>
+                        <div width-40>{{mData.send_contact}}</div>
+                        <div width-60 flex>
+                            <div width-33 center>5</div>
+                            <div width-33 center bold color-primary>10</div>
+                            <div width-33 center bold color-primary>15</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

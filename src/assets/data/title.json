@@ -24,19 +24,45 @@
             "list_menu": [
                 {
                     "name": "Contacts",
-                    "icon": "keyboard_arrow_down"
+                    "icon": "keyboard_arrow_down",
+                    "index": 1,
+                    "list": [
+                        {
+                            "name": "Contacts",
+                            "index": 1
+                        },
+                        {
+                            "name": "Companys",
+                            "index": 2
+                        },
+                        {
+                            "name": "Leads",
+                            "index": 3
+                        },
+                        {
+                            "name": "Customes",
+                            "index": 4
+                        },
+                        {
+                            "name": "Suppliers",
+                            "index": 5
+                        }
+                    ]
                 },
                 {
                     "name": "Activitys",
-                    "icon": "keyboard_arrow_down"
+                    "icon": "keyboard_arrow_down",
+                    "index": 2
                 },
                 {
                     "name": "Sales",
-                    "icon": "keyboard_arrow_down"
+                    "icon": "keyboard_arrow_down",
+                    "index": 3
                 },
                 {
                     "name": "Report",
-                    "icon": "keyboard_arrow_down"
+                    "icon": "keyboard_arrow_down",
+                    "index": 4
                 }
             ],
             "list_icon": [
@@ -148,7 +174,7 @@
             }
         },
         "company_sub_detail": {
-            "contact": "Contacts",
+            "contact": "Contacts ",
             "add_contact": "+ Add contact",
             "view_contact": "View 2 contact in filtered view",
             "company": "Companies ",
@@ -182,7 +208,7 @@
             "add_email": "Thêm mới email",
             "attend": "Attended",
             "duration": "Duration",
-            "start_time":"Start time",
+            "start_time": "Start time",
             "call_tag": "Call",
             "meet_tag": "Meet"
         },
@@ -219,6 +245,125 @@
             "add_parent_company": "Add parent company",
             "add_child_company": "Add child company",
             "create_new_comapny": "Create a new company"
+        },
+        "dashboard": {
+            "name": "Dashboard",
+            "activity": "Activities",
+            "action": "Action",
+            "create_by": "Created by",
+            "task": "Task",
+            "call": "Call",
+            "email": "Email",
+            "meet": "Meet",
+            "note": "Note",
+            "deal": "Deal revenue forecast by stages",
+            "sumary": "Summary",
+            "tasks": "TASKS",
+            "calls": "CALLS",
+            "emails": "EMAILS",
+            "meets": "MEETS",
+            "notes": "NOTES",
+            "notifications": "NOTIFICATIONS",
+            "life_cycle": "Life cycle of Business",
+            "create": "CREATE",
+            "assign": "ASSIGN",
+            "work": "WORKED",
+            "deal_created": "DEAL CREATED",
+            "deal_won": "DEAL CLOSE WON",
+            "create_job": "CREATE JOB",
+            "notification_list": "Notification list",
+            "stage_kpi": "Stages and KPI",
+            "stage": "Stages",
+            "total": "Total",
+            "quota": "Quota",
+            "done": "Done",
+            "contact": "Contact",
+            "send_email": "Send email",
+            "send_quote": "Send quote",
+            "send_contact": "Send contract"
+        },
+        "contact": {
+            "name": "Contact",
+            "action": "Actions",
+            "import": "Import",
+            "export": "Export",
+            "create_new": "Create new",
+            "add_filter": "+ Add fiter",
+            "selected": "selected",
+            "list_select": [
+                {
+                    "name": "Assign",
+                    "index": 1
+                },
+                {
+                    "name": "Task",
+                    "index": 2
+                },
+                {
+                    "name": "Delete",
+                    "index": 3
+                }
+            ],
+            "list": [
+                {
+                    "name": "All contacts ",
+                    "index": 1
+                },
+                {
+                    "name": "My contacts ",
+                    "index": 2
+                },
+                {
+                    "name": "Unassigned contacts ",
+                    "index": 3
+                },
+                {
+                    "name": "Leads",
+                    "index": 4
+                },
+                {
+                    "name": "Customers ",
+                    "index": 5
+                },
+                {
+                    "name": "Supplier ",
+                    "index": 6
+                }
+            ],
+            "col_table": [
+                {
+                    "name": "NAME",
+                    "index": 1
+                },
+                {
+                    "name": "EMAIL",
+                    "index": 2
+                },
+                {
+                    "name": "HAND PHONE",
+                    "index": 3
+                },
+                {
+                    "name": "OWNER",
+                    "index": 4
+                },
+                {
+                    "name": "ASSOCIATED COMPANY",
+                    "index": 5
+                },
+                {
+                    "name": "LAST ACTIVITY DATE",
+                    "index": 6
+                },
+                {
+                    "name": "LEAD STATUS",
+                    "index": 7
+                },
+                {
+                    "name": "CREATE DATE",
+                    "index": 8
+                }
+            ]
         }
     }
 }

@@ -29,8 +29,8 @@ export class HeaderMenuComponent implements OnInit {
     this.showSearchBar = !this.showSearchBar;
   }
 
-  onClickMenu(index: number) {
-    if (index > -1) {
+  onClickMenu(index: number, indexChild: number) {
+    if (index > 0) {
       this.menuSelected = index
     }
   }

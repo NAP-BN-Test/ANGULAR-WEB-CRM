@@ -6,10 +6,26 @@
             </div>
 
             <div padding32-start flex>
-                <div color-white center-line padding *ngFor="let item of mData.list_menu; let i = index"
-                    [class.selected]="menuSelected==i" (click)="onClickMenu(i)" tappable>
-                    <div padding-end>{{item.name}}</div>
-                    <mat-icon [class.icon-selected]="menuSelected==i">{{item.icon}}</mat-icon>
+                <div ngbDropdown color-white center-line padding-horizontal *ngFor="let item of mData.list_menu"
+                    [class.selected]="menuSelected==item.index" tappable>
+
+                    <!-- <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+                        <option [ngValue]="2">2 items per page</option>
+                        <option [ngValue]="4">4 items per page</option>
+                        <option [ngValue]="6">6 items per page</option>
+                    </select> -->
+
+                    <div class="color-white between width-100 height-100" ngbDropdownToggle>
+                        <div padding-end>{{item.name}}</div>
+                    </div>
+                    <div ngbDropdownMenu width-100 background-primary>
+                        <div border-bottom *ngFor="let it1 of item.list;let i = index"
+                            [class.border0]="item.list.length-1==i">
+                            <button color-white ngbDropdownItem
+                                (click)="onClickMenu(item.index, it1.index)">{{it1.name}}</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

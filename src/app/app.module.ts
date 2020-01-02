@@ -11,6 +11,7 @@ import { HeaderMenuComponent } from './components/header-menu/header-menu.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +32,8 @@ import { AddContactComponent } from './components/add-contact/add-contact.compon
 import { AddCompanyComponent } from './components/add-company/add-company.component';
 import { AddDealComponent } from './components/add-deal/add-deal.component';
 import { FormsModule } from '@angular/forms';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,9 @@ import { FormsModule } from '@angular/forms';
     CreateMeetComponent,
     AddContactComponent,
     AddCompanyComponent,
-    AddDealComponent
+    AddDealComponent,
+    DashboardComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,7 @@ import { FormsModule } from '@angular/forms';
     HttpModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatCheckboxModule,
     HttpClientModule,
     QuillModule.forRoot(),
     NgbModule,
