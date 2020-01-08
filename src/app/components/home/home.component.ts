@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
     else {
       this.iconSubDetail = "arrow_forward";
       this.colDetail = "col-md-6 slide-animation";
-      this.colSubDetail = "col-md-3 slide-animation";
+      this.colSubDetail = "col-md-3 slide-animation fade-in";
 
       this.iconSubDetailState = true;
     }

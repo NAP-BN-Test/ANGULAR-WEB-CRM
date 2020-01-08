@@ -42,3 +42,6 @@
 .slide-animation {
     transition: ease-in-out 500ms;
 }
+.fade-in {
+    animation: fadeIn 500ms 1;
+}

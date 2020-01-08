@@ -115,6 +115,21 @@ export class AppModuleService {
     });
   }
 
+  public LoadTitles(languageType: number) {
+    return new Promise((resolve, reject) => {
+      this.mAngularHttp.request("assets/data/title.json").subscribe(data => {
+        let mData = data.json();
+        let language;
+        if (languageType == LANGUAGE_TYPE.VIETNAMESE)
+          language = mData.VI;
+        else
+          language = mData.EN;
+
+        resolve(language)
+      })
+    });
+  }
+
   //----------------------------------------------------//
 
   public parseTime(time: string): string {

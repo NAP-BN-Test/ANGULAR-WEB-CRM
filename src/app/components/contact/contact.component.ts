@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -126,6 +127,7 @@ export class ContactComponent implements OnInit {
   ]
   constructor(
     public mService: AppModuleService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -221,6 +223,10 @@ export class ContactComponent implements OnInit {
     this.data.forEach(item => {
       item.checked = false;
     })
+  }
+
+  onClickItem(item) {
+    this.router.navigate(['home']);
   }
 
 }

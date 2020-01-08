@@ -7,7 +7,7 @@
         <div class="col-md-3" padding-top>
             <app-company-info (createAction)="onClickCreateAction($event)"></app-company-info>
         </div>
-        <div [class]="colDetail" padding-top relative>
+        <div [class]="colDetail" padding-top relative background-whitesmoke>
             <app-company-detail></app-company-detail>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">

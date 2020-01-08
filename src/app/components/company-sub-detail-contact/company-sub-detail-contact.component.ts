@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 
 @Component({
@@ -8,6 +8,8 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 })
 export class CompanySubDetailContactComponent implements OnInit {
 
+  @Input('mObj') mObj: any;
+
   mData: any;
 
   constructor(
@@ -15,9 +17,10 @@ export class CompanySubDetailContactComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mService.LoadTitle(1).then((data: any) => {
+    this.mService.LoadTitles(1).then((data: any) => {
       this.mData = data.company_sub_detail;
-    })
+    });
+
   }
 
 }

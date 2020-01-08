@@ -1,0 +1,18 @@
+.m-btn-calendar {
+    justify-content: center;
+    display: flex;
+    padding: 0 5px;
+    background-color: white;
+    border: none;
+    color: var(--color-primary);
+}
+.m-input{
+    border: none !important;
+    font-size: var(--font6);
+    color: var(--color-primary);
+    padding: 0.375rem 0 0.375rem 0.75rem !important;
+}
+
+.date-group {
+    width: 130px;
+}

@@ -81,30 +81,56 @@
     <div flex padding-top>{{mData.call.call}}</div>
 
     <div class="row" padding-top>
-        <div class="col-5" flex>
-            <div width-50>
+        <div class="col-6" flex>
+            <div width-60>
                 <div font7>{{mData.call.contact}}</div>
                 <div font6 flex color-primary>
-                    <div>{{'Namldv'}}</div>
-                    <mat-icon>arrow_drop_down</mat-icon>
+                    <select class="custom-select border0 font6" width-100 [(ngModel)]="pageSize">
+                        <option [ngValue]="2">2 items per page</option>
+                        <option [ngValue]="4">4 items per page</option>
+                        <option [ngValue]="6">6 items per page</option>
+                    </select>
+                    <!-- <div>{{'Namldv'}}</div>
+                    <mat-icon>arrow_drop_down</mat-icon> -->
                 </div>
             </div>
-            <div width-50>
+            <div width-40 padding-start>
                 <div font7>{{mData.call.out_come}}</div>
                 <div font6 flex color-primary>
-                    <div>{{'No answer'}}</div>
-                    <mat-icon>arrow_drop_down</mat-icon>
+                    <select class="custom-select border0 font6" width-100 [(ngModel)]="pageSize">
+                        <option [ngValue]="2">2 items per page</option>
+                        <option [ngValue]="4">4 items per page</option>
+                        <option [ngValue]="6">6 items per page</option>
+                    </select>
+                    <!-- <div>{{'No answer'}}</div>
+                    <mat-icon>arrow_drop_down</mat-icon> -->
                 </div>
             </div>
         </div>
-        <div class="col-7">
+        <div class="col-6">
             <div font7>{{mData.task.due_date}}</div>
             <div font6 color-primary>
                 <div flex>
-                    <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
-                    <mat-icon>{{mData.call.icon_date}}</mat-icon>
-                    <div center-line padding8-horizontal>{{'08 : 30'}}</div>
-                    <mat-icon>{{mData.call.icon_time}}</mat-icon>
+                    <!-- <div class="input-group date-group">
+                        <input class="form-control border0 font6 color-primary" placeholder="yyyy-mm-dd" name="dp"
+                            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn m-btn-calendar btn-outline-secondary" (click)="d.toggle()">
+                                <mat-icon>date_range</mat-icon>
+                            </button>
+                        </div>
+                    </div> -->
+
+                    <app-datetime-pick-date></app-datetime-pick-date>
+                    <app-datetime-pick-time padding-start></app-datetime-pick-time>
+                    <!-- <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
+                    <mat-icon>{{mData.call.icon_date}}</mat-icon> -->
+                    <!-- <div center-line padding8-horizontal>{{'08 : 30'}}</div>
+                    <mat-icon>{{mData.call.icon_time}}</mat-icon> -->
+
+                    <!-- <div>
+                        <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+                    </div> -->
                 </div>
             </div>
         </div>

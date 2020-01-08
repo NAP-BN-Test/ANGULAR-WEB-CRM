@@ -1,20 +1,13 @@
 <div *ngIf="mData">
     <div class="m-header" between>
         <div flex>
-            <div padding32-start padding8 style="height: 66px;">
+            <div padding32-start padding8 style="height: 66px;" (click)="onClickLogo()" tappable>
                 <img height-100 [src]="mData.logo">
             </div>
 
             <div padding32-start flex>
                 <div ngbDropdown color-white center-line padding-horizontal *ngFor="let item of mData.list_menu"
                     [class.selected]="menuSelected==item.index" tappable>
-
-                    <!-- <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
-                        <option [ngValue]="2">2 items per page</option>
-                        <option [ngValue]="4">4 items per page</option>
-                        <option [ngValue]="6">6 items per page</option>
-                    </select> -->
-
                     <div class="color-white between width-100 height-100" ngbDropdownToggle>
                         <div padding-end>{{item.name}}</div>
                     </div>

@@ -1,0 +1,9 @@
+<div class="input-group date-group">
+    <input class="form-control m-input" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model"
+        ngbDatepicker #d="ngbDatepicker">
+    <div class="input-group-append">
+        <button class="btn m-btn-calendar btn-outline-secondary" (click)="d.toggle()">
+            <mat-icon>date_range</mat-icon>
+        </button>
+    </div>
+</div>

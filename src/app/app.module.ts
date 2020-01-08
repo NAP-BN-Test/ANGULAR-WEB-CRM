@@ -34,6 +34,9 @@ import { AddDealComponent } from './components/add-deal/add-deal.component';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { DatetimePickDateComponent } from './components/datetime-pick-date/datetime-pick-date.component';
+import { DatetimePickTimeComponent } from './components/datetime-pick-time/datetime-pick-time.component';
+import { DatetimePickDateFullComponent } from './components/datetime-pick-date-full/datetime-pick-date-full.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { ContactComponent } from './components/contact/contact.component';
     AddCompanyComponent,
     AddDealComponent,
     DashboardComponent,
-    ContactComponent
+    ContactComponent,
+    DatetimePickDateComponent,
+    DatetimePickTimeComponent,
+    DatetimePickDateFullComponent
   ],
   imports: [
     BrowserModule,

@@ -30,9 +30,16 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   onClickMenu(index: number, indexChild: number) {
-    if (index > 0) {
+    if (index > 0 && indexChild > 0) {
       this.menuSelected = index
+      if (index == 1 && indexChild == 1) {
+        this.router.navigate(['contact'])
+      }
     }
+  }
+
+  onClickLogo() {
+    this.router.navigate(['dashboard']);
   }
 
 }
