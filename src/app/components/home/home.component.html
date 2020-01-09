@@ -5,10 +5,10 @@
 
     <div class="row m-content">
         <div class="col-md-3" padding-top>
-            <app-company-info (createAction)="onClickCreateAction($event)"></app-company-info>
+            <app-company-info [mID]="mID" (createAction)="onClickCreateAction($event)"></app-company-info>
         </div>
         <div [class]="colDetail" padding-top relative background-whitesmoke>
-            <app-company-detail></app-company-detail>
+            <app-company-detail [mID]="mID"></app-company-detail>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">
                 <app-create-note (closeCreateAction)="onClickCloseCreateAction()"></app-create-note>
@@ -36,7 +36,7 @@
                 <mat-icon>{{iconSubDetail}}</mat-icon>
             </div>
             <div [class.hide-div]="!iconSubDetailState">
-                <app-company-sub-detail (addSubDetail)="onClickAddSubDetail($event)"></app-company-sub-detail>
+                <app-company-sub-detail [mID]="mID" (addSubDetail)="onClickAddSubDetail($event)"></app-company-sub-detail>
             </div>
         </div>
     </div>

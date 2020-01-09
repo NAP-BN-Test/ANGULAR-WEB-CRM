@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
@@ -9,12 +9,15 @@ import { STATUS } from 'src/app/services/constant/app-constant';
   styleUrls: ['./company-sub-detail.component.scss']
 })
 export class CompanySubDetailComponent implements OnInit {
+  @Input('mID') mID = -1;
 
   @Output('addSubDetail') addSubDetail = new EventEmitter();
 
   mData: any;
 
   listContact = [];
+  listCompany = [];
+  listDeal = [];
 
   constructor(
     public mService: AppModuleService,
@@ -29,9 +32,21 @@ export class CompanySubDetailComponent implements OnInit {
 
     });
 
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT("163.44.192.123", "loapao", 1, 1).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT("163.44.192.123", "loapao", 1, this.mID).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
+      }
+    })
+
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY("163.44.192.123", "loapao", 1, this.mID).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.listCompany = data.array;
+      }
+    })
+
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL("163.44.192.123", "loapao", this.mID).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.listDeal = data.array;
       }
     })
 

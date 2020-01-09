@@ -5,8 +5,8 @@
         </div>
     </div>
 
-    <div padding>
-        <app-company-detail-activity></app-company-detail-activity>
+    <div padding *ngFor="let item of listActivity">
+        <app-company-detail-activity [mObj]="item" [listContact]="listContact"></app-company-detail-activity>
         <!-- <app-company-detail-activity></app-company-detail-activity> -->
     </div>
 </div>

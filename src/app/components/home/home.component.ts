@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service'
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
 
   addSubDetail = 0;
 
+  mID = -1;
 
   colDetail = "col-md-6";
   colSubDetail = "col-md-3";
@@ -23,13 +25,24 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router
-  ) { }
+    public router: Router,
+    private cookieService: CookieService
+  ) {
+    if (this.router.getCurrentNavigation().extras.state) {
+      this.mID = this.router.getCurrentNavigation().extras.state.params;
+      this.cookieService.set('m-id', this.mID + "");
+    } else {
+      if (this.cookieService.get('m-id')) {
+        this.mID = Number(this.cookieService.get('m-id'));
+      }
+    }
+
+  }
 
   ngOnInit() {
     this.mService.LoadTitle(1).then(data => {
       this.mData = data;
-    })
+    });
   }
 
   onClickCreateAction(event) {
@@ -49,7 +62,7 @@ export class HomeComponent implements OnInit {
   }
 
   onClickShowSubDetail() {
-    if(this.iconSubDetailState){
+    if (this.iconSubDetailState) {
       this.iconSubDetail = "arrow_back";
       this.colDetail = "col-md-8 slide-animation";
       this.colSubDetail = "col-md-1 slide-animation";

@@ -8,6 +8,7 @@ import * as moment from 'moment';
 
 export class ApiService extends HttpClient {
     mUrl: string = "http://192.168.1.129:3002/";
+    // mUrl: string = "http://163.44.192.123:8771/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
 
@@ -95,7 +96,7 @@ export class ApiService extends HttpClient {
     }
 
     //7
-    public sendRequestGET_LIST_ACTIVITY(ip: string, username: string, userID: number, companyID: number, activityType: number, attendID: number): Promise<any> {
+    public sendRequestGET_LIST_ACTIVITY(ip: string, username: string, userID: number, activityType: number, attendID?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_ACTIVITY,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -108,6 +109,15 @@ export class ApiService extends HttpClient {
     //8
     public sendRequestGET_LIST_CONTACT(ip: string, username: string, companyID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("username", username)
+                .add("companyID", companyID));
+    }
+
+    //9
+    public sendRequestGET_LIST_CONTACT_FULL(ip: string, username: string, companyID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CONTACT_FULL,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("username", username)

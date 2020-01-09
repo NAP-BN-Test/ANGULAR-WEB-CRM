@@ -1,223 +1,268 @@
-<div class="m-activity" *ngIf="mData">
-    <div between>
-        <div bold color-primary flex>
-            <mat-icon height-100 [svgIcon]="mData.task.icon_type"></mat-icon>
-            <div padding8-start center-line>{{mData.task.name}}</div>
+<div *ngIf="mData">
+    <!-- task -->
+    <div class="m-activity" *ngIf="mObj1.activityType==5">
+        <div between>
+            <div bold color-primary flex>
+                <mat-icon height-100 [svgIcon]="mData.task.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mData.task.name}}</div>
+            </div>
+            <div flex font6>
+                <div padding-end flex>
+                    <div>{{mData.create}}</div>
+                    <div padding8-start color-primary>{{'Lò A Páo'}}</div>
+                </div>
+                <div>{{mObj1.timeCreate | datetimeFull}}</div>
+            </div>
         </div>
-        <div flex font6>
-            <div padding-end>{{mData.task.create}} {{mObj.created}}</div>
-            <div>{{mObj.time}}</div>
-        </div>
-    </div>
 
-    <div flex padding-top>
-        <mat-icon color-gray>{{mData.task.icon}}</mat-icon>
-        <div color-primary padding8-start bold>{{mObj.name}}</div>
-    </div>
-
-    <div class="row" padding-top>
-        <div class="col-5">
-            <div font7>{{mData.task.assign_to}}</div>
-            <div font6 color-primary>{{mObj.assignTo}}</div>
+        <div flex padding-top>
+            <mat-icon color-gray>{{mData.task.icon}}</mat-icon>
+            <div color-primary padding8-start bold>{{mObj1.description}}</div>
         </div>
-        <div class="col-7">
-            <div font7>{{mData.task.due_date}}</div>
-            <div font6 color-primary>
-                <div flex>
-                    <div center-line padding8-end>{{mObj.assignDate}}</div>
-                    <mat-icon>{{mData.task.icon_date}}</mat-icon>
-                    <div center-line padding8-horizontal>{{mObj.assignTime}}</div>
-                    <mat-icon>{{mData.task.icon_time}}</mat-icon>
+
+        <div class="row" padding-top>
+            <div class="col-5">
+                <div font7>{{mData.task.assign_to}}</div>
+                <div font6 color-primary>
+                    <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj1.contactID">
+                        <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-7">
+                <div font7>{{mData.task.due_date}}</div>
+                <div font6 color-primary>
+                    <div flex>
+                        <app-datetime-pick-date [mDate]="mObj1.timeCreate"></app-datetime-pick-date>
+                        <app-datetime-pick-time [mTime]="mObj1.timeCreate | datetimeTimeDefault" padding-start>
+                        </app-datetime-pick-time>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div padding-top>{{mData.task.add_description}}</div>
+
+        <div padding-top flex>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+            <div font7 center-line>{{mData.task.detail}}</div>
+        </div>
+
+        <div class="row" padding-top>
+            <div class="col-2">
+                <div font7>{{mData.task.type}}</div>
+                <div font6 color-primary flex>
+                    <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj1.contactID">
+                        <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div font7>{{mData.create}}</div>
+                <div font6 color-primary class="task-line">{{'Lò A Páo'}}</div>
+            </div>
+            <div class="col-7">
+                <div font7>{{mData.task.remind}}</div>
+                <div font6 color-primary flex>
+                    <app-datetime-pick-date [mDate]="mObj1.timeRemind"></app-datetime-pick-date>
+                    <app-datetime-pick-time [mTime]="mObj1.timeRemind | datetimeTimeDefault" padding-start>
+                    </app-datetime-pick-time>
                 </div>
             </div>
         </div>
     </div>
 
-    <div padding-top>{{mData.task.add_description}}</div>
+    <!-- call -->
+    <div class="m-activity" *ngIf="mObj1.activityType==1">
+        <div between>
+            <div bold color-primary flex>
+                <mat-icon height-100 [svgIcon]="mData.call.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mData.call.name}}</div>
+            </div>
+            <div flex font6>
+                <div padding-end flex>
+                    <div>{{mData.create}}</div>
+                    <div padding8-start color-primary>{{'Lò A Páo'}}</div>
+                </div>
+                <div>{{mObj1.timeCreate | datetimeFull}}</div>
+            </div>
+        </div>
 
-    <div padding-top flex>
-        <mat-icon>keyboard_arrow_down</mat-icon>
-        <div font7 center-line>{{mData.task.detail}}</div>
+        <div flex padding-top>{{mObj1.description}}</div>
+
+        <div class="row" padding-top>
+            <div class="col-6" flex>
+                <div width-60>
+                    <div font7>{{mData.contact}}</div>
+                    <div font6 flex>
+                        <select class="custom-select border0 font6 color-primary" width-100
+                            [(ngModel)]="mObj1.contactID">
+                            <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div width-40 padding-start>
+                    <div font7>{{mData.out_come}}</div>
+                    <div font6 flex>
+                        <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj1.state">
+                            <option *ngFor="let item of listOutcome" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div font7>{{mData.date}}</div>
+                <div font6 color-primary>
+                    <div flex>
+                        <app-datetime-pick-date [mDate]="mObj1.timeRemind"></app-datetime-pick-date>
+                        <app-datetime-pick-time [mTime]="mObj1.timeRemind | datetimeTimeDefault" padding-start>
+                        </app-datetime-pick-time>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div flex padding-top font6 color-gray>
+            <mat-icon>{{mData.icon_chat}}</mat-icon>
+            <div padding8-start>{{mData.add_comment}}</div>
+        </div>
     </div>
 
-    <div class="row" padding-top>
-        <div class="col-2">
-            <div font7>{{mData.task.type}}</div>
-            <div font6 color-primary flex>
-                <div center-line>{{mObj.typeTask}}</div>
+    <!-- email -->
+    <div class="m-activity" *ngIf="mObj1.activityType==2">
+        <div between>
+            <div bold color-primary flex>
+                <mat-icon height-100 [svgIcon]="mData.email.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mData.email.name}}</div>
+            </div>
+            <div flex font6>
+                <div padding-end flex>
+                    <div>{{mData.create}}</div>
+                    <div padding8-start color-primary>{{'Lò A Páo'}}</div>
+                </div>
+                <div>{{mObj1.timeCreate | datetimeFull}}</div>
+            </div>
+        </div>
+
+        <div flex padding-top>{{mObj1.description}}</div>
+
+        <div class="row" padding-top>
+            <div class="col-6" flex>
+                <div width-60>
+                    <div font7>{{mData.contact}}</div>
+                    <div font6 flex color-primary>
+                        <select class="custom-select border0 font6 color-primary" width-100
+                            [(ngModel)]="mObj1.contactID">
+                            <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div width-40 padding-start>
+                    <div font7>{{mData.out_come}}</div>
+                    <div font6 flex color-primary>
+                        <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj1.state">
+                            <option *ngFor="let item of listOutcome" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div font7>{{mData.date}}</div>
+                <div font6 color-primary>
+                    <div flex>
+                        <app-datetime-pick-date [mDate]="mObj1.timeRemind"></app-datetime-pick-date>
+                        <app-datetime-pick-time [mTime]="mObj1.timeRemind | datetimeTimeDefault" padding-start>
+                        </app-datetime-pick-time>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div flex padding-top font6 color-gray>
+            <mat-icon>{{mData.icon_chat}}</mat-icon>
+            <div padding8-start>{{mData.add_comment}}</div>
+        </div>
+    </div>
+
+    <!-- note -->
+    <div class="m-activity" *ngIf="mObj1.activityType==4">
+        <div between>
+            <div bold color-primary flex>
+                <mat-icon height-100 [svgIcon]="mData.note.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mData.note.name}}</div>
+            </div>
+            <div flex font6>
+                <div padding-end>{{mData.note.associate}}</div>
                 <mat-icon>arrow_drop_down</mat-icon>
+                <div>{{mData.note.delete}}</div>
             </div>
         </div>
-        <div class="col-3">
-            <div font7>{{mData.task.type}}</div>
-            <div font6 color-primary flex>{{mObj.created}}</div>
-        </div>
-        <div class="col-7">
-            <div font7>{{mData.task.remind}}</div>
-            <div font6 color-primary flex>
-                <div center-line padding8-end>{{mObj.remindDate}}</div>
-                <mat-icon>{{mData.task.icon_date}}</mat-icon>
-                <div center-line padding8-horizontal>{{mObj.remindTime}}</div>
-                <mat-icon>{{mData.task.icon_time}}</mat-icon>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div padding></div>
-
-<div class="m-activity" *ngIf="mData">
-    <div between>
-        <div bold color-primary flex>
-            <mat-icon height-100 [svgIcon]="mData.call.icon_type"></mat-icon>
-            <div padding8-start center-line>{{mData.call.name}}</div>
+        <div padding-top>
+            <input type="text" class="form-control" [placeholder]="mData.note.placeholder">
         </div>
-        <div flex font6>
-            <div padding-end>{{mData.task.create}} {{'Lò A Páo'}}</div>
-            <div>{{'26/12/ 2019 at 8:46 AM'}}</div>
+
+        <div flex padding-top font6 color-gray>
+            <mat-icon>{{mData.call.icon_chat}}</mat-icon>
+            <div padding8-start>{{mData.call.add_comment}}</div>
         </div>
     </div>
 
-    <div flex padding-top>{{mData.call.call}}</div>
-
-    <div class="row" padding-top>
-        <div class="col-6" flex>
-            <div width-60>
-                <div font7>{{mData.call.contact}}</div>
-                <div font6 flex color-primary>
-                    <select class="custom-select border0 font6" width-100 [(ngModel)]="pageSize">
-                        <option [ngValue]="2">2 items per page</option>
-                        <option [ngValue]="4">4 items per page</option>
-                        <option [ngValue]="6">6 items per page</option>
-                    </select>
-                    <!-- <div>{{'Namldv'}}</div>
-                    <mat-icon>arrow_drop_down</mat-icon> -->
-                </div>
+    <!-- meet -->
+    <div class="m-activity" *ngIf="mObj1.activityType==3">
+        <div between>
+            <div bold color-primary flex>
+                <mat-icon height-100 [svgIcon]="mData.meet.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mData.meet.name}}</div>
             </div>
-            <div width-40 padding-start>
-                <div font7>{{mData.call.out_come}}</div>
-                <div font6 flex color-primary>
-                    <select class="custom-select border0 font6" width-100 [(ngModel)]="pageSize">
-                        <option [ngValue]="2">2 items per page</option>
-                        <option [ngValue]="4">4 items per page</option>
-                        <option [ngValue]="6">6 items per page</option>
-                    </select>
-                    <!-- <div>{{'No answer'}}</div>
-                    <mat-icon>arrow_drop_down</mat-icon> -->
+            <div flex font6>
+                <div padding-end flex>
+                    <div>{{mData.create}}</div>
+                    <div padding8-start color-primary>{{'Lò A Páo'}}</div>
                 </div>
+                <div>{{mObj1.timeCreate | datetimeFull}}</div>
             </div>
         </div>
-        <div class="col-6">
-            <div font7>{{mData.task.due_date}}</div>
-            <div font6 color-primary>
-                <div flex>
-                    <!-- <div class="input-group date-group">
-                        <input class="form-control border0 font6 color-primary" placeholder="yyyy-mm-dd" name="dp"
-                            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                        <div class="input-group-append">
-                            <button class="btn m-btn-calendar btn-outline-secondary" (click)="d.toggle()">
-                                <mat-icon>date_range</mat-icon>
-                            </button>
-                        </div>
-                    </div> -->
 
-                    <app-datetime-pick-date></app-datetime-pick-date>
-                    <app-datetime-pick-time padding-start></app-datetime-pick-time>
-                    <!-- <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
-                    <mat-icon>{{mData.call.icon_date}}</mat-icon> -->
-                    <!-- <div center-line padding8-horizontal>{{'08 : 30'}}</div>
-                    <mat-icon>{{mData.call.icon_time}}</mat-icon> -->
+        <div flex padding-top>{{mObj1.description}}</div>
 
-                    <!-- <div>
-                        <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
-                    </div> -->
+        <div class="row" padding-top>
+            <div class="col-5" flex>
+                <div width-50>
+                    <div font7>{{mData.meet.attend}}</div>
+                    <div font6 flex color-primary>
+                        <select class="custom-select border0 font6 color-primary" width-100
+                            [(ngModel)]="mObj1.duration">
+                            <option *ngFor="let item of listAttend" [ngValue]="item.value">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div width-50>
+                    <div font7>{{mData.meet.duration}}</div>
+                    <div font6 flex color-primary>
+                        <select class="custom-select border0 font6 color-primary" width-100
+                            [(ngModel)]="mObj1.duration">
+                            <option *ngFor="let item of listDuration" [ngValue]="item.value">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-7">
+                <div font7>{{mData.meet.start_time}}</div>
+                <div font6 color-primary>
+                    <div flex>
+                        <app-datetime-pick-date [mDate]="mObj1.timeRemind"></app-datetime-pick-date>
+                        <app-datetime-pick-time [mTime]="mObj1.timeRemind | datetimeTimeDefault" padding-start>
+                        </app-datetime-pick-time>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div flex padding-top font6 color-gray>
-        <mat-icon>{{mData.call.icon_chat}}</mat-icon>
-        <div padding8-start>{{mData.call.add_comment}}</div>
-    </div>
-
-</div>
-
-<div padding></div>
-
-<div class="m-activity" *ngIf="mData">
-    <div between>
-        <div bold color-primary flex>
-            <mat-icon height-100 [svgIcon]="mData.note.icon_type"></mat-icon>
-            <div padding8-start center-line>{{mData.note.name}}</div>
+        <div flex padding-top font6 color-gray>
+            <mat-icon>{{mData.icon_chat}}</mat-icon>
+            <div padding8-start>{{mData.add_comment}}</div>
         </div>
-        <div flex font6>
-            <div padding-end>{{mData.note.associate}}</div>
-            <mat-icon>arrow_drop_down</mat-icon>
-            <div>{{mData.note.delete}}</div>
-        </div>
-    </div>
-
-    <div padding-top>
-        <input type="text" class="form-control" [placeholder]="mData.note.placeholder">
-    </div>
-
-    <div flex padding-top font6 color-gray>
-        <mat-icon>{{mData.call.icon_chat}}</mat-icon>
-        <div padding8-start>{{mData.call.add_comment}}</div>
-    </div>
-
-</div>
-
-<div padding></div>
-
-<div class="m-activity" *ngIf="mData">
-    <div between>
-        <div bold color-primary flex>
-            <mat-icon height-100 [svgIcon]="mData.meet.icon_type"></mat-icon>
-            <div padding8-start center-line>{{mData.meet.name}}</div>
-        </div>
-        <div flex font6>
-            <div padding-end>{{mData.task.create}} {{'Lò A Páo'}}</div>
-            <div>{{'26/12/ 2019 at 8:46 AM'}}</div>
-        </div>
-    </div>
-
-    <div flex padding-top>{{mData.meet.meet}}</div>
-
-    <div class="row" padding-top>
-        <div class="col-5" flex>
-            <div width-50>
-                <div font7>{{mData.meet.attend}}</div>
-                <div font6 flex color-primary>
-                    <div>{{'1 attenders'}}</div>
-                    <mat-icon>arrow_drop_down</mat-icon>
-                </div>
-            </div>
-            <div width-50>
-                <div font7>{{mData.meet.duration}}</div>
-                <div font6 flex color-primary>
-                    <div>{{'1 hour'}}</div>
-                    <mat-icon>arrow_drop_down</mat-icon>
-                </div>
-            </div>
-        </div>
-        <div class="col-7">
-            <div font7>{{mData.meet.start_time}}</div>
-            <div font6 color-primary>
-                <div flex>
-                    <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
-                    <mat-icon>{{mData.meet.icon_date}}</mat-icon>
-                    <div center-line padding8-horizontal>{{'08 : 30'}}</div>
-                    <mat-icon>{{mData.meet.icon_time}}</mat-icon>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div flex padding-top font6 color-gray>
-        <mat-icon>{{mData.meet.icon_chat}}</mat-icon>
-        <div padding8-start>{{mData.meet.add_comment}}</div>
     </div>
 
 </div>

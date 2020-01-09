@@ -5,7 +5,7 @@
 
     <div padding32>
         <div padding32-bottom between>
-            <div font2 bold>{{mData.name}}</div>
+            <div font2 bold>{{mData.company_title}}</div>
             <div center-line bold color-primary>
                 <div padding-end>
                     <input type="search" class="form-control" />
@@ -21,14 +21,15 @@
         </div>
 
         <div flex no-wrap>
+
             <div padding32-horizontal style="width: 300px;">
                 <div>
-                    <div padding-bottom *ngFor="let item of mData.list" [class.border-bottom]="item.index==3"
+                    <div padding-bottom *ngFor="let item of mData.company.list" [class.border-bottom]="item.index==3"
                         [class.padding-top]="item.index==4" [class.bold]="menuSelected==item.index" tappable
                         (click)="onClickMenu(item.index)">{{item.name}}(2)</div>
                 </div>
                 <div padding32-top>
-                    <div bold color-primary>{{mData.add_filter}}</div>
+                    <div bold color-primary>{{mData.company.add_filter}}</div>
                 </div>
             </div>
 
@@ -48,31 +49,26 @@
                                     <div padding-start style="font-weight: normal;">{{numberOfItemSelected}}
                                         {{mData.selected}}</div>
                                     <div padding-start></div>
-                                    <div *ngFor="let item of mData.list_select" padding-start bold>{{item.name}}</div>
+                                    <div *ngFor="let item of mData.company.list_select" padding-start bold>{{item.name}}
+                                    </div>
                                 </div>
                             </th>
-                            <th [hidden]="checked||indeterminate" scope="col" *ngFor="let item of mData.col_table"
-                                (click)="onSort()" tappable>
+                            <th [hidden]="checked||indeterminate" scope="col"
+                                *ngFor="let item of mData.company.col_table" (click)="onSort()" tappable>
                                 {{item.name}}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of countries" (click)="onClickItem(item)" tappable>
+                        <tr *ngFor="let item of listDataSort" (click)="onClickItem(item)" tappable>
                             <td>
-                                <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)"></mat-checkbox>
+                                <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
+                                </mat-checkbox>
                             </td>
-                            <td>
-                                <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + item.flag" class="mr-2"
-                                    style="width: 20px">
-                                {{ item.name }}
-                            </td>
-                            <td>{{ item.area | number}}</td>
-                            <td>{{ item.area | number}}</td>
-                            <td>{{ item.area | number}}</td>
-                            <td>{{ item.area | number}}</td>
-                            <td>{{ item.area | number}}</td>
-                            <td>{{ item.area | number}}</td>
-                            <td>{{ item.population | number }}</td>
+                            <td>{{ item.name}}</td>
+                            <td>{{ item.email}}</td>
+                            <td>{{ item.address}}</td>
+                            <td>{{ item.phone}}</td>
+                            <td>{{ item.country }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -83,6 +79,7 @@
                     </ngb-pagination>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

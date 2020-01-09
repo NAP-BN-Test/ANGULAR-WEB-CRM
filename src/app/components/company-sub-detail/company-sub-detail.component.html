@@ -9,7 +9,7 @@
         </div>
 
         <div padding-top *ngFor="let item of listContact">
-            <app-company-sub-detail-contact [mObj]="item">
+            <app-company-sub-detail-contact [mID]="mID" [mObj]="item">
             </app-company-sub-detail-contact>
         </div>
     </div>
@@ -18,36 +18,30 @@
         <div padding-vertical between>
             <div flex bold>
                 <mat-icon>keyboard_arrow_down</mat-icon>
-                <div>{{mData.company}}({{'2'}})</div>
+                <div>{{mData.company}}({{listCompany.length}})</div>
             </div>
             <div color-primary (click)="onClickAddSubDetail(2)" tappable>{{mData.add_company}}</div>
         </div>
 
-        <div padding-top>
-            <app-company-sub-detail-company></app-company-sub-detail-company>
+        <div padding-top *ngFor="let item of listCompany">
+            <app-company-sub-detail-company [mID]="mID" [mObj]="item"></app-company-sub-detail-company>
         </div>
 
-        <div padding-top>
-            <app-company-sub-detail-company></app-company-sub-detail-company>
-        </div>
     </div>
 
     <div padding-bottom>
         <div padding-vertical between>
             <div flex bold>
                 <mat-icon>keyboard_arrow_down</mat-icon>
-                <div>{{mData.deal}}({{'2'}})</div>
+                <div>{{mData.deal}}({{listDeal.length}})</div>
             </div>
             <div color-primary (click)="onClickAddSubDetail(3)" tappable>{{mData.add_deal}}</div>
         </div>
 
-        <div padding-top>
-            <app-company-sub-detail-deal></app-company-sub-detail-deal>
+        <div padding-top *ngFor="let item of listDeal">
+            <app-company-sub-detail-deal [mID]="mID" [mObj]="item"></app-company-sub-detail-deal>
         </div>
 
-        <div padding-top>
-            <app-company-sub-detail-deal></app-company-sub-detail-deal>
-        </div>
     </div>
 
 </div>

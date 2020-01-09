@@ -15,4 +15,7 @@ export class ApiCmd {
     public static GET_LIST_ACTIVITY : string = "crm/get_list_activity";
 
     public static GET_LIST_CONTACT : string = "crm/get_list_contact";
+
+    public static GET_LIST_CONTACT_FULL : string = "crm/get_list_contact_full";
+
 }

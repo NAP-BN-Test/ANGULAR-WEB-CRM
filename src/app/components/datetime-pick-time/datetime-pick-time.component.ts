@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-datetime-pick-time',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./datetime-pick-time.component.scss']
 })
 export class DatetimePickTimeComponent implements OnInit {
+  @Input('mTime') mTime = "";
 
   hour = "00";
   min = "00";
@@ -15,7 +16,7 @@ export class DatetimePickTimeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    
   }
 
 }

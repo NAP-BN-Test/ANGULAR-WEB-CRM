@@ -34,18 +34,6 @@
                         {
                             "name": "Companys",
                             "index": 2
-                        },
-                        {
-                            "name": "Leads",
-                            "index": 3
-                        },
-                        {
-                            "name": "Customes",
-                            "index": 4
-                        },
-                        {
-                            "name": "Suppliers",
-                            "index": 5
                         }
                     ]
                 },
@@ -116,17 +104,24 @@
             }
         },
         "company_detail": {
+            "icon_date": "event",
+            "icon_time": "alarm",
+            "icon_chat": "chat",
+            "add_comment": "Add Comment",
+            "create": "Created by ",
+            "date": "Date",
+            "out_come": "Outcome",
+            "contact": "Contact",
             "menu": [
                 "Activity",
-                "Notes",
-                "Tasks",
-                "Emails",
                 "Calls",
-                "Meets"
+                "Emails",
+                "Meets",
+                "Notes",
+                "Tasks"
             ],
             "task": {
                 "name": "Task",
-                "create": "Created by ",
                 "icon": "check_circle",
                 "icon_type": "task",
                 "assign_to": "Assigned to",
@@ -134,43 +129,29 @@
                 "add_description": "Add description",
                 "detail": "Detail",
                 "type": "Type",
-                "remind": "Riminder",
-                "icon_date": "event",
-                "icon_time": "alarm"
+                "remind": "Riminder"
             },
             "call": {
                 "name": "Call",
-                "icon_type": "phone",
-                "create": "Created by ",
-                "call": "Gọi điện đến khách hàng",
-                "contact": "Contact",
-                "out_come": "Outcome",
-                "date": "Date",
-                "add_comment": "Add Comment",
-                "icon_date": "event",
-                "icon_time": "alarm",
-                "icon_chat": "chat"
+                "icon_type": "phone"
+            },
+            "email": {
+                "name": "Email",
+                "icon_type": "email"
             },
             "note": {
                 "name": "Note",
                 "icon_type": "note",
                 "associate": "Associated with 2 records",
-                "delete": "Delete",
-                "placeholder": "Gọi điện đến khách hàng",
-                "add_comment": "Add Comment",
-                "icon_chat": "chat"
+                "delete": "Delete"
             },
             "meet": {
                 "name": "Meet",
                 "icon_type": "calendar",
-                "create": "Created by ",
-                "meet": "Đi gặp khách hàng",
                 "attend": "Attended",
                 "duration": "Duration",
                 "start_time": "Start time",
-                "comment": "Comment",
-                "add_comment": "Add Comment",
-                "icon_chat": "chat"
+                "comment": "Comment"
             }
         },
         "company_sub_detail": {
@@ -282,87 +263,146 @@
             "send_contact": "Send contract"
         },
         "contact": {
-            "name": "Contact",
+            "contact_title": "Contact",
+            "company_title": "Company",
             "action": "Actions",
             "import": "Import",
             "export": "Export",
             "create_new": "Create new",
             "add_filter": "+ Add fiter",
             "selected": "selected",
-            "list_select": [
-                {
-                    "name": "Assign",
-                    "index": 1
-                },
-                {
-                    "name": "Task",
-                    "index": 2
-                },
-                {
-                    "name": "Delete",
-                    "index": 3
-                }
-            ],
-            "list": [
-                {
-                    "name": "All contacts ",
-                    "index": 1
-                },
-                {
-                    "name": "My contacts ",
-                    "index": 2
-                },
-                {
-                    "name": "Unassigned contacts ",
-                    "index": 3
-                },
-                {
-                    "name": "Leads",
-                    "index": 4
-                },
-                {
-                    "name": "Customers ",
-                    "index": 5
-                },
-                {
-                    "name": "Supplier ",
-                    "index": 6
-                }
-            ],
-            "col_table": [
-                {
-                    "name": "NAME",
-                    "index": 1
-                },
-                {
-                    "name": "EMAIL",
-                    "index": 2
-                },
-                {
-                    "name": "HAND PHONE",
-                    "index": 3
-                },
-                {
-                    "name": "OWNER",
-                    "index": 4
-                },
-                {
-                    "name": "ASSOCIATED COMPANY",
-                    "index": 5
-                },
-                {
-                    "name": "LAST ACTIVITY DATE",
-                    "index": 6
-                },
-                {
-                    "name": "LEAD STATUS",
-                    "index": 7
-                },
-                {
-                    "name": "CREATE DATE",
-                    "index": 8
-                }
-            ]
+            "contact": {
+                "list_select": [
+                    {
+                        "name": "Assign",
+                        "index": 1
+                    },
+                    {
+                        "name": "Task",
+                        "index": 2
+                    },
+                    {
+                        "name": "Delete",
+                        "index": 3
+                    }
+                ],
+                "list": [
+                    {
+                        "name": "All contacts ",
+                        "index": 1
+                    },
+                    {
+                        "name": "My contacts ",
+                        "index": 2
+                    },
+                    {
+                        "name": "Unassigned contacts ",
+                        "index": 3
+                    },
+                    {
+                        "name": "Leads",
+                        "index": 4
+                    },
+                    {
+                        "name": "Customers ",
+                        "index": 5
+                    },
+                    {
+                        "name": "Supplier ",
+                        "index": 6
+                    }
+                ],
+                "col_table": [
+                    {
+                        "name": "NAME",
+                        "index": 1
+                    },
+                    {
+                        "name": "EMAIL",
+                        "index": 2
+                    },
+                    {
+                        "name": "HAND PHONE",
+                        "index": 3
+                    },
+                    {
+                        "name": "OWNER",
+                        "index": 4
+                    },
+                    {
+                        "name": "ASSOCIATED COMPANY",
+                        "index": 5
+                    },
+                    {
+                        "name": "CREATE DATE",
+                        "index": 8
+                    }
+                ]
+            },
+            "company": {
+                "list_select": [
+                    {
+                        "name": "Assign",
+                        "index": 1
+                    },
+                    {
+                        "name": "Task",
+                        "index": 2
+                    },
+                    {
+                        "name": "Delete",
+                        "index": 3
+                    }
+                ],
+                "list": [
+                    {
+                        "name": "All contacts ",
+                        "index": 1
+                    },
+                    {
+                        "name": "My contacts ",
+                        "index": 2
+                    },
+                    {
+                        "name": "Unassigned contacts ",
+                        "index": 3
+                    },
+                    {
+                        "name": "Leads",
+                        "index": 4
+                    },
+                    {
+                        "name": "Customers ",
+                        "index": 5
+                    },
+                    {
+                        "name": "Supplier ",
+                        "index": 6
+                    }
+                ],
+                "col_table": [
+                    {
+                        "name": "NAME",
+                        "index": 1
+                    },
+                    {
+                        "name": "EMAIL",
+                        "index": 2
+                    },
+                    {
+                        "name": "PHONE",
+                        "index": 3
+                    },
+                    {
+                        "name": "ADDRESS",
+                        "index": 4
+                    },
+                    {
+                        "name": "COUNTRY",
+                        "index": 5
+                    }
+                ]
+            }
         }
     }
 }

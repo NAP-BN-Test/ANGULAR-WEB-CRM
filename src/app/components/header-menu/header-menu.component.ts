@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-header-menu',
@@ -33,7 +33,10 @@ export class HeaderMenuComponent implements OnInit {
     if (index > 0 && indexChild > 0) {
       this.menuSelected = index
       if (index == 1 && indexChild == 1) {
-        this.router.navigate(['contact'])
+        this.router.navigate(['contact-menu-contact']);
+      }
+      else if (index == 1 && indexChild == 2) {
+        this.router.navigate(['contact-menu-company'])
       }
     }
   }

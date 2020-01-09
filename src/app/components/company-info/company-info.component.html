@@ -1,4 +1,4 @@
-<div *ngIf="mData&&mDataSv">
+<div *ngIf="mData&&mObj">
     <div between padding32-bottom>
         <div class="m-title" tappable>
             <div center padding-start>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div padding32 center>
-        <div bold font3 padding8-end>{{mDataSv.name}}</div>
+        <div bold font3 padding8-end>{{mObj.name}}</div>
         <mat-icon color-primary>{{mData.btn_edit}}</mat-icon>
     </div>
 
@@ -33,7 +33,7 @@
         <div padding-top>
             <div font7>{{mData.info.name}}</div>
             <div relative class="m-input">
-                <input class="form-control border-0" type="text" [placeholder]="mData.name" [value]="mDataSv.name">
+                <input class="form-control border-0" type="text" [placeholder]="mData.name" [value]="mObj.name">
                 <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
@@ -41,7 +41,7 @@
             <div font7>{{mData.info.short_name}}</div>
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.short_name"
-                    [value]="mDataSv.shortName">
+                    [value]="mObj.shortName">
                 <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
@@ -49,21 +49,21 @@
             <div font7>{{mData.info.address}}</div>
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.address"
-                    [value]="mDataSv.address">
+                    [value]="mObj.address">
                 <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
         <div padding-top>
             <div font7>{{mData.info.phone}}</div>
             <div relative class="m-input">
-                <input class="form-control border-0" type="text" [placeholder]="mData.phone" [value]="mDataSv.phone">
+                <input class="form-control border-0" type="text" [placeholder]="mData.phone" [value]="mObj.phone">
                 <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
         <div padding-top>
             <div font7>{{mData.info.email}}</div>
             <div relative class="m-input">
-                <input class="form-control border-0" type="text" [placeholder]="mData.email" [value]="mDataSv.email">
+                <input class="form-control border-0" type="text" [placeholder]="mData.email" [value]="mObj.email">
                 <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>
@@ -71,7 +71,7 @@
             <div font7>{{mData.info.country}}</div>
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.country"
-                    [value]="mDataSv.country">
+                    [value]="mObj.country">
                 <button class="m-btn btn btn-sm">{{mData.detail}}</button>
             </div>
         </div>

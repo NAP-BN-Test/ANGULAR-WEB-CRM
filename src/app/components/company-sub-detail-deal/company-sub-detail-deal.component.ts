@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { AppModuleService } from 'src/app/services/app-module.service';
   styleUrls: ['./company-sub-detail-deal.component.scss']
 })
 export class CompanySubDetailDealComponent implements OnInit {
+
+  @Input('mObj') mObj: any;
 
   mData: any;
 
@@ -28,6 +30,7 @@ export class CompanySubDetailDealComponent implements OnInit {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.company_sub_detail;
     })
+
   }
 
 }

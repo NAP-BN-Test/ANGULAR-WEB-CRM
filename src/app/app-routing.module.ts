@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { ContactMenuContactComponent } from './components/contact-menu-contact/contact-menu-contact.component';
+import { ContactMenuCompanyComponent } from './components/contact-menu-company/contact-menu-company.component';
 
 
 const routes: Routes = [
@@ -18,9 +19,14 @@ const routes: Routes = [
     data: { title: 'Dashboard' }
   },
   {
-    path: 'contact',
-    component: ContactComponent,
+    path: 'contact-menu-contact',
+    component: ContactMenuContactComponent,
     data: { title: 'Contact' }
+  },
+  {
+    path: 'contact-menu-company',
+    component: ContactMenuCompanyComponent,
+    data: { title: 'Company' }
   },
   {
     path: 'login',
@@ -29,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/contact-menu-company',
     pathMatch: 'full'
   },
 ];

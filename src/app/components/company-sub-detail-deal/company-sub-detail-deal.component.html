@@ -1,7 +1,7 @@
 <div shadow padding relative class="m-box" *ngIf="mData">
     <div between>
-        <div color-primary bold font4>500 USD</div>
-        <div font6>26/12/ 2019 at 8:46 AM</div>
+        <div color-primary bold font4>{{mObj.Amount}} USD</div>
+        <div font6>{{mObj.TimeCreate | datetimeFull}}</div>
     </div>
 
     <div flex padding-top>
@@ -13,7 +13,7 @@
     <div class="row" padding-top>
         <div class="col-4">{{mData.stage}}</div>
         <div class="col-8" flex color-primary>
-            <div>{{'Gửi hợp đồng'}}</div>
+            <div>{{mObj.State}}</div>
             <mat-icon>arrow_drop_down</mat-icon>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="row" padding8-top>
         <div class="col-4">{{mData.close_date}}</div>
         <div class="col-8">
-            <div color-primary>{{'26 / 12 / 2019'}}</div>
+            <div color-primary>{{mObj.TimeClose | datetimeDate}}</div>
         </div>
     </div>
 

@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { CookieService } from 'ngx-cookie-service'
+
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
 import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
 import { CompanySubDetailComponent } from './components/company-sub-detail/company-sub-detail.component';
@@ -33,10 +35,15 @@ import { AddCompanyComponent } from './components/add-company/add-company.compon
 import { AddDealComponent } from './components/add-deal/add-deal.component';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ContactComponent } from './components/contact/contact.component';
 import { DatetimePickDateComponent } from './components/datetime-pick-date/datetime-pick-date.component';
 import { DatetimePickTimeComponent } from './components/datetime-pick-time/datetime-pick-time.component';
 import { DatetimePickDateFullComponent } from './components/datetime-pick-date-full/datetime-pick-date-full.component';
+import { DatetimeTimePipe } from './pipes/datetime-time/datetime-time.pipe';
+import { DatetimeFullPipe } from './pipes/datetime-full/datetime-full.pipe';
+import { DatetimeDatePipe } from './pipes/datetime-date/datetime-date.pipe';
+import { DatetimeTimeDefaultPipe } from './pipes/datetime-time-default/datetime-time-default.pipe';
+import { ContactMenuCompanyComponent } from './components/contact-menu-company/contact-menu-company.component';
+import { ContactMenuContactComponent } from './components/contact-menu-contact/contact-menu-contact.component';
 
 @NgModule({
   declarations: [
@@ -61,10 +68,15 @@ import { DatetimePickDateFullComponent } from './components/datetime-pick-date-f
     AddCompanyComponent,
     AddDealComponent,
     DashboardComponent,
-    ContactComponent,
     DatetimePickDateComponent,
     DatetimePickTimeComponent,
-    DatetimePickDateFullComponent
+    DatetimePickDateFullComponent,
+    DatetimeTimePipe,
+    DatetimeFullPipe,
+    DatetimeDatePipe,
+    DatetimeTimeDefaultPipe,
+    ContactMenuCompanyComponent,
+    ContactMenuContactComponent
   ],
   imports: [
     BrowserModule,
@@ -78,8 +90,13 @@ import { DatetimePickDateFullComponent } from './components/datetime-pick-date-f
     NgbModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [
+    DatetimeTimePipe,
+    DatetimeFullPipe,
+    DatetimeDatePipe
+  ]
 })
 export class AppModule { }

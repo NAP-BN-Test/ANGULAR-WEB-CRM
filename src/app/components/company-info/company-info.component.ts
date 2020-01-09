@@ -1,6 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
+import { ParamsKey } from 'src/app/services/constant/paramskey';
+import { STATUS } from 'src/app/services/constant/app-constant';
 
 @Component({
   selector: 'app-company-info',
@@ -9,9 +11,14 @@ import { Router } from '@angular/router';
 })
 export class CompanyInfoComponent implements OnInit {
 
+  @Input('mID') mID = -1;
   @Output('createAction') createAction = new EventEmitter();
 
+  mConpany: any;
+
   mData: any;
+
+  mObj: any;
 
   mDataSv = {
     name: "Nam An Phu JSC.",
@@ -30,7 +37,13 @@ export class CompanyInfoComponent implements OnInit {
   ngOnInit() {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.company_info;
-    })
+    });
+
+    this.mService.getApiService().sendRequestGET_DETAIL_COMPANY("163.44.192.123", "loapao", this.mID).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.mObj = data.obj;
+      }
+    });
   }
 
   onClickItem(index: number) {
