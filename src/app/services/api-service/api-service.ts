@@ -57,5 +57,62 @@ export class ApiService extends HttpClient {
                 .add("companyID", companyID));
     }
 
+    //3
+    public sendRequestGET_LIST_COMPANY(ip: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("username", username)
+                .add("userID", userID));
+    }
+
+    //4
+    public sendRequestGET_DETAIL_COMPANY(ip: string, username: string, companyID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_DETAIL_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("username", username)
+                .add("companyID", companyID));
+    }
+
+    //5
+    public sendRequestGET_LIST_QUICK_COMPANY(ip: string, username: string, parentID: number, companyID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("username", username)
+                .add("parentID", parentID)
+                .add("companyID", companyID));
+    }
+
+    //6
+    public sendRequestGET_LIST_QUICK_DEAL(ip: string, username: string, companyID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_DEAL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("username", username)
+                .add("companyID", companyID));
+    }
+
+    //7
+    public sendRequestGET_LIST_ACTIVITY(ip: string, username: string, userID: number, companyID: number, activityType: number, attendID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_ACTIVITY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("username", username)
+                .add("userID", userID)
+                .add("activityType", activityType)
+                .addIgnoreNull("attendID", attendID));
+    }
+
+    //8
+    public sendRequestGET_LIST_CONTACT(ip: string, username: string, companyID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("username", username)
+                .add("companyID", companyID));
+    }
+
 
 }
