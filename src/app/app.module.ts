@@ -44,6 +44,7 @@ import { DatetimeDatePipe } from './pipes/datetime-date/datetime-date.pipe';
 import { DatetimeTimeDefaultPipe } from './pipes/datetime-time-default/datetime-time-default.pipe';
 import { ContactMenuCompanyComponent } from './components/contact-menu-company/contact-menu-company.component';
 import { ContactMenuContactComponent } from './components/contact-menu-contact/contact-menu-contact.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ContactMenuContactComponent } from './components/contact-menu-contact/c
     DatetimeDatePipe,
     DatetimeTimeDefaultPipe,
     ContactMenuCompanyComponent,
-    ContactMenuContactComponent
+    ContactMenuContactComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

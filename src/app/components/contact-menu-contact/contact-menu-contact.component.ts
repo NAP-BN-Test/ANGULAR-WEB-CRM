@@ -37,7 +37,12 @@ export class ContactMenuContactComponent implements OnInit {
       this.mData = data.contact;
     });
 
-    this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL("163.44.192.123", "loapao", 1).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id
+      ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
         this.collectionSize = this.listContact.length;

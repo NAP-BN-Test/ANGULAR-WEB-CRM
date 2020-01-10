@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-datetime-pick-date',
@@ -8,10 +8,21 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DatetimePickDateComponent implements OnInit {
 
   @Input('mDate') mDate = "";
-  
+
+  @Output('pickDate') pickDate = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onDateSelect(event) {
+    let date = event.year + "-" + event.month + "-" + event.day;
+    this.pickDate.emit(date)
+  }
+
+  onChange(event) {
+    this.pickDate.emit(event.target.value);
   }
 
 }

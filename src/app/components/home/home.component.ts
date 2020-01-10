@@ -77,5 +77,4 @@ export class HomeComponent implements OnInit {
       this.iconSubDetailState = true;
     }
   }
-
 }

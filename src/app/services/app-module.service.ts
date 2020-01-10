@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef } from '@angular/core';
 import { ApiService } from './api-service/api-service';
 import { Config } from './core/app/config';
 import { Users } from './classes/user';
@@ -6,7 +6,9 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 
 import * as moment from 'moment';
-import { LANGUAGE_TYPE } from './constant/app-constant';
+import { LANGUAGE_TYPE, STATUS } from './constant/app-constant';
+import { CookieService } from 'ngx-cookie-service';
+import { ParamsKey } from './constant/paramskey';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +20,14 @@ export class AppModuleService {
 
   mUser: Users;
   token: string = "";
-  ip: string = "";
+  serverInfo: string = "";
 
   isLogin: boolean = false;
 
   constructor(
     public mAngularHttp: Http,
-    public router: Router
+    public router: Router,
+    private cookieService: CookieService
   ) {
     this.mApiService = new ApiService();
     this.mAppConfig = new Config();
@@ -43,11 +46,14 @@ export class AppModuleService {
 
   //----------------------------------------------------//
 
-  public getUser(): Users {
+  public getUser(): any {
+    if (this.cookieService.get('user-info')) {
+      this.mUser = JSON.parse(this.cookieService.get('user-info'));
+    }
     return this.mUser;
   }
 
-  public setUser(user: Users) {
+  public setUser(user: any) {
     this.mUser = user;
   }
 
@@ -59,12 +65,15 @@ export class AppModuleService {
     this.token = token;
   }
 
-  public getIP(): string {
-    return this.ip;
+  public getServer(): any {
+    if (this.cookieService.get('server-info')) {
+      this.serverInfo = JSON.parse(this.cookieService.get('server-info'));
+    }
+    return this.serverInfo;
   }
 
-  public setIP(ip: string) {
-    this.ip = ip;
+  public setServer(serverInfo: any) {
+    this.serverInfo = serverInfo;
   }
 
   //----------------------------------------------------//
@@ -143,4 +152,13 @@ export class AppModuleService {
 
   //----------------------------------------------------//
 
+  toasts: any[] = [];
+
+  show(textOrTpl: string | TemplateRef<any>, options: any = {}) {
+    this.toasts.push({ textOrTpl, ...options });
+  }
+
+  remove(toast) {
+    this.toasts = this.toasts.filter(t => t !== toast);
+  }
 }

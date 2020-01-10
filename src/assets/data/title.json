@@ -7,6 +7,8 @@
             "logo1": "../../assets/img/logo1.png",
             "title": "GIẢI PHÁP PHẦN MỀM QUẢN LÝ",
             "title1": "DỊCH VỤ LOGISTICS",
+            "ip": "Tên server",
+            "db_name": "Tên database",
             "username": "Tên đăng nhập",
             "password": "Mật khẩu",
             "btn_login": "Đăng nhập",

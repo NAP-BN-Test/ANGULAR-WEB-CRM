@@ -30,7 +30,12 @@ export class CompanyDetailComponent implements OnInit {
 
     this.onLoadActivity(0)
 
-    this.mService.getApiService().sendRequestGET_LIST_CONTACT("163.44.192.123", "loapao", this.mID).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_CONTACT(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mID
+    ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
       }
@@ -38,7 +43,12 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   onLoadActivity(activityType: number) {
-    this.mService.getApiService().sendRequestGET_LIST_ACTIVITY("163.44.192.123", "loapao", 1, activityType, 1).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_ACTIVITY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mID, activityType
+    ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listActivity = data.array;
       }

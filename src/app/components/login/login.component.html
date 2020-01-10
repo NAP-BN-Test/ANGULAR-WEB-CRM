@@ -1,4 +1,7 @@
 <div *ngIf="mData">
+    <div style="position: absolute; top: 16px; right: 16px;" tappable (click)="onClickSetting()">
+        <mat-icon>settings_applications</mat-icon>
+    </div>
     <div background-whitesmoke>
         <div class="container header">
             <div>
@@ -23,13 +26,24 @@
                 </div>
 
                 <div padding-vertical>
+                    <div [hidden]="!setting">
+                        <div padding-bottom>
+                            <input type="text" class="form-control" [placeholder]="mData.ip" [(ngModel)]="ip">
+                        </div>
+                        <div padding-bottom>
+                            <input type="text" class="form-control" [placeholder]="mData.db_name" [(ngModel)]="dbName">
+                        </div>
+                    </div>
+
                     <div padding-bottom>
-                        <input type="text" class="form-control" [placeholder]="mData.username">
+                        <input type="text" class="form-control" [placeholder]="mData.username" [(ngModel)]="username">
                     </div>
                     <div padding-bottom>
-                        <input type="password" class="form-control" [placeholder]="mData.password">
+                        <input type="password" class="form-control" [placeholder]="mData.password"
+                            [(ngModel)]="password">
                     </div>
                 </div>
+
 
                 <div padding-bottom>
                     <button type="button" class="btn background-primary color-white width-100"
@@ -50,13 +64,13 @@
     </div>
 
     <div class="footer background-secondary">
-        <div class="container">
-            <h6 bold>{{mData.ft_title}}</h6>
-            <h6>{{mData.ft_name}}</h6>
-            <h6>{{mData.ft_address}}</h6>
-            <h6>{{mData.ft_email}}</h6>
-            <h6>{{mData.ft_website}}</h6>
-            <h6>{{mData.ft_phone}}</h6>
+        <div class="container font6">
+            <div bold>{{mData.ft_title}}</div>
+            <div>{{mData.ft_name}}</div>
+            <div>{{mData.ft_address}}</div>
+            <div>{{mData.ft_email}}</div>
+            <div>{{mData.ft_website}}</div>
+            <div>{{mData.ft_phone}}</div>
         </div>
     </div>
 </div>

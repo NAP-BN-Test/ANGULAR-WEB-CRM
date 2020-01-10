@@ -1,3 +1,9 @@
-<div flex>
-    <input class="m-btn form-control font6" type="time" [value]="mTime">
+<!-- <div flex>
+    <input class="m-btn form-control font6" type="time" [value]="mTime" (change)="onChange($event)">
+</div> -->
+<div center-line>
+    <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mTime" (change)="onChange()">
+        <option *ngFor="let item of listTime" [ngValue]="item.value">{{item.name}}</option>
+    </select>
+    <mat-icon>alarm</mat-icon>
 </div>

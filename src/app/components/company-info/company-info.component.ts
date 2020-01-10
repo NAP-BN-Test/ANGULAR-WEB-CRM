@@ -39,7 +39,12 @@ export class CompanyInfoComponent implements OnInit {
       this.mData = data.company_info;
     });
 
-    this.mService.getApiService().sendRequestGET_DETAIL_COMPANY("163.44.192.123", "loapao", this.mID).then(data => {
+    this.mService.getApiService().sendRequestGET_DETAIL_COMPANY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mID
+    ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mObj = data.obj;
       }

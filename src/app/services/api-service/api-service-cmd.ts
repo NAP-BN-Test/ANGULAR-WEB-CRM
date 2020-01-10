@@ -1,6 +1,6 @@
 export class ApiCmd {
 
-    public static USER_LOGIN: string = "app/user_login";
+    public static USER_LOGIN: string = "crm/user_login";
 
     public static GET_LIST_QUICK_CONTACT: string = "crm/get_list_quick_contact";
 
@@ -17,5 +17,7 @@ export class ApiCmd {
     public static GET_LIST_CONTACT : string = "crm/get_list_contact";
 
     public static GET_LIST_CONTACT_FULL : string = "crm/get_list_contact_full";
+
+    public static UPDATE_ACTIVITY : string = "crm/update_activity";
 
 }

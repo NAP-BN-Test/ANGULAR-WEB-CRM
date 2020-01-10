@@ -32,19 +32,25 @@ export class CompanySubDetailComponent implements OnInit {
 
     });
 
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT("163.44.192.123", "loapao", 1, this.mID).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      this.mID
+    ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
       }
     })
 
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY("163.44.192.123", "loapao", 1, this.mID).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(this.mService.getServer().ip, this.mService.getServer().dbName, "loapao", 1, this.mID).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listCompany = data.array;
       }
     })
 
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL("163.44.192.123", "loapao", this.mID).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL(this.mService.getServer().ip, this.mService.getServer().dbName, "loapao", this.mID).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listDeal = data.array;
       }
