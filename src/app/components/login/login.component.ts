@@ -62,8 +62,13 @@ export class LoginComponent implements OnInit {
 
   onClickSetting() {
     if (this.setting) {
-      let svInfoCookie = JSON.parse(this.cookieService.get('server-info'));
-
+      let svInfoCookie = {
+        ip: "",
+        dbName: ""
+      };
+      if (this.cookieService.get('server-info')) {
+        svInfoCookie = JSON.parse(this.cookieService.get('server-info'));
+      }
       if (this.ip != svInfoCookie.ip || this.dbName != svInfoCookie.dbName) {
         let svInfo = {
           ip: this.ip,
@@ -72,7 +77,6 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('server-info', JSON.stringify(svInfo));
       }
     }
-
     this.setting = !this.setting;
   }
 

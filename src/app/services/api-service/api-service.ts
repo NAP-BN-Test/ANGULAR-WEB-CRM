@@ -129,9 +129,7 @@ export class ApiService extends HttpClient {
     }
 
     //10
-    public sendRequestUPDATE_ACTIVITY(ip: string, dbName: string, username: string, activity: any, contactID?: number, activityState?: number, timeStart?: string): Promise<any> {
-        console.log(activityState, contactID, timeStart);
-        
+    public sendRequestUPDATE_ACTIVITY(ip: string, dbName: string, username: string, activity: any, contactID?: number, activityState?: number, timeStart?: string, duration?: number, listAttendID?: string, description?: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_ACTIVITY,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -141,7 +139,20 @@ export class ApiService extends HttpClient {
                 .add("activityType", activity.activityType)
                 .addIgnoreNull("activityState", activityState)
                 .addIgnoreNull("contactID", contactID)
-                .addIgnoreNull("timeStart", timeStart));
+                .addIgnoreNull("timeStart", timeStart)
+                .addIgnoreNull("duration", duration)
+                .addIgnoreNull("listAttendID", listAttendID)
+                .addIgnoreNull("description", description));
+    }
+
+    //11
+    public sendRequestGET_LIST_MEET_ATTEND(ip: string, dbName: string, username: string, meetID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_MEET_ATTEND,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("meetID", meetID));
     }
 
 

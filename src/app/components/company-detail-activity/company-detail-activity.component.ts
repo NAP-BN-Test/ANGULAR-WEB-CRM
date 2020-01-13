@@ -15,6 +15,8 @@ export class CompanyDetailActivityComponent implements OnInit {
   @Input('mObj') mObj: any;
   @Input('listContact') listContact = [];
 
+  listAttend = [];
+
   mData: any;
 
   showToast = false;
@@ -33,13 +35,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     { value: 10800, name: "3 hours" }
   ]
 
-  listAttend = [
-    { value: 1, name: "1 attender" },
-    { value: 2, name: "2 attenders" },
-    { value: 3, name: "3 attenders" },
-    { value: 4, name: "4 attenders" },
-    { value: 5, name: "5 attenders" }
-  ]
+  taskDetail = "keyboard_arrow_right";
+  showDetail = false;
 
   constructor(
     public mService: AppModuleService,
@@ -49,9 +46,24 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.company_detail;
     });
+
+    if (this.mObj.activityType == 3) {
+      this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mObj.id
+      ).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          data.array.forEach(itm => {
+            this.listAttend.push(itm.userID);
+          })
+        }
+      })
+    }
   }
 
-  onChangeContact(type) {
+  onChangeContact(type) { //type is contactID:1 or state of activity:2
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
@@ -59,7 +71,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj,
       type == 1 ? this.mObj.contactID : null,
       type == 2 ? this.mObj.state : null,
-      null
+      null, this.mObj.duration, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.toasMessage = data.message;
@@ -71,21 +83,13 @@ export class CompanyDetailActivityComponent implements OnInit {
     })
   }
 
-  pickDate(event, type) {
-    let timeCreate = ""
-    if (type == 1) {
-      timeCreate = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
-    } else {
-      timeCreate = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
-    }
-
-    this.mObj.timeCreate = timeCreate;
-
+  onChangeDuration() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
-      this.mObj, null, null, timeCreate
+      this.mObj,
+      null, null, null, this.mObj.duration, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.toasMessage = data.message;
@@ -95,6 +99,97 @@ export class CompanyDetailActivityComponent implements OnInit {
         }, 2000);
       }
     })
+  }
+
+  pickDate(event, type) { //type here is Time:1 or DateOny:2
+    let timeCreate = ""
+    if (type == 1) {
+      timeCreate = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
+    } else {
+      timeCreate = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+    }
+    this.mObj.timeCreate = timeCreate;
+
+    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mObj, null, null, timeCreate, null, null
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
+  }
+
+  onSelectDone(event) {
+    let listID = [];
+    event.forEach(elm => {
+      if (elm.checked)
+        listID.push(elm.id)
+    });
+
+    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mObj,
+      null, null, null, null, JSON.stringify(listID)
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
+  }
+
+  onNoteChange(event) {
+    this.mObj.description = event.target.value;
+
+    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mObj,
+      null, null, null, null, null, this.mObj.description
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
+  }
+
+  onClickTaskDetail() {
+    
+    let task = document.getElementById('task-detail');
+    
+
+    if (this.showDetail) {
+      this.taskDetail = "keyboard_arrow_right";
+
+      task.classList.remove('task-detail-show');
+      task.classList.add('task-detail-hide');
+    }
+    else {
+      this.taskDetail = "keyboard_arrow_down";
+
+      task.classList.remove('task-detail-hide');
+      task.classList.add('task-detail-show');
+    }
+
+    this.showDetail = !this.showDetail;
+
   }
 
 }

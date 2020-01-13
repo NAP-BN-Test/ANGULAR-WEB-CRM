@@ -11,7 +11,7 @@
             <div flex font6>
                 <div padding-end flex>
                     <div>{{mData.create}}</div>
-                    <div padding8-start color-primary>{{'Lò A Páo'}}</div>
+                    <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
                 <div>{{mObj.timeCreate | datetimeFull}}</div>
             </div>
@@ -26,7 +26,7 @@
             <div class="col-5">
                 <div font7>{{mData.task.assign_to}}</div>
                 <div font6 color-primary>
-                    <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj.contactID">
+                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.contactID">
                         <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
                     </select>
                 </div>
@@ -45,23 +45,23 @@
 
         <div padding-top>{{mData.task.add_description}}</div>
 
-        <div padding-top flex>
-            <mat-icon>keyboard_arrow_down</mat-icon>
-            <div font7 center-line>{{mData.task.detail}}</div>
+        <div padding-top flex tappable (click)="onClickTaskDetail()">
+            <mat-icon>{{taskDetail}}</mat-icon>
+            <div font6 center-line>{{mData.task.detail}}</div>
         </div>
 
-        <div class="row" padding-top>
+        <div id="task-detail" class="row" padding-top [hidden]="!showDetail">
             <div class="col-2">
                 <div font7>{{mData.task.type}}</div>
                 <div font6 color-primary flex>
-                    <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj.contactID">
+                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.contactID">
                         <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
                     </select>
                 </div>
             </div>
             <div class="col-3">
                 <div font7>{{mData.create}}</div>
-                <div font6 color-primary class="task-line">{{'Lò A Páo'}}</div>
+                <div font6 color-primary class="task-line">{{mService.mUser.name}}</div>
             </div>
             <div class="col-7">
                 <div font7>{{mData.task.remind}}</div>
@@ -84,7 +84,7 @@
             <div flex font6>
                 <div padding-end flex>
                     <div>{{mData.create}}</div>
-                    <div padding8-start color-primary>{{'Lò A Páo'}}</div>
+                    <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
                 <div>{{mObj.timeCreate | datetimeFull}}</div>
             </div>
@@ -97,7 +97,7 @@
                 <div width-60>
                     <div font7>{{mData.contact}}</div>
                     <div font6 flex>
-                        <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj.contactID"
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.contactID"
                             (change)="onChangeContact(1)">
                             <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
                         </select>
@@ -106,7 +106,7 @@
                 <div width-40 padding-start>
                     <div font7>{{mData.out_come}}</div>
                     <div font6 flex>
-                        <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj.state"
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.state"
                             (change)="onChangeContact(2)">
                             <option *ngFor="let item of listOutcome" [ngValue]="item.id">{{item.name}}</option>
                         </select>
@@ -143,7 +143,7 @@
             <div flex font6>
                 <div padding-end flex>
                     <div>{{mData.create}}</div>
-                    <div padding8-start color-primary>{{'Lò A Páo'}}</div>
+                    <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
                 <div>{{mObj.timeCreate | datetimeFull}}</div>
             </div>
@@ -156,8 +156,8 @@
                 <div width-60>
                     <div font7>{{mData.contact}}</div>
                     <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary" width-100
-                            [(ngModel)]="mObj.contactID">
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.contactID"
+                            (change)="onChangeContact(1)">
                             <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
                         </select>
                     </div>
@@ -165,7 +165,8 @@
                 <div width-40 padding-start>
                     <div font7>{{mData.out_come}}</div>
                     <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj.state">
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.state"
+                            (change)="onChangeContact(1)">
                             <option *ngFor="let item of listOutcome" [ngValue]="item.id">{{item.name}}</option>
                         </select>
                     </div>
@@ -175,8 +176,10 @@
                 <div font7>{{mData.date}}</div>
                 <div font6 color-primary>
                     <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeRemind"></app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start>
+                        <app-datetime-pick-date [mDate]="mObj.timeRemind" (pickDate)="pickDate($event,1)">
+                        </app-datetime-pick-date>
+                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start
+                            (pickTime)="pickDate($event,2)">
                         </app-datetime-pick-time>
                     </div>
                 </div>
@@ -204,7 +207,7 @@
         </div>
 
         <div padding-top>
-            <input type="text" class="form-control" [placeholder]="mData.note.placeholder">
+            <input type="text" class="form-control" [value]="mObj.description" (change)="onNoteChange($event)">
         </div>
 
         <div flex padding-top font6 color-gray>
@@ -223,7 +226,7 @@
             <div flex font6>
                 <div padding-end flex>
                     <div>{{mData.create}}</div>
-                    <div padding8-start color-primary>{{'Lò A Páo'}}</div>
+                    <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
                 <div>{{mObj.timeCreate | datetimeFull}}</div>
             </div>
@@ -232,30 +235,33 @@
         <div flex padding-top>{{mObj.description}}</div>
 
         <div class="row" padding-top>
-            <div class="col-5" flex>
+            <div class="col-6" flex>
                 <div width-50>
                     <div font7>{{mData.meet.attend}}</div>
                     <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj.duration">
-                            <option *ngFor="let item of listAttend" [ngValue]="item.value">{{item.name}}</option>
-                        </select>
+                        <app-dropdown-multi width-100 [listUser]="listContact" [listAttend]="listAttend"
+                            (selectDone)="onSelectDone($event)"></app-dropdown-multi>
+
                     </div>
                 </div>
-                <div width-50>
+                <div width-50 padding-start>
                     <div font7>{{mData.meet.duration}}</div>
                     <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary" width-100 [(ngModel)]="mObj.duration">
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.duration"
+                            (change)="onChangeDuration()">
                             <option *ngFor="let item of listDuration" [ngValue]="item.value">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="col-7">
+            <div class="col-6">
                 <div font7>{{mData.meet.start_time}}</div>
                 <div font6 color-primary>
                     <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeRemind"></app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start>
+                        <app-datetime-pick-date [mDate]="mObj.timeRemind" (pickDate)="pickDate($event,1)">
+                        </app-datetime-pick-date>
+                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start
+                            (pickTime)="pickDate($event,2)">
                         </app-datetime-pick-time>
                     </div>
                 </div>

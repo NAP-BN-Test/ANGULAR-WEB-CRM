@@ -1,0 +1,15 @@
+.m-dropdown {
+    margin-top: 8px;
+    position: absolute;
+    z-index: 123;
+    background-color: white;
+}
+.m-box {
+    padding: 5px 5px 5px 12px;
+    border: 0;
+    border-radius: 5px;
+}
+
+.m-box-focus {
+    outline: 3px solid #BFDEFF;
+}

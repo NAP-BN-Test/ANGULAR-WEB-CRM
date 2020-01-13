@@ -18,3 +18,10 @@
     transform: translate(-50%, 0);
     z-index: 9999;
 }
+
+.task-detail-show {
+    animation: slideInDown 500ms;
+}
+.task-detail-hide {
+    animation: slideOutUp 500ms;
+}

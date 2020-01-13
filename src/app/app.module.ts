@@ -45,6 +45,7 @@ import { DatetimeTimeDefaultPipe } from './pipes/datetime-time-default/datetime-
 import { ContactMenuCompanyComponent } from './components/contact-menu-company/contact-menu-company.component';
 import { ContactMenuContactComponent } from './components/contact-menu-contact/contact-menu-contact.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { DropdownMultiComponent } from './components/dropdown-multi/dropdown-multi.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ToastComponent } from './components/toast/toast.component';
     DatetimeTimeDefaultPipe,
     ContactMenuCompanyComponent,
     ContactMenuContactComponent,
-    ToastComponent
+    ToastComponent,
+    DropdownMultiComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +92,7 @@ import { ToastComponent } from './components/toast/toast.component';
     HttpClientModule,
     QuillModule.forRoot(),
     NgbModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

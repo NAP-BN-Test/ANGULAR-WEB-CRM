@@ -10,7 +10,8 @@ export class DatetimeFullPipe implements PipeTransform {
 
     if (value) {
       let date = moment.utc(value).format("YYYY-MM-DD");
-      let time = moment.utc(value).format("LT")
+      let time = moment.utc(value).format("LT");
+
       return date + " at " + time;
     }
     else {

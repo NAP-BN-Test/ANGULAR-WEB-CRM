@@ -8,7 +8,7 @@ export class DatetimeDatePipe implements PipeTransform {
 
   transform(value: any): any {
     if (value) {
-      let date = moment.utc(value).format("YYYY-MM-DD");
+      let date = moment(value).format("YYYY-MM-DD");
       return date;
     }
     else {

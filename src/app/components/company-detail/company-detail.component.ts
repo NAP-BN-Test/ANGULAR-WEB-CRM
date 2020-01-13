@@ -49,6 +49,7 @@ export class CompanyDetailComponent implements OnInit {
       this.mService.getUser().username,
       this.mID, activityType
     ).then(data => {
+
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listActivity = data.array;
       }

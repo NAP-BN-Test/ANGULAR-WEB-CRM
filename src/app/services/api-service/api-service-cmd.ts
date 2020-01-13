@@ -20,4 +20,7 @@ export class ApiCmd {
 
     public static UPDATE_ACTIVITY : string = "crm/update_activity";
 
+    public static GET_LIST_MEET_ATTEND : string = "crm/get_list_meet_attend";
+
+
 }
