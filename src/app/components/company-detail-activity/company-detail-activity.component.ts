@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, ACTIVITY_TYPE } from 'src/app/services/constant/app-constant';
 
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-company-detail-activity',
@@ -14,8 +16,12 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   @Input('mObj') mObj: any;
   @Input('listContact') listContact = [];
+  @Input('listUser') listUser = [];
+
+  @Output('onListChange') onListChange = new EventEmitter();
 
   listAttend = [];
+  listAssociate = [];
 
   mData: any;
 
@@ -35,11 +41,20 @@ export class CompanyDetailActivityComponent implements OnInit {
     { value: 10800, name: "3 hours" }
   ]
 
+  listTaskType = [
+    { id: 1, name: "Call" },
+    { id: 2, name: "Email" },
+    { id: 3, name: "Meet" },
+  ]
+
   taskDetail = "keyboard_arrow_right";
   showDetail = false;
 
+  showQuill = false;
+
   constructor(
     public mService: AppModuleService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -58,6 +73,20 @@ export class CompanyDetailActivityComponent implements OnInit {
           data.array.forEach(itm => {
             this.listAttend.push(itm.userID);
           })
+        }
+      })
+    }
+    else if (this.mObj.activityType == ACTIVITY_TYPE.NOTE) {
+      this.mService.getApiService().sendRequestGET_NOTE_ASSOCIATE(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mObj.id
+      ).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          data.array.forEach(itm => {
+            this.listAssociate.push(itm.userID);
+          });
         }
       })
     }
@@ -81,6 +110,74 @@ export class CompanyDetailActivityComponent implements OnInit {
         }, 2000);
       }
     })
+  }
+
+  onChangeUser() {
+    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mObj,
+      null, null, null, null, null, null,
+      this.mObj.assignID
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
+  }
+
+  onTaskTypeChange() {
+    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mObj,
+      null, null, null, null, null, null, null,
+      this.mObj.taskType
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
+  }
+
+  onClickDeleteNote() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.mService.getApiService().sendRequestDELETE_NOTE(
+          this.mService.getServer().ip,
+          this.mService.getServer().dbName,
+          this.mService.getUser().username,
+          this.mService.getUser().id,
+          this.mObj.id
+        ).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+
+            this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+
+            this.toasMessage = data.message;
+            this.showToast = true;
+            setTimeout(() => {
+              this.showToast = false;
+            }, 2000);
+          }
+        })
+      }
+    });
+
   }
 
   onChangeDuration() {
@@ -151,29 +248,45 @@ export class CompanyDetailActivityComponent implements OnInit {
   }
 
   onNoteChange(event) {
-    this.mObj.description = event.target.value;
+    this.showQuill = false;
 
-    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
-      this.mService.getUser().username,
-      this.mObj,
-      null, null, null, null, null, this.mObj.description
-    ).then(data => {
-      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
-      }
-    })
+    if (event) {
+      this.mObj.description = event;
+
+      this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mObj,
+        null, null, null, null, null, this.mObj.description
+      ).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          this.toasMessage = data.message;
+          this.showToast = true;
+          setTimeout(() => {
+            this.showToast = false;
+          }, 2000);
+        }
+      })
+    }
+  }
+
+  onNoteAssociateChange(event) {
+    if (event) {
+      this.toasMessage = event;
+      this.showToast = true;
+      setTimeout(() => {
+        this.showToast = false;
+      }, 2000);
+
+    }
+
   }
 
   onClickTaskDetail() {
-    
+
     let task = document.getElementById('task-detail');
-    
+
 
     if (this.showDetail) {
       this.taskDetail = "keyboard_arrow_right";
@@ -190,6 +303,12 @@ export class CompanyDetailActivityComponent implements OnInit {
 
     this.showDetail = !this.showDetail;
 
+  }
+
+  onClickEdit(type: number) {
+    if (type == 4) {
+      this.showQuill = true;
+    }
   }
 
 }

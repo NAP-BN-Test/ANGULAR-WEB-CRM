@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -46,6 +47,9 @@ import { ContactMenuCompanyComponent } from './components/contact-menu-company/c
 import { ContactMenuContactComponent } from './components/contact-menu-contact/contact-menu-contact.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { DropdownMultiComponent } from './components/dropdown-multi/dropdown-multi.component';
+import { QuillBoxComponent } from './components/quill-box/quill-box.component';
+import { DropdownAssociateComponent } from './components/dropdown-associate/dropdown-associate.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +84,10 @@ import { DropdownMultiComponent } from './components/dropdown-multi/dropdown-mul
     ContactMenuCompanyComponent,
     ContactMenuContactComponent,
     ToastComponent,
-    DropdownMultiComponent
+    DropdownMultiComponent,
+    QuillBoxComponent,
+    DropdownAssociateComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +96,7 @@ import { DropdownMultiComponent } from './components/dropdown-multi/dropdown-mul
     BrowserAnimationsModule,
     MatIconModule,
     MatCheckboxModule,
+    MatDialogModule,
     HttpClientModule,
     QuillModule.forRoot(),
     NgbModule,
@@ -101,6 +109,7 @@ import { DropdownMultiComponent } from './components/dropdown-multi/dropdown-mul
     DatetimeTimePipe,
     DatetimeFullPipe,
     DatetimeDatePipe
-  ]
+  ],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }

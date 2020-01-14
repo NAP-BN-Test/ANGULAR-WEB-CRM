@@ -1,5 +1,9 @@
 {
     "VI": {
+        "btn": {
+            "save": "Save",
+            "cancel": "Cancel"
+        },
         "login": {
             "logo": "../../assets/img/logo.png",
             "company_name": "NAM AN PHÚ",

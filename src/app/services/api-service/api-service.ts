@@ -129,7 +129,20 @@ export class ApiService extends HttpClient {
     }
 
     //10
-    public sendRequestUPDATE_ACTIVITY(ip: string, dbName: string, username: string, activity: any, contactID?: number, activityState?: number, timeStart?: string, duration?: number, listAttendID?: string, description?: string): Promise<any> {
+    public sendRequestUPDATE_ACTIVITY(
+        ip: string,
+        dbName: string,
+        username: string,
+        activity: any,
+        contactID?: number,
+        activityState?: number,
+        timeStart?: string,
+        duration?: number,
+        listAttendID?: string,
+        description?: string,
+        assignID?: number,
+        taskType?: number
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_ACTIVITY,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -142,7 +155,9 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("timeStart", timeStart)
                 .addIgnoreNull("duration", duration)
                 .addIgnoreNull("listAttendID", listAttendID)
-                .addIgnoreNull("description", description));
+                .addIgnoreNull("description", description)
+                .addIgnoreNull("assignID", assignID)
+                .addIgnoreNull("taskType", taskType));
     }
 
     //11
@@ -155,5 +170,59 @@ export class ApiService extends HttpClient {
                 .add("meetID", meetID));
     }
 
+    //12
+    public sendRequestGET_LIST_USER(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_USER,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
 
+    //13
+    public sendRequestCREATE_NOTE(ip: string, dbName: string, username: string, userID: number, companyID: number, description: string, timeRemind: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.CREATE_NOTE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("description", description)
+                .addIgnoreNull("timeRemind", timeRemind));
+    }
+
+    //14
+    public sendRequestGET_NOTE_ASSOCIATE(ip: string, dbName: string, username: string, noteID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_NOTE_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("noteID", noteID));
+    }
+
+    //15
+    public sendRequestUPDATE_NOTE_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, noteID: number, state: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_NOTE_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("noteID", noteID)
+                .add("state", state));
+    }
+
+    //16
+    public sendRequestDELETE_NOTE(ip: string, dbName: string, username: string, userID: number, noteID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_NOTE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("noteID", noteID));
+    }
 }

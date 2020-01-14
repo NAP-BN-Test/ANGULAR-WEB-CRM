@@ -26,8 +26,9 @@
             <div class="col-5">
                 <div font7>{{mData.task.assign_to}}</div>
                 <div font6 color-primary>
-                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.contactID">
-                        <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
+                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.assignID"
+                        (change)="onChangeUser()">
+                        <option *ngFor="let item of listUser" [ngValue]="item.id">{{item.name}}</option>
                     </select>
                 </div>
             </div>
@@ -43,7 +44,7 @@
             </div>
         </div>
 
-        <div padding-top>{{mData.task.add_description}}</div>
+        <!-- <div padding-top>{{mData.task.add_description}}</div> -->
 
         <div padding-top flex tappable (click)="onClickTaskDetail()">
             <mat-icon>{{taskDetail}}</mat-icon>
@@ -54,8 +55,9 @@
             <div class="col-2">
                 <div font7>{{mData.task.type}}</div>
                 <div font6 color-primary flex>
-                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.contactID">
-                        <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
+                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.taskType"
+                        (change)="onTaskTypeChange()">
+                        <option *ngFor="let item of listTaskType" [ngValue]="item.id">{{item.name}}</option>
                     </select>
                 </div>
             </div>
@@ -200,19 +202,31 @@
                 <div padding8-start center-line>{{mData.note.name}}</div>
             </div>
             <div flex font6>
-                <div padding-end>{{mData.note.associate}}</div>
-                <mat-icon>arrow_drop_down</mat-icon>
-                <div>{{mData.note.delete}}</div>
+                <app-dropdown-associate width-100 [listUser]="listUser" [listAssociate]="listAssociate"
+                    [activityType]="mObj.activityType" [activityID]="mObj.id"
+                    (dropdownChange)="onNoteAssociateChange($event)">
+                </app-dropdown-associate>
+                <div bold padding-start center-line color-red tappable (click)="onClickDeleteNote()">
+                    {{mData.note.delete}}</div>
             </div>
         </div>
 
-        <div padding-top>
+        <!-- <div padding-top>
             <input type="text" class="form-control" [value]="mObj.description" (change)="onNoteChange($event)">
+        </div> -->
+
+        <div padding-top>
+            <div [hidden]="showQuill" class="m-description" padding8 [innerHTML]="mObj.description"
+                (click)="onClickEdit(4)"></div>
+
+            <div [hidden]="!showQuill">
+                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onNoteChange($event)"></app-quill-box>
+            </div>
         </div>
 
         <div flex padding-top font6 color-gray>
-            <mat-icon>{{mData.call.icon_chat}}</mat-icon>
-            <div padding8-start>{{mData.call.add_comment}}</div>
+            <mat-icon>{{mData.icon_chat}}</mat-icon>
+            <div padding8-start>{{mData.add_comment}}</div>
         </div>
     </div>
 

@@ -22,5 +22,15 @@ export class ApiCmd {
 
     public static GET_LIST_MEET_ATTEND : string = "crm/get_list_meet_attend";
 
+    public static GET_LIST_USER : string = "crm/get_list_user";
+
+    public static CREATE_NOTE : string = "crm/create_note";
+
+    public static GET_NOTE_ASSOCIATE : string = "crm/get_note_associate";
+    
+    public static UPDATE_NOTE_ASSOCIATE : string = "crm/update_note_associate";
+
+    public static DELETE_NOTE : string = "crm/delete_note";
+
 
 }

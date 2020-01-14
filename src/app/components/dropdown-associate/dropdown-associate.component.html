@@ -1,0 +1,18 @@
+<div width-100 id="clickbox">
+    <div id="m-box" class=" between m-box" (click)="onClickDropdown()">
+        <div>{{associate}} associates</div>
+        <div center-line>
+            <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+    </div>
+
+    <div shadow class="m-dropdown" [hidden]="dropdown">
+        <div padding8 border-bottom>
+            <input border0 placeholder="Search">
+        </div>
+        <div flex padding8 *ngFor="let item of dropdownList; let i = index" tappable (click)="onClickItem(i, item)">
+            <input type="checkbox" [checked]="item.checked">
+            <div padding8-start >{{item.name}}</div>
+        </div>
+    </div>
+</div>

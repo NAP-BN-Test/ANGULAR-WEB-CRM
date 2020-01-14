@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'
+import { ACTIVITY_TYPE } from 'src/app/services/constant/app-constant';
+import { CompanyDetailComponent } from '../company-detail/company-detail.component';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(CompanyDetailComponent, { static: false }) companyDetailComponent: CompanyDetailComponent;
 
   mData: any;
 
@@ -49,8 +52,11 @@ export class HomeComponent implements OnInit {
     this.createTabIndex = event;
   }
 
-  onClickCloseCreateAction() {
+  onClickCloseCreateAction(event) {
     this.createTabIndex = 0;
+    if (event.activityType == ACTIVITY_TYPE.NOTE) {
+      this.companyDetailComponent.listActivity.unshift(event)
+    }
   }
 
   onClickAddSubDetail(event) {

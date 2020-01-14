@@ -10,11 +10,12 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 })
 export class CompanyDetailComponent implements OnInit {
   @Input('mID') mID = -1;
-
+  
   mData: any;
 
   listActivity = [];
   listContact = [];
+  listUser = [];
 
   showSearchBar = false;
   menuSelected = 0;
@@ -40,6 +41,17 @@ export class CompanyDetailComponent implements OnInit {
         this.listContact = data.array;
       }
     });
+
+    this.mService.getApiService().sendRequestGET_LIST_USER(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.listUser = data.array;
+      }
+    });
   }
 
   onLoadActivity(activityType: number) {
@@ -62,6 +74,18 @@ export class CompanyDetailComponent implements OnInit {
 
       this.onLoadActivity(index);
 
+    }
+  }
+
+  onListChange(event) {
+    if (event) {
+      let index = this.listActivity.findIndex(item => {
+        return item.id == event.id && item.activityType == event.activityType;
+      });
+
+      if (index > -1) {
+        this.listActivity.splice(index, 1);
+      }
     }
   }
 

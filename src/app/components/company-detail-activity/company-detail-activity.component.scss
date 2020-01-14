@@ -25,3 +25,12 @@
 .task-detail-hide {
     animation: slideOutUp 500ms;
 }
+
+.m-description {
+    border: 1px solid transparent;
+}
+.m-description:hover {
+    background-color: whitesmoke;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+}

@@ -95,4 +95,13 @@ export const PICK_DATE = {
     ALL: 4,
 }
 
+export const ACTIVITY_TYPE = {
+    ALL: 0,
+    CALL: 1,
+    EMAIL: 2,
+    MEET: 3,
+    NOTE: 4,
+    TASK: 5,
+}
+
 
