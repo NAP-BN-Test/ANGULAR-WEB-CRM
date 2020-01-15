@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'
-import { ACTIVITY_TYPE } from 'src/app/services/constant/app-constant';
+import { ACTIVITY_TYPE, STATUS } from 'src/app/services/constant/app-constant';
 import { CompanyDetailComponent } from '../company-detail/company-detail.component';
 
 @Component({
@@ -20,6 +20,9 @@ export class HomeComponent implements OnInit {
   addSubDetail = 0;
 
   mID = -1;
+
+  listContact = [];
+  listUser = [];
 
   colDetail = "col-md-6";
   colSubDetail = "col-md-3";
@@ -46,6 +49,28 @@ export class HomeComponent implements OnInit {
     this.mService.LoadTitle(1).then(data => {
       this.mData = data;
     });
+
+    this.mService.getApiService().sendRequestGET_LIST_CONTACT(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mID
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.listContact = data.array;
+      }
+    });
+
+    this.mService.getApiService().sendRequestGET_LIST_USER(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.listUser = data.array;
+      }
+    });
   }
 
   onClickCreateAction(event) {
@@ -54,8 +79,12 @@ export class HomeComponent implements OnInit {
 
   onClickCloseCreateAction(event) {
     this.createTabIndex = 0;
-    if (event.activityType == ACTIVITY_TYPE.NOTE) {
+    if (event) {
+      if (event.activityType == ACTIVITY_TYPE.NOTE) {
+        this.companyDetailComponent.listActivity.unshift(event)
+      }
       this.companyDetailComponent.listActivity.unshift(event)
+
     }
   }
 

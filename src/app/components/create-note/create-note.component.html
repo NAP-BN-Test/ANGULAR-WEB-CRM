@@ -10,8 +10,8 @@
         <quill-editor [modules]="mConfig" [(ngModel)]="quillValue"></quill-editor>
 
         <div font6 center-line color-primary class="associate">
-            <div padding8-end>{{mData.associate}} 4 {{mData.record}}</div>
-            <mat-icon>arrow_drop_down</mat-icon>
+            <app-dropdown-associate-create width-100 (dropdownChange)="onAssociateChange($event)">
+            </app-dropdown-associate-create>
         </div>
     </div>
 

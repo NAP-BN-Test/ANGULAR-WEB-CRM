@@ -32,5 +32,10 @@ export class ApiCmd {
 
     public static DELETE_NOTE : string = "crm/delete_note";
 
+    public static CREATE_CALL : string = "crm/create_call";
+
+    public static ADD_COMMENT : string = "crm/add_comment";
+
+
 
 }

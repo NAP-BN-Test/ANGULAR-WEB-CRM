@@ -11,11 +11,13 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 export class CompanyDetailComponent implements OnInit {
   @Input('mID') mID = -1;
   
+  @Input('listContact') listContact = [];
+  @Input('listUser') listUser = [];
+
   mData: any;
 
   listActivity = [];
-  listContact = [];
-  listUser = [];
+
 
   showSearchBar = false;
   menuSelected = 0;
@@ -30,28 +32,6 @@ export class CompanyDetailComponent implements OnInit {
     })
 
     this.onLoadActivity(0)
-
-    this.mService.getApiService().sendRequestGET_LIST_CONTACT(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
-      this.mService.getUser().username,
-      this.mID
-    ).then(data => {
-      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.listContact = data.array;
-      }
-    });
-
-    this.mService.getApiService().sendRequestGET_LIST_USER(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
-      this.mService.getUser().username,
-      this.mService.getUser().id
-    ).then(data => {
-      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.listUser = data.array;
-      }
-    });
   }
 
   onLoadActivity(activityType: number) {

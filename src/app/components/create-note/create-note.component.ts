@@ -15,6 +15,8 @@ export class CreateNoteComponent implements OnInit {
 
   showTimePicker = false;
 
+  listAssociate = [];
+
   mConfig = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -52,6 +54,7 @@ export class CreateNoteComponent implements OnInit {
       this.mService.getUser().id,
       this.mID,
       this.quillValue,
+      this.listAssociate,
       this.dateFollow).then(data => {
         if (data.status == STATUS.SUCCESS)
           this.closeCreateAction.emit(data.obj)
@@ -60,6 +63,11 @@ export class CreateNoteComponent implements OnInit {
 
   onPickDate(event) {
     this.dateFollow = event;
+  }
+
+  onAssociateChange(event) {
+    if (event)
+      this.listAssociate = event;
   }
 
 }

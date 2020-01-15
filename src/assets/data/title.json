@@ -114,6 +114,7 @@
             "icon_time": "alarm",
             "icon_chat": "chat",
             "add_comment": "Add Comment",
+            "comment": "Comment",
             "create": "Created by ",
             "date": "Date",
             "out_come": "Outcome",

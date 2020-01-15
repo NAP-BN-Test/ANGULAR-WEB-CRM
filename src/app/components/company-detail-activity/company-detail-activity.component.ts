@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS, ACTIVITY_TYPE } from 'src/app/services/constant/app-constant';
+import { STATUS, ACTIVITY_TYPE, LIST_SELECT } from 'src/app/services/constant/app-constant';
 
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
@@ -28,10 +28,7 @@ export class CompanyDetailActivityComponent implements OnInit {
   showToast = false;
   toasMessage = "";
 
-  listOutcome = [
-    { id: 1, name: "No Answer" },
-    { id: 2, name: "Answer" },
-  ];
+  listOutcome = LIST_SELECT.LIST_OUTCOME;
 
   listDuration = [
     { value: 900, name: "15 minutes" },
@@ -48,9 +45,13 @@ export class CompanyDetailActivityComponent implements OnInit {
   ]
 
   taskDetail = "keyboard_arrow_right";
+  cmtDetail = "keyboard_arrow_right";
   showDetail = false;
+  showCmt = false;
+
 
   showQuill = false;
+  showQuillCmt = false;
 
   constructor(
     public mService: AppModuleService,
@@ -89,6 +90,10 @@ export class CompanyDetailActivityComponent implements OnInit {
           });
         }
       })
+    }
+    else if (this.mObj.activityType == ACTIVITY_TYPE.CALL) {
+      console.log(this.mObj);
+
     }
   }
 
@@ -199,19 +204,19 @@ export class CompanyDetailActivityComponent implements OnInit {
   }
 
   pickDate(event, type) { //type here is Time:1 or DateOny:2
-    let timeCreate = ""
+    let timeStart = ""
     if (type == 1) {
-      timeCreate = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
+      timeStart = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
     } else {
-      timeCreate = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+      timeStart = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
     }
-    this.mObj.timeCreate = timeCreate;
+    this.mObj.timeStart = timeStart;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
-      this.mObj, null, null, timeCreate, null, null
+      this.mObj, null, null, timeStart, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.toasMessage = data.message;
@@ -247,7 +252,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     })
   }
 
-  onNoteChange(event) {
+  onQuillDescriptionChange(event, type: number) {
     this.showQuill = false;
 
     if (event) {
@@ -268,6 +273,27 @@ export class CompanyDetailActivityComponent implements OnInit {
           }, 2000);
         }
       })
+
+    }
+  }
+
+  onQuillCommentChange(event) {
+    this.showQuillCmt = false;
+
+    if (event) {
+      this.mService.getApiService().sendRequestADD_COMMENT(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mService.getUser().id,
+        this.mService.getUser().name,
+        this.mObj,
+        event).then(data => {
+          if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+            this.mObj.listComment.push(data.obj);
+          }
+        })
+
     }
   }
 
@@ -305,10 +331,34 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   }
 
-  onClickEdit(type: number) {
-    if (type == 4) {
-      this.showQuill = true;
+  onClickCmtDetail() {
+
+    let cmt = document.getElementById('cmt-detail');
+
+
+    if (this.showCmt) {
+      this.cmtDetail = "keyboard_arrow_right";
+
+      cmt.classList.remove('task-detail-show');
+      cmt.classList.add('task-detail-hide');
     }
+    else {
+      this.cmtDetail = "keyboard_arrow_down";
+
+      cmt.classList.remove('task-detail-hide');
+      cmt.classList.add('task-detail-show');
+    }
+
+    this.showCmt = !this.showCmt;
+
+  }
+
+  onClickEdit() {
+    this.showQuill = true;
+  }
+
+  onClickCmt() {
+    this.showQuillCmt = true;
   }
 
 }

@@ -92,7 +92,15 @@
             </div>
         </div>
 
-        <div flex padding-top>{{mObj.description}}</div>
+        <div padding-top>
+            <div [hidden]="showQuill" class="m-description" padding8 [innerHTML]="mObj.description"
+                (click)="onClickEdit()"></div>
+
+            <div [hidden]="!showQuill">
+                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event, 1)">
+                </app-quill-box>
+            </div>
+        </div>
 
         <div class="row" padding-top>
             <div class="col-6" flex>
@@ -119,9 +127,9 @@
                 <div font7>{{mData.date}}</div>
                 <div font6 color-primary>
                     <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeRemind" (pickDate)="pickDate($event,1)">
+                        <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickDate($event,1)">
                         </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start
+                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start
                             (pickTime)="pickDate($event,2)">
                         </app-datetime-pick-time>
                     </div>
@@ -129,9 +137,37 @@
             </div>
         </div>
 
-        <div flex padding-top font6 color-gray>
-            <mat-icon>{{mData.icon_chat}}</mat-icon>
-            <div padding8-start>{{mData.add_comment}}</div>
+        <div padding-top flex tappable (click)="onClickCmtDetail()" *ngIf="mObj.listComment.length>0">
+            <mat-icon>{{cmtDetail}}</mat-icon>
+            <div font6 center-line>{{mData.comment}} ({{mObj.listComment.length}})</div>
+        </div>
+
+        <div id="cmt-detail" class="row" padding-horizontal [hidden]="!showCmt">
+            <div width-100 *ngFor="let item of mObj.listComment" relative>
+                <div padding8-top>
+                    <div class="m-cmt" box-border padding8>
+                        <div between>
+                            <div bold font6>{{item.userName}}</div>
+                            <div font7>{{item.timeCreate | datetimeFull}}</div>
+                        </div>
+                        <div font6>{{item.content}}</div>
+                    </div>
+                </div>
+
+                <div class="cmt-btn">
+                    <button type="button">ngu</button>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div [hidden]="showQuillCmt" flex padding-top font6 color-gray tappable (click)="onClickCmt()">
+                <mat-icon>{{mData.icon_chat}}</mat-icon>
+                <div padding8-start>{{mData.add_comment}}</div>
+            </div>
+            <div [hidden]="!showQuillCmt">
+                <app-quill-box (onClickEdit)="onQuillCommentChange($event)"></app-quill-box>
+            </div>
         </div>
     </div>
 
@@ -211,16 +247,13 @@
             </div>
         </div>
 
-        <!-- <div padding-top>
-            <input type="text" class="form-control" [value]="mObj.description" (change)="onNoteChange($event)">
-        </div> -->
-
         <div padding-top>
             <div [hidden]="showQuill" class="m-description" padding8 [innerHTML]="mObj.description"
-                (click)="onClickEdit(4)"></div>
+                (click)="onClickEdit()"></div>
 
             <div [hidden]="!showQuill">
-                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onNoteChange($event)"></app-quill-box>
+                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event, 4)">
+                </app-quill-box>
             </div>
         </div>
 

@@ -9,7 +9,7 @@
             <app-company-info [mID]="mID" (createAction)="onClickCreateAction($event)"></app-company-info>
         </div>
         <div [class]="colDetail" padding-top relative background-whitesmoke>
-            <app-company-detail [mID]="mID"></app-company-detail>
+            <app-company-detail [mID]="mID" [listContact]="listContact" [listUser]="listUser"></app-company-detail>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">
                 <app-create-note (closeCreateAction)="onClickCloseCreateAction($event)" [mID]="mID"></app-create-note>
@@ -20,7 +20,7 @@
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==3">
-                <app-create-call (closeCreateAction)="onClickCloseCreateAction()"></app-create-call>
+                <app-create-call [listContact]="listContact" [listUser]="listUser" (closeCreateAction)="onClickCloseCreateAction()"></app-create-call>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==4">

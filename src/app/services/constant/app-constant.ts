@@ -104,4 +104,15 @@ export const ACTIVITY_TYPE = {
     TASK: 5,
 }
 
+export const LIST_SELECT = {
+    LIST_OUTCOME: [
+        { id: 1, name: "No Answer" },
+        { id: 2, name: "Busy" },
+        { id: 3, name: "Wrong number" },
+        { id: 4, name: "Left live message" },
+        { id: 5, name: "Left voicemail" },
+        { id: 6, name: "Connected" }
+    ]
+}
+
 

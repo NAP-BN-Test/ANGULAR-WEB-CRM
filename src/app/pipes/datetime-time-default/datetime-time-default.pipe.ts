@@ -8,7 +8,7 @@ export class DatetimeTimeDefaultPipe implements PipeTransform {
 
   transform(value: any): any {
     if (value) {
-      let time = moment(value).format("HH:mm")
+      let time = moment.utc(value).format("HH:mm")
       return time;
     }
     else {

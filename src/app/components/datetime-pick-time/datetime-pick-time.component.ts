@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./datetime-pick-time.component.scss']
 })
 export class DatetimePickTimeComponent implements OnInit {
-  @Input('mTime') mTime = "";
+  @Input('mTime') mTime = "00:00";
   @Output('pickTime') pickTime = new EventEmitter();
 
   listTime = [
@@ -91,7 +91,7 @@ export class DatetimePickTimeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    
   }
 
   onChange() {

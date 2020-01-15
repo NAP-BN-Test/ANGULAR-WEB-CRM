@@ -50,6 +50,7 @@ import { DropdownMultiComponent } from './components/dropdown-multi/dropdown-mul
 import { QuillBoxComponent } from './components/quill-box/quill-box.component';
 import { DropdownAssociateComponent } from './components/dropdown-associate/dropdown-associate.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { DropdownAssociateCreateComponent } from './components/dropdown-associate-create/dropdown-associate-create.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
     DropdownMultiComponent,
     QuillBoxComponent,
     DropdownAssociateComponent,
-    DialogComponent
+    DialogComponent,
+    DropdownAssociateCreateComponent
   ],
   imports: [
     BrowserModule,

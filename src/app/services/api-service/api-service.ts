@@ -181,7 +181,7 @@ export class ApiService extends HttpClient {
     }
 
     //13
-    public sendRequestCREATE_NOTE(ip: string, dbName: string, username: string, userID: number, companyID: number, description: string, timeRemind: string): Promise<any> {
+    public sendRequestCREATE_NOTE(ip: string, dbName: string, username: string, userID: number, companyID: number, description: string, listAssociate: any, timeRemind: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_NOTE,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -190,6 +190,7 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("companyID", companyID)
                 .add("description", description)
+                .add("listAssociate", JSON.stringify(listAssociate))
                 .addIgnoreNull("timeRemind", timeRemind));
     }
 
@@ -224,5 +225,36 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("noteID", noteID));
+    }
+
+    //17
+    public sendRequestCREATE_CALL(ip: string, dbName: string, username: string, userID: number,
+        companyID: string, contactID: number, outcomeType: number, timeStart: string, timeRemind: string, description: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.CREATE_CALL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("contactID", contactID)
+                .add("outcomeType", outcomeType)
+                .add("timeStart", timeStart)
+                .add("timeRemind", timeRemind)
+                .add("description", description));
+    }
+
+    //18
+    public sendRequestADD_COMMENT(ip: string, dbName: string, username: string, userID: number, userName: string, activity: any, content: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_COMMENT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("userName", userName)
+                .add("content", content)
+                .add("activityID", activity.id)
+                .add("activityType", activity.activityType));
     }
 }
