@@ -16,19 +16,22 @@
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==2">
-                <app-create-task (closeCreateAction)="onClickCloseCreateAction()"></app-create-task>
+                <app-create-task [listUser]="listUser" (closeCreateAction)="onClickCloseCreateAction($event)">
+                </app-create-task>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==3">
-                <app-create-call [listContact]="listContact" [listUser]="listUser" (closeCreateAction)="onClickCloseCreateAction()"></app-create-call>
+                <app-create-call [listContact]="listContact" [listUser]="listUser"
+                    (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==4">
-                <app-create-email (closeCreateAction)="onClickCloseCreateAction()"></app-create-email>
+                <app-create-email [listContact]="listContact" [listUser]="listUser"
+                    (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==5">
-                <app-create-meet (closeCreateAction)="onClickCloseCreateAction()"></app-create-meet>
+                <app-create-meet (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-meet>
             </div>
 
         </div>
@@ -45,15 +48,15 @@
 
     <div>
         <div class="box-add" [class.show-div]="addSubDetail==1">
-            <app-add-contact (closeAddSub)="onClickCloseSubDetail()"></app-add-contact>
+            <app-add-contact (closeAddSub)="onClickCloseSubDetail($event, 1)"></app-add-contact>
         </div>
 
         <div class="box-add" [class.show-div]="addSubDetail==2">
-            <app-add-deal (closeAddSub)="onClickCloseSubDetail()"></app-add-deal>
+            <app-add-company (closeAddSub)="onClickCloseSubDetail()"></app-add-company>
         </div>
 
         <div class="box-add" [class.show-div]="addSubDetail==3">
-            <app-add-company (closeAddSub)="onClickCloseSubDetail()"></app-add-company>
+            <app-add-deal (closeAddSub)="onClickCloseSubDetail()"></app-add-deal>
         </div>
     </div>
 </div>

@@ -33,7 +33,7 @@ export class DropdownAssociateComponent implements OnInit {
         let index = this.listAssociate.findIndex(idx => {
           return idx == item.id;
         });
-        
+
         let checked = false;
         if (index > -1) {
           checked = true;
@@ -55,7 +55,7 @@ export class DropdownAssociateComponent implements OnInit {
       })
 
       window.addEventListener('click', (e: any) => {
-        if (!document.getElementById('clickbox').contains(e.target)) {
+        if (!document.getElementById('clickbox' + this.activityType + this.activityID).contains(e.target)) {
           this.dropdown = true;
           let a = document.getElementById('m-box');
           a.classList.remove('m-box-focus');
@@ -88,7 +88,6 @@ export class DropdownAssociateComponent implements OnInit {
         }
       })
     }
-
 
   }
 

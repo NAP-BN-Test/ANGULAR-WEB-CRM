@@ -30,28 +30,15 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   listOutcome = LIST_SELECT.LIST_OUTCOME;
 
-  listDuration = [
-    { value: 900, name: "15 minutes" },
-    { value: 1800, name: "30 minutes" },
-    { value: 3600, name: "1 hour" },
-    { value: 7200, name: "2 hours" },
-    { value: 10800, name: "3 hours" }
-  ]
+  listDuration = LIST_SELECT.LIST_DURATION;
 
-  listTaskType = [
-    { id: 1, name: "Call" },
-    { id: 2, name: "Email" },
-    { id: 3, name: "Meet" },
-  ]
+  listTaskType = LIST_SELECT.LIST_ACTIVITY;
 
   taskDetail = "keyboard_arrow_right";
-  cmtDetail = "keyboard_arrow_right";
-  showDetail = false;
-  showCmt = false;
 
+  showDetail = false;
 
   showQuill = false;
-  showQuillCmt = false;
 
   constructor(
     public mService: AppModuleService,
@@ -63,7 +50,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mData = data.company_detail;
     });
 
-    if (this.mObj.activityType == 3) {
+    if (this.mObj.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
         this.mService.getServer().ip,
         this.mService.getServer().dbName,
@@ -91,10 +78,7 @@ export class CompanyDetailActivityComponent implements OnInit {
         }
       })
     }
-    else if (this.mObj.activityType == ACTIVITY_TYPE.CALL) {
-      console.log(this.mObj);
 
-    }
   }
 
   onChangeContact(type) { //type is contactID:1 or state of activity:2
@@ -228,19 +212,23 @@ export class CompanyDetailActivityComponent implements OnInit {
     })
   }
 
-  onSelectDone(event) {
-    let listID = [];
-    event.forEach(elm => {
-      if (elm.checked)
-        listID.push(elm.id)
-    });
+  pickTimeStart(event, type) {
+
+    console.log(event);
+    
+    let time = ""
+    if (type == 1) {
+      time = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
+    } else {
+      time = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+    }
+    this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
-      this.mObj,
-      null, null, null, null, JSON.stringify(listID)
+      this.mObj, null, null, time, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.toasMessage = data.message;
@@ -252,7 +240,43 @@ export class CompanyDetailActivityComponent implements OnInit {
     })
   }
 
-  onQuillDescriptionChange(event, type: number) {
+  pickTimeAssign(event, type) {
+    let time = ""
+    if (type == 1) {
+      time = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
+    } else {
+      time = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+    }
+    this.mObj.timeStart = time;
+
+    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mObj, null, null, null, null, null, null, null, null, null, time
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
+  }
+
+  dropdownChange(event) {
+    if (event) {
+      this.toasMessage = event;
+      this.showToast = true;
+      setTimeout(() => {
+        this.showToast = false;
+      }, 2000);
+
+    }
+  }
+
+  onQuillDescriptionChange(event) {
     this.showQuill = false;
 
     if (event) {
@@ -277,22 +301,25 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
   }
 
-  onQuillCommentChange(event) {
-    this.showQuillCmt = false;
-
+  onInputTaskNameChange(event) {
     if (event) {
-      this.mService.getApiService().sendRequestADD_COMMENT(
+      this.mObj.taskName = event.target.value;
+
+      this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
         this.mService.getServer().ip,
         this.mService.getServer().dbName,
         this.mService.getUser().username,
-        this.mService.getUser().id,
-        this.mService.getUser().name,
         this.mObj,
-        event).then(data => {
-          if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-            this.mObj.listComment.push(data.obj);
-          }
-        })
+        null, null, null, null, null, null, null, null, this.mObj.taskName
+      ).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          this.toasMessage = data.message;
+          this.showToast = true;
+          setTimeout(() => {
+            this.showToast = false;
+          }, 2000);
+        }
+      })
 
     }
   }
@@ -331,34 +358,8 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   }
 
-  onClickCmtDetail() {
-
-    let cmt = document.getElementById('cmt-detail');
-
-
-    if (this.showCmt) {
-      this.cmtDetail = "keyboard_arrow_right";
-
-      cmt.classList.remove('task-detail-show');
-      cmt.classList.add('task-detail-hide');
-    }
-    else {
-      this.cmtDetail = "keyboard_arrow_down";
-
-      cmt.classList.remove('task-detail-hide');
-      cmt.classList.add('task-detail-show');
-    }
-
-    this.showCmt = !this.showCmt;
-
-  }
-
   onClickEdit() {
     this.showQuill = true;
-  }
-
-  onClickCmt() {
-    this.showQuillCmt = true;
   }
 
 }

@@ -3,12 +3,11 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { STATUS } from 'src/app/services/constant/app-constant';
 
 @Component({
-  selector: 'app-dropdown-associate-create',
-  templateUrl: './dropdown-associate-create.component.html',
-  styleUrls: ['./dropdown-associate-create.component.scss']
+  selector: 'app-dropdown-attend-create',
+  templateUrl: './dropdown-attend-create.component.html',
+  styleUrls: ['./dropdown-attend-create.component.scss']
 })
-export class DropdownAssociateCreateComponent implements OnInit {
-
+export class DropdownAttendCreateComponent implements OnInit {
   @Input('mID') mID = [];
 
   listUser = [];
@@ -64,7 +63,7 @@ export class DropdownAssociateCreateComponent implements OnInit {
         })
 
         window.addEventListener('click', (e: any) => {
-          if (!document.getElementById('drop-clickbox').contains(e.target)) {
+          if (!document.getElementById('drop-meet-box').contains(e.target)) {
             this.dropdown = true;
             let a = document.getElementById('m-drop-box');
             a.classList.remove('m-box-focus');
@@ -90,7 +89,7 @@ export class DropdownAssociateCreateComponent implements OnInit {
 
 
   onClickDropdown() {
-    let a = document.getElementById('m-drop-box');
+    let a = document.getElementById('drop-meet');
     if (this.dropdown) {
       a.classList.add('m-box-focus');
     }

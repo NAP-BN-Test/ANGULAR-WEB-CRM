@@ -51,6 +51,11 @@ import { QuillBoxComponent } from './components/quill-box/quill-box.component';
 import { DropdownAssociateComponent } from './components/dropdown-associate/dropdown-associate.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DropdownAssociateCreateComponent } from './components/dropdown-associate-create/dropdown-associate-create.component';
+import { ActivityCommentComponent } from './components/activity-comment/activity-comment.component';
+import { ActivityCommentBoxComponent } from './components/activity-comment-box/activity-comment-box.component';
+import { DropdownAttendCreateComponent } from './components/dropdown-attend-create/dropdown-attend-create.component';
+import { CompanyRolePipe } from './pipes/company-role/company-role.pipe';
+import { ContactRolePipe } from './pipes/contact-role/contact-role.pipe';
 
 @NgModule({
   declarations: [
@@ -89,7 +94,12 @@ import { DropdownAssociateCreateComponent } from './components/dropdown-associat
     QuillBoxComponent,
     DropdownAssociateComponent,
     DialogComponent,
-    DropdownAssociateCreateComponent
+    DropdownAssociateCreateComponent,
+    ActivityCommentComponent,
+    ActivityCommentBoxComponent,
+    DropdownAttendCreateComponent,
+    CompanyRolePipe,
+    ContactRolePipe
   ],
   imports: [
     BrowserModule,

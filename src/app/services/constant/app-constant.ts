@@ -104,6 +104,16 @@ export const ACTIVITY_TYPE = {
     TASK: 5,
 }
 
+export const COMPANY_ROLE = {
+    PARENT: 1,
+    CHILD: 2,
+}
+
+export const CONTACT_ROLE = {
+    MANAGE: 1,
+    STAFF: 2,
+}
+
 export const LIST_SELECT = {
     LIST_OUTCOME: [
         { id: 1, name: "No Answer" },
@@ -112,6 +122,30 @@ export const LIST_SELECT = {
         { id: 4, name: "Left live message" },
         { id: 5, name: "Left voicemail" },
         { id: 6, name: "Connected" }
+    ],
+    LIST_DURATION: [
+        { value: 900, name: "15 minutes" },
+        { value: 1800, name: "30 minutes" },
+        { value: 3600, name: "1 hour" },
+        { value: 7200, name: "2 hours" },
+        { value: 10800, name: "3 hours" }
+    ],
+    LIST_ACTIVITY: [
+        { id: 1, name: "Call" },
+        { id: 2, name: "Email" },
+        { id: 3, name: "Meet" },
+    ],
+    LIST_GENDER: [
+        { id: 1, name: "Nam" },
+        { id: 2, name: "Nữ" }
+    ],
+    LIST_JOB_TILE: [
+        { id: 1, name: "Quản lý" },
+        { id: 2, name: "Nhân viên" }
+    ],
+    LIST_CONTACT_OWNER: [
+        { id: 1, name: "Owner 1" },
+        { id: 2, name: "Owner 2" }
     ]
 }
 

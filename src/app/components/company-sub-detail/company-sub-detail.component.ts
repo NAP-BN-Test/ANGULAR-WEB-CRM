@@ -19,6 +19,15 @@ export class CompanySubDetailComponent implements OnInit {
   listCompany = [];
   listDeal = [];
 
+  contactDetail = "keyboard_arrow_right";
+  showContact = false;
+
+  companyDetail = "keyboard_arrow_right";
+  showCompany = false;
+
+  dealDetail = "keyboard_arrow_right";
+  showDeal = false;
+
   constructor(
     public mService: AppModuleService,
   ) {
@@ -60,6 +69,66 @@ export class CompanySubDetailComponent implements OnInit {
 
   onClickAddSubDetail(index: number) {
     this.addSubDetail.emit(index);
+  }
+
+  onClickContact() {
+    let task = document.getElementById('contact-detail');
+
+
+    if (this.showContact) {
+      this.contactDetail = "keyboard_arrow_right";
+
+      task.classList.remove('detail-show');
+      task.classList.add('detail-hide');
+    }
+    else {
+      this.contactDetail = "keyboard_arrow_down";
+
+      task.classList.remove('detail-hide');
+      task.classList.add('detail-show');
+    }
+
+    this.showContact = !this.showContact;
+  }
+
+  onClickCompany() {
+    let task = document.getElementById('company-detail');
+
+
+    if (this.showCompany) {
+      this.companyDetail = "keyboard_arrow_right";
+
+      task.classList.remove('detail-show');
+      task.classList.add('detail-hide');
+    }
+    else {
+      this.companyDetail = "keyboard_arrow_down";
+
+      task.classList.remove('detail-hide');
+      task.classList.add('detail-show');
+    }
+
+    this.showCompany = !this.showCompany;
+  }
+
+  onClickDeal() {
+    let task = document.getElementById('deal-detail');
+
+
+    if (this.showDeal) {
+      this.dealDetail = "keyboard_arrow_right";
+
+      task.classList.remove('detail-show');
+      task.classList.add('detail-hide');
+    }
+    else {
+      this.dealDetail = "keyboard_arrow_down";
+
+      task.classList.remove('detail-hide');
+      task.classList.add('detail-show');
+    }
+
+    this.showDeal = !this.showDeal;
   }
 
 }

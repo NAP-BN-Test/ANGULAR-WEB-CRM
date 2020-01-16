@@ -30,31 +30,24 @@
             <div padding-start center-line>
                 <div class="col-3" font6>{{mData.name}}</div>
                 <div class="col-9">
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" [(ngModel)]="name">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.gender}}</div>
                 <div class="col-9">
-                    <div ngbDropdown>
-                        <button class="btn btn-outline-primary color-primary between width-100"
-                            ngbDropdownToggle>{{gender}}</button>
-                        <div ngbDropdownMenu width-100>
-                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
-                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
-                        </div>
-                    </div>
+                    <select class="custom-select" width-100 [(ngModel)]="gender">
+                        <option *ngFor="let item of listGender" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.job_tile}}</div>
                 <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="pageSize">
-                        <option [ngValue]="2">2 items per page</option>
-                        <option [ngValue]="4">4 items per page</option>
-                        <option [ngValue]="6">6 items per page</option>
+                    <select class="custom-select" width-100 [(ngModel)]="jobTile">
+                        <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
                     </select>
                 </div>
             </div>
@@ -62,42 +55,37 @@
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.hand_phone}}</div>
                 <div class="col-9">
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" [(ngModel)]="handPhone">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.home_phone}}</div>
                 <div class="col-9">
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" [(ngModel)]="homePhone">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.email}}</div>
                 <div class="col-9">
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" [(ngModel)]="email">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.address}}</div>
                 <div class="col-9">
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" [(ngModel)]="address">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.contact_owner}}</div>
                 <div class="col-9">
-                    <div ngbDropdown>
-                        <button class="btn btn-outline-primary color-primary between width-100"
-                            ngbDropdownToggle>{{gender}}</button>
-                        <div ngbDropdownMenu width-100>
-                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
-                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
-                        </div>
-                    </div>
+                    <select class="custom-select" width-100 [(ngModel)]="contactOwner">
+                        <option *ngFor="let item of listContactOwner" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
                 </div>
             </div>
         </div>

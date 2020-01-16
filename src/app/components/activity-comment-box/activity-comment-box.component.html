@@ -1,0 +1,23 @@
+<div *ngIf="mData">
+    <div padding-top flex tappable (click)="onClickCmtDetail()" *ngIf="mObj.listComment.length>0">
+        <mat-icon>{{cmtDetail}}</mat-icon>
+        <div font6 center-line>{{mData.comment}} ({{mObj.listComment.length}})</div>
+    </div>
+
+    <div class="row" padding-horizontal [hidden]="!showCmt">
+        <div width-100 *ngFor="let item of mObj.listComment; let i = index">
+            <app-activity-comment [mObj]="item" (onEditCmtChange)="onEditCmtChange($event, item)"
+                (onDeleteCmtChange)="onDeleteCmtChange(item, i)"></app-activity-comment>
+        </div>
+    </div>
+
+    <div>
+        <div [hidden]="showQuillCmt" flex padding-top font6 color-gray tappable (click)="onClickCmt()">
+            <mat-icon>{{mData.icon_chat}}</mat-icon>
+            <div padding8-start>{{mData.add_comment}}</div>
+        </div>
+        <div [hidden]="!showQuillCmt">
+            <app-quill-box (onClickEdit)="onQuillCommentChange($event)"></app-quill-box>
+        </div>
+    </div>
+</div>

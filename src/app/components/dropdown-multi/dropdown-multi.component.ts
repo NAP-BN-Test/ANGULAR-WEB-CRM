@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AppModuleService } from 'src/app/services/app-module.service';
+import { STATUS, ACTIVITY_TYPE } from 'src/app/services/constant/app-constant';
 
 @Component({
   selector: 'app-dropdown-multi',
@@ -10,7 +12,10 @@ export class DropdownMultiComponent implements OnInit {
   @Input('listUser') listUser = [];
   @Input('listAttend') listAttend = [];
 
-  @Output('selectDone') selectDone = new EventEmitter();
+  @Input('activityType') activityType = -1;
+  @Input('activityID') activityID = -1;
+
+  @Output('dropdownChange') dropdownChange = new EventEmitter();
 
   dropdownList = [];
 
@@ -18,9 +23,12 @@ export class DropdownMultiComponent implements OnInit {
 
   attend = 0;
 
-  constructor() { }
+  constructor(
+    public mService: AppModuleService
+  ) { }
 
   ngOnInit() {
+
     setTimeout(() => {
       this.listUser.forEach(item => {
         let index = this.listAttend.findIndex(idx => {
@@ -47,12 +55,11 @@ export class DropdownMultiComponent implements OnInit {
       })
 
       window.addEventListener('click', (e: any) => {
-        if (!document.getElementById('clickbox').contains(e.target)) {
+
+        if (!document.getElementById('clickbox' + this.activityType + "" + this.activityID).contains(e.target)) {
           this.dropdown = true;
           let a = document.getElementById('m-box');
           a.classList.remove('m-box-focus');
-
-          // this.selectDone.emit(this.dropdownList);
         }
 
         this.attend = 0;
@@ -65,8 +72,23 @@ export class DropdownMultiComponent implements OnInit {
     }, 200);
   }
 
-  onClickItem(index) {
+  onClickItem(index, item) {
     this.dropdownList[index].checked = !this.dropdownList[index].checked
+    
+    if (this.activityType == ACTIVITY_TYPE.MEET) {
+      this.mService.getApiService().sendRequestUPDATE_MEET_ATTEND(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        item.id,
+        this.activityID,
+        item.checked ? 1 : 0
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
+          this.dropdownChange.emit(data.message);
+        }
+      })
+    }
   }
 
   onClickDropdown() {
@@ -76,8 +98,6 @@ export class DropdownMultiComponent implements OnInit {
     }
     else {
       a.classList.remove('m-box-focus');
-
-      this.selectDone.emit(this.dropdownList);
     }
 
     this.attend = 0;

@@ -36,6 +36,20 @@ export class ApiCmd {
 
     public static ADD_COMMENT : string = "crm/add_comment";
 
+    public static EDIT_COMMENT : string = "crm/edit_comment";
+
+    public static DELETE_COMMENT : string = "crm/delete_comment";
+
+    public static CREATE_EMAIL : string = "crm/create_email";
+
+    public static UPDATE_MEET_ATTEND : string = "crm/update_meet_attend";
+
+    public static CREATE_MEET : string = "crm/create_meet";
+
+    public static CREATE_TASK : string = "crm/create_task";
+
+    public static ADD_CONTACT : string = "crm/add_contact";
+
 
 
 }

@@ -18,8 +18,13 @@
         </div>
 
         <div flex padding-top>
-            <mat-icon color-gray>{{mData.task.icon}}</mat-icon>
-            <div color-primary padding8-start bold>{{mObj.description}}</div>
+            <div center-line>
+                <mat-icon color-gray>{{mData.task.icon}}</mat-icon>
+            </div>
+            <div color-primary padding8-start bold width-100>
+                <input class="form-control border-0" type="text" [value]="mObj.taskName"
+                    (change)="onInputTaskNameChange($event)">
+            </div>
         </div>
 
         <div class="row" padding-top>
@@ -36,15 +41,25 @@
                 <div font7>{{mData.task.due_date}}</div>
                 <div font6 color-primary>
                     <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeCreate"></app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeCreate | datetimeTimeDefault" padding-start>
+                        <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickTimeStart($event,1)">
+                        </app-datetime-pick-date>
+                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start
+                            (pickTime)="pickTimeStart($event,2)">
                         </app-datetime-pick-time>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- <div padding-top>{{mData.task.add_description}}</div> -->
+        <div padding-top>
+            <div [hidden]="showQuill" class="m-description" padding8 [innerHTML]="mObj.description"
+                (click)="onClickEdit()"></div>
+
+            <div [hidden]="!showQuill">
+                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
+                </app-quill-box>
+            </div>
+        </div>
 
         <div padding-top flex tappable (click)="onClickTaskDetail()">
             <mat-icon>{{taskDetail}}</mat-icon>
@@ -68,8 +83,10 @@
             <div class="col-7">
                 <div font7>{{mData.task.remind}}</div>
                 <div font6 color-primary flex>
-                    <app-datetime-pick-date [mDate]="mObj.timeRemind"></app-datetime-pick-date>
-                    <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start>
+                    <app-datetime-pick-date [mDate]="mObj.timeAssign" (pickDate)="pickTimeAssign($event,1)">
+                    </app-datetime-pick-date>
+                    <app-datetime-pick-time [mTime]="mObj.timeAssign | datetimeTimeDefault" padding-start
+                        (pickTime)="pickTimeAssign($event,2)">
                     </app-datetime-pick-time>
                 </div>
             </div>
@@ -97,7 +114,7 @@
                 (click)="onClickEdit()"></div>
 
             <div [hidden]="!showQuill">
-                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event, 1)">
+                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
                 </app-quill-box>
             </div>
         </div>
@@ -137,38 +154,8 @@
             </div>
         </div>
 
-        <div padding-top flex tappable (click)="onClickCmtDetail()" *ngIf="mObj.listComment.length>0">
-            <mat-icon>{{cmtDetail}}</mat-icon>
-            <div font6 center-line>{{mData.comment}} ({{mObj.listComment.length}})</div>
-        </div>
+        <app-activity-comment-box [mObj]="mObj"></app-activity-comment-box>
 
-        <div id="cmt-detail" class="row" padding-horizontal [hidden]="!showCmt">
-            <div width-100 *ngFor="let item of mObj.listComment" relative>
-                <div padding8-top>
-                    <div class="m-cmt" box-border padding8>
-                        <div between>
-                            <div bold font6>{{item.userName}}</div>
-                            <div font7>{{item.timeCreate | datetimeFull}}</div>
-                        </div>
-                        <div font6>{{item.content}}</div>
-                    </div>
-                </div>
-
-                <div class="cmt-btn">
-                    <button type="button">ngu</button>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div [hidden]="showQuillCmt" flex padding-top font6 color-gray tappable (click)="onClickCmt()">
-                <mat-icon>{{mData.icon_chat}}</mat-icon>
-                <div padding8-start>{{mData.add_comment}}</div>
-            </div>
-            <div [hidden]="!showQuillCmt">
-                <app-quill-box (onClickEdit)="onQuillCommentChange($event)"></app-quill-box>
-            </div>
-        </div>
     </div>
 
     <!-- email -->
@@ -187,7 +174,15 @@
             </div>
         </div>
 
-        <div flex padding-top>{{mObj.description}}</div>
+        <div padding-top>
+            <div [hidden]="showQuill" class="m-description" padding8 [innerHTML]="mObj.description"
+                (click)="onClickEdit()"></div>
+
+            <div [hidden]="!showQuill">
+                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
+                </app-quill-box>
+            </div>
+        </div>
 
         <div class="row" padding-top>
             <div class="col-6" flex>
@@ -224,10 +219,8 @@
             </div>
         </div>
 
-        <div flex padding-top font6 color-gray>
-            <mat-icon>{{mData.icon_chat}}</mat-icon>
-            <div padding8-start>{{mData.add_comment}}</div>
-        </div>
+        <app-activity-comment-box [mObj]="mObj"></app-activity-comment-box>
+
     </div>
 
     <!-- note -->
@@ -252,15 +245,13 @@
                 (click)="onClickEdit()"></div>
 
             <div [hidden]="!showQuill">
-                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event, 4)">
+                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
                 </app-quill-box>
             </div>
         </div>
 
-        <div flex padding-top font6 color-gray>
-            <mat-icon>{{mData.icon_chat}}</mat-icon>
-            <div padding8-start>{{mData.add_comment}}</div>
-        </div>
+        <app-activity-comment-box [mObj]="mObj"></app-activity-comment-box>
+
     </div>
 
     <!-- meet -->
@@ -279,15 +270,24 @@
             </div>
         </div>
 
-        <div flex padding-top>{{mObj.description}}</div>
+        <div padding-top>
+            <div [hidden]="showQuill" class="m-description" padding8 [innerHTML]="mObj.description"
+                (click)="onClickEdit()"></div>
+
+            <div [hidden]="!showQuill">
+                <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
+                </app-quill-box>
+            </div>
+        </div>
 
         <div class="row" padding-top>
             <div class="col-6" flex>
                 <div width-50>
                     <div font7>{{mData.meet.attend}}</div>
                     <div font6 flex color-primary>
-                        <app-dropdown-multi width-100 [listUser]="listContact" [listAttend]="listAttend"
-                            (selectDone)="onSelectDone($event)"></app-dropdown-multi>
+                        <app-dropdown-multi width-100 [listUser]="listUser" [listAttend]="listAttend"
+                            [activityType]="mObj.activityType" [activityID]="mObj.id"
+                            (dropdownChange)="dropdownChange($event)"></app-dropdown-multi>
 
                     </div>
                 </div>
@@ -305,9 +305,9 @@
                 <div font7>{{mData.meet.start_time}}</div>
                 <div font6 color-primary>
                     <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeRemind" (pickDate)="pickDate($event,1)">
+                        <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickDate($event,1)">
                         </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start
+                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start
                             (pickTime)="pickDate($event,2)">
                         </app-datetime-pick-time>
                     </div>
@@ -315,10 +315,8 @@
             </div>
         </div>
 
-        <div flex padding-top font6 color-gray>
-            <mat-icon>{{mData.icon_chat}}</mat-icon>
-            <div padding8-start>{{mData.add_comment}}</div>
-        </div>
+        <app-activity-comment-box [mObj]="mObj"></app-activity-comment-box>
+
     </div>
 
 </div>

@@ -1,4 +1,4 @@
-<div width-100 id="clickbox">
+<div width-100 relative [id]="'clickbox' + activityType + activityID">
     <div id="m-box" class=" between m-box" (click)="onClickDropdown()">
         <div>{{attend}} attendees</div>
         <div center-line>
@@ -10,9 +10,9 @@
         <div padding8 border-bottom>
             <input border0 placeholder="Search">
         </div>
-        <div flex padding8 *ngFor="let item of dropdownList; let i = index" tappable>
+        <div flex padding8 *ngFor="let item of dropdownList; let i = index" tappable (click)="onClickItem(i, item)">
             <input type="checkbox" [checked]="item.checked">
-            <div padding8-start (click)="onClickItem(i)">{{item.name}}</div>
+            <div padding8-start>{{item.name}}</div>
         </div>
     </div>
 </div>

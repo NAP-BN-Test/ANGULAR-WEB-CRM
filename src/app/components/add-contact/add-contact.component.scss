@@ -31,13 +31,7 @@
     border-top: 1px solid #cccccc;
 }
 
-.btn-outline-primary {
-    color: var(--color-primary) !important;
-    border-color: var(--color-primary) !important;
-    background-color: #F5F5F5 !important;
+.btn-border-color {
+    border-color: #ced4da;
 }
 
-.form-control {
-    background-color: #F5F5F5 !important;
-    border-color: var(--color-primary) !important;
-}

@@ -11,7 +11,8 @@
             <div padding>
                 <div font7>{{mData.mission_name}}</div>
                 <div font6 color-primary>
-                    
+                    <input class="form-control" type="text" [placeholder]="mData.placeholder_fill"
+                        [(ngModel)]="taskName">
                 </div>
             </div>
         </div>
@@ -19,22 +20,17 @@
             <div padding>
                 <div font7>{{mData.due_date}}</div>
                 <div font6 color-primary flex>
-                    <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
-                    <mat-icon>{{mData.icon_date}}</mat-icon>
-                    <div center-line padding8-horizontal>{{'08 : 30'}}</div>
-                    <mat-icon>{{mData.icon_time}}</mat-icon>
+                    <app-datetime-pick-date (pickDate)="pickTimeStart($event,1)">
+                    </app-datetime-pick-date>
+                    <app-datetime-pick-time padding-start (pickTime)="pickTimeStart($event,2)">
+                    </app-datetime-pick-time>
                 </div>
             </div>
         </div>
     </div>
 
     <div relative style="height: 200px; margin-bottom: 42px;">
-        <quill-editor [modules]="mConfig"></quill-editor>
-
-        <div font6 center-line color-primary class="associate">
-            <div padding8-end>{{mData.associate}} 4 {{mData.record}}</div>
-            <mat-icon>arrow_drop_down</mat-icon>
-        </div>
+        <quill-editor [modules]="mConfig" [(ngModel)]="description"></quill-editor>
     </div>
 
     <div flex box-border>
@@ -42,8 +38,9 @@
             <div padding>
                 <div font7>{{mData.assign_to}}</div>
                 <div font6 color-primary flex>
-                    <div>Namldv</div>
-                    <mat-icon>arrow_drop_down</mat-icon>
+                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="assignID">
+                        <option *ngFor="let item of listUser" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -51,8 +48,9 @@
             <div padding-vertical>
                 <div font7>{{mData.type}}</div>
                 <div font6 color-primary flex>
-                    <div>To do</div>
-                    <mat-icon>arrow_drop_down</mat-icon>
+                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="taskType">
+                        <option *ngFor="let item of listTaskType" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -60,10 +58,10 @@
             <div padding>
                 <div font7>{{mData.remind}}</div>
                 <div font6 color-primary flex>
-                    <div center-line padding8-end>{{'26 / 12 / 2019'}}</div>
-                    <mat-icon>{{mData.icon_date}}</mat-icon>
-                    <div center-line padding8-horizontal>{{'08 : 30'}}</div>
-                    <mat-icon>{{mData.icon_time}}</mat-icon>
+                    <app-datetime-pick-date (pickDate)="pickTimeAssign($event,1)">
+                    </app-datetime-pick-date>
+                    <app-datetime-pick-time padding-start (pickTime)="pickTimeAssign($event,2)">
+                    </app-datetime-pick-time>
                 </div>
             </div>
         </div>
@@ -71,15 +69,14 @@
 
     <div padding8 center-line box-border>
         <div>
-            <button class="button m-btn">{{mData.save}}</button>
+            <button class="button m-btn" (click)="onClickSave()">{{mData.save}}</button>
         </div>
-        <div padding-start>
-            <input type="checkbox">
+        <div padding-start center-line>
+            <input type="checkbox" (change)="onInputChange($event)">
         </div>
         <div padding8-start>{{mData.follow_up}}</div>
-        <div flex padding8-start color-primary>
-            <div>3 daies</div>
-            <mat-icon padding8-start>arrow_drop_down</mat-icon>
+        <div flex padding8-start color-primary [hidden]="!showTimePicker">
+            <app-datetime-pick-date (pickDate)="pickTimeRemind($event)"></app-datetime-pick-date>
         </div>
     </div>
 </div>

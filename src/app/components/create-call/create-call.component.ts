@@ -25,7 +25,7 @@ export class CreateCallComponent implements OnInit {
   outcomeType = -1;
   datetime = moment.utc().format("YYYY-MM-DD HH:mm");
   quillValue: any;
-  dateRemind: string;
+  dateRemind = moment.utc().format("YYYY-MM-DD");
 
 
   mConfig = {
@@ -80,7 +80,7 @@ export class CreateCallComponent implements OnInit {
       this.contactID,
       this.outcomeType,
       this.datetime,
-      this.dateRemind,
+      this.showTimePicker ? this.dateRemind : null,
       this.quillValue,
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {

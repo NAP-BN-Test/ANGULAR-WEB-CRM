@@ -1,0 +1,27 @@
+<div class="m-cmt-box" relative *ngIf="mData">
+    <div padding8-top>
+        <div class="m-cmt" box-border padding8 [hidden]="showQuillEditCmt">
+            <div between>
+                <div bold font6>{{mObj.userName}}</div>
+                <div font7>{{mObj.timeCreate | datetimeFull}}</div>
+            </div>
+            <div font6 [innerHTML]="mObj.content"></div>
+        </div>
+
+        <div [hidden]="!showQuillEditCmt">
+            <app-quill-box [quillValue]="mObj.content" (onClickEdit)="onQuillCmtChange($event)">
+            </app-quill-box>
+        </div>
+    </div>
+
+    <div class="cmt-btn">
+        <div flex>
+            <div>
+                <button class="cmt-btn-btn btn btn-sm" type="button" (click)="onClickEditCmt()">{{mData.edit}}</button>
+            </div>
+            <div padding8-start>
+                <button class="cmt-btn-btn btn btn-sm" type="button" (click)="onClickDeleteCmt()">{{mData.delete}}</button>
+            </div>
+        </div>
+    </div>
+</div>

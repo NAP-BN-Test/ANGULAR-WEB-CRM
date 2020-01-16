@@ -141,7 +141,9 @@ export class ApiService extends HttpClient {
         listAttendID?: string,
         description?: string,
         assignID?: number,
-        taskType?: number
+        taskType?: number,
+        taskName?: string,
+        timeAssign?: string
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_ACTIVITY,
             ParamBuilder.builder()
@@ -157,7 +159,9 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("listAttendID", listAttendID)
                 .addIgnoreNull("description", description)
                 .addIgnoreNull("assignID", assignID)
-                .addIgnoreNull("taskType", taskType));
+                .addIgnoreNull("taskType", taskType)
+                .addIgnoreNull("taskName", taskName)
+                .addIgnoreNull("timeAssign", timeAssign));
     }
 
     //11
@@ -240,7 +244,7 @@ export class ApiService extends HttpClient {
                 .add("contactID", contactID)
                 .add("outcomeType", outcomeType)
                 .add("timeStart", timeStart)
-                .add("timeRemind", timeRemind)
+                .addIgnoreNull("timeRemind", timeRemind)
                 .add("description", description));
     }
 
@@ -256,5 +260,114 @@ export class ApiService extends HttpClient {
                 .add("content", content)
                 .add("activityID", activity.id)
                 .add("activityType", activity.activityType));
+    }
+
+    //19
+    public sendRequestEDIT_COMMENT(ip: string, dbName: string, username: string, userID: number, activity: any, cmtID: number, content: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.EDIT_COMMENT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("cmtID", cmtID)
+                .add("content", content)
+                .add("activityType", activity.activityType));
+    }
+
+    //20
+    public sendRequestDELETE_COMMENT(ip: string, dbName: string, username: string, userID: number, activity: any, cmtID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_COMMENT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("cmtID", cmtID)
+                .add("activityType", activity.activityType));
+    }
+
+    //21
+    public sendRequestCREATE_EMAIL(ip: string, dbName: string, username: string, userID: number,
+        companyID: string, contactID: number, outcomeType: number, timeStart: string, timeRemind: string, description: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.CREATE_EMAIL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("contactID", contactID)
+                .add("outcomeType", outcomeType)
+                .add("timeStart", timeStart)
+                .addIgnoreNull("timeRemind", timeRemind)
+                .add("description", description));
+    }
+
+    //22
+    public sendRequestUPDATE_MEET_ATTEND(ip: string, dbName: string, username: string, userID: number, meetID: number, state: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_MEET_ATTEND,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("meetID", meetID)
+                .add("state", state));
+    }
+
+    //23
+    public sendRequestCREATE_MEET(ip: string, dbName: string, username: string, userID: number,
+        companyID: string, listAttendID: any, duration: number, timeStart: string, timeRemind: string, description: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.CREATE_MEET,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("listAttendID", JSON.stringify(listAttendID))
+                .add("duration", duration)
+                .add("timeStart", timeStart)
+                .addIgnoreNull("timeRemind", timeRemind)
+                .add("description", description));
+    }
+
+    //24
+    public sendRequestCREATE_TASK(ip: string, dbName: string, username: string, userID: number,
+        companyID: string, assignID: number, taskType: number, taskName: string, timeStart: string, timeAssign: string, timeRemind: string, description: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.CREATE_TASK,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("assignID", assignID)
+                .add("taskType", taskType)
+                .add("taskName", taskName)
+                .add("timeStart", timeStart)
+                .add("timeAssign", timeAssign)
+                .addIgnoreNull("timeRemind", timeRemind)
+                .add("description", description));
+    }
+
+    //25
+    public sendRequestADD_CONTACT(ip: string, dbName: string, username: string, userID: number, companyID: string, contact: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("name", contact.name)
+                .add("gender", contact.gender)
+                .add("jobTile", contact.jobTile)
+                .add("handPhone", contact.handPhone)
+                .add("homePhone", contact.homePhone)
+                .add("email", contact.email)
+                .add("address", contact.address)
+                .add("contactOwner", contact.contactOwner));
     }
 }

@@ -1,45 +1,51 @@
 <div *ngIf="mData" padding>
     <div border-bottom padding-bottom>
         <div padding-vertical between>
-            <div flex bold>
-                <mat-icon>keyboard_arrow_down</mat-icon>
+            <div flex bold tappable (click)="onClickContact()">
+                <mat-icon>{{contactDetail}}</mat-icon>
                 <div>{{mData.contact}}({{listContact.length}})</div>
             </div>
             <div color-primary (click)="onClickAddSubDetail(1)" tappable>{{mData.add_contact}}</div>
         </div>
 
-        <div padding-top *ngFor="let item of listContact">
-            <app-company-sub-detail-contact [mID]="mID" [mObj]="item">
-            </app-company-sub-detail-contact>
+        <div id="contact-detail" [hidden]="!showContact">
+            <div padding-top *ngFor="let item of listContact">
+                <app-company-sub-detail-contact [mID]="mID" [mObj]="item">
+                </app-company-sub-detail-contact>
+            </div>
         </div>
     </div>
 
     <div border-bottom padding-bottom>
         <div padding-vertical between>
-            <div flex bold>
+            <div flex bold tappable (click)="onClickCompany()">
                 <mat-icon>keyboard_arrow_down</mat-icon>
                 <div>{{mData.company}}({{listCompany.length}})</div>
             </div>
             <div color-primary (click)="onClickAddSubDetail(2)" tappable>{{mData.add_company}}</div>
         </div>
 
-        <div padding-top *ngFor="let item of listCompany">
-            <app-company-sub-detail-company [mID]="mID" [mObj]="item"></app-company-sub-detail-company>
+        <div id="company-detail" [hidden]="!showCompany">
+            <div padding-top *ngFor="let item of listCompany">
+                <app-company-sub-detail-company [mID]="mID" [mObj]="item"></app-company-sub-detail-company>
+            </div>
         </div>
 
     </div>
 
     <div padding-bottom>
         <div padding-vertical between>
-            <div flex bold>
+            <div flex bold tappable (click)="onClickDeal()">
                 <mat-icon>keyboard_arrow_down</mat-icon>
                 <div>{{mData.deal}}({{listDeal.length}})</div>
             </div>
             <div color-primary (click)="onClickAddSubDetail(3)" tappable>{{mData.add_deal}}</div>
         </div>
 
-        <div padding-top *ngFor="let item of listDeal">
-            <app-company-sub-detail-deal [mID]="mID" [mObj]="item"></app-company-sub-detail-deal>
+        <div id="deal-detail" [hidden]="!showDeal">
+            <div padding-top *ngFor="let item of listDeal">
+                <app-company-sub-detail-deal [mID]="mID" [mObj]="item"></app-company-sub-detail-deal>
+            </div>
         </div>
 
     </div>

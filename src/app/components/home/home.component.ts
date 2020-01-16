@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'
 import { ACTIVITY_TYPE, STATUS } from 'src/app/services/constant/app-constant';
 import { CompanyDetailComponent } from '../company-detail/company-detail.component';
+import { CompanySubDetailComponent } from '../company-sub-detail/company-sub-detail.component';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { CompanyDetailComponent } from '../company-detail/company-detail.compone
 })
 export class HomeComponent implements OnInit {
   @ViewChild(CompanyDetailComponent, { static: false }) companyDetailComponent: CompanyDetailComponent;
+  @ViewChild(CompanySubDetailComponent, { static: false }) companySubDetailComponent: CompanySubDetailComponent;
 
   mData: any;
 
@@ -80,11 +82,7 @@ export class HomeComponent implements OnInit {
   onClickCloseCreateAction(event) {
     this.createTabIndex = 0;
     if (event) {
-      if (event.activityType == ACTIVITY_TYPE.NOTE) {
-        this.companyDetailComponent.listActivity.unshift(event)
-      }
       this.companyDetailComponent.listActivity.unshift(event)
-
     }
   }
 
@@ -92,7 +90,16 @@ export class HomeComponent implements OnInit {
     this.addSubDetail = event;
   }
 
-  onClickCloseSubDetail() {
+  onClickCloseSubDetail(event, type) {
+    if (event) {
+      if (type == 1) {
+        this.companySubDetailComponent.listContact.unshift(event)
+      }
+      else {
+        
+      }
+    }
+
     this.addSubDetail = 0;
   }
 

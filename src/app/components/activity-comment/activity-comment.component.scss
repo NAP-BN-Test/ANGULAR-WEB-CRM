@@ -1,0 +1,20 @@
+.m-cmt {
+    background-color: #FFFCF3;
+}
+
+.cmt-btn {
+    position: absolute;
+    top: -16px;
+    right: 0;
+    display: none;
+}
+
+.cmt-btn-btn {
+    background-color: #F0E9F4;
+    border: .5px solid #702C90;
+    padding: 0px 10px;
+}
+
+.m-cmt-box:hover .cmt-btn {
+    display: inline-block;
+}

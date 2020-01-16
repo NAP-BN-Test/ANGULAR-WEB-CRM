@@ -2,7 +2,9 @@
     "VI": {
         "btn": {
             "save": "Save",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "edit": "Edit",
+            "delete": "Delete"
         },
         "login": {
             "logo": "../../assets/img/logo.png",
@@ -181,6 +183,7 @@
             "follow_up": "Create a task to follow up",
             "task_tag": "Task",
             "mission_name": "Tên nhiệm vụ",
+            "placeholder_fill": "Nhập mới",
             "due_date": "Due date",
             "add_call": "Thêm mới call",
             "assign_to": "Assigned to",
