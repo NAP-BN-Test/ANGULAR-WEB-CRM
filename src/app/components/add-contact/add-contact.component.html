@@ -22,7 +22,21 @@
 
         <div [hidden]="!btnAddExist">
             <div padding>
-                <input type="search" [placeholder]="mData.placeholder" class="form-control" />
+                <input type="search" [placeholder]="mData.placeholder" class="form-control"
+                    (change)="onSeachContact($event)" />
+            </div>
+
+            <div padding-horizontal>
+                <div padding-top *ngFor="let item of listContact">
+                    <div padding8 class="m-contact">
+                        <div bold>{{item.name}}</div>
+                        <div>{{item.handPhone}}</div>
+                        <div>
+                            <button class="btn-add btn-sm" type="button"
+                                (click)="onClickAddContact(item)">{{mData.add_contact}}</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -80,14 +94,6 @@
                 </div>
             </div>
 
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.contact_owner}}</div>
-                <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="contactOwner">
-                        <option *ngFor="let item of listContactOwner" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
-                </div>
-            </div>
         </div>
     </div>
 

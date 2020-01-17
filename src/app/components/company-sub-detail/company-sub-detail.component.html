@@ -19,7 +19,7 @@
     <div border-bottom padding-bottom>
         <div padding-vertical between>
             <div flex bold tappable (click)="onClickCompany()">
-                <mat-icon>keyboard_arrow_down</mat-icon>
+                <mat-icon>{{companyDetail}}</mat-icon>
                 <div>{{mData.company}}({{listCompany.length}})</div>
             </div>
             <div color-primary (click)="onClickAddSubDetail(2)" tappable>{{mData.add_company}}</div>
@@ -36,7 +36,7 @@
     <div padding-bottom>
         <div padding-vertical between>
             <div flex bold tappable (click)="onClickDeal()">
-                <mat-icon>keyboard_arrow_down</mat-icon>
+                <mat-icon>{{dealDetail}}</mat-icon>
                 <div>{{mData.deal}}({{listDeal.length}})</div>
             </div>
             <div color-primary (click)="onClickAddSubDetail(3)" tappable>{{mData.add_deal}}</div>

@@ -50,6 +50,9 @@ export class ApiCmd {
 
     public static ADD_CONTACT : string = "crm/add_contact";
 
+    public static ADD_CONTACT_BY_ID : string = "crm/add_contact_by_id";
+
+    public static SEARCH_CONTACT : string = "crm/search_contact";
 
 
 }

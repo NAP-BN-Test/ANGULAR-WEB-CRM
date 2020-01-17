@@ -281,6 +281,11 @@
             "create_new": "Create new",
             "add_filter": "+ Add fiter",
             "selected": "selected",
+            "all_contact": "All contacts ",
+            "my_contact": "My contacts ",
+            "unassign_contact": "Unassigned contacts ",
+            "all_company": "All company ",
+            "unassign_company": "Unassigned company ",
             "contact": {
                 "list_select": [
                     {
@@ -294,32 +299,6 @@
                     {
                         "name": "Delete",
                         "index": 3
-                    }
-                ],
-                "list": [
-                    {
-                        "name": "All contacts ",
-                        "index": 1
-                    },
-                    {
-                        "name": "My contacts ",
-                        "index": 2
-                    },
-                    {
-                        "name": "Unassigned contacts ",
-                        "index": 3
-                    },
-                    {
-                        "name": "Leads",
-                        "index": 4
-                    },
-                    {
-                        "name": "Customers ",
-                        "index": 5
-                    },
-                    {
-                        "name": "Supplier ",
-                        "index": 6
                     }
                 ],
                 "col_table": [
@@ -362,32 +341,6 @@
                     {
                         "name": "Delete",
                         "index": 3
-                    }
-                ],
-                "list": [
-                    {
-                        "name": "All contacts ",
-                        "index": 1
-                    },
-                    {
-                        "name": "My contacts ",
-                        "index": 2
-                    },
-                    {
-                        "name": "Unassigned contacts ",
-                        "index": 3
-                    },
-                    {
-                        "name": "Leads",
-                        "index": 4
-                    },
-                    {
-                        "name": "Customers ",
-                        "index": 5
-                    },
-                    {
-                        "name": "Supplier ",
-                        "index": 6
                     }
                 ],
                 "col_table": [

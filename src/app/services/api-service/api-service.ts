@@ -76,13 +76,13 @@ export class ApiService extends HttpClient {
     }
 
     //5
-    public sendRequestGET_LIST_QUICK_COMPANY(ip: string, dbName: string, username: string, parentID: number, companyID: number): Promise<any> {
+    public sendRequestGET_LIST_QUICK_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_COMPANY,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("parentID", parentID)
+                .add("userID", userID)
                 .add("companyID", companyID));
     }
 
@@ -119,13 +119,14 @@ export class ApiService extends HttpClient {
     }
 
     //9
-    public sendRequestGET_LIST_CONTACT_FULL(ip: string, dbName: string, username: string, companyID: number): Promise<any> {
+    public sendRequestGET_LIST_CONTACT_FULL(ip: string, dbName: string, username: string, userID: number, contactType?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CONTACT_FULL,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("companyID", companyID));
+                .add("userID", userID)
+                .addIgnoreNull("contactType", contactType));
     }
 
     //10
@@ -367,7 +368,29 @@ export class ApiService extends HttpClient {
                 .add("handPhone", contact.handPhone)
                 .add("homePhone", contact.homePhone)
                 .add("email", contact.email)
-                .add("address", contact.address)
-                .add("contactOwner", contact.contactOwner));
+                .add("address", contact.address));
+    }
+
+    //26
+    public sendRequestADD_CONTACT_BY_ID(ip: string, dbName: string, username: string, userID: number, companyID: string, contactID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CONTACT_BY_ID,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("contactID", contactID));
+    }
+
+    //27
+    public sendRequestSEARCH_CONTACT(ip: string, dbName: string, username: string, userID: number, searchKey: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.SEARCH_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("searchKey", searchKey));
     }
 }

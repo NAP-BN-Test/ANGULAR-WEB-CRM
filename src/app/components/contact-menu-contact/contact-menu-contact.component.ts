@@ -3,6 +3,7 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
+import { Utils } from 'src/app/services/core/app/utils';
 
 @Component({
   selector: 'app-contact-menu-contact',
@@ -12,10 +13,12 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 export class ContactMenuContactComponent implements OnInit {
 
   listContact = [];
+  listContactSummary = [];
+  listContactCache = [];
 
   mData: any;
 
-  menuSelected = 1;
+  menuSelected = 0;
 
   checked = false;
   indeterminate = false;
@@ -37,23 +40,47 @@ export class ContactMenuContactComponent implements OnInit {
       this.mData = data.contact;
     });
 
+    this.onLoadData();
+  }
+
+  onLoadData(type?: number) {
     this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
-      this.mService.getUser().id
-      ).then(data => {
+      this.mService.getUser().id,
+      type
+    ).then(data => {
+
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
-        this.collectionSize = this.listContact.length;
+        this.listContactSummary = data.array;
+        this.listContactCache = data.array;
       }
     })
   }
 
   get listContactSort(): Array<any> {
+    this.collectionSize = this.listContact.length;
     return this.listContact
       .map((country, i) => ({ id: i + 1, ...country }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+
+  get contactInfo(): any {
+    let all = 0;
+    let mine = 0;
+    let other = 0;
+
+    this.listContactSummary.forEach(item => {
+      all += 1;
+      if (item.ownerID == this.mService.getUser().id)
+        mine += 1;
+      if (!item.companyID)
+        other += 1;
+    });
+
+    return { all, mine, other };
   }
 
 
@@ -70,6 +97,16 @@ export class ContactMenuContactComponent implements OnInit {
 
   onClickMenu(index: number) {
     this.menuSelected = index;
+    if (index == 1) {
+      this.listContact = this.listContactCache.filter(item => {
+        return item.ownerID === this.mService.getUser().id;
+      });
+    } else if (index == 2) {
+      this.listContact = this.listContactCache.filter(item => {
+        return item.companyID === null;
+      });
+    }
+
   }
 
   onCheckBoxChange(item) {
@@ -135,8 +172,15 @@ export class ContactMenuContactComponent implements OnInit {
     })
   }
 
+  onSearchChange(event) {
+    let searchKey = event.target.value;
+    this.listContact = this.listContactCache.filter(item => {
+      return Utils.bodauTiengViet(item.name).includes(Utils.bodauTiengViet(searchKey)) || item.handPhone.includes(searchKey);
+    })
+  }
+
   onClickItem(item) {
-    this.router.navigate(['home']);
+    // this.router.navigate(['home']);
   }
 
 }

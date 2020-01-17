@@ -142,10 +142,6 @@ export const LIST_SELECT = {
     LIST_JOB_TILE: [
         { id: 1, name: "Quản lý" },
         { id: 2, name: "Nhân viên" }
-    ],
-    LIST_CONTACT_OWNER: [
-        { id: 1, name: "Owner 1" },
-        { id: 2, name: "Owner 2" }
     ]
 }
 

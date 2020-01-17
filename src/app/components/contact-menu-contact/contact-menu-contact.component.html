@@ -8,7 +8,7 @@
             <div font2 bold>{{mData.contact_title}}</div>
             <div center-line bold color-primary>
                 <div padding-end>
-                    <input type="search" class="form-control" />
+                    <input type="search" class="form-control" (change)="onSearchChange($event)"/>
                 </div>
                 <div flex padding-end>
                     <div>{{mData.action}}</div>
@@ -24,12 +24,15 @@
 
             <div padding32-horizontal style="width: 300px;">
                 <div>
-                    <div padding-bottom *ngFor="let item of mData.contact.list" [class.border-bottom]="item.index==3"
-                        [class.padding-top]="item.index==4" [class.bold]="menuSelected==item.index" tappable
-                        (click)="onClickMenu(item.index)">{{item.name}}(2)</div>
+                    <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
+                        {{mData.all_contact}}({{contactInfo.all}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
+                        {{mData.my_contact}}({{contactInfo.mine}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
+                        {{mData.unassign_contact}}({{contactInfo.other}})</div>
                 </div>
-                <div padding32-top>
-                    <div bold color-primary>{{mData.contact.add_filter}}</div>
+                <div padding-top>
+                    <div bold color-primary>{{mData.add_filter}}</div>
                 </div>
             </div>
 
@@ -53,21 +56,23 @@
                                     </div>
                                 </div>
                             </th>
-                            <th [hidden]="checked||indeterminate" scope="col" *ngFor="let item of mData.contact.col_table"
-                                (click)="onSort()" tappable>
-                                {{item.name}}</th>
+                            <th [hidden]="checked||indeterminate" scope="col"
+                                *ngFor="let item of mData.contact.col_table; let i = index" (click)="onSort()" tappable
+                                [class.width-20]="i==0" [class.width-20]="i==1" [class.width-10]="i==2"
+                                [class.width-10]="i==3" [class.width-30]="i==4" [class.width-10]="i==5">{{item.name}}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of listContactSort" (click)="onClickItem(item)" tappable>
+                        <tr *ngFor="let item of listContactSort">
                             <td>
                                 <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
                                 </mat-checkbox>
                             </td>
-                            <td>{{ item.name}}</td>
+                            <td width-20 (click)="onClickItem(item)" tappable>{{ item.name}}</td>
                             <td>{{ item.email}}</td>
                             <td>{{ item.handPhone}}</td>
-                            <td>{{ item.owner}}</td>
+                            <td>{{ item.ownerName}}</td>
                             <td>{{ item.companyName }}</td>
                             <td>{{ item.timeCreate | datetimeFull }}</td>
                         </tr>

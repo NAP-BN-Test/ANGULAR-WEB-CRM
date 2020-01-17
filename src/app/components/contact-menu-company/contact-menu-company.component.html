@@ -8,7 +8,7 @@
             <div font2 bold>{{mData.company_title}}</div>
             <div center-line bold color-primary>
                 <div padding-end>
-                    <input type="search" class="form-control" />
+                    <input type="search" class="form-control" (change)="onSearchChange($event)"/>
                 </div>
                 <div flex padding-end>
                     <div>{{mData.action}}</div>
@@ -24,9 +24,10 @@
 
             <div padding32-horizontal style="width: 300px;">
                 <div>
-                    <div padding-bottom *ngFor="let item of mData.company.list" [class.border-bottom]="item.index==3"
-                        [class.padding-top]="item.index==4" [class.bold]="menuSelected==item.index" tappable
-                        (click)="onClickMenu(item.index)">{{item.name}}(2)</div>
+                    <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
+                        {{mData.all_company}}({{dataInfo.all}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
+                        {{mData.unassign_company}}({{dataInfo.other}})</div>
                 </div>
                 <div padding32-top>
                     <div bold color-primary>{{mData.company.add_filter}}</div>
@@ -54,8 +55,10 @@
                                 </div>
                             </th>
                             <th [hidden]="checked||indeterminate" scope="col"
-                                *ngFor="let item of mData.company.col_table" (click)="onSort()" tappable>
-                                {{item.name}}</th>
+                                *ngFor="let item of mData.company.col_table; let i = index" (click)="onSort()" tappable
+                                [class.width-30]="i==0" [class.width-20]="i==1" [class.width-10]="i==2"
+                                [class.width-30]="i==3" [class.width-10]="i==4">{{item.name}}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,8 +69,8 @@
                             </td>
                             <td>{{ item.name}}</td>
                             <td>{{ item.email}}</td>
-                            <td>{{ item.address}}</td>
                             <td>{{ item.phone}}</td>
+                            <td>{{ item.address}}</td>
                             <td>{{ item.country }}</td>
                         </tr>
                     </tbody>

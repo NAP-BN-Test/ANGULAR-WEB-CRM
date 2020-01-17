@@ -3,6 +3,7 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
+import { Utils } from 'src/app/services/core/app/utils';
 
 @Component({
   selector: 'app-contact-menu-company',
@@ -12,10 +13,12 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 export class ContactMenuCompanyComponent implements OnInit {
 
   listData = [];
+  listDataSummary = [];
+  listDataCache = [];
 
   mData: any;
 
-  menuSelected = 1;
+  menuSelected = 0;
 
   checked = false;
   indeterminate = false;
@@ -44,16 +47,31 @@ export class ContactMenuCompanyComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
-        this.collectionSize = this.listData.length;
+        this.listDataCache = data.array;
+        this.listDataSummary = data.array;
       }
     });
 
   }
 
   get listDataSort(): Array<any> {
+    this.collectionSize = this.listData.length;
     return this.listData
       .map((country, i) => ({ id: i + 1, ...country }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+
+  get dataInfo(): any {
+    let all = 0;
+    let other = 0;
+
+    this.listDataSummary.forEach(item => {
+      all += 1;
+      if (!item.assignID)
+        other += 1;
+    });
+
+    return { all, other };
   }
 
 
@@ -70,6 +88,11 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onClickMenu(index: number) {
     this.menuSelected = index;
+    if (index == 1) {
+      this.listData = this.listDataCache.filter(item => {
+        return item.assignID === null;
+      });
+    }
   }
 
   onCheckBoxChange(item) {
@@ -137,6 +160,13 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onClickItem(item) {
     this.router.navigate(['home'], { state: { params: item.id } });
+  }
+
+  onSearchChange(event) {
+    let searchKey = event.target.value;
+    this.listData = this.listDataCache.filter(item => {
+      return Utils.bodauTiengViet(item.name).includes(Utils.bodauTiengViet(searchKey));
+    })
   }
 
 }

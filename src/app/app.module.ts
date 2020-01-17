@@ -56,6 +56,7 @@ import { ActivityCommentBoxComponent } from './components/activity-comment-box/a
 import { DropdownAttendCreateComponent } from './components/dropdown-attend-create/dropdown-attend-create.component';
 import { CompanyRolePipe } from './pipes/company-role/company-role.pipe';
 import { ContactRolePipe } from './pipes/contact-role/contact-role.pipe';
+import { NaPipe } from './pipes/na/na.pipe';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { ContactRolePipe } from './pipes/contact-role/contact-role.pipe';
     ActivityCommentBoxComponent,
     DropdownAttendCreateComponent,
     CompanyRolePipe,
-    ContactRolePipe
+    ContactRolePipe,
+    NaPipe
   ],
   imports: [
     BrowserModule,

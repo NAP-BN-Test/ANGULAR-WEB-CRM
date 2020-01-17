@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 
 import * as md5 from 'md5';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
@@ -26,12 +25,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
-    private cookieService: CookieService
-
+    public router: Router
   ) {
-    if (this.cookieService.get('server-info')) {
-      let svInfo = JSON.parse(this.cookieService.get('server-info'));
+    if (localStorage.getItem('server-info')) {
+      let svInfo = JSON.parse(localStorage.getItem('server-info'));
 
       this.ip = svInfo.ip;
       this.dbName = svInfo.dbName;
@@ -44,6 +41,12 @@ export class LoginComponent implements OnInit {
       this.mData = data.login;
     });
 
+    if (localStorage.getItem('user-login')) {
+      let userInfo = JSON.parse(localStorage.getItem('user-login'));
+      this.username = userInfo.username;
+      this.password = userInfo.password;
+    }
+
   }
 
   onClickLogin() {
@@ -51,7 +54,13 @@ export class LoginComponent implements OnInit {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.setUser(data.obj);
 
-        this.cookieService.set('user-info', JSON.stringify(data.obj));
+        let userLogin = {
+          username: this.username,
+          password: this.password
+        }
+        localStorage.setItem('user-login', JSON.stringify(userLogin));
+
+        localStorage.setItem('user-info', JSON.stringify(data.obj));
 
         this.router.navigate(['dashboard']);
 
@@ -66,15 +75,17 @@ export class LoginComponent implements OnInit {
         ip: "",
         dbName: ""
       };
-      if (this.cookieService.get('server-info')) {
-        svInfoCookie = JSON.parse(this.cookieService.get('server-info'));
+      if (localStorage.getItem('server-info')) {
+        svInfoCookie = JSON.parse(localStorage.getItem('server-info'));
       }
       if (this.ip != svInfoCookie.ip || this.dbName != svInfoCookie.dbName) {
         let svInfo = {
           ip: this.ip,
           dbName: this.dbName
         }
-        this.cookieService.set('server-info', JSON.stringify(svInfo));
+        localStorage.setItem('server-info', JSON.stringify(svInfo));
+
+
       }
     }
     this.setting = !this.setting;

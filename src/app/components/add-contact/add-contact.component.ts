@@ -21,15 +21,14 @@ export class AddContactComponent implements OnInit {
   homePhone = "";
   email = "";
   address = "";
-  contactOwner = -1;
 
+  listContact = [];
 
   btnAddExist = true;
   btnCanClicked = true;
 
   listGender = LIST_SELECT.LIST_GENDER;
   listJobTile = LIST_SELECT.LIST_JOB_TILE;
-  listContactOwner = LIST_SELECT.LIST_CONTACT_OWNER;
 
   constructor(
     public mService: AppModuleService,
@@ -68,7 +67,6 @@ export class AddContactComponent implements OnInit {
       homePhone: this.homePhone,
       email: this.email,
       address: this.address,
-      contactOwner: this.contactOwner,
     }
 
     this.mService.getApiService().sendRequestADD_CONTACT(
@@ -78,6 +76,37 @@ export class AddContactComponent implements OnInit {
       this.mService.getUser().id,
       this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
       obj
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.closeAddSub.emit(data.obj);
+      }
+    })
+  }
+
+  onSeachContact(event) {
+    let searchKey = event.target.value;
+
+    this.mService.getApiService().sendRequestSEARCH_CONTACT(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      searchKey
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.listContact = data.array;
+      }
+    })
+  }
+
+  onClickAddContact(item) {
+    this.mService.getApiService().sendRequestADD_CONTACT_BY_ID(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+      item.id
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.closeAddSub.emit(data.obj);

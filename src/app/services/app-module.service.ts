@@ -6,9 +6,7 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 
 import * as moment from 'moment';
-import { LANGUAGE_TYPE, STATUS } from './constant/app-constant';
-import { CookieService } from 'ngx-cookie-service';
-import { ParamsKey } from './constant/paramskey';
+import { LANGUAGE_TYPE } from './constant/app-constant';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +24,7 @@ export class AppModuleService {
 
   constructor(
     public mAngularHttp: Http,
-    public router: Router,
-    private cookieService: CookieService
+    public router: Router
   ) {
     this.mApiService = new ApiService();
     this.mAppConfig = new Config();
@@ -47,8 +44,8 @@ export class AppModuleService {
   //----------------------------------------------------//
 
   public getUser(): any {
-    if (this.cookieService.get('user-info')) {
-      this.mUser = JSON.parse(this.cookieService.get('user-info'));
+    if (localStorage.getItem('user-info')) {
+      this.mUser = JSON.parse(localStorage.getItem('user-info'));
     }
     return this.mUser;
   }
@@ -66,8 +63,8 @@ export class AppModuleService {
   }
 
   public getServer(): any {
-    if (this.cookieService.get('server-info')) {
-      this.serverInfo = JSON.parse(this.cookieService.get('server-info'));
+    if (localStorage.getItem('server-info')) {
+      this.serverInfo = JSON.parse(localStorage.getItem('server-info'));
     }
     return this.serverInfo;
   }
