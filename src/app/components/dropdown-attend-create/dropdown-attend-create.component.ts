@@ -63,20 +63,22 @@ export class DropdownAttendCreateComponent implements OnInit {
         })
 
         window.addEventListener('click', (e: any) => {
-          if (!document.getElementById('drop-meet-box').contains(e.target)) {
-            this.dropdown = true;
-            let a = document.getElementById('m-drop-box');
-            a.classList.remove('m-box-focus');
+          if (document.getElementById('drop-meet-box')) {
+            if (!document.getElementById('drop-meet-box').contains(e.target)) {
+              this.dropdown = true;
+              let a = document.getElementById('m-drop-box');
+              a.classList.remove('m-box-focus');
 
-            this.onEmit();
-          }
-
-          this.associate = 0;
-          this.dropdownList.forEach(item => {
-            if (item.checked) {
-              this.associate += 1;
+              this.onEmit();
             }
-          })
+
+            this.associate = 0;
+            this.dropdownList.forEach(item => {
+              if (item.checked) {
+                this.associate += 1;
+              }
+            })
+          }
         });
       }
     });

@@ -287,6 +287,12 @@
             "all_company": "All company ",
             "unassign_company": "Unassigned company ",
             "contact": {
+                "name": "NAME",
+                "email": "EMAIL",
+                "phone": "HAND PHONE",
+                "owner": "OWNER",
+                "company": "ASSOCIATED COMPANY",
+                "time_create": "CREATE DATE",
                 "list_select": [
                     {
                         "name": "Assign",
@@ -299,36 +305,15 @@
                     {
                         "name": "Delete",
                         "index": 3
-                    }
-                ],
-                "col_table": [
-                    {
-                        "name": "NAME",
-                        "index": 1
-                    },
-                    {
-                        "name": "EMAIL",
-                        "index": 2
-                    },
-                    {
-                        "name": "HAND PHONE",
-                        "index": 3
-                    },
-                    {
-                        "name": "OWNER",
-                        "index": 4
-                    },
-                    {
-                        "name": "ASSOCIATED COMPANY",
-                        "index": 5
-                    },
-                    {
-                        "name": "CREATE DATE",
-                        "index": 8
                     }
                 ]
             },
             "company": {
+                "name": "NAME",
+                "email": "EMAIL",
+                "phone": "PHONE",
+                "address": "ADDRESS",
+                "country": "COUNTRY",
                 "list_select": [
                     {
                         "name": "Assign",
@@ -341,28 +326,6 @@
                     {
                         "name": "Delete",
                         "index": 3
-                    }
-                ],
-                "col_table": [
-                    {
-                        "name": "NAME",
-                        "index": 1
-                    },
-                    {
-                        "name": "EMAIL",
-                        "index": 2
-                    },
-                    {
-                        "name": "PHONE",
-                        "index": 3
-                    },
-                    {
-                        "name": "ADDRESS",
-                        "index": 4
-                    },
-                    {
-                        "name": "COUNTRY",
-                        "index": 5
                     }
                 ]
             }

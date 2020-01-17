@@ -4,7 +4,7 @@ import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
     mUrl: string = "http://192.168.1.129:3002/";
-    // mUrl: string = "http://163.44.192.123:8771/";
+    // mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
 
@@ -392,5 +392,22 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("searchKey", searchKey));
+    }
+
+    //28
+    public sendRequestUPDATE_COMPANY(ip: string, dbName: string, username: string, companyID: string,
+        companyName?: string, companyShortName?: string, companyAddress?: string, companyPhone?: string, companyEmail?: string, companyCountry?: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("companyID", companyID)
+                .addIgnoreNull("companyName", companyName)
+                .addIgnoreNull("companyShortName", companyShortName)
+                .addIgnoreNull("companyAddress", companyAddress)
+                .addIgnoreNull("companyPhone", companyPhone)
+                .addIgnoreNull("companyEmail", companyEmail)
+                .addIgnoreNull("companyCountry", companyCountry));
     }
 }

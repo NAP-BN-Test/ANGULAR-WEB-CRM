@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./datetime-pick-date-full.component.scss']
 })
 export class DatetimePickDateFullComponent implements OnInit {
-  @Input('mDatetime') mTime = "";
+  @Input('mDatetime') public mTime = "";
 
   constructor() { }
 

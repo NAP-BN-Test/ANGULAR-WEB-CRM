@@ -95,9 +95,6 @@ export class HomeComponent implements OnInit {
       if (type == 1) {
         this.companySubDetailComponent.listContact.unshift(event)
       }
-      else {
-        
-      }
     }
 
     this.addSubDetail = 0;

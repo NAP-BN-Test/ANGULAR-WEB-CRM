@@ -311,7 +311,12 @@
     padding: 0 !important;
 }
 
-
+[margin8-end] {
+    margin-right: 8px !important;
+}
+.margin8-end {
+    margin-right: 8px !important;
+}
 
 /*Text*/
 
@@ -348,6 +353,10 @@
 }
 .bold {
     font-weight: bold;
+}
+
+[overflow-hidden] {
+    overflow: hidden;
 }
 /*Postion*/
 

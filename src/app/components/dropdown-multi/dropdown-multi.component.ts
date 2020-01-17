@@ -55,26 +55,28 @@ export class DropdownMultiComponent implements OnInit {
       })
 
       window.addEventListener('click', (e: any) => {
+        if (document.getElementById('clickbox' + this.activityType + "" + this.activityID)) {
+          if (!document.getElementById('clickbox' + this.activityType + "" + this.activityID).contains(e.target)) {
+            this.dropdown = true;
+            let a = document.getElementById('m-box');
+            a.classList.remove('m-box-focus');
+          }
 
-        if (!document.getElementById('clickbox' + this.activityType + "" + this.activityID).contains(e.target)) {
-          this.dropdown = true;
-          let a = document.getElementById('m-box');
-          a.classList.remove('m-box-focus');
+          this.attend = 0;
+          this.dropdownList.forEach(item => {
+            if (item.checked) {
+              this.attend += 1;
+            }
+          })
         }
 
-        this.attend = 0;
-        this.dropdownList.forEach(item => {
-          if (item.checked) {
-            this.attend += 1;
-          }
-        })
       });
     }, 200);
   }
 
   onClickItem(index, item) {
     this.dropdownList[index].checked = !this.dropdownList[index].checked
-    
+
     if (this.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestUPDATE_MEET_ATTEND(
         this.mService.getServer().ip,

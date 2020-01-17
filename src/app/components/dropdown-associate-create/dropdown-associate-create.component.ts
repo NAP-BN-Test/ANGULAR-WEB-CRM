@@ -64,20 +64,22 @@ export class DropdownAssociateCreateComponent implements OnInit {
         })
 
         window.addEventListener('click', (e: any) => {
-          if (!document.getElementById('drop-clickbox').contains(e.target)) {
-            this.dropdown = true;
-            let a = document.getElementById('m-drop-box');
-            a.classList.remove('m-box-focus');
-
-            this.onEmit();
-          }
-
-          this.associate = 0;
-          this.dropdownList.forEach(item => {
-            if (item.checked) {
-              this.associate += 1;
+          if(document.getElementById('drop-clickbox')) {
+            if (!document.getElementById('drop-clickbox').contains(e.target)) {
+              this.dropdown = true;
+              let a = document.getElementById('m-drop-box');
+              a.classList.remove('m-box-focus');
+  
+              this.onEmit();
             }
-          })
+  
+            this.associate = 0;
+            this.dropdownList.forEach(item => {
+              if (item.checked) {
+                this.associate += 1;
+              }
+            })
+          }
         });
       }
     });

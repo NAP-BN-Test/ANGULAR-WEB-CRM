@@ -54,5 +54,7 @@ export class ApiCmd {
 
     public static SEARCH_CONTACT : string = "crm/search_contact";
 
+    public static UPDATE_COMPANY : string = "crm/update_company";
+
 
 }

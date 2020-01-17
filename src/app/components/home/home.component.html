@@ -52,11 +52,11 @@
         </div>
 
         <div class="box-add" [class.show-div]="addSubDetail==2">
-            <app-add-company (closeAddSub)="onClickCloseSubDetail()"></app-add-company>
+            <app-add-company (closeAddSub)="onClickCloseSubDetail($event, 2)"></app-add-company>
         </div>
 
         <div class="box-add" [class.show-div]="addSubDetail==3">
-            <app-add-deal (closeAddSub)="onClickCloseSubDetail()"></app-add-deal>
+            <app-add-deal (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
         </div>
     </div>
 </div>

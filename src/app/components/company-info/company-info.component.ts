@@ -3,6 +3,7 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-company-info',
@@ -13,6 +14,7 @@ export class CompanyInfoComponent implements OnInit {
 
   @Input('mID') mID = -1;
   @Output('createAction') createAction = new EventEmitter();
+  @Output('updateCompany') updateCompany = new EventEmitter();
 
   mConpany: any;
 
@@ -20,18 +22,11 @@ export class CompanyInfoComponent implements OnInit {
 
   mObj: any;
 
-  mDataSv = {
-    name: "Nam An Phu JSC.",
-    shortName: "NAP",
-    address: "Linh Đàm, Hà Nội",
-    phone: "0234 234 234",
-    email: "info.namanphu@gmail.com",
-    country: "Vietnam"
-  }
 
   constructor(
     public mService: AppModuleService,
-    public router: Router
+    public router: Router,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
@@ -53,6 +48,37 @@ export class CompanyInfoComponent implements OnInit {
 
   onClickItem(index: number) {
     this.createAction.emit(index);
+  }
+
+  onInputChange(event, type) {
+    let value = event.target.value;
+
+    let companyName: string;
+    let companyShortName: string;
+    let companyAddress: string;
+    let companyPhone: string;
+    let companyEmail: string;
+    let companyCountry: string;
+
+    if (type == 1) companyName = value;
+    else if (type == 2) companyShortName = value;
+    else if (type == 3) companyAddress = value;
+    else if (type == 4) companyPhone = value;
+    else if (type == 5) companyEmail = value;
+    else if (type == 6) companyCountry = value;
+
+    this.mService.getApiService().sendRequestUPDATE_COMPANY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+      companyName,
+      companyShortName,
+      companyAddress,
+      companyPhone,
+      companyEmail,
+      companyCountry
+    )
   }
 
 }

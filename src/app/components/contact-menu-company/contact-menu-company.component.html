@@ -8,7 +8,7 @@
             <div font2 bold>{{mData.company_title}}</div>
             <div center-line bold color-primary>
                 <div padding-end>
-                    <input type="search" class="form-control" (change)="onSearchChange($event)"/>
+                    <input type="search" class="form-control" (change)="onSearchChange($event)" />
                 </div>
                 <div flex padding-end>
                     <div>{{mData.action}}</div>
@@ -35,7 +35,7 @@
             </div>
 
             <div width-fill>
-                <table class="table table-striped">
+                <!-- <table class="table table-striped">
                     <thead>
                         <tr>
                             <th [class.background-secondary]="checked||indeterminate" scope="col">
@@ -74,7 +74,74 @@
                             <td>{{ item.country }}</td>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
+
+                <div>
+                    <div flex padding8-vertical [class.background-whitesmoke]="!checked"
+                        [class.background-secondary]="checked">
+                        <div style="padding: 8px 16px 0 16px;">
+                            <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate"
+                                (click)="onCheckAllChange()">
+                            </mat-checkbox>
+                        </div>
+
+                        <div flex [hidden]="!checked&&!indeterminate">
+                            <div padding-start center-line style="font-weight: normal;">{{numberOfItemSelected}}
+                                {{mData.selected}}</div>
+                            <div padding-start></div>
+                            <div *ngFor="let item of mData.company.list_select" padding-start bold center-line>
+                                {{item.name}}
+                            </div>
+                        </div>
+
+                        <div flex width-fill>
+                            <div class="width-30 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.company.name}}
+                            </div>
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.company.email}}
+                            </div>
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.company.phone}}
+                            </div>
+                            <div class="width-30 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.company.address}}
+                            </div>
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.company.country}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="padding8-vertical flex" *ngFor="let item of listDataSort;let i = index"
+                        [class.background-whitesmoke]="i%2==1">
+                        <div style="padding: 8px 16px 0 16px;">
+                            <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
+                            </mat-checkbox>
+                        </div>
+                        <div class="width-30 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
+                            tappable>
+                            {{item.name}}
+                        </div>
+                        <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.email}}
+                        </div>
+                        <div class="width-10 center-line overflow-hidden margin8-end">
+                            {{item.phone}}
+                        </div>
+                        <div class="width-30 center-line overflow-hidden margin8-end">
+                            {{item.address}}
+                        </div>
+                        <div class="width-10 center-line overflow-hidden margin8-end">
+                            {{item.country}}
+                        </div>
+                    </div>
+                </div>
 
                 <div center padding-top>
                     <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
