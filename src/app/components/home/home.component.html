@@ -40,7 +40,7 @@
                 <mat-icon>{{iconSubDetail}}</mat-icon>
             </div>
             <div [class.hide-div]="!iconSubDetailState">
-                <app-company-sub-detail [mID]="mID" (addSubDetail)="onClickAddSubDetail($event)">
+                <app-company-sub-detail [listDealStage]="listDealStage" (addSubDetail)="onClickAddSubDetail($event)">
                 </app-company-sub-detail>
             </div>
         </div>
@@ -56,7 +56,8 @@
         </div>
 
         <div class="box-add" [class.show-div]="addSubDetail==3">
-            <app-add-deal (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
+            <app-add-deal [listContact]="listContact" [listCompany]="listCompany" [listDealStage]="listDealStage"
+                (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
         </div>
     </div>
 </div>

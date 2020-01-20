@@ -4,16 +4,22 @@
     <!-- task -->
     <div class="m-activity" *ngIf="mObj.activityType==5">
         <div between>
-            <div bold color-primary flex>
+            <div bold color-primary flex padding8-top>
                 <mat-icon height-100 [svgIcon]="mData.task.icon_type"></mat-icon>
                 <div padding8-start center-line>{{mData.task.name}}</div>
             </div>
             <div flex font6>
-                <div padding-end flex>
+                <div font6 class="activity-toolbar">
+                    <app-dropdown-associate width-100 [listUser]="listUser" [listAssociate]="listAssociate"
+                        [activityType]="mObj.activityType" [activityID]="mObj.id"
+                        (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                    </app-dropdown-associate>
+                </div>
+                <div padding-end center-line>
                     <div>{{mData.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
-                <div>{{mObj.timeCreate | datetimeFull}}</div>
+                <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
             </div>
         </div>
 
@@ -96,16 +102,22 @@
     <!-- call -->
     <div class="m-activity" *ngIf="mObj.activityType==1">
         <div between>
-            <div bold color-primary flex>
+            <div bold color-primary flex padding8-top>
                 <mat-icon height-100 [svgIcon]="mData.call.icon_type"></mat-icon>
                 <div padding8-start center-line>{{mData.call.name}}</div>
             </div>
             <div flex font6>
-                <div padding-end flex>
+                <div font6 class="activity-toolbar">
+                    <app-dropdown-associate width-100 [listUser]="listUser" [listAssociate]="listAssociate"
+                        [activityType]="mObj.activityType" [activityID]="mObj.id"
+                        (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                    </app-dropdown-associate>
+                </div>
+                <div padding-end center-line>
                     <div>{{mData.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
-                <div>{{mObj.timeCreate | datetimeFull}}</div>
+                <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
             </div>
         </div>
 
@@ -161,16 +173,22 @@
     <!-- email -->
     <div class="m-activity" *ngIf="mObj.activityType==2">
         <div between>
-            <div bold color-primary flex>
+            <div bold color-primary flex padding8-vertical>
                 <mat-icon height-100 [svgIcon]="mData.email.icon_type"></mat-icon>
                 <div padding8-start center-line>{{mData.email.name}}</div>
             </div>
             <div flex font6>
-                <div padding-end flex>
+                <div font6 class="activity-toolbar">
+                    <app-dropdown-associate width-100 [listUser]="listUser" [listAssociate]="listAssociate"
+                        [activityType]="mObj.activityType" [activityID]="mObj.id"
+                        (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                    </app-dropdown-associate>
+                </div>
+                <div padding-end center-line>
                     <div>{{mData.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
-                <div>{{mObj.timeCreate | datetimeFull}}</div>
+                <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
             </div>
         </div>
 
@@ -226,14 +244,14 @@
     <!-- note -->
     <div class="m-activity" *ngIf="mObj.activityType==4">
         <div between>
-            <div bold color-primary flex>
+            <div bold color-primary flex padding8-top>
                 <mat-icon height-100 [svgIcon]="mData.note.icon_type"></mat-icon>
                 <div padding8-start center-line>{{mData.note.name}}</div>
             </div>
-            <div flex font6>
+            <div font6 class="activity-toolbar">
                 <app-dropdown-associate width-100 [listUser]="listUser" [listAssociate]="listAssociate"
                     [activityType]="mObj.activityType" [activityID]="mObj.id"
-                    (dropdownChange)="onNoteAssociateChange($event)">
+                    (dropdownChange)="onNoteAssociateChange($event)" tappable>
                 </app-dropdown-associate>
                 <div bold padding-start center-line color-red tappable (click)="onClickDeleteNote()">
                     {{mData.note.delete}}</div>
@@ -257,16 +275,22 @@
     <!-- meet -->
     <div class="m-activity" *ngIf="mObj.activityType==3">
         <div between>
-            <div bold color-primary flex>
+            <div bold color-primary flex padding8-top>
                 <mat-icon height-100 [svgIcon]="mData.meet.icon_type"></mat-icon>
                 <div padding8-start center-line>{{mData.meet.name}}</div>
             </div>
             <div flex font6>
-                <div padding-end flex>
+                <div font6 class="activity-toolbar">
+                    <app-dropdown-associate width-100 [listUser]="listUser" [listAssociate]="listAssociate"
+                        [activityType]="mObj.activityType" [activityID]="mObj.id"
+                        (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                    </app-dropdown-associate>
+                </div>
+                <div padding-end center-line>
                     <div>{{mData.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
-                <div>{{mObj.timeCreate | datetimeFull}}</div>
+                <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
             </div>
         </div>
 

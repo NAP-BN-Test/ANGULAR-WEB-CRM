@@ -44,7 +44,7 @@
 
         <div id="deal-detail" [hidden]="!showDeal">
             <div padding-top *ngFor="let item of listDeal">
-                <app-company-sub-detail-deal [mID]="mID" [mObj]="item"></app-company-sub-detail-deal>
+                <app-company-sub-detail-deal [listDealStage]="listDealStage" [mObj]="item"></app-company-sub-detail-deal>
             </div>
         </div>
 

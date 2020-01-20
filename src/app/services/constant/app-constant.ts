@@ -142,6 +142,10 @@ export const LIST_SELECT = {
     LIST_JOB_TILE: [
         { id: 1, name: "Quản lý" },
         { id: 2, name: "Nhân viên" }
+    ],
+    LIST_COMPANY_ROLE: [
+        { id: 1, name: "Parent" },
+        { id: 2, name: "Child" }
     ]
 }
 

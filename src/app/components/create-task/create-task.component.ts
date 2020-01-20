@@ -19,6 +19,8 @@ export class CreateTaskComponent implements OnInit {
 
   showTimePicker = false;
 
+  listAssociate = [];
+
   assignID = -1;
   taskType = -1;
   description = "";
@@ -93,12 +95,18 @@ export class CreateTaskComponent implements OnInit {
       this.timeAssign,
       this.showTimePicker ? this.timeRemind : null,
       this.description,
+      this.listAssociate
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.closeCreateAction.emit(data.obj)
       }
     })
 
+  }
+
+  onAssociateChange(event) {
+    if (event)
+      this.listAssociate = event;
   }
 
 }

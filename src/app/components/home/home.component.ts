@@ -23,8 +23,10 @@ export class HomeComponent implements OnInit {
 
   mID = -1;
 
+  listCompany = []; //company associate
   listContact = [];
   listUser = [];
+  listDealStage = [];
 
   colDetail = "col-md-6";
   colSubDetail = "col-md-3";
@@ -52,6 +54,18 @@ export class HomeComponent implements OnInit {
       this.mData = data;
     });
 
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      this.mID + ""
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.listCompany = data.array
+      }
+    })
+
     this.mService.getApiService().sendRequestGET_LIST_CONTACT(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
@@ -73,6 +87,17 @@ export class HomeComponent implements OnInit {
         this.listUser = data.array;
       }
     });
+
+    this.mService.getApiService().sendRequestGET_DEAL_STAGE(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.listDealStage = data.array;
+      }
+    })
   }
 
   onClickCreateAction(event) {

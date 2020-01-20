@@ -59,28 +59,30 @@ export class AddContactComponent implements OnInit {
   }
 
   onClickSave() {
-    let obj = {
-      name: this.name,
-      gender: this.gender,
-      jobTile: this.jobTile,
-      handPhone: this.handPhone,
-      homePhone: this.homePhone,
-      email: this.email,
-      address: this.address,
-    }
-
-    this.mService.getApiService().sendRequestADD_CONTACT(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
-      this.mService.getUser().username,
-      this.mService.getUser().id,
-      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
-      obj
-    ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.closeAddSub.emit(data.obj);
+    if (!this.btnAddExist) {
+      let obj = {
+        name: this.name,
+        gender: this.gender,
+        jobTile: this.jobTile,
+        handPhone: this.handPhone,
+        homePhone: this.homePhone,
+        email: this.email,
+        address: this.address,
       }
-    })
+
+      this.mService.getApiService().sendRequestADD_CONTACT(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mService.getUser().id,
+        this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+        obj
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
+          this.closeAddSub.emit(data.obj);
+        }
+      })
+    }
   }
 
   onSeachContact(event) {

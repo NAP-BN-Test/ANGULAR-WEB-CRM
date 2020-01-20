@@ -19,58 +19,33 @@
                 </div>
             </div>
 
-            <div padding-start padding-top center-line>
+            <!-- <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.pipe_line}}</div>
                 <div class="col-9">
-                    <div ngbDropdown>
-                        <button class="btn btn-outline-primary color-primary between width-100"
-                            ngbDropdownToggle>{{gender}}</button>
-                        <div ngbDropdownMenu width-100>
-                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
-                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
-                        </div>
-                    </div>
+                    
                 </div>
-            </div>
+            </div> -->
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.deal_stage}}</div>
                 <div class="col-9">
-                    <div ngbDropdown>
-                        <button class="btn btn-outline-primary color-primary between width-100"
-                            ngbDropdownToggle>{{gender}}</button>
-                        <div ngbDropdownMenu width-100>
-                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
-                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
-                        </div>
-                    </div>
+                    <select class="custom-select" width-100 [(ngModel)]="stageID">
+                        <option *ngFor="let item of listDealStage" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.amount}}</div>
                 <div class="col-9">
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="number">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.close_date}}</div>
                 <div class="col-9">
-                    <app-datetime-pick-date-full></app-datetime-pick-date-full>
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.deal_owner}}</div>
-                <div class="col-9">
-
-                    <select class="custom-select" width-100>
-                        <option [ngValue]="2">2 items per page</option>
-                        <option [ngValue]="4">4 items per page</option>
-                        <option [ngValue]="6">6 items per page</option>
-                    </select>
-
+                    <app-datetime-pick-date-full (pickDate)="onPickDateClose($event)"></app-datetime-pick-date-full>
                 </div>
             </div>
         </div>
@@ -81,42 +56,31 @@
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.company}}</div>
                 <div class="col-9">
-                    <div ngbDropdown>
-                        <button class="btn btn-outline-primary color-primary between width-100"
-                            ngbDropdownToggle>{{gender}}</button>
-                        <div ngbDropdownMenu width-100>
-                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
-                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
-                        </div>
-                    </div>
+                    <select class="custom-select" width-100 [(ngModel)]="companyID">
+                        <option *ngFor="let item of listCompany" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.contact}}</div>
                 <div class="col-9">
-                    <div ngbDropdown>
-                        <button class="btn btn-outline-primary color-primary between width-100"
-                            ngbDropdownToggle>{{gender}}</button>
-                        <div ngbDropdownMenu width-100>
-                            <button ngbDropdownItem (click)="onClickGenger(1)">Nam</button>
-                            <button ngbDropdownItem (click)="onClickGenger(2)">Nữ</button>
-                        </div>
-                    </div>
+                    <select class="custom-select" width-100 [(ngModel)]="contactID">
+                        <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
                 </div>
             </div>
         </div>
 
         <div padding center-line between>
             <div flex>
-                <div padding-start>
-                    <input type="checkbox">
+                <div padding-start center-line>
+                    <input type="checkbox" (change)="onInputChange($event)">
                 </div>
                 <div padding8-start>{{mData.add_timeline}}</div>
             </div>
-            <div flex padding8-start color-primary>
-                <div padding8-end>26 / 12 / 2019</div>
-                <mat-icon>event</mat-icon>
+            <div flex padding8-start color-primary [hidden]="!showRemindDate">
+                <app-datetime-pick-date (pickDate)="onPickDateRemind($event)"></app-datetime-pick-date>
             </div>
         </div>
     </div>

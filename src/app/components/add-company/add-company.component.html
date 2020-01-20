@@ -26,14 +26,102 @@
 
         <div [hidden]="btnType!=1">
             <div padding>
-                <input type="search" [placeholder]="mData.placeholder" class="form-control" />
+                <input type="search" [placeholder]="mData.placeholder" class="form-control"
+                    (change)="onSeachCompany($event)" />
             </div>
+
+            <div padding-horizontal>
+                <div padding-top *ngFor="let item of listCompany">
+                    <div padding8 class="m-contact">
+                        <div bold>{{item.name}}</div>
+                        <div>{{item.phone | na}}</div>
+                        <div>
+                            <button class="btn-add btn-sm" type="button"
+                                (click)="onClickAddCompany(item, 1)">{{mData.add_company}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div [hidden]="btnType!=2">
+            <div padding>
+                <input type="search" [placeholder]="mData.placeholder" class="form-control"
+                    (change)="onSeachCompany($event)" />
+            </div>
+
+            <div padding-horizontal>
+                <div padding-top *ngFor="let item of listCompany">
+                    <div padding8 class="m-contact">
+                        <div bold>{{item.name}}</div>
+                        <div>{{item.phone | na}}</div>
+                        <div>
+                            <button class="btn-add btn-sm" type="button"
+                                (click)="onClickAddCompany(item, 2)">{{mData.add_company}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div [hidden]="btnType!=3">
+            <div padding-start center-line>
+                <div class="col-3" font6>{{mData.name}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="name">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.short_name}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="shortName">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.hand_phone}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="phone">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.email}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="email">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.address}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="address">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.country}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="country">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.company_role}}</div>
+                <div class="col-9">
+                    <select class="custom-select" width-100 [(ngModel)]="role">
+                        <option *ngFor="let item of listCompanyRole" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
 
 
     </div>
 
-    <div padding class="m-footer">
+    <div padding background-white class="m-footer">
         <div flex>
             <div padding-vertical>
                 <button class="btn m-btn-footer" [disabled]="!btnCanClicked"

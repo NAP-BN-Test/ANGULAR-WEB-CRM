@@ -56,5 +56,33 @@ export class ApiCmd {
 
     public static UPDATE_COMPANY : string = "crm/update_company";
 
+    public static GET_CALL_ASSOCIATE : string = "crm/get_call_associate";
+    
+    public static UPDATE_CALL_ASSOCIATE : string = "crm/update_call_associate";
+
+    public static GET_EMAIL_ASSOCIATE : string = "crm/get_email_associate";
+    
+    public static UPDATE_EMAIL_ASSOCIATE : string = "crm/update_email_associate";
+
+    public static GET_MEET_ASSOCIATE : string = "crm/get_meet_associate";
+    
+    public static UPDATE_MEET_ASSOCIATE : string = "crm/update_meet_associate";
+
+    public static GET_TASK_ASSOCIATE : string = "crm/get_task_associate";
+    
+    public static UPDATE_TASK_ASSOCIATE : string = "crm/update_task_associate";
+
+    public static SEARCH_COMPANY : string = "crm/search_company";
+
+    public static ADD_COMPANY : string = "crm/add_company";
+
+    public static ADD_PARENT_COMPANY_BY_ID : string = "crm/add_parent_company_by_id";
+
+    public static ADD_CHILD_COMPANY_BY_ID : string = "crm/add_child_company_by_id";
+
+    public static GET_DEAL_STAGE : string = "crm/get_deal_stage";
+
+    public static ADD_DEAL : string = "crm/add_deal";
+
 
 }

@@ -1,7 +1,7 @@
 <div shadow padding relative class="m-box" *ngIf="mData">
     <div between>
-        <div color-primary bold font4>{{mObj.Amount}} USD</div>
-        <div font6>{{mObj.TimeCreate | datetimeFull}}</div>
+        <div color-primary bold font4>{{mObj.amount}} USD</div>
+        <div font6>{{mObj.timeCreate | datetimeFull}}</div>
     </div>
 
     <div flex padding-top>
@@ -11,17 +11,18 @@
     </div>
 
     <div class="row" padding-top>
-        <div class="col-4">{{mData.stage}}</div>
         <div class="col-8" flex color-primary>
-            <div>{{mObj.State}}</div>
-            <mat-icon>arrow_drop_down</mat-icon>
+            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.stageID"
+                (change)="onChangeStage()">
+                <option *ngFor="let item of listDealStage" [ngValue]="item.stage">{{item.name}}</option>
+            </select>
         </div>
     </div>
 
     <div class="row" padding8-top>
         <div class="col-4">{{mData.close_date}}</div>
         <div class="col-8">
-            <div color-primary>{{mObj.TimeClose | datetimeDate}}</div>
+            <div color-primary>{{mObj.timeClose | datetimeDate}}</div>
         </div>
     </div>
 

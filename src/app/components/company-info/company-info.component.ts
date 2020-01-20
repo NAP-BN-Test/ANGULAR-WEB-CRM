@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-company-info',
@@ -26,7 +27,8 @@ export class CompanyInfoComponent implements OnInit {
   constructor(
     public mService: AppModuleService,
     public router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -79,6 +81,10 @@ export class CompanyInfoComponent implements OnInit {
       companyEmail,
       companyCountry
     )
+  }
+
+  onClickBack() {
+    this.location.back();
   }
 
 }

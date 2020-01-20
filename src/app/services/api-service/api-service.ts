@@ -45,7 +45,7 @@ export class ApiService extends HttpClient {
 
 
     //2
-    public sendRequestGET_LIST_QUICK_CONTACT(ip: string, dbName: string, username: string, userID: number, companyID: number): Promise<any> {
+    public sendRequestGET_LIST_QUICK_CONTACT(ip: string, dbName: string, username: string, userID: number, companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_CONTACT,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -76,7 +76,7 @@ export class ApiService extends HttpClient {
     }
 
     //5
-    public sendRequestGET_LIST_QUICK_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: number): Promise<any> {
+    public sendRequestGET_LIST_QUICK_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_COMPANY,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -87,7 +87,7 @@ export class ApiService extends HttpClient {
     }
 
     //6
-    public sendRequestGET_LIST_QUICK_DEAL(ip: string, dbName: string, username: string, companyID: number): Promise<any> {
+    public sendRequestGET_LIST_QUICK_DEAL(ip: string, dbName: string, username: string, companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_DEAL,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -234,7 +234,7 @@ export class ApiService extends HttpClient {
 
     //17
     public sendRequestCREATE_CALL(ip: string, dbName: string, username: string, userID: number,
-        companyID: string, contactID: number, outcomeType: number, timeStart: string, timeRemind: string, description: string): Promise<any> {
+        companyID: string, contactID: number, outcomeType: number, timeStart: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_CALL,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -246,6 +246,7 @@ export class ApiService extends HttpClient {
                 .add("outcomeType", outcomeType)
                 .add("timeStart", timeStart)
                 .addIgnoreNull("timeRemind", timeRemind)
+                .add("listAssociate", JSON.stringify(listAssociate))
                 .add("description", description));
     }
 
@@ -290,7 +291,7 @@ export class ApiService extends HttpClient {
 
     //21
     public sendRequestCREATE_EMAIL(ip: string, dbName: string, username: string, userID: number,
-        companyID: string, contactID: number, outcomeType: number, timeStart: string, timeRemind: string, description: string): Promise<any> {
+        companyID: string, contactID: number, outcomeType: number, timeStart: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_EMAIL,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -302,6 +303,7 @@ export class ApiService extends HttpClient {
                 .add("outcomeType", outcomeType)
                 .add("timeStart", timeStart)
                 .addIgnoreNull("timeRemind", timeRemind)
+                .add("listAssociate", JSON.stringify(listAssociate))
                 .add("description", description));
     }
 
@@ -319,7 +321,7 @@ export class ApiService extends HttpClient {
 
     //23
     public sendRequestCREATE_MEET(ip: string, dbName: string, username: string, userID: number,
-        companyID: string, listAttendID: any, duration: number, timeStart: string, timeRemind: string, description: string): Promise<any> {
+        companyID: string, listAttendID: any, duration: number, timeStart: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_MEET,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -331,12 +333,13 @@ export class ApiService extends HttpClient {
                 .add("duration", duration)
                 .add("timeStart", timeStart)
                 .addIgnoreNull("timeRemind", timeRemind)
+                .add("listAssociate", JSON.stringify(listAssociate))
                 .add("description", description));
     }
 
     //24
     public sendRequestCREATE_TASK(ip: string, dbName: string, username: string, userID: number,
-        companyID: string, assignID: number, taskType: number, taskName: string, timeStart: string, timeAssign: string, timeRemind: string, description: string): Promise<any> {
+        companyID: string, assignID: number, taskType: number, taskName: string, timeStart: string, timeAssign: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_TASK,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -350,6 +353,7 @@ export class ApiService extends HttpClient {
                 .add("timeStart", timeStart)
                 .add("timeAssign", timeAssign)
                 .addIgnoreNull("timeRemind", timeRemind)
+                .add("listAssociate", JSON.stringify(listAssociate))
                 .add("description", description));
     }
 
@@ -409,5 +413,174 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("companyPhone", companyPhone)
                 .addIgnoreNull("companyEmail", companyEmail)
                 .addIgnoreNull("companyCountry", companyCountry));
+    }
+
+    //29
+    public sendRequestGET_CALL_ASSOCIATE(ip: string, dbName: string, username: string, callID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_CALL_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("callID", callID));
+    }
+
+    //30
+    public sendRequestUPDATE_CALL_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, callID: number, state: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_CALL_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("callID", callID)
+                .add("state", state));
+    }
+
+    //31
+    public sendRequestGET_EMAIL_ASSOCIATE(ip: string, dbName: string, username: string, emailID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_EMAIL_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("emailID", emailID));
+    }
+
+    //32
+    public sendRequestUPDATE_EMAIL_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, emailID: number, state: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_EMAIL_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("emailID", emailID)
+                .add("state", state));
+    }
+
+    //33
+    public sendRequestGET_MEET_ASSOCIATE(ip: string, dbName: string, username: string, meetID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_MEET_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("meetID", meetID));
+    }
+
+    //34
+    public sendRequestUPDATE_MEET_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, meetID: number, state: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_MEET_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("meetID", meetID)
+                .add("state", state));
+    }
+
+    //35
+    public sendRequestGET_TASK_ASSOCIATE(ip: string, dbName: string, username: string, taskID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_TASK_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("taskID", taskID));
+    }
+
+    //36
+    public sendRequestUPDATE_TASK_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, taskID: number, state: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_TASK_ASSOCIATE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("taskID", taskID)
+                .add("state", state));
+    }
+
+    //37
+    public sendRequestSEARCH_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: string, searchKey: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.SEARCH_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("searchKey", searchKey));
+    }
+
+    //38
+    public sendRequestADD_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: string, comapny: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("name", comapny.name)
+                .add("shortName", comapny.shortName)
+                .add("phone", comapny.phone)
+                .add("email", comapny.email)
+                .add("address", comapny.address)
+                .add("country", comapny.country)
+                .add("role", comapny.role));
+    }
+
+    //39
+    public sendRequestADD_PARENT_COMPANY_BY_ID(ip: string, dbName: string, username: string, userID: number, companyID: string, companyAddID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_PARENT_COMPANY_BY_ID,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("companyAddID", companyAddID));
+    }
+
+    //40
+    public sendRequestADD_CHILD_COMPANY_BY_ID(ip: string, dbName: string, username: string, userID: number, companyID: string, companyAddID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CHILD_COMPANY_BY_ID,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .add("companyAddID", companyAddID));
+    }
+
+    //41
+    public sendRequestGET_DEAL_STAGE(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_DEAL_STAGE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
+
+    //41
+    public sendRequestADD_DEAL(ip: string, dbName: string, username: string, userID: number, deal: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_DEAL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", deal.companyID)
+                .add("contactID", deal.contactID)
+                .add("name", deal.name)
+                .add("stageID", deal.stageID)
+                .add("timeClose", deal.timeClose)
+                .add("timeRemind", deal.timeRemind)
+                .add("amount", deal.amount));
     }
 }

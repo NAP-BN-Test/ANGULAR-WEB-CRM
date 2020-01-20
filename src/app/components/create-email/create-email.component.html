@@ -42,6 +42,11 @@
 
     <div relative style="height: 200px; margin-bottom: 42px;">
         <quill-editor [modules]="mConfig" [(ngModel)]="quillValue"></quill-editor>
+
+        <div font6 center-line color-primary class="associate">
+            <app-dropdown-associate-create width-100 activityType="2" (dropdownChange)="onAssociateChange($event)">
+            </app-dropdown-associate-create>
+        </div>
     </div>
 
     <div padding8 center-line box-border>

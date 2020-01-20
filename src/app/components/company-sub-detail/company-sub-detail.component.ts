@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
+import { CookieService } from 'ngx-cookie-service';
+import { AddDealComponent } from '../add-deal/add-deal.component';
 
 @Component({
   selector: 'app-company-sub-detail',
@@ -9,9 +11,9 @@ import { STATUS } from 'src/app/services/constant/app-constant';
   styleUrls: ['./company-sub-detail.component.scss']
 })
 export class CompanySubDetailComponent implements OnInit {
-  @Input('mID') mID = -1;
-
   @Output('addSubDetail') addSubDetail = new EventEmitter();
+
+  @Input("listDealStage") listDealStage = [];
 
   mData: any;
 
@@ -30,6 +32,7 @@ export class CompanySubDetailComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
+    private cookieService: CookieService
   ) {
 
   }
@@ -37,8 +40,6 @@ export class CompanySubDetailComponent implements OnInit {
   ngOnInit() {
     this.mService.LoadTitles(1).then((data: any) => {
       this.mData = data.company_sub_detail;
-
-
     });
 
     this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT(
@@ -46,7 +47,7 @@ export class CompanySubDetailComponent implements OnInit {
       this.mService.getServer().dbName,
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.mID
+      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
@@ -58,13 +59,19 @@ export class CompanySubDetailComponent implements OnInit {
       this.mService.getServer().dbName,
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.mID).then(data => {
+      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+      ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           this.listCompany = data.array;
         }
       })
 
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL(this.mService.getServer().ip, this.mService.getServer().dbName, "loapao", this.mID).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL(
+      this.mService.getServer().ip, 
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+      ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listDeal = data.array;
       }

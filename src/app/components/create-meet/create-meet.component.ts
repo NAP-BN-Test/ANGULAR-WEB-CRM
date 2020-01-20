@@ -19,6 +19,8 @@ export class CreateMeetComponent implements OnInit {
 
   showTimePicker = false;
 
+  listAssociate = [];
+
   datetime = moment.utc().format("YYYY-MM-DD HH:mm");
   quillValue: any;
   dateRemind = moment.utc().format("YYYY-MM-DD");
@@ -85,12 +87,18 @@ export class CreateMeetComponent implements OnInit {
       this.datetime,
       this.showTimePicker ? this.dateRemind : null,
       this.quillValue,
+      this.listAssociate
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.closeCreateAction.emit(data.obj)
       }
     })
 
+  }
+
+  onAssociateChange(event) {
+    if (event)
+      this.listAssociate = event;
   }
 
 }

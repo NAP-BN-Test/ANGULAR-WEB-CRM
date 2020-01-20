@@ -62,10 +62,64 @@ export class CompanyDetailActivityComponent implements OnInit {
             this.listAttend.push(itm.userID);
           })
         }
+      });
+      this.mService.getApiService().sendRequestGET_MEET_ASSOCIATE(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mObj.id
+      ).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          data.array.forEach(itm => {
+            this.listAssociate.push(itm.userID);
+          });
+        }
       })
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.NOTE) {
       this.mService.getApiService().sendRequestGET_NOTE_ASSOCIATE(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mObj.id
+      ).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          data.array.forEach(itm => {
+            this.listAssociate.push(itm.userID);
+          });
+        }
+      })
+    }
+    else if (this.mObj.activityType == ACTIVITY_TYPE.CALL) {
+      this.mService.getApiService().sendRequestGET_CALL_ASSOCIATE(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mObj.id
+      ).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          data.array.forEach(itm => {
+            this.listAssociate.push(itm.userID);
+          });
+        }
+      })
+    }
+    else if (this.mObj.activityType == ACTIVITY_TYPE.EMAIL) {
+      this.mService.getApiService().sendRequestGET_EMAIL_ASSOCIATE(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mObj.id
+      ).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          data.array.forEach(itm => {
+            this.listAssociate.push(itm.userID);
+          });
+        }
+      })
+    }
+    else if (this.mObj.activityType == ACTIVITY_TYPE.TASK) {
+      this.mService.getApiService().sendRequestGET_TASK_ASSOCIATE(
         this.mService.getServer().ip,
         this.mService.getServer().dbName,
         this.mService.getUser().username,
@@ -213,9 +267,6 @@ export class CompanyDetailActivityComponent implements OnInit {
   }
 
   pickTimeStart(event, type) {
-
-    console.log(event);
-    
     let time = ""
     if (type == 1) {
       time = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
