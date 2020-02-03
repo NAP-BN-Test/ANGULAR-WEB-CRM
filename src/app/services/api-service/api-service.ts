@@ -176,13 +176,14 @@ export class ApiService extends HttpClient {
     }
 
     //12
-    public sendRequestGET_LIST_USER(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+    public sendRequestGET_LIST_USER(ip: string, dbName: string, username: string, userID: number, all?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_USER,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("userID", userID));
+                .add("userID", userID)
+                .addIgnoreNull("all", all));
     }
 
     //13
@@ -630,5 +631,17 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("contactPhone", contactPhone)
                 .addIgnoreNull("contactEmail", contactEmail)
                 .addIgnoreNull("contactJobTile", contactJobTile));
+    }
+
+    //46
+    public sendRequestASSIGN_COMPANY_OWNER(ip: string, dbName: string, username: string, userID: number, assignID: number, companyIDs: string, ): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ASSIGN_COMPANY_OWNER,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("assignID", assignID)
+                .add("companyIDs", companyIDs));
     }
 }

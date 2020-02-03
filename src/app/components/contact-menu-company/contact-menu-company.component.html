@@ -48,7 +48,7 @@
                             <div padding-start center-line style="font-weight: normal;">{{numberOfItemSelected}}
                                 {{mData.selected}}</div>
                             <div padding-start></div>
-                            <div *ngFor="let item of mData.company.list_select" padding-start bold center-line>
+                            <div *ngFor="let item of mData.company.list_select; let i = index" padding-start bold center-line tappable (click)="onClickAssign(i)">
                                 {{item.name}}
                             </div>
                         </div>

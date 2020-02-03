@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { Utils } from 'src/app/services/core/app/utils';
+import { MatDialog } from '@angular/material';
+import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
 
 @Component({
   selector: 'app-contact-menu-company',
@@ -32,7 +34,8 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router
+    public router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -51,7 +54,6 @@ export class ContactMenuCompanyComponent implements OnInit {
         this.listDataSummary = data.array;
       }
     });
-
   }
 
   get listDataSort(): Array<any> {
@@ -167,6 +169,31 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.listData = this.listDataCache.filter(item => {
       return Utils.bodauTiengViet(item.name).includes(Utils.bodauTiengViet(searchKey));
     })
+  }
+
+  onClickAssign(index) {
+    if (index == 0) {
+      const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
+        width: '500px'
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          let listID = [];
+          this.listDataSort.forEach(item => {
+            if (item.checked) listID.push(item.id)
+          })
+          this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
+            this.mService.getServer().ip,
+            this.mService.getServer().dbName,
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            res,  
+            JSON.stringify(listID)
+          )
+        }
+      });
+    }
   }
 
 }

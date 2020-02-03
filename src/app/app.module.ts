@@ -62,6 +62,7 @@ import { ContactDetailIntroComponent } from './components/contact-detail-intro/c
 import { ContactDetailActivityComponent } from './components/contact-detail-activity/contact-detail-activity.component';
 import { ContactDetailOtherComponent } from './components/contact-detail-other/contact-detail-other.component';
 import { ContactDetailActivityListComponent } from './components/contact-detail-activity-list/contact-detail-activity-list.component';
+import { DialogAssignCompanyComponent } from './components/dialog-assign-company/dialog-assign-company.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { ContactDetailActivityListComponent } from './components/contact-detail-
     ContactDetailIntroComponent,
     ContactDetailActivityComponent,
     ContactDetailOtherComponent,
-    ContactDetailActivityListComponent
+    ContactDetailActivityListComponent,
+    DialogAssignCompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -134,6 +136,6 @@ import { ContactDetailActivityListComponent } from './components/contact-detail-
     DatetimeFullPipe,
     DatetimeDatePipe
   ],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, DialogAssignCompanyComponent]
 })
 export class AppModule { }

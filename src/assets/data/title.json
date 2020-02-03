@@ -48,7 +48,29 @@
                 {
                     "name": "Activitys",
                     "icon": "keyboard_arrow_down",
-                    "index": 2
+                    "index": 2,
+                    "list": [
+                        {
+                            "name": "Calls",
+                            "index": 1
+                        },
+                        {
+                            "name": "Emails",
+                            "index": 2
+                        },
+                        {
+                            "name": "Meets",
+                            "index": 3
+                        },
+                        {
+                            "name": "Notes",
+                            "index": 4
+                        },
+                        {
+                            "name": "Tasks",
+                            "index": 5
+                        }
+                    ]
                 },
                 {
                     "name": "Sales",
@@ -318,7 +340,7 @@
             },
             "company": {
                 "name": "NAME",
-                "email": "EMAIL",
+                "email": "COMPANY OWNER",
                 "phone": "PHONE",
                 "address": "ADDRESS",
                 "country": "COUNTRY",
@@ -337,6 +359,15 @@
                     }
                 ]
             }
+        },
+        "dialog": {
+            "yes": "Có",
+            "no": "Không",
+            "ask_delete": "Bạn có chắc muốn xóa mục này?",
+            "assign_company": "Assign Company",
+            "title_assign": "Assign selected items to this owner:",
+            "assign": "Assign",
+            "cancel": "Cancel"
         }
     }
 }

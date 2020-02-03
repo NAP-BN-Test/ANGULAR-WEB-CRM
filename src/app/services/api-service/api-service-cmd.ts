@@ -92,5 +92,7 @@ export class ApiCmd {
 
     public static UPDATE_CONTACT: string = "crm/update_contact";
 
+    public static ASSIGN_COMPANY_OWNER: string = "crm/assign_company_owner";
+
 
 }
