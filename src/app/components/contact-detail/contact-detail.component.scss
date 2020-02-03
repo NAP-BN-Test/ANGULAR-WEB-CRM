@@ -1,0 +1,47 @@
+.m-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+}
+.m-content {
+    margin-top: 71px;
+}
+
+.box-create {
+    display: none;
+    width: 90%;
+    position: sticky;
+    bottom: 0;
+    right: 16px;
+    background-color: white;
+    z-index: 999;
+    animation: slideInUp 500ms;
+}
+
+.box-add {
+    display: none;
+    position: fixed;
+    width: 40%;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    height: 100%;
+    background-color: white;
+    animation: slideInRight 500ms;
+}
+
+.show-div {
+    display: block;
+}
+
+.hide-div {
+    display: none;
+}
+
+.slide-animation {
+    transition: ease-in-out 500ms;
+}
+.fade-in {
+    animation: fadeIn 500ms 1;
+}

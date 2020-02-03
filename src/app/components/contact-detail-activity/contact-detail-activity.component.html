@@ -1,0 +1,12 @@
+<div *ngIf="mData">
+    <div flex padding-horizontal>
+        <div *ngFor="let item of mData.menu; let i = index" (click)="onClickMenu(i)">
+            <div class="m-menu" [class.menu-selected]="menuSelected==i" tappable>{{item}}</div>
+        </div>
+    </div>
+
+    <div padding *ngFor="let item of listActivity">
+        <app-contact-detail-activity-list [mObj]="item" [listContact]="listContact" [listUser]="listUser"
+            (onListChange)="onListChange($event)"></app-contact-detail-activity-list>
+    </div>
+</div>

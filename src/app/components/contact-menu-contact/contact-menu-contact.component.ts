@@ -180,7 +180,7 @@ export class ContactMenuContactComponent implements OnInit {
   }
 
   onClickItem(item) {
-    // this.router.navigate(['home']);
+    this.router.navigate(['contact-detail'], { state: { params: item.id } });
   }
 
 }

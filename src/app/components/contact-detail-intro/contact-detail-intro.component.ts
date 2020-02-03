@@ -2,16 +2,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, LIST_SELECT } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-company-info',
-  templateUrl: './company-info.component.html',
-  styleUrls: ['./company-info.component.scss']
+  selector: 'app-contact-detail-intro',
+  templateUrl: './contact-detail-intro.component.html',
+  styleUrls: ['./contact-detail-intro.component.scss']
 })
-export class CompanyInfoComponent implements OnInit {
+export class ContactDetailIntroComponent implements OnInit {
   @Output('createAction') createAction = new EventEmitter();
   @Output('updateCompany') updateCompany = new EventEmitter();
 
@@ -21,6 +21,7 @@ export class CompanyInfoComponent implements OnInit {
 
   mObj: any;
 
+  listJobTile = LIST_SELECT.LIST_JOB_TILE;
 
   constructor(
     public mService: AppModuleService,
@@ -34,11 +35,11 @@ export class CompanyInfoComponent implements OnInit {
       this.mData = data.company_info;
     });
 
-    this.mService.getApiService().sendRequestGET_DETAIL_COMPANY(
+    this.mService.getApiService().sendRequestGET_DETAIL_CONTACT(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mObj = data.obj;
@@ -53,31 +54,28 @@ export class CompanyInfoComponent implements OnInit {
   onInputChange(event, type) {
     let value = event.target.value;
 
-    let companyName: string;
-    let companyShortName: string;
-    let companyAddress: string;
-    let companyPhone: string;
-    let companyEmail: string;
-    let companyCountry: string;
+    let contactName: string;
+    let contactAddress: string;
+    let contactPhone: string;
+    let contactEmail: string;
+    let contactJobTile: string;
 
-    if (type == 1) companyName = value;
-    else if (type == 2) companyShortName = value;
-    else if (type == 3) companyAddress = value;
-    else if (type == 4) companyPhone = value;
-    else if (type == 5) companyEmail = value;
-    else if (type == 6) companyCountry = value;
+    if (type == 1) contactName = value;
+    else if (type == 3) contactAddress = value;
+    else if (type == 4) contactPhone = value;
+    else if (type == 5) contactEmail = value;
+    else if (type == 6) contactJobTile = value;
 
-    this.mService.getApiService().sendRequestUPDATE_COMPANY(
+    this.mService.getApiService().sendRequestUPDATE_CONTACT(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-      companyName,
-      companyShortName,
-      companyAddress,
-      companyPhone,
-      companyEmail,
-      companyCountry
+      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
+      contactName,
+      contactAddress,
+      contactPhone,
+      contactEmail,
+      contactJobTile
     )
   }
 

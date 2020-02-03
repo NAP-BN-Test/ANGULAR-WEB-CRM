@@ -7,11 +7,11 @@ import { CompanyDetailComponent } from '../company-detail/company-detail.compone
 import { CompanySubDetailComponent } from '../company-sub-detail/company-sub-detail.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-contact-detail',
+  templateUrl: './contact-detail.component.html',
+  styleUrls: ['./contact-detail.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class ContactDetailComponent implements OnInit {
   @ViewChild(CompanyDetailComponent, { static: false }) companyDetailComponent: CompanyDetailComponent;
   @ViewChild(CompanySubDetailComponent, { static: false }) companySubDetailComponent: CompanySubDetailComponent;
 
@@ -40,10 +40,10 @@ export class HomeComponent implements OnInit {
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
       this.mID = this.router.getCurrentNavigation().extras.state.params;
-      this.cookieService.set('company-id', this.mID + "");
+      this.cookieService.set('contact-id', this.mID + "");
     } else {
-      if (this.cookieService.get('company-id')) {
-        this.mID = Number(this.cookieService.get('company-id'));
+      if (this.cookieService.get('contact-id')) {
+        this.mID = Number(this.cookieService.get('contact-id'));
       }
     }
 
@@ -141,4 +141,5 @@ export class HomeComponent implements OnInit {
       this.iconSubDetailState = true;
     }
   }
+
 }

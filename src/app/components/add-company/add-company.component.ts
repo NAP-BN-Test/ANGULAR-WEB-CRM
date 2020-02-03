@@ -68,7 +68,7 @@ export class AddCompanyComponent implements OnInit {
         this.mService.getServer().dbName,
         this.mService.getUser().username,
         this.mService.getUser().id,
-        this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+        this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         obj
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
@@ -89,7 +89,7 @@ export class AddCompanyComponent implements OnInit {
         this.mService.getServer().dbName,
         this.mService.getUser().username,
         this.mService.getUser().id,
-        this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+        this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         searchKey
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
@@ -108,7 +108,7 @@ export class AddCompanyComponent implements OnInit {
         this.mService.getServer().dbName,
         this.mService.getUser().username,
         this.mService.getUser().id,
-        this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+        this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         item.id
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
@@ -122,7 +122,7 @@ export class AddCompanyComponent implements OnInit {
         this.mService.getServer().dbName,
         this.mService.getUser().username,
         this.mService.getUser().id,
-        this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+        this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         item.id
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {

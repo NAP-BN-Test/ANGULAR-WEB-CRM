@@ -89,7 +89,8 @@
                             <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
-                        <div class="width-20 center-line overflow-hidden margin8-end">
+                        <div class="width-20 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
+                            tappable>
                             {{item.name}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">

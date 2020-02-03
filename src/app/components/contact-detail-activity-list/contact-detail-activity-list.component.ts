@@ -8,12 +8,11 @@ import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
-  selector: 'app-company-detail-activity',
-  templateUrl: './company-detail-activity.component.html',
-  styleUrls: ['./company-detail-activity.component.scss']
+  selector: 'app-contact-detail-activity-list',
+  templateUrl: './contact-detail-activity-list.component.html',
+  styleUrls: ['./contact-detail-activity-list.component.scss']
 })
-export class CompanyDetailActivityComponent implements OnInit {
-
+export class ContactDetailActivityListComponent implements OnInit {
   @Input('mObj') mObj: any;
   @Input('listContact') listContact = [];
   @Input('listUser') listUser = [];

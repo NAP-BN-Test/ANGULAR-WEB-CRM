@@ -1,0 +1,67 @@
+.m-activity {
+    padding: 16px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .16);
+}
+
+.activity-toolbar {
+    display: none;
+}
+
+.m-activity:hover .activity-toolbar {
+    display: flex;
+}
+
+
+
+.task-line {
+    font-size: var(--font6);
+    color: var(--color-primary);
+    padding: 0.375rem 0 0.375rem 0.75rem !important;
+}
+
+.m-toast {
+    position: fixed;
+    width: 100%;
+    top: 16px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 9999;
+}
+
+.task-detail-show {
+    animation: slideInDown 500ms;
+}
+.task-detail-hide {
+    animation: slideOutUp 500ms;
+}
+
+.m-description {
+    border: 1px solid transparent;
+}
+.m-description:hover {
+    background-color: whitesmoke;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+}
+
+.m-cmt {
+    background-color: #FFFCF3;
+}
+
+.cmt-btn {
+    position: absolute;
+    top: -16px;
+    right: 0;
+    display: none;
+}
+
+.cmt-btn-btn {
+    background-color: #F0E9F4;
+    border: .5px solid #702C90;
+    padding: 0px 10px;
+}
+
+.m-cmt-box:hover .cmt-btn {
+    display: inline-block;
+}

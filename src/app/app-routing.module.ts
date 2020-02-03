@@ -5,13 +5,19 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContactMenuContactComponent } from './components/contact-menu-contact/contact-menu-contact.component';
 import { ContactMenuCompanyComponent } from './components/contact-menu-company/contact-menu-company.component';
+import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
 
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'company-detail',
     component: HomeComponent,
-    data: { title: 'Home' }
+    data: { title: 'Company Detail' }
+  },
+  {
+    path: 'contact-detail',
+    component: ContactDetailComponent,
+    data: { title: 'Contact Detail' }
   },
   {
     path: 'dashboard',

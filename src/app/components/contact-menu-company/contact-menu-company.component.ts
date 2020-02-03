@@ -159,7 +159,7 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onClickItem(item) {
-    this.router.navigate(['home'], { state: { params: item.id } });
+    this.router.navigate(['company-detail'], { state: { params: item.id } });
   }
 
   onSearchChange(event) {

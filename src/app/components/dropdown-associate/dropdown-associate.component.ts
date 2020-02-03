@@ -9,7 +9,7 @@ import { ACTIVITY_TYPE, STATUS } from 'src/app/services/constant/app-constant';
 })
 export class DropdownAssociateComponent implements OnInit {
 
-  @Input('listUser') listUser = [];
+  @Input('listAssociateAll') listAssociateAll = [];
   @Input('listAssociate') listAssociate = [];
 
   @Input('activityType') activityType = -1;
@@ -29,7 +29,7 @@ export class DropdownAssociateComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.listUser.forEach(item => {
+      this.listAssociateAll.forEach(item => {
         let index = this.listAssociate.findIndex(idx => {
           return idx == item.id;
         });
@@ -157,8 +157,6 @@ export class DropdownAssociateComponent implements OnInit {
     }
     else {
       a.classList.remove('m-box-focus');
-
-      // this.selectDone.emit(this.dropdownList);
     }
 
     this.associate = 0;

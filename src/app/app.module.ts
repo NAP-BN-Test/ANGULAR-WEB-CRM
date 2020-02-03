@@ -57,6 +57,11 @@ import { DropdownAttendCreateComponent } from './components/dropdown-attend-crea
 import { CompanyRolePipe } from './pipes/company-role/company-role.pipe';
 import { ContactRolePipe } from './pipes/contact-role/contact-role.pipe';
 import { NaPipe } from './pipes/na/na.pipe';
+import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
+import { ContactDetailIntroComponent } from './components/contact-detail-intro/contact-detail-intro.component';
+import { ContactDetailActivityComponent } from './components/contact-detail-activity/contact-detail-activity.component';
+import { ContactDetailOtherComponent } from './components/contact-detail-other/contact-detail-other.component';
+import { ContactDetailActivityListComponent } from './components/contact-detail-activity-list/contact-detail-activity-list.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +106,12 @@ import { NaPipe } from './pipes/na/na.pipe';
     DropdownAttendCreateComponent,
     CompanyRolePipe,
     ContactRolePipe,
-    NaPipe
+    NaPipe,
+    ContactDetailComponent,
+    ContactDetailIntroComponent,
+    ContactDetailActivityComponent,
+    ContactDetailOtherComponent,
+    ContactDetailActivityListComponent
   ],
   imports: [
     BrowserModule,

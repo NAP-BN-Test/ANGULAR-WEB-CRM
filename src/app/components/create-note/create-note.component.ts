@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { STATUS, ACTIVITY_TYPE } from 'src/app/services/constant/app-constant';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-create-note',
@@ -8,7 +9,6 @@ import { STATUS, ACTIVITY_TYPE } from 'src/app/services/constant/app-constant';
   styleUrls: ['./create-note.component.scss']
 })
 export class CreateNoteComponent implements OnInit {
-  @Input('mID') mID = -1;
   @Output("closeCreateAction") closeCreateAction = new EventEmitter();
 
   mData: any;
@@ -30,6 +30,7 @@ export class CreateNoteComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
@@ -52,7 +53,7 @@ export class CreateNoteComponent implements OnInit {
       this.mService.getServer().dbName,
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.mID,
+      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
       this.quillValue,
       this.listAssociate,
       this.dateFollow).then(data => {

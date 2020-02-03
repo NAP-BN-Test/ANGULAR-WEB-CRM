@@ -70,7 +70,9 @@
             "btn_edit": "edit",
             "btn_task": {
                 "name": "Companies",
-                "icon": "home_work"
+                "icon": "home_work",
+                "contact": "Contacts",
+                "icon_contact": "account_circle"
             },
             "detail": "Detail",
             "action": "Action",
@@ -108,7 +110,8 @@
                 "address": "Address",
                 "phone": "Phone",
                 "email": "Email",
-                "country": "Country"
+                "country": "Country",
+                "job_tile": "Job Tile"
             }
         },
         "company_detail": {

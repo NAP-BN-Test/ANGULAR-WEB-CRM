@@ -35,47 +35,6 @@
             </div>
 
             <div width-fill>
-                <!-- <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th [class.background-secondary]="checked||indeterminate" scope="col">
-                                <div>
-                                    <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate"
-                                        (click)="onCheckAllChange()">
-                                    </mat-checkbox>
-                                </div>
-                            </th>
-                            <th background-secondary colspan="8" [hidden]="!checked&&!indeterminate" scope="col">
-                                <div flex>
-                                    <div padding-start style="font-weight: normal;">{{numberOfItemSelected}}
-                                        {{mData.selected}}</div>
-                                    <div padding-start></div>
-                                    <div *ngFor="let item of mData.company.list_select" padding-start bold>{{item.name}}
-                                    </div>
-                                </div>
-                            </th>
-                            <th [hidden]="checked||indeterminate" scope="col"
-                                *ngFor="let item of mData.company.col_table; let i = index" (click)="onSort()" tappable
-                                [class.width-30]="i==0" [class.width-20]="i==1" [class.width-10]="i==2"
-                                [class.width-30]="i==3" [class.width-10]="i==4">{{item.name}}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of listDataSort" (click)="onClickItem(item)" tappable>
-                            <td>
-                                <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
-                                </mat-checkbox>
-                            </td>
-                            <td>{{ item.name}}</td>
-                            <td>{{ item.email}}</td>
-                            <td>{{ item.phone}}</td>
-                            <td>{{ item.address}}</td>
-                            <td>{{ item.country }}</td>
-                        </tr>
-                    </tbody>
-                </table> -->
-
                 <div>
                     <div flex padding8-vertical [class.background-whitesmoke]="!checked"
                         [class.background-secondary]="checked">

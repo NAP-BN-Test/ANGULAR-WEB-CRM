@@ -12,8 +12,8 @@ export class DropdownMultiComponent implements OnInit {
   @Input('listUser') listUser = [];
   @Input('listAttend') listAttend = [];
 
-  @Input('activityType') activityType = -1;
-  @Input('activityID') activityID = -1;
+  @Input('activityType') activityType: any;
+  @Input('activityID') activityID: any;
 
   @Output('dropdownChange') dropdownChange = new EventEmitter();
 
@@ -55,10 +55,10 @@ export class DropdownMultiComponent implements OnInit {
       })
 
       window.addEventListener('click', (e: any) => {
-        if (document.getElementById('clickbox' + this.activityType + "" + this.activityID)) {
-          if (!document.getElementById('clickbox' + this.activityType + "" + this.activityID).contains(e.target)) {
+        if (document.getElementById('clickbox1' + this.activityType + "" + this.activityID)) {
+          if (!document.getElementById('clickbox1' + this.activityType + "" + this.activityID).contains(e.target)) {
             this.dropdown = true;
-            let a = document.getElementById('m-box');
+            let a = document.getElementById('m-box1');
             a.classList.remove('m-box-focus');
           }
 
@@ -94,7 +94,7 @@ export class DropdownMultiComponent implements OnInit {
   }
 
   onClickDropdown() {
-    let a = document.getElementById('m-box');
+    let a = document.getElementById('m-box1');
     if (this.dropdown) {
       a.classList.add('m-box-focus');
     }

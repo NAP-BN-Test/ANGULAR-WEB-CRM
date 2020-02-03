@@ -5,11 +5,11 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
-  selector: 'app-company-detail',
-  templateUrl: './company-detail.component.html',
-  styleUrls: ['./company-detail.component.scss']
+  selector: 'app-contact-detail-activity',
+  templateUrl: './contact-detail-activity.component.html',
+  styleUrls: ['./contact-detail-activity.component.scss']
 })
-export class CompanyDetailComponent implements OnInit {
+export class ContactDetailActivityComponent implements OnInit {
   @Input('listContact') listContact = [];
   @Input('listUser') listUser = [];
 
@@ -35,13 +35,14 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   onLoadActivity(activityType: number) {
-    this.mService.getApiService().sendRequestGET_LIST_ACTIVITY(
+    this.mService.getApiService().sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
       activityType
     ).then(data => {
+
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listActivity = data.array;
       }

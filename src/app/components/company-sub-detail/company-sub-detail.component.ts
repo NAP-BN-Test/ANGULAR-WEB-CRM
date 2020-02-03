@@ -1,9 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
-import { AddDealComponent } from '../add-deal/add-deal.component';
 
 @Component({
   selector: 'app-company-sub-detail',
@@ -47,7 +46,7 @@ export class CompanySubDetailComponent implements OnInit {
       this.mService.getServer().dbName,
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
@@ -59,7 +58,7 @@ export class CompanySubDetailComponent implements OnInit {
       this.mService.getServer().dbName,
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           this.listCompany = data.array;
@@ -70,7 +69,7 @@ export class CompanySubDetailComponent implements OnInit {
       this.mService.getServer().ip, 
       this.mService.getServer().dbName,
       this.mService.getUser().username,
-      this.cookieService.get('m-id') ? this.cookieService.get('m-id') : null,
+      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
       ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listDeal = data.array;
@@ -84,61 +83,61 @@ export class CompanySubDetailComponent implements OnInit {
   }
 
   onClickContact() {
-    let task = document.getElementById('contact-detail');
+    // let task = document.getElementById('contact-detail');
 
 
-    if (this.showContact) {
-      this.contactDetail = "keyboard_arrow_right";
+    // if (this.showContact) {
+    //   this.contactDetail = "keyboard_arrow_right";
 
-      task.classList.remove('detail-show');
-      task.classList.add('detail-hide');
-    }
-    else {
-      this.contactDetail = "keyboard_arrow_down";
+    //   task.classList.remove('detail-show');
+    //   task.classList.add('detail-hide');
+    // }
+    // else {
+    //   this.contactDetail = "keyboard_arrow_down";
 
-      task.classList.remove('detail-hide');
-      task.classList.add('detail-show');
-    }
+    //   task.classList.remove('detail-hide');
+    //   task.classList.add('detail-show');
+    // }
 
     this.showContact = !this.showContact;
   }
 
   onClickCompany() {
-    let task = document.getElementById('company-detail');
+    // let task = document.getElementById('company-detail');
 
 
-    if (this.showCompany) {
-      this.companyDetail = "keyboard_arrow_right";
+    // if (this.showCompany) {
+    //   this.companyDetail = "keyboard_arrow_right";
 
-      task.classList.remove('detail-show');
-      task.classList.add('detail-hide');
-    }
-    else {
-      this.companyDetail = "keyboard_arrow_down";
+    //   task.classList.remove('detail-show');
+    //   task.classList.add('detail-hide');
+    // }
+    // else {
+    //   this.companyDetail = "keyboard_arrow_down";
 
-      task.classList.remove('detail-hide');
-      task.classList.add('detail-show');
-    }
+    //   task.classList.remove('detail-hide');
+    //   task.classList.add('detail-show');
+    // }
 
     this.showCompany = !this.showCompany;
   }
 
   onClickDeal() {
-    let task = document.getElementById('deal-detail');
+    // let task = document.getElementById('deal-detail');
 
 
-    if (this.showDeal) {
-      this.dealDetail = "keyboard_arrow_right";
+    // if (this.showDeal) {
+    //   this.dealDetail = "keyboard_arrow_right";
 
-      task.classList.remove('detail-show');
-      task.classList.add('detail-hide');
-    }
-    else {
-      this.dealDetail = "keyboard_arrow_down";
+    //   task.classList.remove('detail-show');
+    //   task.classList.add('detail-hide');
+    // }
+    // else {
+    //   this.dealDetail = "keyboard_arrow_down";
 
-      task.classList.remove('detail-hide');
-      task.classList.add('detail-show');
-    }
+    //   task.classList.remove('detail-hide');
+    //   task.classList.add('detail-show');
+    // }
 
     this.showDeal = !this.showDeal;
   }

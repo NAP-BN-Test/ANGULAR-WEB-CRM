@@ -6,10 +6,11 @@
 
     <div class="row m-content">
         <div class="col-md-3" padding-top>
-            <app-company-info (createAction)="onClickCreateAction($event)"></app-company-info>
+            <app-contact-detail-intro (createAction)="onClickCreateAction($event)"></app-contact-detail-intro>
         </div>
         <div [class]="colDetail" padding-top relative background-whitesmoke>
-            <app-company-detail [listContact]="listContact" [listUser]="listUser"></app-company-detail>
+            <app-contact-detail-activity [listContact]="listContact" [listUser]="listUser">
+            </app-contact-detail-activity>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">
                 <app-create-note (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-note>
@@ -40,21 +41,13 @@
                 <mat-icon>{{iconSubDetail}}</mat-icon>
             </div>
             <div [class.hide-div]="!iconSubDetailState">
-                <app-company-sub-detail [listDealStage]="listDealStage" (addSubDetail)="onClickAddSubDetail($event)">
-                </app-company-sub-detail>
+                <app-contact-detail-other [listDealStage]="listDealStage" (addSubDetail)="onClickAddSubDetail($event)">
+                </app-contact-detail-other>
             </div>
         </div>
     </div>
 
     <div>
-        <div class="box-add" [class.show-div]="addSubDetail==1">
-            <app-add-contact (closeAddSub)="onClickCloseSubDetail($event, 1)"></app-add-contact>
-        </div>
-
-        <div class="box-add" [class.show-div]="addSubDetail==2">
-            <app-add-company (closeAddSub)="onClickCloseSubDetail($event, 2)"></app-add-company>
-        </div>
-
         <div class="box-add" [class.show-div]="addSubDetail==3">
             <app-add-deal [listContact]="listContact" [listCompany]="listCompany" [listDealStage]="listDealStage"
                 (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>

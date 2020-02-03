@@ -3,7 +3,7 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.129:3002/";
+    mUrl: string = "http://192.168.1.130:3002/";
     // mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
@@ -66,7 +66,7 @@ export class ApiService extends HttpClient {
     }
 
     //4
-    public sendRequestGET_DETAIL_COMPANY(ip: string, dbName: string, username: string, companyID: number): Promise<any> {
+    public sendRequestGET_DETAIL_COMPANY(ip: string, dbName: string, username: string, companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_DETAIL_COMPANY,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -97,7 +97,7 @@ export class ApiService extends HttpClient {
     }
 
     //7
-    public sendRequestGET_LIST_ACTIVITY(ip: string, dbName: string, username: string, companyID: number, activityType: number, attendID?: number): Promise<any> {
+    public sendRequestGET_LIST_ACTIVITY(ip: string, dbName: string, username: string, companyID: string, activityType: number, attendID?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_ACTIVITY,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -186,7 +186,7 @@ export class ApiService extends HttpClient {
     }
 
     //13
-    public sendRequestCREATE_NOTE(ip: string, dbName: string, username: string, userID: number, companyID: number, description: string, listAssociate: any, timeRemind: string): Promise<any> {
+    public sendRequestCREATE_NOTE(ip: string, dbName: string, username: string, userID: number, companyID: string, description: string, listAssociate: any, timeRemind: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_NOTE,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -210,13 +210,13 @@ export class ApiService extends HttpClient {
     }
 
     //15
-    public sendRequestUPDATE_NOTE_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, noteID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_NOTE_ASSOCIATE(ip: string, dbName: string, username: string, contactID: number, noteID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_NOTE_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("userID", userID)
+                .add("contactID", contactID)
                 .add("noteID", noteID)
                 .add("state", state));
     }
@@ -426,13 +426,13 @@ export class ApiService extends HttpClient {
     }
 
     //30
-    public sendRequestUPDATE_CALL_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, callID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_CALL_ASSOCIATE(ip: string, dbName: string, username: string, contactID: number, callID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_CALL_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("userID", userID)
+                .add("contactID", contactID)
                 .add("callID", callID)
                 .add("state", state));
     }
@@ -448,13 +448,13 @@ export class ApiService extends HttpClient {
     }
 
     //32
-    public sendRequestUPDATE_EMAIL_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, emailID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_EMAIL_ASSOCIATE(ip: string, dbName: string, username: string, contactID: number, emailID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_EMAIL_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("userID", userID)
+                .add("contactID", contactID)
                 .add("emailID", emailID)
                 .add("state", state));
     }
@@ -470,13 +470,13 @@ export class ApiService extends HttpClient {
     }
 
     //34
-    public sendRequestUPDATE_MEET_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, meetID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_MEET_ASSOCIATE(ip: string, dbName: string, username: string, contactID: number, meetID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_MEET_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("userID", userID)
+                .add("contactID", contactID)
                 .add("meetID", meetID)
                 .add("state", state));
     }
@@ -492,13 +492,13 @@ export class ApiService extends HttpClient {
     }
 
     //36
-    public sendRequestUPDATE_TASK_ASSOCIATE(ip: string, dbName: string, username: string, userID: number, taskID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_TASK_ASSOCIATE(ip: string, dbName: string, username: string, contactID: number, taskID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_TASK_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("userID", userID)
+                .add("contactID", contactID)
                 .add("taskID", taskID)
                 .add("state", state));
     }
@@ -582,5 +582,53 @@ export class ApiService extends HttpClient {
                 .add("timeClose", deal.timeClose)
                 .add("timeRemind", deal.timeRemind)
                 .add("amount", deal.amount));
+    }
+
+    //42
+    public sendRequestGET_DETAIL_CONTACT(ip: string, dbName: string, username: string, contactID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_DETAIL_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("contactID", contactID));
+    }
+
+    //43
+    public sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(ip: string, dbName: string, username: string, contactID: string, activityType: number, attendID?: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_ACTIVITY_FOR_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("contactID", contactID)
+                .add("activityType", activityType)
+                .add("attendID", attendID ? attendID : -1));
+    }
+
+    //44
+    public sendRequestGET_LIST_QUICK_DEAL_FOR_CONTACT(ip: string, dbName: string, username: string, contactID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_DEAL_FOR_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("contactID", contactID));
+    }
+
+    //45
+    public sendRequestUPDATE_CONTACT(ip: string, dbName: string, username: string, contactID: string,
+        contactName?: string, contactAddress?: string, contactPhone?: string, contactEmail?: string, contactJobTile?: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("contactID", contactID)
+                .addIgnoreNull("contactName", contactName)
+                .addIgnoreNull("contactAddress", contactAddress)
+                .addIgnoreNull("contactPhone", contactPhone)
+                .addIgnoreNull("contactEmail", contactEmail)
+                .addIgnoreNull("contactJobTile", contactJobTile));
     }
 }
