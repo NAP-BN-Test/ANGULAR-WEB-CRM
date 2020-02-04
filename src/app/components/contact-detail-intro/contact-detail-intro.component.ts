@@ -5,6 +5,8 @@ import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, LIST_SELECT } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-contact-detail-intro',
@@ -23,11 +25,15 @@ export class ContactDetailIntroComponent implements OnInit {
 
   listJobTile = LIST_SELECT.LIST_JOB_TILE;
 
+  showToast = false;
+  toasMessage = "";
+
   constructor(
     public mService: AppModuleService,
     public router: Router,
     private cookieService: CookieService,
-    private location: Location
+    private location: Location,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -39,6 +45,7 @@ export class ContactDetailIntroComponent implements OnInit {
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
+      this.mService.getUser().id,
       this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -81,6 +88,50 @@ export class ContactDetailIntroComponent implements OnInit {
 
   onClickBack() {
     this.location.back();
+  }
+
+  onClickFollow() {
+    this.mService.getApiService().sendRequestFOLLOW_CONTACT(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      this.mObj.id, !this.mObj.follow ? true : null
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.mObj.follow = Boolean(data.follow);
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
+  }
+
+  onClickDelete() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        let listID = [];
+        listID.push(this.mObj.id);
+
+        this.mService.getApiService().sendRequestDELETE_CONTACT(
+          this.mService.getServer().ip,
+          this.mService.getServer().dbName,
+          this.mService.getUser().username,
+          this.mService.getUser().id,
+          JSON.stringify(listID)
+        ).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+            this.location.back();
+          }
+        })
+      }
+    });
   }
 
 }

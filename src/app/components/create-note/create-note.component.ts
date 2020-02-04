@@ -54,6 +54,7 @@ export class CreateNoteComponent implements OnInit {
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
       this.quillValue,
       this.listAssociate,
       this.dateFollow).then(data => {

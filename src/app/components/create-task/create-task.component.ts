@@ -88,6 +88,7 @@ export class CreateTaskComponent implements OnInit {
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
       this.assignID,
       this.taskType,
       this.taskName,

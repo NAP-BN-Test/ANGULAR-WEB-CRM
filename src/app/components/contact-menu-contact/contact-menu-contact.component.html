@@ -10,13 +10,17 @@
                 <div padding-end>
                     <input type="search" class="form-control" (change)="onSearchChange($event)" />
                 </div>
-                <div flex padding-end>
+                <!-- <div flex padding-end>
                     <div>{{mData.action}}</div>
                     <mat-icon>arrow_drop_down</mat-icon>
+                </div> -->
+                <!-- <div padding-end>{{mData.import}}</div> -->
+                <!-- <div padding-end>{{mData.export}}</div> -->
+                <div tappable (click)="onClickAdd()">{{mData.create_new}}</div>
+
+                <div class="box-add" [class.show-div]="addSub==1">
+                    <app-add-contact [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-contact>
                 </div>
-                <div padding-end>{{mData.import}}</div>
-                <div padding-end>{{mData.export}}</div>
-                <div>{{mData.create_new}}</div>
             </div>
         </div>
 
@@ -50,7 +54,8 @@
                             <div padding-start center-line style="font-weight: normal;">{{numberOfItemSelected}}
                                 {{mData.selected}}</div>
                             <div padding-start></div>
-                            <div *ngFor="let item of mData.contact.list_select" padding-start bold center-line>
+                            <div *ngFor="let item of mData.contact.list_select; let i = index" padding-start bold
+                                center-line tappable (click)="onClickAssign(i)">
                                 {{item.name}}
                             </div>
                         </div>
@@ -68,7 +73,7 @@
                                 tappable>
                                 {{mData.contact.phone}}
                             </div>
-                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.contact.owner}}
                             </div>
@@ -76,7 +81,7 @@
                                 tappable>
                                 {{mData.contact.company}}
                             </div>
-                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.contact.time_create}}
                             </div>
@@ -99,13 +104,13 @@
                         <div class="width-10 center-line overflow-hidden margin8-end">
                             {{item.handPhone}}
                         </div>
-                        <div class="width-10 center-line overflow-hidden margin8-end">
+                        <div class="width-20 center-line overflow-hidden margin8-end">
                             {{item.ownerName}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">
                             {{item.companyName}}
                         </div>
-                        <div class="width-20 center-line overflow-hidden margin8-end">
+                        <div class="width-10 center-line overflow-hidden margin8-end">
                             {{item.timeCreate | datetimeFull}}
                         </div>
                     </div>

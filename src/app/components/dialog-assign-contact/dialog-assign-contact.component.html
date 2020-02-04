@@ -1,0 +1,25 @@
+<div *ngIf="mData">
+    <div mat-dialog-content>
+        <p>{{mData.assign_contact}}</p>
+
+        <div padding-start padding-bottom>
+            <div font6 padding8-bottom>{{mData.title_assign}}</div>
+            <div>
+                <select class="custom-select" width-100 [(ngModel)]="userID">
+                    <option *ngFor="let item of listUser" [ngValue]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div flex>
+            <div>
+                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mData.cancel}}</button>
+            </div>
+            <div padding-start>
+                <button type="button" class="btn btn-danger" [mat-dialog-close]="userID"
+                    cdkFocusInitial>{{mData.assign}}</button>
+            </div>
+        </div>
+    </div>
+</div>

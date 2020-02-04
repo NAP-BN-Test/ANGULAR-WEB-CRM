@@ -6,6 +6,7 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 import { Utils } from 'src/app/services/core/app/utils';
 import { MatDialog } from '@angular/material';
 import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-contact-menu-company',
@@ -27,6 +28,8 @@ export class ContactMenuCompanyComponent implements OnInit {
   disabled = false;
 
   numberOfItemSelected = 0;
+
+  addSub = 0
 
   page = 1;
   pageSize = 12;
@@ -188,12 +191,64 @@ export class ContactMenuCompanyComponent implements OnInit {
             this.mService.getServer().dbName,
             this.mService.getUser().username,
             this.mService.getUser().id,
-            res,  
+            res,
             JSON.stringify(listID)
-          )
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.listData.forEach(item => {
+                if (item.checked) {
+                  item.email = data.obj.name;
+                }
+              });
+            }
+          })
+        }
+      });
+    } else if (index == 1) {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '500px'
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          let listID = [];
+          this.listDataSort.forEach(item => {
+            if (item.checked) listID.push(item.id)
+          })
+          this.mService.getApiService().sendRequestDELETE_COMPANY(
+            this.mService.getServer().ip,
+            this.mService.getServer().dbName,
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.listDataSort.forEach(item => {
+                if (item.checked) {
+                  let index = this.listData.findIndex(itm => {
+                    return itm.id === item.id;
+                  });
+                  if (index > -1) {
+                    this.listData.splice(index, 1)
+                  }
+                }
+              })
+            }
+          })
         }
       });
     }
+  }
+
+  onClickAdd() {
+    this.addSub = 1;
+  }
+
+  onClickCloseAdd(event) {
+    if (event) {
+      this.listData.unshift(event)
+    }
+    this.addSub = 0
   }
 
 }

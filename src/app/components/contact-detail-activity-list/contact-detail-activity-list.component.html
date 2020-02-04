@@ -135,11 +135,8 @@
             <div class="col-6" flex>
                 <div width-60>
                     <div font7>{{mData.contact}}</div>
-                    <div font6 flex>
-                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.contactID"
-                            (change)="onChangeContact(1)">
-                            <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
-                        </select>
+                    <div font6>
+                        <div color-primary style="padding: .375rem 1.75rem .375rem .75rem;">{{contactName}}</div>
                     </div>
                 </div>
                 <div width-40 padding-start>
@@ -207,10 +204,7 @@
                 <div width-60>
                     <div font7>{{mData.contact}}</div>
                     <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.contactID"
-                            (change)="onChangeContact(1)">
-                            <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
-                        </select>
+                        <div style="padding: .375rem 1.75rem .375rem .75rem;">{{contactName}}</div>
                     </div>
                 </div>
                 <div width-40 padding-start>

@@ -1,3 +1,5 @@
+<ngb-toast class="m-toast" *ngIf="showToast" [autohide]="false">{{toasMessage}}</ngb-toast>
+
 <div *ngIf="mData&&mObj">
     <div between padding32-bottom>
         <div class="m-title" tappable (click)="onClickBack()">
@@ -10,8 +12,14 @@
             </div>
         </div>
         <div color-primary bold center-line tappable>
-            <div>{{mData.action}}</div>
-            <mat-icon>arrow_drop_down</mat-icon>
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn" id="dropdownBasic1" ngbDropdownToggle>{{mData.action}}</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="onClickFollow()">{{mObj.follow | follow}}</button>
+                    <button ngbDropdownItem (click)="onClickDelete()">{{mData.delete}}</button>
+
+                </div>
+            </div>
         </div>
     </div>
     <div padding32 center>
@@ -65,7 +73,8 @@
         <div padding-top>
             <div font7>{{mData.info.job_tile}}</div>
             <div relative class="m-input">
-                <select class="custom-select border-0" width-100 [value]="mObj.jobTile" (change)="onInputChange($event, 6)">
+                <select class="custom-select border-0" width-100 [value]="mObj.jobTile"
+                    (change)="onInputChange($event, 6)">
                     <option *ngFor="let item of listJobTile" [value]="item.id">{{item.name}}</option>
                 </select>
             </div>

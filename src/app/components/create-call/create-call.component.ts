@@ -17,6 +17,8 @@ export class CreateCallComponent implements OnInit {
 
   @Input("listContact") listContact = [];
 
+  @Input("createInContact") createInContact: any;
+
   mData: any;
 
   showTimePicker = false;
@@ -24,6 +26,8 @@ export class CreateCallComponent implements OnInit {
   listAssociate = [];
 
   contactID = -1;
+  contactName = "";
+
   outcomeType = -1;
   datetime = moment.utc().format("YYYY-MM-DD HH:mm");
   quillValue: any;
@@ -43,7 +47,9 @@ export class CreateCallComponent implements OnInit {
   constructor(
     public mService: AppModuleService,
     private cookieService: CookieService
-  ) { }
+  ) {
+    this.contactName = this.cookieService.get('contact-name');
+  }
 
   ngOnInit() {
     this.mService.LoadTitle(1).then((data: any) => {
@@ -72,14 +78,13 @@ export class CreateCallComponent implements OnInit {
   }
 
   onClickSave() {
-
     this.mService.getApiService().sendRequestCREATE_CALL(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-      this.contactID,
+      this.createInContact ? Number(this.cookieService.get('contact-id')) : this.contactID,
       this.outcomeType,
       this.datetime,
       this.showTimePicker ? this.dateRemind : null,

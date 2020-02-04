@@ -63,6 +63,9 @@ import { ContactDetailActivityComponent } from './components/contact-detail-acti
 import { ContactDetailOtherComponent } from './components/contact-detail-other/contact-detail-other.component';
 import { ContactDetailActivityListComponent } from './components/contact-detail-activity-list/contact-detail-activity-list.component';
 import { DialogAssignCompanyComponent } from './components/dialog-assign-company/dialog-assign-company.component';
+import { DialogAssignContactComponent } from './components/dialog-assign-contact/dialog-assign-contact.component';
+import { FollowPipe } from './pipes/follow/follow.pipe';
+import { ActivityListTaskComponent } from './components/activity-list-task/activity-list-task.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +116,10 @@ import { DialogAssignCompanyComponent } from './components/dialog-assign-company
     ContactDetailActivityComponent,
     ContactDetailOtherComponent,
     ContactDetailActivityListComponent,
-    DialogAssignCompanyComponent
+    DialogAssignCompanyComponent,
+    DialogAssignContactComponent,
+    FollowPipe,
+    ActivityListTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -136,6 +142,10 @@ import { DialogAssignCompanyComponent } from './components/dialog-assign-company
     DatetimeFullPipe,
     DatetimeDatePipe
   ],
-  entryComponents: [DialogComponent, DialogAssignCompanyComponent]
+  entryComponents: [
+    DialogComponent, 
+    DialogAssignCompanyComponent,
+    DialogAssignContactComponent
+  ]
 })
 export class AppModule { }

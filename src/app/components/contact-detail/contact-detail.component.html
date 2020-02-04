@@ -22,12 +22,12 @@
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==3">
-                <app-create-call [listContact]="listContact" [listUser]="listUser"
+                <app-create-call [listContact]="listContact" [listUser]="listUser" [createInContact]="1"
                     (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==4">
-                <app-create-email [listContact]="listContact" [listUser]="listUser"
+                <app-create-email [listContact]="listContact" [listUser]="listUser" [createInContact]="1"
                     (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
             </div>
 

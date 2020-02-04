@@ -3,8 +3,8 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { CompanyDetailComponent } from '../company-detail/company-detail.component';
-import { CompanySubDetailComponent } from '../company-sub-detail/company-sub-detail.component';
+import { ContactDetailOtherComponent } from '../contact-detail-other/contact-detail-other.component';
+import { ContactDetailActivityComponent } from '../contact-detail-activity/contact-detail-activity.component';
 
 @Component({
   selector: 'app-contact-detail',
@@ -12,8 +12,8 @@ import { CompanySubDetailComponent } from '../company-sub-detail/company-sub-det
   styleUrls: ['./contact-detail.component.scss']
 })
 export class ContactDetailComponent implements OnInit {
-  @ViewChild(CompanyDetailComponent, { static: false }) companyDetailComponent: CompanyDetailComponent;
-  @ViewChild(CompanySubDetailComponent, { static: false }) companySubDetailComponent: CompanySubDetailComponent;
+  @ViewChild(ContactDetailActivityComponent, { static: false }) contactDetailActivityComponent: ContactDetailActivityComponent;
+  @ViewChild(ContactDetailOtherComponent, { static: false }) ContactDetailOtherComponent: ContactDetailOtherComponent;
 
   mData: any;
 
@@ -39,8 +39,10 @@ export class ContactDetailComponent implements OnInit {
     private cookieService: CookieService
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
-      this.mID = this.router.getCurrentNavigation().extras.state.params;
-      this.cookieService.set('contact-id', this.mID + "");
+      let params = this.router.getCurrentNavigation().extras.state.params;
+      this.mID = params.id
+      this.cookieService.set('contact-id', params.id + "");
+      this.cookieService.set('contact-name', params.name + "");
     } else {
       if (this.cookieService.get('contact-id')) {
         this.mID = Number(this.cookieService.get('contact-id'));
@@ -107,7 +109,7 @@ export class ContactDetailComponent implements OnInit {
   onClickCloseCreateAction(event) {
     this.createTabIndex = 0;
     if (event) {
-      this.companyDetailComponent.listActivity.unshift(event)
+      this.contactDetailActivityComponent.listActivity.unshift(event)
     }
   }
 
@@ -118,7 +120,7 @@ export class ContactDetailComponent implements OnInit {
   onClickCloseSubDetail(event, type) {
     if (event) {
       if (type == 1) {
-        this.companySubDetailComponent.listContact.unshift(event)
+        this.ContactDetailOtherComponent.listContact.unshift(event)
       }
     }
 

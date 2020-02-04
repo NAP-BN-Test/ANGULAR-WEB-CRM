@@ -51,24 +51,8 @@
                     "index": 2,
                     "list": [
                         {
-                            "name": "Calls",
-                            "index": 1
-                        },
-                        {
-                            "name": "Emails",
-                            "index": 2
-                        },
-                        {
-                            "name": "Meets",
-                            "index": 3
-                        },
-                        {
-                            "name": "Notes",
-                            "index": 4
-                        },
-                        {
                             "name": "Tasks",
-                            "index": 5
+                            "index": 1
                         }
                     ]
                 },
@@ -98,6 +82,9 @@
             },
             "detail": "Detail",
             "action": "Action",
+            "follow": "Follow",
+            "unfollow": "Unfollow",
+            "delete": "Delete",
             "list_icon": [
                 {
                     "icon": "note_circle",
@@ -320,7 +307,7 @@
                 "name": "NAME",
                 "email": "EMAIL",
                 "phone": "HAND PHONE",
-                "owner": "OWNER",
+                "owner": "CONTACT OWNER",
                 "company": "ASSOCIATED COMPANY",
                 "time_create": "CREATE DATE",
                 "list_select": [
@@ -329,18 +316,14 @@
                         "index": 1
                     },
                     {
-                        "name": "Task",
-                        "index": 2
-                    },
-                    {
                         "name": "Delete",
-                        "index": 3
+                        "index": 2
                     }
                 ]
             },
             "company": {
                 "name": "NAME",
-                "email": "COMPANY OWNER",
+                "owner": "COMPANY OWNER",
                 "phone": "PHONE",
                 "address": "ADDRESS",
                 "country": "COUNTRY",
@@ -350,12 +333,8 @@
                         "index": 1
                     },
                     {
-                        "name": "Task",
-                        "index": 2
-                    },
-                    {
                         "name": "Delete",
-                        "index": 3
+                        "index": 2
                     }
                 ]
             }
@@ -365,6 +344,7 @@
             "no": "Không",
             "ask_delete": "Bạn có chắc muốn xóa mục này?",
             "assign_company": "Assign Company",
+            "assign_contact": "Assign Contact",
             "title_assign": "Assign selected items to this owner:",
             "assign": "Assign",
             "cancel": "Cancel"

@@ -10,10 +10,15 @@
         <div class="col-3 padding0">
             <div padding>
                 <div font7>{{mData.contact}}</div>
-                <div font6 color-primary flex>
-                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="contactID">
-                        <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
+                <div [hidden]="createInContact">
+                    <div font6 color-primary flex>
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="contactID">
+                            <option *ngFor="let item of listContact" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div [hidden]="!createInContact">
+                    <div font6 color-primary style="padding: .375rem 1.75rem .375rem .75rem;">{{contactName}}</div>
                 </div>
             </div>
         </div>

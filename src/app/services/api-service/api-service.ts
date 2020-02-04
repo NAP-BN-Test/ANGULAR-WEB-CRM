@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.130:3002/";
-    // mUrl: string = "http://163.44.192.123:3302/";
+    // mUrl: string = "http://192.168.1.130:3002/";
+    mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
 
@@ -66,12 +66,13 @@ export class ApiService extends HttpClient {
     }
 
     //4
-    public sendRequestGET_DETAIL_COMPANY(ip: string, dbName: string, username: string, companyID: string): Promise<any> {
+    public sendRequestGET_DETAIL_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_DETAIL_COMPANY,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
+                .add("userID", userID)
                 .add("companyID", companyID));
     }
 
@@ -187,7 +188,7 @@ export class ApiService extends HttpClient {
     }
 
     //13
-    public sendRequestCREATE_NOTE(ip: string, dbName: string, username: string, userID: number, companyID: string, description: string, listAssociate: any, timeRemind: string): Promise<any> {
+    public sendRequestCREATE_NOTE(ip: string, dbName: string, username: string, userID: number, companyID: string, contactID: string, description: string, listAssociate: any, timeRemind: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_NOTE,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -195,6 +196,7 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
+                .add("contactID", contactID)
                 .add("description", description)
                 .add("listAssociate", JSON.stringify(listAssociate))
                 .addIgnoreNull("timeRemind", timeRemind));
@@ -322,7 +324,8 @@ export class ApiService extends HttpClient {
 
     //23
     public sendRequestCREATE_MEET(ip: string, dbName: string, username: string, userID: number,
-        companyID: string, listAttendID: any, duration: number, timeStart: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
+        companyID: string, contactID: string,
+        listAttendID: any, duration: number, timeStart: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_MEET,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -330,6 +333,7 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
+                .add("contactID", contactID)
                 .add("listAttendID", JSON.stringify(listAttendID))
                 .add("duration", duration)
                 .add("timeStart", timeStart)
@@ -340,7 +344,10 @@ export class ApiService extends HttpClient {
 
     //24
     public sendRequestCREATE_TASK(ip: string, dbName: string, username: string, userID: number,
-        companyID: string, assignID: number, taskType: number, taskName: string, timeStart: string, timeAssign: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
+        companyID: string, contactID: string,
+        assignID: number, taskType: number, taskName: string,
+        timeStart: string, timeAssign: string, timeRemind: string,
+        description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_TASK,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -348,6 +355,7 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
+                .add("contactID", contactID)
                 .add("assignID", assignID)
                 .add("taskType", taskType)
                 .add("taskName", taskName)
@@ -359,7 +367,7 @@ export class ApiService extends HttpClient {
     }
 
     //25
-    public sendRequestADD_CONTACT(ip: string, dbName: string, username: string, userID: number, companyID: string, contact: any): Promise<any> {
+    public sendRequestADD_CONTACT(ip: string, dbName: string, username: string, userID: number, companyID: string, contact: any, addOut: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_CONTACT,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -373,7 +381,8 @@ export class ApiService extends HttpClient {
                 .add("handPhone", contact.handPhone)
                 .add("homePhone", contact.homePhone)
                 .add("email", contact.email)
-                .add("address", contact.address));
+                .add("address", contact.address)
+                .addIgnoreNull("addOut", addOut));
     }
 
     //26
@@ -517,7 +526,7 @@ export class ApiService extends HttpClient {
     }
 
     //38
-    public sendRequestADD_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: string, comapny: any): Promise<any> {
+    public sendRequestADD_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: string, company: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_COMPANY,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -525,13 +534,13 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
-                .add("name", comapny.name)
-                .add("shortName", comapny.shortName)
-                .add("phone", comapny.phone)
-                .add("email", comapny.email)
-                .add("address", comapny.address)
-                .add("country", comapny.country)
-                .add("role", comapny.role));
+                .add("name", company.name)
+                .add("shortName", company.shortName)
+                .add("phone", company.phone)
+                .add("email", company.email)
+                .add("address", company.address)
+                .add("country", company.country)
+                .add("role", company.role));
     }
 
     //39
@@ -586,12 +595,13 @@ export class ApiService extends HttpClient {
     }
 
     //42
-    public sendRequestGET_DETAIL_CONTACT(ip: string, dbName: string, username: string, contactID: string): Promise<any> {
+    public sendRequestGET_DETAIL_CONTACT(ip: string, dbName: string, username: string, userID: string, contactID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_DETAIL_CONTACT,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
+                .add("userID", userID)
                 .add("contactID", contactID));
     }
 
@@ -634,7 +644,7 @@ export class ApiService extends HttpClient {
     }
 
     //46
-    public sendRequestASSIGN_COMPANY_OWNER(ip: string, dbName: string, username: string, userID: number, assignID: number, companyIDs: string, ): Promise<any> {
+    public sendRequestASSIGN_COMPANY_OWNER(ip: string, dbName: string, username: string, userID: number, assignID: number, companyIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ASSIGN_COMPANY_OWNER,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -642,6 +652,64 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("assignID", assignID)
+                .add("companyIDs", companyIDs));
+    }
+
+    //47
+    public sendRequestASSIGN_CONTACT_OWNER(ip: string, dbName: string, username: string, userID: number, assignID: number, contactIDs: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ASSIGN_CONTACT_OWNER,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("assignID", assignID)
+                .add("contactIDs", contactIDs));
+    }
+
+    //47
+    public sendRequestDELETE_CONTACT(ip: string, dbName: string, username: string, userID: number, contactIDs: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("contactIDs", contactIDs));
+    }
+
+    //48
+    public sendRequestFOLLOW_COMPANY(ip: string, dbName: string, username: string, userID: number, companyID: string, follow: boolean): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.FOLLOW_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("companyID", companyID)
+                .addIgnoreNull("follow", follow));
+    }
+
+    //49
+    public sendRequestFOLLOW_CONTACT(ip: string, dbName: string, username: string, userID: number, contactID: string, follow: boolean): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.FOLLOW_CONTACT,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("contactID", contactID)
+                .addIgnoreNull("follow", follow));
+    }
+
+    //50
+    public sendRequestDELETE_COMPANY(ip: string, dbName: string, username: string, userID: number, companyIDs: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
                 .add("companyIDs", companyIDs));
     }
 }

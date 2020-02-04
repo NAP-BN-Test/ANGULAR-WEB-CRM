@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,6 +11,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class AddContactComponent implements OnInit {
 
   @Output("closeAddSub") closeAddSub = new EventEmitter();
+
+  @Input("addOut") addOut: number;
 
   mData: any;
 
@@ -76,7 +78,7 @@ export class AddContactComponent implements OnInit {
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-        obj
+        obj, this.addOut
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.closeAddSub.emit(data.obj);

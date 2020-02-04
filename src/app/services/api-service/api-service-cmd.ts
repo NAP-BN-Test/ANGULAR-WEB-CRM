@@ -94,5 +94,14 @@ export class ApiCmd {
 
     public static ASSIGN_COMPANY_OWNER: string = "crm/assign_company_owner";
 
+    public static ASSIGN_CONTACT_OWNER: string = "crm/assign_contact_owner";
+
+    public static DELETE_CONTACT: string = "crm/delete_contact";
+
+    public static FOLLOW_COMPANY: string = "crm/follow_company";
+
+    public static FOLLOW_CONTACT: string = "crm/follow_contact";
+
+    public static DELETE_COMPANY: string = "crm/delete_company";
 
 }

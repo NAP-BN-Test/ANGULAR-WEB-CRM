@@ -6,6 +6,7 @@ import { STATUS, ACTIVITY_TYPE, LIST_SELECT } from 'src/app/services/constant/ap
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-contact-detail-activity-list',
@@ -39,10 +40,15 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   showQuill = false;
 
+  contactName = "";
+
   constructor(
     public mService: AppModuleService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private cookieService: CookieService
+  ) { 
+    this.contactName = this.cookieService.get('contact-name');
+  }
 
   ngOnInit() {
     this.mService.LoadTitle(1).then((data: any) => {

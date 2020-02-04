@@ -42,7 +42,8 @@ export class ContactDetailActivityComponent implements OnInit {
       this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
       activityType
     ).then(data => {
-
+      console.log(data);
+      
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listActivity = data.array;
       }

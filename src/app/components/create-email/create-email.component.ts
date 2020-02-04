@@ -13,8 +13,10 @@ import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
 export class CreateEmailComponent implements OnInit {
 
   @Output("closeCreateAction") closeCreateAction = new EventEmitter();
+
   @Input("listContact") listContact = [];
-  
+  @Input("createInContact") createInContact: any;
+
   mData: any;
 
   showTimePicker = false;
@@ -22,6 +24,8 @@ export class CreateEmailComponent implements OnInit {
   listAssociate = [];
 
   contactID = -1;
+  contactName = "";
+
   outcomeType = -1;
   datetime = moment.utc().format("YYYY-MM-DD HH:mm");
   quillValue: any;
@@ -40,7 +44,9 @@ export class CreateEmailComponent implements OnInit {
   constructor(
     public mService: AppModuleService,
     private cookieService: CookieService
-  ) { }
+  ) {
+    this.contactName = this.cookieService.get('contact-name');
+  }
 
   ngOnInit() {
     this.mService.LoadTitle(1).then((data: any) => {
@@ -76,7 +82,7 @@ export class CreateEmailComponent implements OnInit {
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-      this.contactID,
+      this.createInContact ? Number(this.cookieService.get('contact-id')) : this.contactID,
       this.outcomeType,
       this.datetime,
       this.showTimePicker ? this.dateRemind : null,

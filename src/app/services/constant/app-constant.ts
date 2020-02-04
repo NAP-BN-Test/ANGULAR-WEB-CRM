@@ -114,6 +114,7 @@ export const CONTACT_ROLE = {
     STAFF: 2,
 }
 
+
 export const LIST_SELECT = {
     LIST_OUTCOME: [
         { id: 1, name: "No Answer" },

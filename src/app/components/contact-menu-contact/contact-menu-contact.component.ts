@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { Utils } from 'src/app/services/core/app/utils';
+import { DialogAssignContactComponent } from '../dialog-assign-contact/dialog-assign-contact.component';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-contact-menu-contact',
@@ -26,13 +29,16 @@ export class ContactMenuContactComponent implements OnInit {
 
   numberOfItemSelected = 0;
 
+  addSub = 0
+
   page = 1;
   pageSize = 12;
   collectionSize = 0;
 
   constructor(
     public mService: AppModuleService,
-    public router: Router
+    public router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -180,7 +186,85 @@ export class ContactMenuContactComponent implements OnInit {
   }
 
   onClickItem(item) {
-    this.router.navigate(['contact-detail'], { state: { params: item.id } });
+    this.router.navigate(['contact-detail'], { state: { params: item } });
+  }
+
+  onClickAdd() {
+    this.addSub = 1;
+  }
+
+  onClickCloseAdd(event) {
+    if (event) {
+      this.listContact.unshift(event)
+    }
+    this.addSub = 0
+  }
+
+  onClickAssign(index) {
+    if (index == 0) {
+      const dialogRef = this.dialog.open(DialogAssignContactComponent, {
+        width: '500px'
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          let listID = [];
+          this.listContactSort.forEach(item => {
+            if (item.checked) listID.push(item.id)
+          })
+          this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
+            this.mService.getServer().ip,
+            this.mService.getServer().dbName,
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            res,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.listContact.forEach(item => {
+                if (item.checked) {
+                  item.ownerID = data.obj.id;
+                  item.ownerName = data.obj.name;
+                }
+              });
+            }
+          })
+        }
+      });
+    } else if (index == 1) {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '500px'
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          let listID = [];
+          this.listContactSort.forEach(item => {
+            if (item.checked) listID.push(item.id)
+          })
+          this.mService.getApiService().sendRequestDELETE_CONTACT(
+            this.mService.getServer().ip,
+            this.mService.getServer().dbName,
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.listContactSort.forEach(item => {
+                if (item.checked) {
+                  let index = this.listContact.findIndex(itm => {
+                    return itm.id === item.id;
+                  });
+                  if (index > -1) {
+                    this.listContact.splice(index, 1)
+                  }
+                }
+              })
+            }
+          })
+        }
+      });
+    }
   }
 
 }
