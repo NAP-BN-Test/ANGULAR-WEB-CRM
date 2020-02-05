@@ -25,7 +25,7 @@
 
         <div flex padding-top>
             <div center-line>
-                <mat-icon color-gray>{{mData.task.icon}}</mat-icon>
+                <input type="checkbox" [checked]="mObj.status" (change)="onTaskStatusChange($event)">
             </div>
             <div color-primary padding8-start bold width-100>
                 <input class="form-control border-0" type="text" [value]="mObj.taskName"

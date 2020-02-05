@@ -59,18 +59,18 @@ export class CompanySubDetailComponent implements OnInit {
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-      ).then(data => {
-        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-          this.listCompany = data.array;
-        }
-      })
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.listCompany = data.array;
+      }
+    })
 
     this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL(
-      this.mService.getServer().ip, 
+      this.mService.getServer().ip,
       this.mService.getServer().dbName,
       this.mService.getUser().username,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-      ).then(data => {
+    ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listDeal = data.array;
       }
@@ -140,6 +140,24 @@ export class CompanySubDetailComponent implements OnInit {
     // }
 
     this.showDeal = !this.showDeal;
+  }
+
+  onDeleteContactFromCompany(event) {
+    let index = this.listContact.findIndex(item => {
+      return item.id == event.id;
+    });
+    if (index > -1) {
+      this.listContact.splice(index, 1);
+    }
+  }
+
+  onDeleteCompanyFromCompany(event) {
+    let index = this.listCompany.findIndex(item => {
+      return item.id == event.id;
+    });
+    if (index > -1) {
+      this.listCompany.splice(index, 1);
+    }
   }
 
 }

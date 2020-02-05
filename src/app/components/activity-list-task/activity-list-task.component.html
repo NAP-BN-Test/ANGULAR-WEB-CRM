@@ -1,1 +1,121 @@
-<p>activity-list-task works!</p>
+<div *ngIf="mData">
+    <div class="m-header">
+        <app-header-menu></app-header-menu>
+    </div>
+
+    <div padding32>
+        <div padding32-bottom between>
+            <div font2 bold>{{mData.task_title}}</div>
+            <div center-line bold color-primary>
+                <div padding-end>
+                    <input type="search" class="form-control" (change)="onSearchChange($event)" />
+                </div>
+                <!-- <div flex padding-end>
+                    <div>{{mData.action}}</div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </div> -->
+                <!-- <div padding-end>{{mData.import}}</div> -->
+                <!-- <div padding-end>{{mData.export}}</div> -->
+                <div tappable (click)="onClickAdd()">{{mData.create_new}}</div>
+
+                <div class="box-add" [class.show-div]="addSub==1">
+                    <app-add-contact [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-contact>
+                </div>
+            </div>
+        </div>
+
+        <div flex no-wrap>
+
+            <div padding32-horizontal style="width: 300px;">
+                <div>
+                    <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
+                        {{mData.all_task}}({{contactInfo.all}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
+                        {{mData.due_today}}({{contactInfo.mine}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
+                        {{mData.due_week}}({{contactInfo.other}})</div>
+                </div>
+                <div padding-top>
+                    <div bold color-primary>{{mData.add_filter}}</div>
+                </div>
+            </div>
+
+            <div width-fill>
+                <div>
+                    <div flex padding8-vertical [class.background-whitesmoke]="!checked"
+                        [class.background-secondary]="checked">
+                        <div padding-horizontal>
+                            <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate"
+                                (click)="onCheckAllChange()">
+                            </mat-checkbox>
+                        </div>
+
+                        <div flex [hidden]="!checked&&!indeterminate">
+                            <div padding-start center-line style="font-weight: normal;">{{numberOfItemSelected}}
+                                {{mData.selected}}</div>
+                            <div padding-start></div>
+                            <div *ngFor="let item of mData.contact.list_select; let i = index" padding-start bold
+                                center-line tappable (click)="onClickAssign(i)">
+                                {{item.name}}
+                            </div>
+                        </div>
+
+                        <div flex width-fill>
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.task.status}}
+                            </div>
+                            <div class="width-40 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.task.name}}
+                            </div>
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.task.type}}
+                            </div>
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.task.due_date}}
+                            </div>
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.task.create_user}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="padding8-vertical flex" *ngFor="let item of listDataSort;let i = index"
+                        [class.background-whitesmoke]="i%2==1">
+                        <div padding-horizontal center-line>
+                            <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
+                            </mat-checkbox>
+                        </div>
+                        <div class="width-10 padding-start center-line">
+                            <input type="checkbox" [checked]="item.status" (change)="onStatusChange($event, item)">
+                        </div>
+                        <div class="width-40 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
+                            tappable>
+                            {{item.name}}
+                        </div>
+                        <div class="width-10 center-line overflow-hidden margin8-end">
+                            {{item.type | taskType}}
+                        </div>
+                        <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.timeRemind | datetimeFull}}
+                        </div>
+                        <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.createName}}
+                        </div>
+                    </div>
+                </div>
+
+                <div center padding-top>
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                        (click)="onClickPagination()">
+                    </ngb-pagination>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

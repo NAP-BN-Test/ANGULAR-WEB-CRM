@@ -183,6 +183,7 @@
             "deal": "Deals ",
             "add_deal": "+ Add deal",
             "detail": "Detail",
+            "delete": "Delete",
             "stage": "Stages",
             "close_date": "Close date"
         },
@@ -292,6 +293,7 @@
         "contact": {
             "contact_title": "Contact",
             "company_title": "Company",
+            "task_title": "Task",
             "action": "Actions",
             "import": "Import",
             "export": "Export",
@@ -302,7 +304,9 @@
             "my_contact": "My contacts ",
             "unassign_contact": "Unassigned contacts ",
             "all_company": "All company ",
-            "unassign_company": "Unassigned company ",
+            "all_task": "All tasks ",
+            "due_today": "Due today ",
+            "due_week": "Due this week ",
             "contact": {
                 "name": "NAME",
                 "email": "EMAIL",
@@ -322,6 +326,7 @@
                 ]
             },
             "company": {
+                "status": "STATUS",
                 "name": "NAME",
                 "owner": "COMPANY OWNER",
                 "phone": "PHONE",
@@ -337,6 +342,19 @@
                         "index": 2
                     }
                 ]
+            },
+            "task": {
+                "status": "STATUS",
+                "name": "NAME",
+                "type": "TYPE",
+                "due_date": "DUE DATE",
+                "create_user": "CREATE USER",
+                "list_select": [
+                    {
+                        "name": "Mark as complete",
+                        "index": 1
+                    }
+                ]
             }
         },
         "dialog": {
@@ -348,6 +366,11 @@
             "title_assign": "Assign selected items to this owner:",
             "assign": "Assign",
             "cancel": "Cancel"
+        },
+        "task_type": {
+            "call": "Call",
+            "email": "Email",
+            "meet": "Meet"
         }
     }
 }

@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.130:3002/";
-    mUrl: string = "http://163.44.192.123:3302/";
+    mUrl: string = "http://192.168.1.130:3002/";
+    // mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
 
@@ -711,5 +711,51 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyIDs", companyIDs));
+    }
+
+    //51
+    public sendRequestGET_LIST_TASK(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_TASK,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
+
+    //52
+    public sendRequestUPDATE_TASK(ip: string, dbName: string, username: string, userID: number, taskID: string, status: boolean): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_TASK,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("taskID", taskID)
+                .addIgnoreNull("status", status));
+    }
+
+    //53
+    public sendRequestDELETE_CONTACT_FROM_COMPANY(ip: string, dbName: string, username: string, userID: number, contactID): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CONTACT_FROM_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("contactID", contactID));
+    }
+
+    //53
+    public sendRequestDELETE_COMPANY_FROM_COMPANY(ip: string, dbName: string, username: string, userID: number, role: number, companyID: string, companyIDRemove: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_COMPANY_FROM_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("role", role)
+                .add("companyID", companyID)
+                .add("companyIDRemove", companyIDRemove));
     }
 }

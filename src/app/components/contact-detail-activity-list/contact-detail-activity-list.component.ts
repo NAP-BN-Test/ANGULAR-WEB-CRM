@@ -418,4 +418,20 @@ export class ContactDetailActivityListComponent implements OnInit {
     this.showQuill = true;
   }
 
+  onTaskStatusChange(event) {
+    let checked = event.target.checked;
+    this.mService.getApiService().sendRequestUPDATE_TASK(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      this.mObj.id,
+      checked ? checked : null
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.mObj.status = checked;
+      }
+    })
+  }
+
 }

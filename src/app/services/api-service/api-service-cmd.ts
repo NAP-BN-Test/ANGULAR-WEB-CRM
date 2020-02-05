@@ -104,4 +104,12 @@ export class ApiCmd {
 
     public static DELETE_COMPANY: string = "crm/delete_company";
 
+    public static GET_LIST_TASK: string = "crm/get_list_task";
+
+    public static UPDATE_TASK: string = "crm/update_task";
+
+    public static DELETE_CONTACT_FROM_COMPANY: string = "crm/delete_contact_from_company";
+
+    public static DELETE_COMPANY_FROM_COMPANY: string = "crm/delete_company_from_company";
+
 }

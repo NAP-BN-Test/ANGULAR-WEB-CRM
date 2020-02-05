@@ -118,7 +118,9 @@ export class HomeComponent implements OnInit {
   onClickCloseSubDetail(event, type) {
     if (event) {
       if (type == 1) {
-        this.companySubDetailComponent.listContact.unshift(event)
+        this.companySubDetailComponent.listContact.unshift(event);
+      } else if (type == 2) {
+        this.companySubDetailComponent.listCompany.unshift(event);
       }
     }
 

@@ -42,7 +42,7 @@
                 <div>
                     <div flex padding8-vertical [class.background-whitesmoke]="!checked"
                         [class.background-secondary]="checked">
-                        <div style="padding: 8px 16px 0 16px;">
+                        <div padding-horizontal center-line>
                             <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate"
                                 (click)="onCheckAllChange()">
                             </mat-checkbox>
@@ -84,7 +84,7 @@
 
                     <div class="padding8-vertical flex" *ngFor="let item of listDataSort;let i = index"
                         [class.background-whitesmoke]="i%2==1">
-                        <div style="padding: 8px 16px 0 16px;">
+                        <div padding-horizontal center-line>
                             <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>

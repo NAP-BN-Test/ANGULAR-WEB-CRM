@@ -1,5 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
+import { STATUS } from 'src/app/services/constant/app-constant';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-company-sub-detail-company',
@@ -10,17 +14,45 @@ export class CompanySubDetailCompanyComponent implements OnInit {
 
   @Input('mObj') mObj: any;
 
+  @Output('deleteFromCompany') deleteFromCompany = new EventEmitter();
+
   mData: any;
 
   constructor(
     public mService: AppModuleService,
+    public dialog: MatDialog,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.company_sub_detail;
     });
-    
+
+  }
+
+  onClickDelete() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.mService.getApiService().sendRequestDELETE_COMPANY_FROM_COMPANY(
+          this.mService.getServer().ip,
+          this.mService.getServer().dbName,
+          this.mService.getUser().username,
+          this.mService.getUser().id,
+          this.mObj.role,
+          this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+          this.mObj.id
+        ).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+            this.deleteFromCompany.emit(this.mObj);
+          }
+        })
+      }
+    });
   }
 
 }

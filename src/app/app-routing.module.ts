@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContactMenuContactComponent } from './components/contact-menu-contact/contact-menu-contact.component';
 import { ContactMenuCompanyComponent } from './components/contact-menu-company/contact-menu-company.component';
 import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
+import { ActivityListTaskComponent } from './components/activity-list-task/activity-list-task.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     data: { title: 'login' }
+  },
+  {
+    path: 'task',
+    component: ActivityListTaskComponent,
+    data: { title: 'task' }
   },
   {
     path: '',

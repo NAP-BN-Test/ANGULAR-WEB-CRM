@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div padding>
+    <div padding height-90>
         <div>{{mData.contact_intro}}</div>
 
         <div flex>
@@ -24,13 +24,13 @@
             </div>
         </div>
 
-        <div [hidden]="btnType!=1">
+        <div [hidden]="btnType!=1" height-80>
             <div padding>
                 <input type="search" [placeholder]="mData.placeholder" class="form-control"
                     (change)="onSeachCompany($event)" />
             </div>
 
-            <div padding-horizontal>
+            <div padding-horizontal height-90 style="overflow-y: scroll;">
                 <div padding-top *ngFor="let item of listCompany">
                     <div padding8 class="m-contact">
                         <div bold>{{item.name}}</div>

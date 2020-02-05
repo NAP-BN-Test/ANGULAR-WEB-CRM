@@ -73,8 +73,6 @@ export class AddCompanyComponent implements OnInit {
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         obj
       ).then(data => {
-        console.log(data);
-        
         if (data.status == STATUS.SUCCESS) {
           this.closeAddSub.emit(data.obj);
         }
@@ -105,7 +103,7 @@ export class AddCompanyComponent implements OnInit {
 
   }
 
-  onClickAddParentCompany(item, type) {
+  onClickAddCompany(item, type) {
     if (type == 1) {
       this.mService.getApiService().sendRequestADD_PARENT_COMPANY_BY_ID(
         this.mService.getServer().ip,

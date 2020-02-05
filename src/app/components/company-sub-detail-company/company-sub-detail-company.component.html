@@ -1,28 +1,22 @@
 <div shadow padding relative class="m-box" *ngIf="mData">
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-10">
-            <div color-primary>{{mObj.name}}</div>
-        </div>
+    <div>
+        <div color-primary>{{mObj.name}}</div>
     </div>
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-10">
-            <div color-gray>{{mObj.address}}</div>
-        </div>
+    <div>
+        <div color-gray>{{mObj.address}}</div>
     </div>
-    <div class="row">
-        <div class="col-2 m-icon">
-            <mat-icon>email</mat-icon>
-        </div>
-        <div class="col-10">
-            <div color-primary>{{mObj.email}}</div>
-        </div>
+    <div>
+        <div color-primary>{{mObj.email}}</div>
     </div>
 
     <div class="m-type" color-gray>{{mObj.role | companyRole}}</div>
 
     <div class="btn-detail">
-        <button class="m-btn btn btn-sm">{{mData.detail}}</button>
+        <div>
+            <button class="m-btn btn btn-sm" (click)="onClickDelete()">{{mData.delete}}</button>
+        </div>
+        <div padding8-top>
+            <button class="m-btn btn btn-sm">{{mData.detail}}</button>
+        </div>
     </div>
 </div>

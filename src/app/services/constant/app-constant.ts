@@ -104,6 +104,12 @@ export const ACTIVITY_TYPE = {
     TASK: 5,
 }
 
+export const TASK_TYPE = {
+    CALL: 1,
+    EMAIL: 2,
+    MEET: 3
+}
+
 export const COMPANY_ROLE = {
     PARENT: 1,
     CHILD: 2,

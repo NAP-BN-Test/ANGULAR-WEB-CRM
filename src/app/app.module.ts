@@ -66,6 +66,7 @@ import { DialogAssignCompanyComponent } from './components/dialog-assign-company
 import { DialogAssignContactComponent } from './components/dialog-assign-contact/dialog-assign-contact.component';
 import { FollowPipe } from './pipes/follow/follow.pipe';
 import { ActivityListTaskComponent } from './components/activity-list-task/activity-list-task.component';
+import { TaskTypePipe } from './pipes/task-type/task-type.pipe';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { ActivityListTaskComponent } from './components/activity-list-task/activ
     DialogAssignCompanyComponent,
     DialogAssignContactComponent,
     FollowPipe,
-    ActivityListTaskComponent
+    ActivityListTaskComponent,
+    TaskTypePipe
   ],
   imports: [
     BrowserModule,

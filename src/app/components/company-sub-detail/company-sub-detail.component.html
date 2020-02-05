@@ -10,7 +10,7 @@
 
         <div id="contact-detail" [hidden]="!showContact">
             <div padding-top *ngFor="let item of listContact">
-                <app-company-sub-detail-contact [mID]="mID" [mObj]="item">
+                <app-company-sub-detail-contact [mObj]="item" (deleteFromCompany)="onDeleteContactFromCompany($event)">
                 </app-company-sub-detail-contact>
             </div>
         </div>
@@ -27,7 +27,8 @@
 
         <div id="company-detail" [hidden]="!showCompany">
             <div padding-top *ngFor="let item of listCompany">
-                <app-company-sub-detail-company [mID]="mID" [mObj]="item"></app-company-sub-detail-company>
+                <app-company-sub-detail-company [mObj]="item" (deleteFromCompany)="onDeleteCompanyFromCompany($event)">
+                </app-company-sub-detail-company>
             </div>
         </div>
 
@@ -44,7 +45,8 @@
 
         <div id="deal-detail" [hidden]="!showDeal">
             <div padding-top *ngFor="let item of listDeal">
-                <app-company-sub-detail-deal [listDealStage]="listDealStage" [mObj]="item"></app-company-sub-detail-deal>
+                <app-company-sub-detail-deal [listDealStage]="listDealStage" [mObj]="item">
+                </app-company-sub-detail-deal>
             </div>
         </div>
 
