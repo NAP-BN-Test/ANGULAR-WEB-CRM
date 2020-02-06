@@ -112,4 +112,8 @@ export class ApiCmd {
 
     public static DELETE_COMPANY_FROM_COMPANY: string = "crm/delete_company_from_company";
 
+    public static DELETE_DEAL_FROM_COMPANY: string = "crm/delete_deal_from_company";
+
+    public static UPDATE_DEAL: string = "crm/update_deal";
+
 }

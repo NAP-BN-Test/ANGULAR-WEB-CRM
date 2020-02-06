@@ -34,6 +34,8 @@
                         {{mData.my_contact}}({{contactInfo.mine}})</div>
                     <div padding-bottom [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
                         {{mData.unassign_contact}}({{contactInfo.other}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==3" tappable (click)="onClickMenu(3)">
+                        {{mData.follow_contact}}({{contactInfo.follow}})</div>
                 </div>
                 <div padding-top>
                     <div bold color-primary>{{mData.add_filter}}</div>

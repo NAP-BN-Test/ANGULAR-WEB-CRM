@@ -160,4 +160,13 @@ export class CompanySubDetailComponent implements OnInit {
     }
   }
 
+  onDeleteDealFromCompany(event) {
+    let index = this.listDeal.findIndex(item => {
+      return item.id == event.id;
+    });
+    if (index > -1) {
+      this.listDeal.splice(index, 1);
+    }
+  }
+
 }

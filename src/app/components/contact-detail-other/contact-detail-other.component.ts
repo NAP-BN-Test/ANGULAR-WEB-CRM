@@ -16,8 +16,6 @@ export class ContactDetailOtherComponent implements OnInit {
 
   mData: any;
 
-  listContact = [];
-  listCompany = [];
   listDeal = [];
 
   contactDetail = "keyboard_arrow_right";
@@ -60,6 +58,15 @@ export class ContactDetailOtherComponent implements OnInit {
 
   onClickDeal() {
     this.showDeal = !this.showDeal;
+  }
+
+  onDeleteDealFromCompany(event) {
+    let index = this.listDeal.findIndex(item => {
+      return item.id == event.id;
+    });
+    if (index > -1) {
+      this.listDeal.splice(index, 1);
+    }
   }
 
 }

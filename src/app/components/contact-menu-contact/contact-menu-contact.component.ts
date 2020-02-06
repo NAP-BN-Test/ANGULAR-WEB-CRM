@@ -57,7 +57,6 @@ export class ContactMenuContactComponent implements OnInit {
       this.mService.getUser().id,
       type
     ).then(data => {
-
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
         this.listContactSummary = data.array;
@@ -77,6 +76,7 @@ export class ContactMenuContactComponent implements OnInit {
     let all = 0;
     let mine = 0;
     let other = 0;
+    let follow = 0;
 
     this.listContactSummary.forEach(item => {
       all += 1;
@@ -84,9 +84,11 @@ export class ContactMenuContactComponent implements OnInit {
         mine += 1;
       if (!item.companyID)
         other += 1;
+      if (item.follow)
+        follow += 1;
     });
 
-    return { all, mine, other };
+    return { all, mine, other, follow };
   }
 
 
@@ -103,11 +105,15 @@ export class ContactMenuContactComponent implements OnInit {
 
   onClickMenu(index: number) {
     this.menuSelected = index;
-    if (index == 1) {
+    if (index == 0) {
+      this.listContact = this.listContactCache;
+    }
+    else if (index == 1) {
       this.listContact = this.listContactCache.filter(item => {
         return item.ownerID === this.mService.getUser().id;
       });
-    } else if (index == 2) {
+    }
+    else if (index == 2) {
       this.listContact = this.listContactCache.filter(item => {
         return item.companyID === null;
       });

@@ -69,14 +69,17 @@ export class ContactMenuCompanyComponent implements OnInit {
   get dataInfo(): any {
     let all = 0;
     let other = 0;
+    let follow = 0;
 
     this.listDataSummary.forEach(item => {
       all += 1;
       if (!item.assignID)
         other += 1;
+      if (item.follow)
+        follow += 1;
     });
 
-    return { all, other };
+    return { all, other, follow };
   }
 
 
@@ -93,9 +96,17 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onClickMenu(index: number) {
     this.menuSelected = index;
-    if (index == 1) {
+    if (index == 0) {
+      this.listData = this.listDataCache;
+    }
+    else if (index == 1) {
       this.listData = this.listDataCache.filter(item => {
         return item.assignID === null;
+      });
+    }
+    else if (index == 2) {
+      this.listData = this.listDataCache.filter(item => {
+        return item.follow === true;
       });
     }
   }

@@ -23,7 +23,6 @@ export class ContactDetailComponent implements OnInit {
 
   mID = -1;
 
-  listCompany = []; //company associate
   listContact = [];
   listUser = [];
   listDealStage = [];
@@ -55,18 +54,6 @@ export class ContactDetailComponent implements OnInit {
     this.mService.LoadTitle(1).then(data => {
       this.mData = data;
     });
-
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
-      this.mService.getUser().username,
-      this.mService.getUser().id,
-      this.mID + ""
-    ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.listCompany = data.array
-      }
-    })
 
     this.mService.getApiService().sendRequestGET_LIST_CONTACT(
       this.mService.getServer().ip,
@@ -119,8 +106,9 @@ export class ContactDetailComponent implements OnInit {
 
   onClickCloseSubDetail(event, type) {
     if (event) {
-      if (type == 1) {
-        this.ContactDetailOtherComponent.listContact.unshift(event)
+      if (type == 3) {
+        event.stageID = Number(event.stageID);
+        this.ContactDetailOtherComponent.listDeal.unshift(event)
       }
     }
 

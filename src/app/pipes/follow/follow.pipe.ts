@@ -18,10 +18,10 @@ export class FollowPipe implements PipeTransform {
   }
   transform(value: any): any {
     if (value) {
-      return this.mData.follow
+      return this.mData.unfollow
     }
     else {
-      return this.mData.unfollow
+      return this.mData.follow
     }
   }
 

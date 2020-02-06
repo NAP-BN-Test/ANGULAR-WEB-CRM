@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.130:3002/";
-    // mUrl: string = "http://163.44.192.123:3302/";
+    // mUrl: string = "http://192.168.1.130:3002/";
+    mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
 
@@ -585,7 +585,7 @@ export class ApiService extends HttpClient {
                 .add("dbName", dbName)
                 .add("username", username)
                 .add("userID", userID)
-                .add("companyID", deal.companyID)
+                .addIgnoreNull("companyID", deal.companyID)
                 .add("contactID", deal.contactID)
                 .add("name", deal.name)
                 .add("stageID", deal.stageID)
@@ -746,7 +746,7 @@ export class ApiService extends HttpClient {
                 .add("contactID", contactID));
     }
 
-    //53
+    //54
     public sendRequestDELETE_COMPANY_FROM_COMPANY(ip: string, dbName: string, username: string, userID: number, role: number, companyID: string, companyIDRemove: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_COMPANY_FROM_COMPANY,
             ParamBuilder.builder()
@@ -757,5 +757,28 @@ export class ApiService extends HttpClient {
                 .add("role", role)
                 .add("companyID", companyID)
                 .add("companyIDRemove", companyIDRemove));
+    }
+
+    //55
+    public sendRequestDELETE_DEAL_FROM_COMPANY(ip: string, dbName: string, username: string, userID: number, dealID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_DEAL_FROM_COMPANY,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("dealID", dealID));
+    }
+
+    //56
+    public sendRequestUPDATE_DEAL(ip: string, dbName: string, username: string, userID: number, dealID: number, stageID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_DEAL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("dealID", dealID)
+                .addIgnoreNull("stageID", stageID));
     }
 }

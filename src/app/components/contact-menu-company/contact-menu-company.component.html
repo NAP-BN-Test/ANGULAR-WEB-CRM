@@ -32,6 +32,8 @@
                         {{mData.all_company}}({{dataInfo.all}})</div>
                     <div padding-bottom [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
                         {{mData.unassign_company}}({{dataInfo.other}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
+                        {{mData.follow_company}}({{dataInfo.follow}})</div>
                 </div>
                 <div padding32-top>
                     <div bold color-primary>{{mData.company.add_filter}}</div>

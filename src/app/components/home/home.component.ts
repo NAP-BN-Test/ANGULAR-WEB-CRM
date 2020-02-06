@@ -121,6 +121,9 @@ export class HomeComponent implements OnInit {
         this.companySubDetailComponent.listContact.unshift(event);
       } else if (type == 2) {
         this.companySubDetailComponent.listCompany.unshift(event);
+      } else if (type == 3) {
+        event.stageID = Number(event.stageID);
+        this.companySubDetailComponent.listDeal.unshift(event);
       }
     }
 

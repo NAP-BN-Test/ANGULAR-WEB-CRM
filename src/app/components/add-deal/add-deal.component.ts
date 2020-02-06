@@ -3,6 +3,7 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 
 import * as moment from 'moment';
 import { STATUS } from 'src/app/services/constant/app-constant';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-add-deal',
@@ -10,9 +11,13 @@ import { STATUS } from 'src/app/services/constant/app-constant';
   styleUrls: ['./add-deal.component.scss']
 })
 export class AddDealComponent implements OnInit {
-  @Input("listCompany") listCompany = [];
+  // @Input("listCompany") listCompany = [];
   @Input("listContact") listContact = [];
   @Input("listDealStage") listDealStage = [];
+
+  @Input("contactAddDeal") contactAddDeal: any;
+
+
 
   @Output("closeAddSub") closeAddSub = new EventEmitter();
 
@@ -26,12 +31,13 @@ export class AddDealComponent implements OnInit {
   stageID = 0;
   amount = 0;
   dateClose = moment.utc().format("YYYY-MM-DD");
-  companyID = -1;
+  // companyID = -1;
   contactID = -1;
   dateRemind = moment.utc().format("YYYY-MM-DD");
 
   constructor(
     public mService: AppModuleService,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
@@ -48,14 +54,13 @@ export class AddDealComponent implements OnInit {
   onClickSave() {
     let obj = {
       name: this.name,
-      companyID: this.companyID,
-      contactID: this.contactID,
+      companyID: this.contactAddDeal ? null : this.cookieService.get('company-id'),
+      contactID: this.contactAddDeal ? this.cookieService.get('contact-id') : this.contactID,
       stageID: this.stageID,
       timeClose: this.dateClose,
       timeRemind: this.dateRemind,
       amount: this.amount,
     }
-
     this.mService.getApiService().sendRequestADD_DEAL(
       this.mService.getServer().ip,
       this.mService.getServer().dbName,

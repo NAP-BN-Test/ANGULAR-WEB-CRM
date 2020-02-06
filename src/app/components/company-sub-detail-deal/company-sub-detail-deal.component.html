@@ -27,6 +27,11 @@
     </div>
 
     <div class="btn-detail">
-        <button class="m-btn btn btn-sm">{{mData.detail}}</button>
+        <div>
+            <button class="m-btn btn btn-sm" (click)="onClickDelete()">{{mData.delete}}</button>
+        </div>
+        <div padding8-top>
+            <button class="m-btn btn btn-sm">{{mData.detail}}</button>
+        </div>
     </div>
 </div>
