@@ -32,8 +32,6 @@ export class ApiCmd {
 
     public static UPDATE_NOTE_ASSOCIATE: string = "crm/update_note_associate";
 
-    public static DELETE_NOTE: string = "crm/delete_note";
-
     public static CREATE_CALL: string = "crm/create_call";
 
     public static ADD_COMMENT: string = "crm/add_comment";
@@ -115,5 +113,21 @@ export class ApiCmd {
     public static DELETE_DEAL_FROM_COMPANY: string = "crm/delete_deal_from_company";
 
     public static UPDATE_DEAL: string = "crm/update_deal";
+
+    public static GET_LIST_CALL: string = "crm/get_list_call";
+
+    public static DELETE_CALL: string = "crm/delete_call";
+
+    public static GET_LIST_EMAIL: string = "crm/get_list_email";
+
+    public static DELETE_EMAIL: string = "crm/delete_email";
+
+    public static GET_LIST_MEET: string = "crm/get_list_meet";
+
+    public static DELETE_MEET: string = "crm/delete_meet";
+
+    public static GET_LIST_NOTE: string = "crm/get_list_note";
+
+    public static DELETE_NOTE: string = "crm/delete_note";
 
 }

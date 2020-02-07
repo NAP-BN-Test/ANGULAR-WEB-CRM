@@ -25,7 +25,8 @@
             "ft_address": "Địa chỉ: Linh Đàm, Hà Nội, Việt Nam",
             "ft_email": "Email: info.namanphu@gmail.com",
             "ft_website": "Website: http://www/namanphu.com.vn",
-            "ft_phone": "Điện thoại: 024 35550 1618"
+            "ft_phone": "Điện thoại: 024 35550 1618",
+            "invalid_db": "Chưa nhập ip hoặc tên database"
         },
         "header": {
             "logo": "../../assets/img/logo_light.png",
@@ -53,6 +54,22 @@
                         {
                             "name": "Tasks",
                             "index": 1
+                        },
+                        {
+                            "name": "Calls",
+                            "index": 2
+                        },
+                        {
+                            "name": "Emails",
+                            "index": 3
+                        },
+                        {
+                            "name": "Meets",
+                            "index": 4
+                        },
+                        {
+                            "name": "Notes",
+                            "index": 5
                         }
                     ]
                 },
@@ -66,10 +83,6 @@
                     "icon": "keyboard_arrow_down",
                     "index": 4
                 }
-            ],
-            "list_icon": [
-                "search",
-                "notification"
             ]
         },
         "company_info": {
@@ -294,6 +307,10 @@
             "contact_title": "Contact",
             "company_title": "Company",
             "task_title": "Task",
+            "call_title": "Call",
+            "email_title": "Email",
+            "meet_title": "Meet",
+            "note_title": "Note",
             "action": "Actions",
             "import": "Import",
             "export": "Export",
@@ -308,6 +325,7 @@
             "unassign_company": "Unassigned company ",
             "follow_company": "Follow company ",
             "all_task": "All tasks ",
+            "all": "All ",
             "due_today": "Due today ",
             "due_week": "Due this week ",
             "contact": {
@@ -358,12 +376,27 @@
                         "index": 1
                     }
                 ]
+            },
+            "call": {
+                "call_to": "CALL TO",
+                "mail_to": "MAIL TO",
+                "description": "DESCRIPTION",
+                "state": "STATE",
+                "duration": "DURATION",
+                "due_date": "DUE DATE",
+                "list_select": [
+                    {
+                        "name": "Delete",
+                        "index": 1
+                    }
+                ]
             }
         },
         "dialog": {
             "yes": "Có",
             "no": "Không",
             "ask_delete": "Bạn có chắc muốn xóa mục này?",
+            "ask_logout": "Bạn có chắc muốn đăng xuất?",
             "assign_company": "Assign Company",
             "assign_contact": "Assign Contact",
             "title_assign": "Assign selected items to this owner:",
@@ -374,6 +407,14 @@
             "call": "Call",
             "email": "Email",
             "meet": "Meet"
+        },
+        "call_status": {
+            "no_answer": "No Answer",
+            "busy": "Busy",
+            "wrong_number": "Wrong number",
+            "left_message": "Left live message",
+            "left_void": "Left voicemail",
+            "connected": "Connected"
         }
     }
 }

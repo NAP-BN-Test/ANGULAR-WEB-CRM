@@ -1,0 +1,15 @@
+<div *ngIf="mData">
+    <div mat-dialog-content>
+        <p>{{mData.ask_delete}}</p>
+    </div>
+    <div mat-dialog-actions>
+        <div flex>
+            <div>
+                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mData.no}}</button>
+            </div>
+            <div padding-start>
+                <button type="button" class="btn btn-danger" [mat-dialog-close]="1" cdkFocusInitial>{{mData.yes}}</button>
+            </div>
+        </div>
+    </div>
+</div>

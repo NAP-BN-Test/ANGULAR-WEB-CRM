@@ -7,6 +7,10 @@ import { ContactMenuContactComponent } from './components/contact-menu-contact/c
 import { ContactMenuCompanyComponent } from './components/contact-menu-company/contact-menu-company.component';
 import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
 import { ActivityListTaskComponent } from './components/activity-list-task/activity-list-task.component';
+import { ActivityListCallComponent } from './components/activity-list-call/activity-list-call.component';
+import { ActivityListEmailComponent } from './components/activity-list-email/activity-list-email.component';
+import { ActivityListMeetComponent } from './components/activity-list-meet/activity-list-meet.component';
+import { ActivityListNoteComponent } from './components/activity-list-note/activity-list-note.component';
 
 
 const routes: Routes = [
@@ -46,10 +50,31 @@ const routes: Routes = [
     data: { title: 'task' }
   },
   {
+    path: 'call',
+    component: ActivityListCallComponent,
+    data: { title: 'call' }
+  },
+  {
+    path: 'email',
+    component: ActivityListEmailComponent,
+    data: { title: 'email' }
+  },
+  {
+    path: 'meet',
+    component: ActivityListMeetComponent,
+    data: { title: 'meet' }
+  },
+  {
+    path: 'note',
+    component: ActivityListNoteComponent,
+    data: { title: 'note' }
+  },
+  {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
   },
+
 ];
 
 @NgModule({

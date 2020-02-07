@@ -47,7 +47,12 @@ export class ActivityListTaskComponent implements OnInit {
       this.mData = data.contact;
     });
 
-    this.onLoadData();
+    if (this.mService.getUser()) {
+      this.onLoadData();
+    }
+    else {
+      this.router.navigate(['login']);
+    }
   }
 
   onLoadData(type?: number) {
@@ -210,10 +215,6 @@ export class ActivityListTaskComponent implements OnInit {
 
   onClickItem(item) {
     // this.router.navigate(['contact-detail'], { state: { params: item } });
-  }
-
-  onClickAdd() {
-    this.addSub = 1;
   }
 
   onClickCloseAdd(event) {

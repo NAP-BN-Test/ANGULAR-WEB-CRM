@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit {
 
   setting = false;
 
+  showToast = false;
+  toasMessage = "";
+
   mData: any;
 
   constructor(
@@ -50,23 +53,37 @@ export class LoginComponent implements OnInit {
   }
 
   onClickLogin() {
-    this.mService.getApiService().sendRequestUSER_LOGIN(this.ip, this.dbName, this.username, md5(this.password)).then(data => {
-      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.mService.setUser(data.obj);
 
-        let userLogin = {
-          username: this.username,
-          password: this.password
+    if (this.ip.trim() == "" || this.dbName.trim() == "") {
+      this.toasMessage = this.mData.invalid_db
+      this.showToast = true;
+      setTimeout(() => {
+        this.showToast = false;
+      }, 2000);
+    } else {
+      let svInfo = {
+        ip: this.ip,
+        dbName: this.dbName
+      };
+      localStorage.setItem('server-info', JSON.stringify(svInfo));
+
+      this.mService.getApiService().sendRequestUSER_LOGIN(this.ip, this.dbName, this.username, md5(this.password)).then(data => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          this.mService.setUser(data.obj);
+
+          let userLogin = {
+            username: this.username,
+            password: this.password
+          }
+          localStorage.setItem('user-login', JSON.stringify(userLogin));
+
+          localStorage.setItem('user-info', JSON.stringify(data.obj));
+
+          this.router.navigate(['dashboard']);
+
         }
-        localStorage.setItem('user-login', JSON.stringify(userLogin));
-
-        localStorage.setItem('user-info', JSON.stringify(data.obj));
-
-        this.router.navigate(['dashboard']);
-
-      }
-    })
-
+      })
+    }
   }
 
   onClickSetting() {

@@ -1,3 +1,5 @@
+<ngb-toast class="m-toast" *ngIf="showToast" [autohide]="false">{{toasMessage}}</ngb-toast>
+
 <div *ngIf="mData">
     <div style="position: absolute; top: 16px; right: 16px;" tappable (click)="onClickSetting()">
         <mat-icon>settings_applications</mat-icon>
@@ -16,7 +18,7 @@
         </div>
     </div>
 
-    <div>
+    <div style="margin-bottom: 200px;">
         <div center padding-vertical>
             <div padding-top>
                 <img logo1 [src]="mData.logo1">
@@ -58,9 +60,7 @@
                 <h6 bold>{{mData.sub}}</h6>
                 <h6>{{mData.sub1}}</h6>
             </div>
-
         </div>
-
     </div>
 
     <div class="footer background-secondary">

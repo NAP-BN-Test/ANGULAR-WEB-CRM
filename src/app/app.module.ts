@@ -67,6 +67,12 @@ import { DialogAssignContactComponent } from './components/dialog-assign-contact
 import { FollowPipe } from './pipes/follow/follow.pipe';
 import { ActivityListTaskComponent } from './components/activity-list-task/activity-list-task.component';
 import { TaskTypePipe } from './pipes/task-type/task-type.pipe';
+import { ActivityListCallComponent } from './components/activity-list-call/activity-list-call.component';
+import { ActivityListEmailComponent } from './components/activity-list-email/activity-list-email.component';
+import { ActivityListMeetComponent } from './components/activity-list-meet/activity-list-meet.component';
+import { ActivityListNoteComponent } from './components/activity-list-note/activity-list-note.component';
+import { CallStatusPipe } from './pipes/call-status/call-status.pipe';
+import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +127,13 @@ import { TaskTypePipe } from './pipes/task-type/task-type.pipe';
     DialogAssignContactComponent,
     FollowPipe,
     ActivityListTaskComponent,
-    TaskTypePipe
+    TaskTypePipe,
+    ActivityListCallComponent,
+    ActivityListEmailComponent,
+    ActivityListMeetComponent,
+    ActivityListNoteComponent,
+    CallStatusPipe,
+    DialogLogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -147,7 +159,8 @@ import { TaskTypePipe } from './pipes/task-type/task-type.pipe';
   entryComponents: [
     DialogComponent, 
     DialogAssignCompanyComponent,
-    DialogAssignContactComponent
+    DialogAssignContactComponent,
+    DialogLogoutComponent
   ]
 })
 export class AppModule { }

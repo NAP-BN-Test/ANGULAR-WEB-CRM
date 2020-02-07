@@ -110,6 +110,15 @@ export const TASK_TYPE = {
     MEET: 3
 }
 
+export const CALL_STATUS = {
+    NO_ANSWER: 1,
+    BUSY: 2,
+    WRONG_NUMBER: 3,
+    LEFT_MESSAGE: 4,
+    LEFT_VOID: 5,
+    CONNECTED: 6,
+}
+
 export const COMPANY_ROLE = {
     PARENT: 1,
     CHILD: 2,

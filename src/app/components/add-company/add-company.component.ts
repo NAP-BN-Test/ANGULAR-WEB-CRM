@@ -43,7 +43,15 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onClickClose() {
-    this.closeAddSub.emit()
+    this.closeAddSub.emit();
+
+    this.name = "";
+    this.shortName = "";
+    this.phone = "";
+    this.email = "";
+    this.address = "";
+    this.country = "";
+    this.role = 0;
   }
 
   onClickAdd(index: number) {
@@ -75,6 +83,14 @@ export class AddCompanyComponent implements OnInit {
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.closeAddSub.emit(data.obj);
+
+          this.name = "";
+          this.shortName = "";
+          this.phone = "";
+          this.email = "";
+          this.address = "";
+          this.country = "";
+          this.role = 0;
         }
       })
     }

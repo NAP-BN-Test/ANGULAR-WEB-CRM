@@ -55,38 +55,43 @@ export class ContactDetailComponent implements OnInit {
       this.mData = data;
     });
 
-    this.mService.getApiService().sendRequestGET_LIST_CONTACT(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
-      this.mService.getUser().username,
-      this.mID
-    ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.listContact = data.array;
-      }
-    });
+    if (this.mService.getUser()) {
+      this.mService.getApiService().sendRequestGET_LIST_CONTACT(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mID
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
+          this.listContact = data.array;
+        }
+      });
 
-    this.mService.getApiService().sendRequestGET_LIST_USER(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
-      this.mService.getUser().username,
-      this.mService.getUser().id
-    ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.listUser = data.array;
-      }
-    });
+      this.mService.getApiService().sendRequestGET_LIST_USER(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mService.getUser().id
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
+          this.listUser = data.array;
+        }
+      });
 
-    this.mService.getApiService().sendRequestGET_DEAL_STAGE(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
-      this.mService.getUser().username,
-      this.mService.getUser().id
-    ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.listDealStage = data.array;
-      }
-    })
+      this.mService.getApiService().sendRequestGET_DEAL_STAGE(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mService.getUser().id
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
+          this.listDealStage = data.array;
+        }
+      })
+    }
+    else {
+      this.router.navigate(['login']);
+    }
   }
 
   onClickCreateAction(event) {

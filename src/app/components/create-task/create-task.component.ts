@@ -77,7 +77,12 @@ export class CreateTaskComponent implements OnInit {
   }
 
   onClickClose() {
-    this.closeCreateAction.emit()
+    this.closeCreateAction.emit();
+
+    this.assignID = -1;
+    this.taskType = -1;
+    this.description = "";
+    this.taskName = "";
   }
 
   onClickSave() {
@@ -99,7 +104,12 @@ export class CreateTaskComponent implements OnInit {
       this.listAssociate
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
-        this.closeCreateAction.emit(data.obj)
+        this.closeCreateAction.emit(data.obj);
+
+        this.assignID = -1;
+        this.taskType = -1;
+        this.description = "";
+        this.taskName = "";
       }
     })
 

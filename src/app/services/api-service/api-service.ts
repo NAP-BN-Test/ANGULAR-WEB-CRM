@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.130:3002/";
-    mUrl: string = "http://163.44.192.123:3302/";
+    mUrl: string = "http://192.168.1.130:3002/";
+    // mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
 
@@ -222,17 +222,6 @@ export class ApiService extends HttpClient {
                 .add("contactID", contactID)
                 .add("noteID", noteID)
                 .add("state", state));
-    }
-
-    //16
-    public sendRequestDELETE_NOTE(ip: string, dbName: string, username: string, userID: number, noteID: number): Promise<any> {
-        return this.requestPost(this.mUrl + ApiCmd.DELETE_NOTE,
-            ParamBuilder.builder()
-                .add("ip", ip)
-                .add("dbName", dbName)
-                .add("username", username)
-                .add("userID", userID)
-                .add("noteID", noteID));
     }
 
     //17
@@ -780,5 +769,89 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("dealID", dealID)
                 .addIgnoreNull("stageID", stageID));
+    }
+
+    //57
+    public sendRequestGET_LIST_CALL(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CALL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
+
+    //58
+    public sendRequestDELETE_CALL(ip: string, dbName: string, username: string, userID: number, activityIDs: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CALL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("activityIDs", activityIDs));
+    }
+
+    //59
+    public sendRequestGET_LIST_EMAIL(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_EMAIL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
+
+    //60
+    public sendRequestDELETE_EMAIL(ip: string, dbName: string, username: string, userID: number, activityIDs: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_EMAIL,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("activityIDs", activityIDs));
+    }
+
+    //61
+    public sendRequestGET_LIST_MEET(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_MEET,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
+
+    //62
+    public sendRequestDELETE_MEET(ip: string, dbName: string, username: string, userID: number, activityIDs: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_MEET,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("activityIDs", activityIDs));
+    }
+
+    //63
+    public sendRequestGET_LIST_NOTE(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_NOTE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
+
+    //16
+    public sendRequestDELETE_NOTE(ip: string, dbName: string, username: string, userID: number, activityIDs: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_NOTE,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("activityIDs", activityIDs));
     }
 }

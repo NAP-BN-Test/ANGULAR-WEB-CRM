@@ -55,7 +55,9 @@ export class CreateEmailComponent implements OnInit {
   }
 
   onClickClose() {
-    this.closeCreateAction.emit()
+    this.closeCreateAction.emit();
+
+    this.quillValue = "";
   }
 
   onPickDate(event) {
@@ -90,7 +92,9 @@ export class CreateEmailComponent implements OnInit {
       this.listAssociate
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
-        this.closeCreateAction.emit(data.obj)
+        this.closeCreateAction.emit(data.obj);
+
+        this.quillValue = "";
       }
     })
 

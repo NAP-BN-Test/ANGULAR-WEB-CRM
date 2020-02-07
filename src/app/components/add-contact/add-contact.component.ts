@@ -40,11 +40,19 @@ export class AddContactComponent implements OnInit {
   ngOnInit() {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.add_sub_detail;
-    })
+    });
   }
 
   onClickClose() {
-    this.closeAddSub.emit()
+    this.closeAddSub.emit();
+
+    this.name = "";
+    this.gender = -1;
+    this.jobTile = -1;
+    this.handPhone = "";
+    this.homePhone = "";
+    this.email = "";
+    this.address = "";
   }
 
   onClickAddExist() {
@@ -82,6 +90,14 @@ export class AddContactComponent implements OnInit {
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.closeAddSub.emit(data.obj);
+
+          this.name = "";
+          this.gender = -1;
+          this.jobTile = -1;
+          this.handPhone = "";
+          this.homePhone = "";
+          this.email = "";
+          this.address = "";
         }
       })
     }

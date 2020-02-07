@@ -14,7 +14,7 @@ export class CreateMeetComponent implements OnInit {
 
   @Output("closeCreateAction") closeCreateAction = new EventEmitter();
   @Input("listContact") listContact = [];
-  
+
   mData: any;
 
   showTimePicker = false;
@@ -50,7 +50,10 @@ export class CreateMeetComponent implements OnInit {
   }
 
   onClickClose() {
-    this.closeCreateAction.emit()
+    this.closeCreateAction.emit();
+
+    this.quillValue = "";
+    this.duration = 0;
   }
 
   onPickDate(event) {
@@ -91,7 +94,10 @@ export class CreateMeetComponent implements OnInit {
       this.listAssociate
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
-        this.closeCreateAction.emit(data.obj)
+        this.closeCreateAction.emit(data.obj);
+
+        this.quillValue = "";
+        this.duration = 0;
       }
     })
 

@@ -47,7 +47,14 @@ export class AddDealComponent implements OnInit {
   }
 
   onClickClose() {
-    this.closeAddSub.emit()
+    this.closeAddSub.emit();
+
+    this.name = "";
+    this.stageID = 0;
+    this.amount = 0;
+    this.dateClose = moment.utc().format("YYYY-MM-DD");
+    this.contactID = -1;
+    this.dateRemind = moment.utc().format("YYYY-MM-DD");
   }
 
 
@@ -70,6 +77,13 @@ export class AddDealComponent implements OnInit {
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.closeAddSub.emit(data.obj);
+
+        this.name = "";
+        this.stageID = 0;
+        this.amount = 0;
+        this.dateClose = moment.utc().format("YYYY-MM-DD");
+        this.contactID = -1;
+        this.dateRemind = moment.utc().format("YYYY-MM-DD");
       }
     })
   }

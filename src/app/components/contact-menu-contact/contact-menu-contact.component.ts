@@ -46,7 +46,13 @@ export class ContactMenuContactComponent implements OnInit {
       this.mData = data.contact;
     });
 
-    this.onLoadData();
+    if (this.mService.getUser()) {
+      this.onLoadData();
+    }
+    else {
+      this.router.navigate(['login']);
+    }
+
   }
 
   onLoadData(type?: number) {

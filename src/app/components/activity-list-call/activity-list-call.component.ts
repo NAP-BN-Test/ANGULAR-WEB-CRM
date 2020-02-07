@@ -5,16 +5,16 @@ import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { Utils } from 'src/app/services/core/app/utils';
 import { MatDialog } from '@angular/material';
-import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
 import { DialogComponent } from '../dialog/dialog.component';
 
-@Component({
-  selector: 'app-contact-menu-company',
-  templateUrl: './contact-menu-company.component.html',
-  styleUrls: ['./contact-menu-company.component.scss']
-})
-export class ContactMenuCompanyComponent implements OnInit {
+import * as moment from 'moment'
 
+@Component({
+  selector: 'app-activity-list-call',
+  templateUrl: './activity-list-call.component.html',
+  styleUrls: ['./activity-list-call.component.scss']
+})
+export class ActivityListCallComponent implements OnInit {
   listData = [];
   listDataSummary = [];
   listDataCache = [];
@@ -46,22 +46,26 @@ export class ContactMenuCompanyComponent implements OnInit {
       this.mData = data.contact;
     });
     if (this.mService.getUser()) {
-      this.mService.getApiService().sendRequestGET_LIST_COMPANY(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
-        this.mService.getUser().username,
-        this.mService.getUser().id
-      ).then(data => {
-        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-          this.listData = data.array;
-          this.listDataCache = data.array;
-          this.listDataSummary = data.array;
-        }
-      });
+      this.onLoadData();
     }
     else {
       this.router.navigate(['login']);
     }
+  }
+
+  onLoadData(type?: number) {
+    this.mService.getApiService().sendRequestGET_LIST_CALL(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.listData = data.array;
+        this.listDataSummary = data.array;
+        this.listDataCache = data.array;
+      }
+    })
   }
 
   get listDataSort(): Array<any> {
@@ -71,20 +75,20 @@ export class ContactMenuCompanyComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-  get dataInfo(): any {
+  get contactInfo(): any {
     let all = 0;
-    let other = 0;
-    let follow = 0;
+    let today = 0;
+    let week = 0;
 
     this.listDataSummary.forEach(item => {
       all += 1;
-      if (!item.assignID)
-        other += 1;
-      if (item.follow)
-        follow += 1;
+      if (moment.utc(item.timeRemind).format("YYYY-MM-DD") == moment.utc().format("YYYY-MM-DD"))
+        today += 1;
+      if (moment.utc(item.timeRemind).valueOf() >= moment.utc(moment.utc().format("YYYY-MM-DD")).valueOf() - 604800000)
+        week += 1;
     });
 
-    return { all, other, follow };
+    return { all, today, week };
   }
 
 
@@ -103,17 +107,16 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.menuSelected = index;
     if (index == 0) {
       this.listData = this.listDataCache;
-    }
-    else if (index == 1) {
+    } else if (index == 1) {
       this.listData = this.listDataCache.filter(item => {
-        return item.assignID === null;
+        return moment.utc(item.timeRemind).format("YYYY-MM-DD") == moment.utc().format("YYYY-MM-DD");
+      });
+    } else if (index == 2) {
+      this.listData = this.listDataCache.filter(item => {
+        return moment.utc(item.timeRemind).valueOf() >= moment.utc(moment.utc().format("YYYY-MM-DD")).valueOf() - 604800000;
       });
     }
-    else if (index == 2) {
-      this.listData = this.listDataCache.filter(item => {
-        return item.follow === true;
-      });
-    }
+
   }
 
   onCheckBoxChange(item) {
@@ -153,6 +156,28 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   }
 
+  onStatusChange(event, item) {
+    let checked = event.target.checked;
+    let obj: any = this.listData.find(itm => {
+      return itm.id === item.id;
+    });
+    if (obj) {
+      this.mService.getApiService().sendRequestUPDATE_TASK(
+        this.mService.getServer().ip,
+        this.mService.getServer().dbName,
+        this.mService.getUser().username,
+        this.mService.getUser().id,
+        item.id,
+        checked ? checked : null
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
+          obj.status = checked;
+        }
+      })
+    }
+
+  }
+
   onCheckAllChange() {
     this.numberOfItemSelected = 0;
 
@@ -179,48 +204,26 @@ export class ContactMenuCompanyComponent implements OnInit {
     })
   }
 
-  onClickItem(item) {
-    this.router.navigate(['company-detail'], { state: { params: item.id } });
-  }
-
   onSearchChange(event) {
     let searchKey = event.target.value;
     this.listData = this.listDataCache.filter(item => {
-      return Utils.bodauTiengViet(item.name).includes(Utils.bodauTiengViet(searchKey));
+      return Utils.bodauTiengViet(item.name ? item.name : "").includes(Utils.bodauTiengViet(searchKey));
     })
+  }
+
+  onClickItem(item) {
+    // this.router.navigate(['contact-detail'], { state: { params: item } });
+  }
+
+  onClickCloseAdd(event) {
+    if (event) {
+      this.listData.unshift(event)
+    }
+    this.addSub = 0
   }
 
   onClickAssign(index) {
     if (index == 0) {
-      const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
-        width: '500px'
-      });
-
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
-          this.listDataSort.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
-            this.mService.getServer().ip,
-            this.mService.getServer().dbName,
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            res,
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listData.forEach(item => {
-                if (item.checked) {
-                  item.email = data.obj.name;
-                }
-              });
-            }
-          })
-        }
-      });
-    } else if (index == 1) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
@@ -231,7 +234,7 @@ export class ContactMenuCompanyComponent implements OnInit {
           this.listDataSort.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-          this.mService.getApiService().sendRequestDELETE_COMPANY(
+          this.mService.getApiService().sendRequestDELETE_CALL(
             this.mService.getServer().ip,
             this.mService.getServer().dbName,
             this.mService.getUser().username,
@@ -254,17 +257,6 @@ export class ContactMenuCompanyComponent implements OnInit {
         }
       });
     }
-  }
-
-  onClickAdd() {
-    this.addSub = 1;
-  }
-
-  onClickCloseAdd(event) {
-    if (event) {
-      this.listData.unshift(event)
-    }
-    this.addSub = 0
   }
 
 }

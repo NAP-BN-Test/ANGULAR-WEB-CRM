@@ -25,13 +25,38 @@
 
         <div padding32-end flex>
 
-            <div center-line class="fadeIn" [hidden]="!showSearchBar">
+            <!-- <div center-line class="fadeIn" [hidden]="!showSearchBar">
                 <input type="search" class="form-control" />
+            </div> -->
+
+            <!-- <div color-white center-line>
+                <button class="btn btn-default color-white center" (click)="onClickSearch()">
+                    <mat-icon color-white>search</mat-icon>
+                </button>
+            </div> -->
+
+            <div color-white center-line>
+                <button class="btn btn-default color-white center">
+                    <mat-icon color-white>notifications</mat-icon>
+                </button>
             </div>
 
-            <div color-white center-line *ngFor="let item of mData.list_icon">
-                <button class="btn btn-default color-white center" (click)="onClickSearch()">
-                    <mat-icon color-white [svgIcon]="item"></mat-icon>
+            <div>
+                <ng-template #hoverImgTemp>
+                    <div style="margin-right: 32px;">
+                        <div border-bottom>
+                            <div font2 bold>{{mUser.name}}</div>
+                            <div padding-top>{{mUser.phone}}</div>
+                            <div padding-vertical>{{mUser.email}}</div>
+                        </div>
+                        <div padding-vertical>
+                            <button class="btn btn-default center" (click)="onClickLogout()">log out</button>
+                        </div>
+                    </div>
+
+                </ng-template>
+                <button class="btn btn-default color-white center" placement="bottom" [ngbPopover]="hoverImgTemp">
+                    <mat-icon color-white>account_circle</mat-icon>
                 </button>
             </div>
         </div>

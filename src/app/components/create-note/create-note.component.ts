@@ -40,7 +40,9 @@ export class CreateNoteComponent implements OnInit {
   }
 
   onClickClose() {
-    this.closeCreateAction.emit()
+    this.closeCreateAction.emit();
+
+    this.quillValue = "";
   }
 
   onInputChange(event) {
@@ -58,8 +60,11 @@ export class CreateNoteComponent implements OnInit {
       this.quillValue,
       this.listAssociate,
       this.dateFollow).then(data => {
-        if (data.status == STATUS.SUCCESS)
-          this.closeCreateAction.emit(data.obj)
+        if (data.status == STATUS.SUCCESS) {
+          this.closeCreateAction.emit(data.obj);
+
+          this.quillValue = "";
+        }
       })
   }
 
