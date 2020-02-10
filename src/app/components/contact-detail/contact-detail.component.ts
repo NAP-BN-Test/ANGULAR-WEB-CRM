@@ -17,11 +17,14 @@ export class ContactDetailComponent implements OnInit {
 
   mData: any;
 
+  oneActivity: any;
+
   createTabIndex = 0;
 
   addSubDetail = 0;
 
   mID = -1;
+  mName = "";
 
   listContact = [];
   listUser = [];
@@ -39,9 +42,16 @@ export class ContactDetailComponent implements OnInit {
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
       let params = this.router.getCurrentNavigation().extras.state.params;
-      this.mID = params.id
-      this.cookieService.set('contact-id', params.id + "");
-      this.cookieService.set('contact-name', params.name + "");
+      if (params.type) {
+        this.oneActivity = params;
+        this.mID = params.contactID;
+        this.mName = params.contactName;
+      } else {
+        this.mID = params.id;
+        this.mName = params.name;
+      }
+      this.cookieService.set('contact-id', this.mID + "");
+      this.cookieService.set('contact-name', this.mName + "");
     } else {
       if (this.cookieService.get('contact-id')) {
         this.mID = Number(this.cookieService.get('contact-id'));

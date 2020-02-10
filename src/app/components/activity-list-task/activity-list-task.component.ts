@@ -214,7 +214,11 @@ export class ActivityListTaskComponent implements OnInit {
   }
 
   onClickItem(item) {
-    // this.router.navigate(['contact-detail'], { state: { params: item } });
+    if (item.type == 1) {
+      this.router.navigate(['company-detail'], { state: { params: item } });
+    } else if (item.type == 2) {
+      this.router.navigate(['contact-detail'], { state: { params: item } });
+    }
   }
 
   onClickCloseAdd(event) {

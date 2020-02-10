@@ -9,7 +9,7 @@
             <app-company-info (createAction)="onClickCreateAction($event)"></app-company-info>
         </div>
         <div [class]="colDetail" padding-top relative background-whitesmoke>
-            <app-company-detail [listContact]="listContact" [listUser]="listUser"></app-company-detail>
+            <app-company-detail [listContact]="listContact" [listUser]="listUser" [oneActivity]="oneActivity"></app-company-detail>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">
                 <app-create-note (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-note>

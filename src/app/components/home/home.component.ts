@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit {
 
   mData: any;
 
+  oneActivity: any;
+
   createTabIndex = 0;
 
   addSubDetail = 0;
@@ -39,7 +41,13 @@ export class HomeComponent implements OnInit {
     private cookieService: CookieService
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
-      this.mID = this.router.getCurrentNavigation().extras.state.params;
+      let params = this.router.getCurrentNavigation().extras.state.params;
+      if (params.type) {
+        this.oneActivity = params;
+        this.mID = params.companyID
+      } else {
+        this.mID = params.id;
+      }
       this.cookieService.set('company-id', this.mID + "");
     } else {
       if (this.cookieService.get('company-id')) {

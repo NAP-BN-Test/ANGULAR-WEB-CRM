@@ -854,4 +854,14 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("activityIDs", activityIDs));
     }
+
+    //16
+    public sendRequestGET_SUMMARY_INFO(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_SUMMARY_INFO,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
 }

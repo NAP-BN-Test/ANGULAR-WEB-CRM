@@ -30,9 +30,6 @@ export class HeaderMenuComponent implements OnInit {
     });
 
     this.mUser = this.mService.getUser();
-
-    console.log(this.mUser);
-    
   }
 
   onClickSearch() {

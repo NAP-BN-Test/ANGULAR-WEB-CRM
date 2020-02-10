@@ -130,4 +130,6 @@ export class ApiCmd {
 
     public static DELETE_NOTE: string = "crm/delete_note";
 
+    public static GET_SUMMARY_INFO: string = "crm/get_summary_info";
+
 }

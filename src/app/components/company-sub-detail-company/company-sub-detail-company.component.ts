@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-sub-detail-company',
@@ -21,7 +22,8 @@ export class CompanySubDetailCompanyComponent implements OnInit {
   constructor(
     public mService: AppModuleService,
     public dialog: MatDialog,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -53,6 +55,12 @@ export class CompanySubDetailCompanyComponent implements OnInit {
         })
       }
     });
+  }
+
+  onClickDetail() {
+    this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['company-detail'], { state: { params: this.mObj } });
+    })
   }
 
 }

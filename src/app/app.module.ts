@@ -73,6 +73,7 @@ import { ActivityListMeetComponent } from './components/activity-list-meet/activ
 import { ActivityListNoteComponent } from './components/activity-list-note/activity-list-note.component';
 import { CallStatusPipe } from './pipes/call-status/call-status.pipe';
 import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
+import { RefreshComponent } from './components/refresh/refresh.component';
 
 @NgModule({
   declarations: [
@@ -133,7 +134,8 @@ import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.
     ActivityListMeetComponent,
     ActivityListNoteComponent,
     CallStatusPipe,
-    DialogLogoutComponent
+    DialogLogoutComponent,
+    RefreshComponent
   ],
   imports: [
     BrowserModule,

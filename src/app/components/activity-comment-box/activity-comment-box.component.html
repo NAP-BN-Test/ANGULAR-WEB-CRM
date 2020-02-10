@@ -1,4 +1,4 @@
-<div *ngIf="mData">
+<div *ngIf="mData&&mObj.listComment">
     <div padding-top flex tappable (click)="onClickCmtDetail()" *ngIf="mObj.listComment.length>0">
         <mat-icon>{{cmtDetail}}</mat-icon>
         <div font6 center-line>{{mData.comment}} ({{mObj.listComment.length}})</div>

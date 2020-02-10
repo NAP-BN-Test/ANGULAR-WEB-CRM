@@ -67,7 +67,8 @@
                             <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
-                        <div class="width-70 center-line overflow-hidden margin8-end" [innerHTML]="item.description">
+                        <div class="width-70 center-line overflow-hidden margin8-end" [innerHTML]="item.description"
+                            (click)="onClickItem(item)" tappable>
                         </div>
                         <div class="width-30 center-line overflow-hidden margin8-end">
                             {{item.timeRemind | datetimeFull}}

@@ -301,7 +301,15 @@
             "contact": "Contact",
             "send_email": "Send email",
             "send_quote": "Send quote",
-            "send_contact": "Send contract"
+            "send_contact": "Send contract",
+            "create_type": [
+                "",
+                " create a call with ",
+                " create an email with ",
+                " create a meeting with ",
+                " create a note for ",
+                " create a task for "
+            ]
         },
         "contact": {
             "contact_title": "Contact",

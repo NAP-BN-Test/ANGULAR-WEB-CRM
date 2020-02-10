@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class CompanyDetailComponent implements OnInit {
   @Input('listContact') listContact = [];
   @Input('listUser') listUser = [];
+  @Input('oneActivity') oneActivity: any
 
   mData: any;
 
@@ -30,8 +31,12 @@ export class CompanyDetailComponent implements OnInit {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.company_detail;
     })
-
-    this.onLoadActivity(0)
+    if (this.oneActivity) {
+      
+      this.listActivity.push(this.oneActivity);
+    } else {
+      this.onLoadActivity(0)
+    }
   }
 
   onLoadActivity(activityType: number) {
