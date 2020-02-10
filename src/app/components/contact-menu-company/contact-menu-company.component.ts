@@ -67,7 +67,7 @@ export class ContactMenuCompanyComponent implements OnInit {
   get listDataSort(): Array<any> {
     this.collectionSize = this.listData.length;
     return this.listData
-      .map((country, i) => ({ id: i + 1, ...country }))
+      .map((item, i) => ({ id: i + 1, ...item }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 

@@ -19,7 +19,7 @@ export class AddContactComponent implements OnInit {
   name = "";
   gender = -1;
   jobTile = -1;
-  handPhone = "";
+  phone = "";
   homePhone = "";
   email = "";
   address = "";
@@ -49,7 +49,7 @@ export class AddContactComponent implements OnInit {
     this.name = "";
     this.gender = -1;
     this.jobTile = -1;
-    this.handPhone = "";
+    this.phone = "";
     this.homePhone = "";
     this.email = "";
     this.address = "";
@@ -74,7 +74,7 @@ export class AddContactComponent implements OnInit {
         name: this.name,
         gender: this.gender,
         jobTile: this.jobTile,
-        handPhone: this.handPhone,
+        phone: this.phone,
         homePhone: this.homePhone,
         email: this.email,
         address: this.address,
@@ -94,7 +94,7 @@ export class AddContactComponent implements OnInit {
           this.name = "";
           this.gender = -1;
           this.jobTile = -1;
-          this.handPhone = "";
+          this.phone = "";
           this.homePhone = "";
           this.email = "";
           this.address = "";

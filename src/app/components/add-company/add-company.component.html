@@ -101,9 +101,11 @@
             </div>
 
             <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.country}}</div>
+                <div class="col-3" font6>{{mData.city}}</div>
                 <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="country">
+                    <select class="custom-select" width-100 [(ngModel)]="city">
+                        <option *ngFor="let item of listCity" [ngValue]="item">{{item.name}}</option>
+                    </select>
                 </div>
             </div>
 

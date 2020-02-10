@@ -30,7 +30,7 @@
                 <div padding-top *ngFor="let item of listContact">
                     <div padding8 class="m-contact">
                         <div bold>{{item.name}}</div>
-                        <div>{{item.handPhone}}</div>
+                        <div>{{item.phone}}</div>
                         <div>
                             <button class="btn-add btn-sm" type="button"
                                 (click)="onClickAddContact(item)">{{mData.add_contact}}</button>
@@ -69,7 +69,7 @@
             <div padding-start padding-top center-line>
                 <div class="col-3" font6>{{mData.hand_phone}}</div>
                 <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="handPhone">
+                    <input class="form-control" type="text" [(ngModel)]="phone">
                 </div>
             </div>
 

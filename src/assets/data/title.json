@@ -132,7 +132,7 @@
                 "address": "Address",
                 "phone": "Phone",
                 "email": "Email",
-                "country": "Country",
+                "city": "City",
                 "job_tile": "Job Tile"
             }
         },
@@ -237,7 +237,7 @@
             "name": "Name",
             "short_name": "Short Name",
             "company_role": "Company Role",
-            "country": "Country",
+            "city": "City",
             "gender": "Gender",
             "job_tile": "Job tile",
             "hand_phone": "Hand phone",
@@ -360,7 +360,7 @@
                 "owner": "COMPANY OWNER",
                 "phone": "PHONE",
                 "address": "ADDRESS",
-                "country": "COUNTRY",
+                "city": "CITY",
                 "list_select": [
                     {
                         "name": "Assign",

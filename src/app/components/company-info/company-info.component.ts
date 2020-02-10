@@ -66,14 +66,14 @@ export class CompanyInfoComponent implements OnInit {
     let companyAddress: string;
     let companyPhone: string;
     let companyEmail: string;
-    let companyCountry: string;
+    let companyCity: string;
 
     if (type == 1) companyName = value;
     else if (type == 2) companyShortName = value;
     else if (type == 3) companyAddress = value;
     else if (type == 4) companyPhone = value;
     else if (type == 5) companyEmail = value;
-    else if (type == 6) companyCountry = value;
+    else if (type == 6) companyCity = value;
 
     this.mService.getApiService().sendRequestUPDATE_COMPANY(
       this.mService.getServer().ip,
@@ -85,7 +85,7 @@ export class CompanyInfoComponent implements OnInit {
       companyAddress,
       companyPhone,
       companyEmail,
-      companyCountry
+      companyCity
     )
   }
 

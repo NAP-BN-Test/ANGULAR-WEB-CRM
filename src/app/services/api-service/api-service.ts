@@ -367,7 +367,7 @@ export class ApiService extends HttpClient {
                 .add("name", contact.name)
                 .add("gender", contact.gender)
                 .add("jobTile", contact.jobTile)
-                .add("handPhone", contact.handPhone)
+                .add("phone", contact.phone)
                 .add("homePhone", contact.homePhone)
                 .add("email", contact.email)
                 .add("address", contact.address)
@@ -399,7 +399,7 @@ export class ApiService extends HttpClient {
 
     //28
     public sendRequestUPDATE_COMPANY(ip: string, dbName: string, username: string, companyID: string,
-        companyName?: string, companyShortName?: string, companyAddress?: string, companyPhone?: string, companyEmail?: string, companyCountry?: string): Promise<any> {
+        companyName?: string, companyShortName?: string, companyAddress?: string, companyPhone?: string, companyEmail?: string, companyCity?: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_COMPANY,
             ParamBuilder.builder()
                 .add("ip", ip)
@@ -411,7 +411,7 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("companyAddress", companyAddress)
                 .addIgnoreNull("companyPhone", companyPhone)
                 .addIgnoreNull("companyEmail", companyEmail)
-                .addIgnoreNull("companyCountry", companyCountry));
+                .addIgnoreNull("companyCity", companyCity));
     }
 
     //29
@@ -528,7 +528,8 @@ export class ApiService extends HttpClient {
                 .add("phone", company.phone)
                 .add("email", company.email)
                 .add("address", company.address)
-                .add("country", company.country)
+                .add("cityID", company.cityID)
+                .add("cityName", company.cityName)
                 .add("role", company.role));
     }
 
@@ -855,9 +856,19 @@ export class ApiService extends HttpClient {
                 .add("activityIDs", activityIDs));
     }
 
-    //16
+    //64
     public sendRequestGET_SUMMARY_INFO(ip: string, dbName: string, username: string, userID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_SUMMARY_INFO,
+            ParamBuilder.builder()
+                .add("ip", ip)
+                .add("dbName", dbName)
+                .add("username", username)
+                .add("userID", userID));
+    }
+
+     //65
+     public sendRequestGET_LIST_CITY(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CITY,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)

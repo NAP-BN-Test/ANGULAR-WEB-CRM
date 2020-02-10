@@ -74,7 +74,7 @@ export class ContactMenuContactComponent implements OnInit {
   get listContactSort(): Array<any> {
     this.collectionSize = this.listContact.length;
     return this.listContact
-      .map((country, i) => ({ id: i + 1, ...country }))
+      .map((item, i) => ({ id: i + 1, ...item }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
@@ -193,7 +193,7 @@ export class ContactMenuContactComponent implements OnInit {
   onSearchChange(event) {
     let searchKey = event.target.value;
     this.listContact = this.listContactCache.filter(item => {
-      return Utils.bodauTiengViet(item.name).includes(Utils.bodauTiengViet(searchKey)) || item.handPhone.includes(searchKey);
+      return Utils.bodauTiengViet(item.name).includes(Utils.bodauTiengViet(searchKey)) || item.phone.includes(searchKey);
     })
   }
 

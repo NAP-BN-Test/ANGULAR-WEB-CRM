@@ -23,12 +23,14 @@ export class AddCompanyComponent implements OnInit {
 
   listCompany = [];
 
+  listCity = [];
+
   name = "";
   shortName = "";
   phone = "";
   email = "";
   address = "";
-  country = "";
+  city: any;
   role = 0;
 
   constructor(
@@ -40,6 +42,15 @@ export class AddCompanyComponent implements OnInit {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.add_sub_detail;
     })
+
+    this.mService.getApiService().sendRequestGET_LIST_CITY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      this.listCity = data.array;
+    })
   }
 
   onClickClose() {
@@ -50,7 +61,7 @@ export class AddCompanyComponent implements OnInit {
     this.phone = "";
     this.email = "";
     this.address = "";
-    this.country = "";
+    this.city = null;
     this.role = 0;
   }
 
@@ -69,7 +80,8 @@ export class AddCompanyComponent implements OnInit {
         phone: this.phone,
         email: this.email,
         address: this.address,
-        country: this.country,
+        cityID: this.city.id,
+        cityName: this.city.name,
         role: this.role
       }
 
@@ -89,7 +101,7 @@ export class AddCompanyComponent implements OnInit {
           this.phone = "";
           this.email = "";
           this.address = "";
-          this.country = "";
+          this.city = null;
           this.role = 0;
         }
       })
