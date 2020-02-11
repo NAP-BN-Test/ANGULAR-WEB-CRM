@@ -28,12 +28,14 @@
 
             <div padding32-horizontal style="width: 300px;">
                 <div>
-                    <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
-                        {{mData.all_company}}({{dataInfo.all}})</div>
                     <div padding-bottom [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.unassign_company}}({{dataInfo.other}})</div>
+                        {{mData.all_company}}({{numberAll}})</div>
                     <div padding-bottom [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
-                        {{mData.follow_company}}({{dataInfo.follow}})</div>
+                        {{mData.unassign_company}}({{numberUnAssign}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==3" tappable (click)="onClickMenu(3)">
+                        {{mData.follow_company}}({{numberFollow}})</div>
+                    <div padding-bottom [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
+                        {{mData.my_company_assigned}}({{numberAssign}})</div>
                 </div>
                 <div padding32-top>
                     <div bold color-primary>{{mData.company.add_filter}}</div>
@@ -84,7 +86,7 @@
                         </div>
                     </div>
 
-                    <div class="padding8-vertical flex" *ngFor="let item of listDataSort;let i = index"
+                    <div class="padding8-vertical flex" *ngFor="let item of listData;let i = index"
                         [class.background-whitesmoke]="i%2==1">
                         <div padding-horizontal center-line>
                             <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
@@ -110,8 +112,8 @@
                 </div>
 
                 <div center padding-top>
-                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
-                        (click)="onClickPagination()">
+                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="8" [(page)]="mPage" [pageSize]="pageSize"
+                        [boundaryLinks]="true" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>
             </div>

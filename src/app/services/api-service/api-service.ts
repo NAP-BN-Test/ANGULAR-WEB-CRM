@@ -56,13 +56,16 @@ export class ApiService extends HttpClient {
     }
 
     //3
-    public sendRequestGET_LIST_COMPANY(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+    public sendRequestGET_LIST_COMPANY(ip: string, dbName: string, username: string, userID: number, page: number, companyType: number, searchKey: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_COMPANY,
             ParamBuilder.builder()
                 .add("ip", ip)
                 .add("dbName", dbName)
                 .add("username", username)
-                .add("userID", userID));
+                .add("userID", userID)
+                .add("page", page)
+                .addIgnoreNull("searchKey", searchKey)
+                .add("companyType", companyType));
     }
 
     //4
@@ -866,8 +869,8 @@ export class ApiService extends HttpClient {
                 .add("userID", userID));
     }
 
-     //65
-     public sendRequestGET_LIST_CITY(ip: string, dbName: string, username: string, userID: number): Promise<any> {
+    //65
+    public sendRequestGET_LIST_CITY(ip: string, dbName: string, username: string, userID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CITY,
             ParamBuilder.builder()
                 .add("ip", ip)

@@ -21,7 +21,12 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   mData: any;
 
-  menuSelected = 0;
+  menuSelected = 1;
+
+  numberAll = 0;
+  numberUnAssign = 0;
+  numberAssign = 0;
+  numberFollow = 0;
 
   checked = false;
   indeterminate = false;
@@ -32,6 +37,9 @@ export class ContactMenuCompanyComponent implements OnInit {
   addSub = 0
 
   page = 1;
+
+  mPage = 1;
+
   pageSize = 12;
   collectionSize = 0;
 
@@ -46,26 +54,48 @@ export class ContactMenuCompanyComponent implements OnInit {
       this.mData = data.contact;
     });
     if (this.mService.getUser()) {
-      this.mService.getApiService().sendRequestGET_LIST_COMPANY(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
-        this.mService.getUser().username,
-        this.mService.getUser().id
-      ).then(data => {
-        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-          this.listData = data.array;
-          this.listDataCache = data.array;
-          this.listDataSummary = data.array;
-        }
-      });
+      this.onLoadData(1, 1, null);
     }
     else {
       this.router.navigate(['login']);
     }
   }
 
+  onLoadData(page: number, companyType: number, searchKey: string) {
+    this.mService.getApiService().sendRequestGET_LIST_COMPANY(
+      this.mService.getServer().ip,
+      this.mService.getServer().dbName,
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      page,
+      companyType,
+      searchKey
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.listData = data.array;
+        this.listDataCache = data.array;
+        this.listDataSummary = data.array;
+
+        this.numberAll = data.all;
+        this.numberUnAssign = data.unassign;
+        this.numberAssign = data.assign;
+        this.numberFollow = data.follow;
+
+        if (this.menuSelected == 1) {
+          this.collectionSize = data.all;
+        } else if (this.menuSelected == 2) {
+          this.collectionSize = data.unassign;
+        } else if (this.menuSelected == 3) {
+          this.collectionSize = data.follow;
+        } else if (this.menuSelected == 4) {
+          this.collectionSize = data.assign;
+        }
+      }
+    });
+  }
+
   get listDataSort(): Array<any> {
-    this.collectionSize = this.listData.length;
+    // this.collectionSize = this.listData.length;
     return this.listData
       .map((item, i) => ({ id: i + 1, ...item }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
@@ -75,16 +105,19 @@ export class ContactMenuCompanyComponent implements OnInit {
     let all = 0;
     let other = 0;
     let follow = 0;
+    let assign = 0;
 
     this.listDataSummary.forEach(item => {
       all += 1;
-      if (!item.assignID)
+      if (!item.ownerID)
         other += 1;
       if (item.follow)
         follow += 1;
+      if (item.ownerID == this.mService.getUser().id)
+        assign += 1;
     });
 
-    return { all, other, follow };
+    return { all, other, follow, assign };
   }
 
 
@@ -100,20 +133,9 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onClickMenu(index: number) {
+    this.mPage = 1;
     this.menuSelected = index;
-    if (index == 0) {
-      this.listData = this.listDataCache;
-    }
-    else if (index == 1) {
-      this.listData = this.listDataCache.filter(item => {
-        return item.assignID === null;
-      });
-    }
-    else if (index == 2) {
-      this.listData = this.listDataCache.filter(item => {
-        return item.follow === true;
-      });
-    }
+    this.onLoadData(1, index, null);
   }
 
   onCheckBoxChange(item) {
@@ -172,11 +194,12 @@ export class ContactMenuCompanyComponent implements OnInit {
     }
   }
 
-  onClickPagination() {
-    this.checked = false;
-    this.listData.forEach(item => {
-      item.checked = false;
-    })
+  onClickPagination(event) {
+    this.onLoadData(event, this.menuSelected, null);
+    // this.checked = false;
+    // this.listData.forEach(item => {
+    //   item.checked = false;
+    // })
   }
 
   onClickItem(item) {
