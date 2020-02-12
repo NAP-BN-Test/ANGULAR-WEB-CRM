@@ -10,12 +10,6 @@
                 <div padding-end>
                     <input type="search" class="form-control" (change)="onSearchChange($event)" />
                 </div>
-                <!-- <div flex padding-end>
-                    <div>{{mData.action}}</div>
-                    <mat-icon>arrow_drop_down</mat-icon>
-                </div> -->
-                <!-- <div padding-end>{{mData.import}}</div> -->
-                <!-- <div padding-end>{{mData.export}}</div> -->
                 <div tappable (click)="onClickAdd()">{{mData.create_new}}</div>
 
                 <div class="box-add" [class.show-div]="addSub==1">

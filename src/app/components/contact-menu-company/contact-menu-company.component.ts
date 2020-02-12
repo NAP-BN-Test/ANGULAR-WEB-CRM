@@ -208,9 +208,8 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onSearchChange(event) {
     let searchKey = event.target.value;
-    this.listData = this.listDataCache.filter(item => {
-      return Utils.bodauTiengViet(item.name).includes(Utils.bodauTiengViet(searchKey));
-    })
+
+    this.onLoadData(1, this.menuSelected, searchKey);
   }
 
   onClickAssign(index) {
