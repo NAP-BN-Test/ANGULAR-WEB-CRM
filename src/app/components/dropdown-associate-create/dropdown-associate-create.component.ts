@@ -31,8 +31,8 @@ export class DropdownAssociateCreateComponent implements OnInit {
   ngOnInit() {
 
     this.mService.getApiService().sendRequestGET_LIST_USER(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id
     ).then(data => {

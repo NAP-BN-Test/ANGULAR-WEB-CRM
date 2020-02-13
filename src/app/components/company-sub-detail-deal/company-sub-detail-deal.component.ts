@@ -43,8 +43,8 @@ export class CompanySubDetailDealComponent implements OnInit {
 
   onChangeStage() {
     this.mService.getApiService().sendRequestUPDATE_DEAL(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.mObj.id,
@@ -74,8 +74,8 @@ export class CompanySubDetailDealComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.mService.getApiService().sendRequestDELETE_DEAL_FROM_COMPANY(
-          this.mService.getServer().ip,
-          this.mService.getServer().dbName,
+          
+          
           this.mService.getUser().username,
           this.mService.getUser().id,
           this.mObj.id

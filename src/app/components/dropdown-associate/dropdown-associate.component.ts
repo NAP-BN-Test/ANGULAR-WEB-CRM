@@ -78,8 +78,8 @@ export class DropdownAssociateComponent implements OnInit {
 
     if (this.activityType == ACTIVITY_TYPE.CALL) {
       this.mService.getApiService().sendRequestUPDATE_CALL_ASSOCIATE(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         item.id,
         this.activityID,
@@ -92,8 +92,8 @@ export class DropdownAssociateComponent implements OnInit {
     }
     else if (this.activityType == ACTIVITY_TYPE.EMAIL) {
       this.mService.getApiService().sendRequestUPDATE_EMAIL_ASSOCIATE(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         item.id,
         this.activityID,
@@ -106,8 +106,8 @@ export class DropdownAssociateComponent implements OnInit {
     }
     else if (this.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestUPDATE_MEET_ASSOCIATE(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         item.id,
         this.activityID,
@@ -120,8 +120,8 @@ export class DropdownAssociateComponent implements OnInit {
     }
     else if (this.activityType == ACTIVITY_TYPE.NOTE) {
       this.mService.getApiService().sendRequestUPDATE_NOTE_ASSOCIATE(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         item.id,
         this.activityID,
@@ -134,8 +134,8 @@ export class DropdownAssociateComponent implements OnInit {
     }
     else if (this.activityType == ACTIVITY_TYPE.TASK) {
       this.mService.getApiService().sendRequestUPDATE_TASK_ASSOCIATE(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         item.id,
         this.activityID,

@@ -42,8 +42,8 @@ export class ContactDetailIntroComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_DETAIL_CONTACT(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
@@ -74,8 +74,8 @@ export class ContactDetailIntroComponent implements OnInit {
     else if (type == 6) contactJobTile = value;
 
     this.mService.getApiService().sendRequestUPDATE_CONTACT(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
       contactName,
@@ -92,8 +92,8 @@ export class ContactDetailIntroComponent implements OnInit {
 
   onClickFollow() {
     this.mService.getApiService().sendRequestFOLLOW_CONTACT(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.mObj.id, !this.mObj.follow ? true : null
@@ -120,8 +120,8 @@ export class ContactDetailIntroComponent implements OnInit {
         listID.push(this.mObj.id);
 
         this.mService.getApiService().sendRequestDELETE_CONTACT(
-          this.mService.getServer().ip,
-          this.mService.getServer().dbName,
+          
+          
           this.mService.getUser().username,
           this.mService.getUser().id,
           JSON.stringify(listID)

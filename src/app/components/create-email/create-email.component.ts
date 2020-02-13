@@ -15,7 +15,7 @@ export class CreateEmailComponent implements OnInit {
   @Output("closeCreateAction") closeCreateAction = new EventEmitter();
 
   @Input("listContact") listContact = [];
-  @Input("createInContact") createInContact: any;
+  @Input("createInContact") createInContact = false;
 
   mData: any;
 
@@ -79,11 +79,11 @@ export class CreateEmailComponent implements OnInit {
   onClickSave() {
 
     this.mService.getApiService().sendRequestCREATE_EMAIL(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+
+
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+      !this.createInContact ? this.cookieService.get('company-id') : null,
       this.createInContact ? Number(this.cookieService.get('contact-id')) : this.contactID,
       this.outcomeType,
       this.datetime,

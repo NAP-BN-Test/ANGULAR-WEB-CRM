@@ -65,8 +65,8 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onLoadData(page: number, companyType: number, searchKey: string) {
     this.mService.getApiService().sendRequestGET_LIST_COMPANY(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       page,
@@ -114,41 +114,20 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onCheckBoxChange(item, event) {
-    console.log(item, event);
+    let checked = event.checked;
+    if (checked) this.numberOfItemSelected += 1;
+    else this.numberOfItemSelected -= 1;
 
-    // let index = this.listData.findIndex(it => {
-    //   return it.id == item.id;
-    // });
-
-    // if (index > -1) {
-    //   this.listData[index].checked = !this.listData[index].checked;
-    // }
-
-    // let value = this.listData[index].checked ? 2 : 0;
-
-    // this.numberOfItemSelected = 0;
-
-    // this.listData.forEach(it => {
-    //   if (it.checked) this.numberOfItemSelected += 1;
-
-    //   if (!it.checked && value == 0) value = 0;
-    //   else if (!it.checked && value == 2) value = 1;
-    //   else if (it.checked && value == 0) value = 1;
-    //   else if (it.checked && value == 2) value = 2;
-    //   else value = 1;
-    // });
-
-    // if (value == 0) {
-    //   this.checked = false;
-    //   this.indeterminate = false
-    // }
-    // else if (value == 1) {
-    //   this.indeterminate = true;
-    // }
-    // else if (value == 2) {
-    //   this.checked = true;
-    //   this.indeterminate = false;
-    // }
+    if (this.numberOfItemSelected == 0) {
+      this.indeterminate = false;
+      this.checked = false;
+    } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
+      this.indeterminate = true;
+      this.checked = false;
+    } else if (this.numberOfItemSelected >= 12) {
+      this.indeterminate = false;
+      this.checked = true;
+    }
   }
 
   onCheckAllChange() {
@@ -186,69 +165,74 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onClickAssign(index) {
-    // if (index == 0) {
-    //   const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
-    //     width: '500px'
-    //   });
+    if (index == 0) {
+      const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
+        width: '500px'
+      });
 
-    //   dialogRef.afterClosed().subscribe(res => {
-    //     if (res) {
-    //       let listID = [];
-    //       this.listDataSort.forEach(item => {
-    //         if (item.checked) listID.push(item.id)
-    //       })
-    //       this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
-    //         this.mService.getServer().ip,
-    //         this.mService.getServer().dbName,
-    //         this.mService.getUser().username,
-    //         this.mService.getUser().id,
-    //         res,
-    //         JSON.stringify(listID)
-    //       ).then(data => {
-    //         if (data.status == STATUS.SUCCESS) {
-    //           this.listData.forEach(item => {
-    //             if (item.checked) {
-    //               item.email = data.obj.name;
-    //             }
-    //           });
-    //         }
-    //       })
-    //     }
-    //   });
-    // } else if (index == 1) {
-    //   const dialogRef = this.dialog.open(DialogComponent, {
-    //     width: '500px'
-    //   });
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          let listID = [];
+          this.listData.forEach(item => {
+            if (item.checked) listID.push(item.id)
+          })
+          this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
+            
+            
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            res,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.listData.forEach(item => {
+                if (item.checked) {
+                  item.email = data.obj.name;
+                  item.checked = false;
+                }
+              });
+              this.checked = false;
+              this.indeterminate = false;
+            }
+          })
+        }
+      });
+    } else if (index == 1) {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '500px'
+      });
 
-    //   dialogRef.afterClosed().subscribe(res => {
-    //     if (res) {
-    //       let listID = [];
-    //       this.listDataSort.forEach(item => {
-    //         if (item.checked) listID.push(item.id)
-    //       })
-    //       this.mService.getApiService().sendRequestDELETE_COMPANY(
-    //         this.mService.getServer().ip,
-    //         this.mService.getServer().dbName,
-    //         this.mService.getUser().username,
-    //         this.mService.getUser().id,
-    //         JSON.stringify(listID)
-    //       ).then(data => {
-    //         if (data.status == STATUS.SUCCESS) {
-    //           this.listDataSort.forEach(item => {
-    //             if (item.checked) {
-    //               let index = this.listData.findIndex(itm => {
-    //                 return itm.id === item.id;
-    //               });
-    //               if (index > -1) {
-    //                 this.listData.splice(index, 1)
-    //               }
-    //             }
-    //           })
-    //         }
-    //       })
-    //     }
-    //   });
-    // }
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          let listID = [];
+          this.listData.forEach(item => {
+            if (item.checked) listID.push(item.id)
+          })
+          this.mService.getApiService().sendRequestDELETE_COMPANY(
+            
+            
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.listData.forEach(item => {
+                if (item.checked) {
+                  let index = this.listData.findIndex(itm => {
+                    return itm.id === item.id;
+                  });
+                  if (index > -1) {
+                    this.listData.splice(index, 1)
+                  }
+                  this.checked = false;
+                  this.indeterminate = false;
+                }
+              })
+            }
+          })
+        }
+      });
+    }
   }
 
   onClickAdd() {

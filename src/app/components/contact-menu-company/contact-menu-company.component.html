@@ -8,7 +8,8 @@
             <div font2 bold>{{mData.company_title}}</div>
             <div center-line bold color-primary>
                 <div padding-end>
-                    <input type="search" class="form-control" [(ngModel)]="searchKey" (keyup.enter)="onSearchChange($event)" />
+                    <input type="search" class="form-control" [(ngModel)]="searchKey"
+                        (keyup.enter)="onSearchChange($event)" />
                 </div>
                 <div tappable (click)="onClickAdd()">{{mData.create_new}}</div>
 
@@ -38,8 +39,8 @@
 
             <div width-fill>
                 <div>
-                    <div flex padding8-vertical [class.background-whitesmoke]="!checked"
-                        [class.background-secondary]="checked">
+                    <div flex padding8-vertical [class.background-whitesmoke]="!checked && !indeterminate"
+                        [class.background-secondary]="checked || indeterminate">
                         <div padding-horizontal center-line>
                             <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate"
                                 (click)="onCheckAllChange()">
@@ -83,7 +84,8 @@
                     <div class="padding8-vertical flex" *ngFor="let item of listData;let i = index"
                         [class.background-whitesmoke]="i%2==1">
                         <div padding-horizontal center-line>
-                            <mat-checkbox [checked]="item.checked" (change)="onCheckBoxChange(item, $event)">
+                            <mat-checkbox [checked]="item.checked" [(ngModel)]="item.checked"
+                                (change)="onCheckBoxChange(item, $event)">
                             </mat-checkbox>
                         </div>
                         <div class="width-30 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
@@ -106,8 +108,8 @@
                 </div>
 
                 <div center padding-top>
-                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="8" [(page)]="mPage" [pageSize]="pageSize"
-                        [boundaryLinks]="true" (pageChange)="onClickPagination($event)">
+                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="8" [(page)]="mPage"
+                        [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>
             </div>

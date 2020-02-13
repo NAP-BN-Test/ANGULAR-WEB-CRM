@@ -81,8 +81,8 @@ export class AddContactComponent implements OnInit {
       }
 
       this.mService.getApiService().sendRequestADD_CONTACT(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -107,8 +107,8 @@ export class AddContactComponent implements OnInit {
     let searchKey = event.target.value;
 
     this.mService.getApiService().sendRequestSEARCH_CONTACT(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       searchKey
@@ -121,8 +121,8 @@ export class AddContactComponent implements OnInit {
 
   onClickAddContact(item) {
     this.mService.getApiService().sendRequestADD_CONTACT_BY_ID(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,

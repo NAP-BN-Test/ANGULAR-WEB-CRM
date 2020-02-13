@@ -55,8 +55,8 @@ export class ActivityListCallComponent implements OnInit {
 
   onLoadData(type?: number) {
     this.mService.getApiService().sendRequestGET_LIST_CALL(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id
     ).then(data => {
@@ -163,8 +163,8 @@ export class ActivityListCallComponent implements OnInit {
     });
     if (obj) {
       this.mService.getApiService().sendRequestUPDATE_TASK(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         this.mService.getUser().id,
         item.id,
@@ -239,8 +239,8 @@ export class ActivityListCallComponent implements OnInit {
             if (item.checked) listID.push(item.id)
           })
           this.mService.getApiService().sendRequestDELETE_CALL(
-            this.mService.getServer().ip,
-            this.mService.getServer().dbName,
+            
+            
             this.mService.getUser().username,
             this.mService.getUser().id,
             JSON.stringify(listID)

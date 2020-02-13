@@ -42,8 +42,8 @@ export class CompanySubDetailComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -54,8 +54,8 @@ export class CompanySubDetailComponent implements OnInit {
     })
 
     this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -66,8 +66,8 @@ export class CompanySubDetailComponent implements OnInit {
     })
 
     this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
     ).then(data => {

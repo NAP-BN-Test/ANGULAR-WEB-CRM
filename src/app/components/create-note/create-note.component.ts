@@ -11,6 +11,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class CreateNoteComponent implements OnInit {
   @Output("closeCreateAction") closeCreateAction = new EventEmitter();
 
+  @Input("createInContact") createInContact = false;
+
   mData: any;
 
   showTimePicker = false;
@@ -51,12 +53,12 @@ export class CreateNoteComponent implements OnInit {
 
   onClickSave() {
     this.mService.getApiService().sendRequestCREATE_NOTE(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+
+
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
+      !this.createInContact ? this.cookieService.get('company-id') : null,
+      this.createInContact ? this.cookieService.get('contact-id') : null,
       this.quillValue,
       this.listAssociate,
       this.dateFollow).then(data => {

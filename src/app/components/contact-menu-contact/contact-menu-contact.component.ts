@@ -57,8 +57,8 @@ export class ContactMenuContactComponent implements OnInit {
 
   onLoadData(type?: number) {
     this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       type
@@ -225,8 +225,8 @@ export class ContactMenuContactComponent implements OnInit {
             if (item.checked) listID.push(item.id)
           })
           this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-            this.mService.getServer().ip,
-            this.mService.getServer().dbName,
+            
+            
             this.mService.getUser().username,
             this.mService.getUser().id,
             res,
@@ -255,8 +255,8 @@ export class ContactMenuContactComponent implements OnInit {
             if (item.checked) listID.push(item.id)
           })
           this.mService.getApiService().sendRequestDELETE_CONTACT(
-            this.mService.getServer().ip,
-            this.mService.getServer().dbName,
+            
+            
             this.mService.getUser().username,
             this.mService.getUser().id,
             JSON.stringify(listID)

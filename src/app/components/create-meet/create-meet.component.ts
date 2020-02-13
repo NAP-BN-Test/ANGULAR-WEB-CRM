@@ -14,6 +14,7 @@ export class CreateMeetComponent implements OnInit {
 
   @Output("closeCreateAction") closeCreateAction = new EventEmitter();
   @Input("listContact") listContact = [];
+  @Input("createInContact") createInContact = false;
 
   mData: any;
 
@@ -80,12 +81,12 @@ export class CreateMeetComponent implements OnInit {
   onClickSave() {
 
     this.mService.getApiService().sendRequestCREATE_MEET(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+
+
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
+      !this.createInContact ? this.cookieService.get('company-id') : null,
+      this.createInContact ? this.cookieService.get('contact-id') : null,
       this.listAttendID,
       this.duration,
       this.datetime,

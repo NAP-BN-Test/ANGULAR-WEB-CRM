@@ -30,8 +30,8 @@ export class DialogAssignCompanyComponent implements OnInit {
       this.mData = data.dialog;
     });
     this.mService.getApiService().sendRequestGET_LIST_USER(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       1

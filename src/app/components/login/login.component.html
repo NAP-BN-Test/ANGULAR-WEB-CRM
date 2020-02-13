@@ -1,9 +1,6 @@
 <ngb-toast class="m-toast" *ngIf="showToast" [autohide]="false">{{toasMessage}}</ngb-toast>
 
 <div *ngIf="mData">
-    <div style="position: absolute; top: 16px; right: 16px;" tappable (click)="onClickSetting()">
-        <mat-icon>settings_applications</mat-icon>
-    </div>
     <div background-whitesmoke>
         <div class="container header">
             <div>
@@ -28,15 +25,6 @@
                 </div>
 
                 <div padding-vertical>
-                    <div [hidden]="!setting">
-                        <div padding-bottom>
-                            <input type="text" class="form-control" [placeholder]="mData.ip" [(ngModel)]="ip">
-                        </div>
-                        <div padding-bottom>
-                            <input type="text" class="form-control" [placeholder]="mData.db_name" [(ngModel)]="dbName">
-                        </div>
-                    </div>
-
                     <div padding-bottom>
                         <input type="text" class="form-control" [placeholder]="mData.username" [(ngModel)]="username">
                     </div>

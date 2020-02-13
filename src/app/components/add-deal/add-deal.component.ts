@@ -69,8 +69,8 @@ export class AddDealComponent implements OnInit {
       amount: this.amount,
     }
     this.mService.getApiService().sendRequestADD_DEAL(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id,
       obj

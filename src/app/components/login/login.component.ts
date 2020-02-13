@@ -13,9 +13,6 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 })
 export class LoginComponent implements OnInit {
 
-  ip: string = "";
-  dbName: string = "";
-
   username: string = "";
   password: string = "";
 
@@ -29,14 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public mService: AppModuleService,
     public router: Router
-  ) {
-    if (localStorage.getItem('server-info')) {
-      let svInfo = JSON.parse(localStorage.getItem('server-info'));
-
-      this.ip = svInfo.ip;
-      this.dbName = svInfo.dbName;
-    }
-  }
+  ) { }
 
   ngOnInit() {
 
@@ -53,21 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   onClickLogin() {
-
-    if (this.ip.trim() == "" || this.dbName.trim() == "") {
-      this.toasMessage = this.mData.invalid_db
-      this.showToast = true;
-      setTimeout(() => {
-        this.showToast = false;
-      }, 2000);
-    } else {
-      let svInfo = {
-        ip: this.ip,
-        dbName: this.dbName
-      };
-      localStorage.setItem('server-info', JSON.stringify(svInfo));
-
-      this.mService.getApiService().sendRequestUSER_LOGIN(this.ip, this.dbName, this.username, md5(this.password)).then(data => {
+      this.mService.getApiService().sendRequestUSER_LOGIN(this.username, md5(this.password)).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           this.mService.setUser(data.obj);
 
@@ -80,33 +56,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user-info', JSON.stringify(data.obj));
 
           this.router.navigate(['contact-menu-company']);
-          // this.router.navigate(['dashboard']);
-
         }
       })
-    }
   }
-
-  onClickSetting() {
-    if (this.setting) {
-      let svInfoCookie = {
-        ip: "",
-        dbName: ""
-      };
-      if (localStorage.getItem('server-info')) {
-        svInfoCookie = JSON.parse(localStorage.getItem('server-info'));
-      }
-      if (this.ip != svInfoCookie.ip || this.dbName != svInfoCookie.dbName) {
-        let svInfo = {
-          ip: this.ip,
-          dbName: this.dbName
-        }
-        localStorage.setItem('server-info', JSON.stringify(svInfo));
-
-
-      }
-    }
-    this.setting = !this.setting;
-  }
-
 }

@@ -44,8 +44,8 @@ export class AddCompanyComponent implements OnInit {
     })
 
     this.mService.getApiService().sendRequestGET_LIST_CITY(
-      this.mService.getServer().ip,
-      this.mService.getServer().dbName,
+      
+      
       this.mService.getUser().username,
       this.mService.getUser().id
     ).then(data => {
@@ -86,8 +86,8 @@ export class AddCompanyComponent implements OnInit {
       }
 
       this.mService.getApiService().sendRequestADD_COMPANY(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -115,8 +115,8 @@ export class AddCompanyComponent implements OnInit {
 
     if (searchKey.trim() != "") {
       this.mService.getApiService().sendRequestSEARCH_COMPANY(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -134,8 +134,8 @@ export class AddCompanyComponent implements OnInit {
   onClickAddCompany(item, type) {
     if (type == 1) {
       this.mService.getApiService().sendRequestADD_PARENT_COMPANY_BY_ID(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -148,8 +148,8 @@ export class AddCompanyComponent implements OnInit {
     }
     else if (type == 2) {
       this.mService.getApiService().sendRequestADD_CHILD_COMPANY_BY_ID(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,

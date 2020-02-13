@@ -79,8 +79,8 @@ export class DropdownMultiComponent implements OnInit {
 
     if (this.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestUPDATE_MEET_ATTEND(
-        this.mService.getServer().ip,
-        this.mService.getServer().dbName,
+        
+        
         this.mService.getUser().username,
         item.id,
         this.activityID,

@@ -41,8 +41,8 @@ export class CompanySubDetailCompanyComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.mService.getApiService().sendRequestDELETE_COMPANY_FROM_COMPANY(
-          this.mService.getServer().ip,
-          this.mService.getServer().dbName,
+          
+          
           this.mService.getUser().username,
           this.mService.getUser().id,
           this.mObj.role,
