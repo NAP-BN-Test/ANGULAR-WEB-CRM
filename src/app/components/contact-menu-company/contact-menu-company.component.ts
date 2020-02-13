@@ -16,8 +16,8 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class ContactMenuCompanyComponent implements OnInit {
 
   listData = [];
-  listDataSummary = [];
-  listDataCache = [];
+  // listDataSummary = [];
+  // listDataCache = [];
 
   mData: any;
 
@@ -39,6 +39,8 @@ export class ContactMenuCompanyComponent implements OnInit {
   page = 1;
 
   mPage = 1;
+
+  searchKey = "";
 
   pageSize = 12;
   collectionSize = 0;
@@ -73,8 +75,8 @@ export class ContactMenuCompanyComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
-        this.listDataCache = data.array;
-        this.listDataSummary = data.array;
+        // this.listDataCache = data.array;
+        // this.listDataSummary = data.array;
 
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
@@ -94,33 +96,6 @@ export class ContactMenuCompanyComponent implements OnInit {
     });
   }
 
-  get listDataSort(): Array<any> {
-    // this.collectionSize = this.listData.length;
-    return this.listData
-      .map((item, i) => ({ id: i + 1, ...item }))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  }
-
-  get dataInfo(): any {
-    let all = 0;
-    let other = 0;
-    let follow = 0;
-    let assign = 0;
-
-    this.listDataSummary.forEach(item => {
-      all += 1;
-      if (!item.ownerID)
-        other += 1;
-      if (item.follow)
-        follow += 1;
-      if (item.ownerID == this.mService.getUser().id)
-        assign += 1;
-    });
-
-    return { all, other, follow, assign };
-  }
-
-
   pow = 0;
   onSort() {
     this.pow += 1;
@@ -135,44 +110,45 @@ export class ContactMenuCompanyComponent implements OnInit {
   onClickMenu(index: number) {
     this.mPage = 1;
     this.menuSelected = index;
-    this.onLoadData(1, index, null);
+    this.onLoadData(1, index, this.searchKey);
   }
 
-  onCheckBoxChange(item) {
-    let index = this.listData.findIndex(it => {
-      return it.id == item.id;
-    });
+  onCheckBoxChange(item, event) {
+    console.log(item, event);
 
-    if (index > -1) {
-      this.listData[index].checked = !this.listData[index].checked;
-    }
+    // let index = this.listData.findIndex(it => {
+    //   return it.id == item.id;
+    // });
 
-    let value = this.listData[index].checked ? 2 : 0;
+    // if (index > -1) {
+    //   this.listData[index].checked = !this.listData[index].checked;
+    // }
 
-    this.numberOfItemSelected = 0;
+    // let value = this.listData[index].checked ? 2 : 0;
 
-    this.listDataSort.forEach(it => {
-      if (it.checked) this.numberOfItemSelected += 1;
+    // this.numberOfItemSelected = 0;
 
-      if (!it.checked && value == 0) value = 0;
-      else if (!it.checked && value == 2) value = 1;
-      else if (it.checked && value == 0) value = 1;
-      else if (it.checked && value == 2) value = 2;
-      else value = 1;
-    });
+    // this.listData.forEach(it => {
+    //   if (it.checked) this.numberOfItemSelected += 1;
 
-    if (value == 0) {
-      this.checked = false;
-      this.indeterminate = false
-    }
-    else if (value == 1) {
-      this.indeterminate = true;
-    }
-    else if (value == 2) {
-      this.checked = true;
-      this.indeterminate = false;
-    }
+    //   if (!it.checked && value == 0) value = 0;
+    //   else if (!it.checked && value == 2) value = 1;
+    //   else if (it.checked && value == 0) value = 1;
+    //   else if (it.checked && value == 2) value = 2;
+    //   else value = 1;
+    // });
 
+    // if (value == 0) {
+    //   this.checked = false;
+    //   this.indeterminate = false
+    // }
+    // else if (value == 1) {
+    //   this.indeterminate = true;
+    // }
+    // else if (value == 2) {
+    //   this.checked = true;
+    //   this.indeterminate = false;
+    // }
   }
 
   onCheckAllChange() {
@@ -184,7 +160,7 @@ export class ContactMenuCompanyComponent implements OnInit {
       })
     }
     else {
-      this.listDataSort.forEach(it => {
+      this.listData.forEach(it => {
         let obj = this.listData.find(it1 => {
           return it1.id == it.id;
         });
@@ -195,11 +171,8 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onClickPagination(event) {
-    this.onLoadData(event, this.menuSelected, null);
-    // this.checked = false;
-    // this.listData.forEach(item => {
-    //   item.checked = false;
-    // })
+    this.checked = false;
+    this.onLoadData(event, this.menuSelected, this.searchKey);
   }
 
   onClickItem(item) {
@@ -213,69 +186,69 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onClickAssign(index) {
-    if (index == 0) {
-      const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
-        width: '500px'
-      });
+    // if (index == 0) {
+    //   const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
+    //     width: '500px'
+    //   });
 
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
-          this.listDataSort.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
-            this.mService.getServer().ip,
-            this.mService.getServer().dbName,
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            res,
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listData.forEach(item => {
-                if (item.checked) {
-                  item.email = data.obj.name;
-                }
-              });
-            }
-          })
-        }
-      });
-    } else if (index == 1) {
-      const dialogRef = this.dialog.open(DialogComponent, {
-        width: '500px'
-      });
+    //   dialogRef.afterClosed().subscribe(res => {
+    //     if (res) {
+    //       let listID = [];
+    //       this.listDataSort.forEach(item => {
+    //         if (item.checked) listID.push(item.id)
+    //       })
+    //       this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
+    //         this.mService.getServer().ip,
+    //         this.mService.getServer().dbName,
+    //         this.mService.getUser().username,
+    //         this.mService.getUser().id,
+    //         res,
+    //         JSON.stringify(listID)
+    //       ).then(data => {
+    //         if (data.status == STATUS.SUCCESS) {
+    //           this.listData.forEach(item => {
+    //             if (item.checked) {
+    //               item.email = data.obj.name;
+    //             }
+    //           });
+    //         }
+    //       })
+    //     }
+    //   });
+    // } else if (index == 1) {
+    //   const dialogRef = this.dialog.open(DialogComponent, {
+    //     width: '500px'
+    //   });
 
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
-          this.listDataSort.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestDELETE_COMPANY(
-            this.mService.getServer().ip,
-            this.mService.getServer().dbName,
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listDataSort.forEach(item => {
-                if (item.checked) {
-                  let index = this.listData.findIndex(itm => {
-                    return itm.id === item.id;
-                  });
-                  if (index > -1) {
-                    this.listData.splice(index, 1)
-                  }
-                }
-              })
-            }
-          })
-        }
-      });
-    }
+    //   dialogRef.afterClosed().subscribe(res => {
+    //     if (res) {
+    //       let listID = [];
+    //       this.listDataSort.forEach(item => {
+    //         if (item.checked) listID.push(item.id)
+    //       })
+    //       this.mService.getApiService().sendRequestDELETE_COMPANY(
+    //         this.mService.getServer().ip,
+    //         this.mService.getServer().dbName,
+    //         this.mService.getUser().username,
+    //         this.mService.getUser().id,
+    //         JSON.stringify(listID)
+    //       ).then(data => {
+    //         if (data.status == STATUS.SUCCESS) {
+    //           this.listDataSort.forEach(item => {
+    //             if (item.checked) {
+    //               let index = this.listData.findIndex(itm => {
+    //                 return itm.id === item.id;
+    //               });
+    //               if (index > -1) {
+    //                 this.listData.splice(index, 1)
+    //               }
+    //             }
+    //           })
+    //         }
+    //       })
+    //     }
+    //   });
+    // }
   }
 
   onClickAdd() {
