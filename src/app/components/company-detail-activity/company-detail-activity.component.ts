@@ -490,4 +490,9 @@ export class CompanyDetailActivityComponent implements OnInit {
     })
   }
 
+  onTextAreaChange(event) {
+    console.log(event.target.value);
+    
+  }
+
 }

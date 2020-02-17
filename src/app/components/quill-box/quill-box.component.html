@@ -1,6 +1,11 @@
 <div *ngIf="mData">
-    <div relative style="height: 100px; margin-bottom: 42px; border-top: 1px solid #cccccc;">
+    <!-- <div relative style="height: 100px; margin-bottom: 42px; border-top: 1px solid #cccccc;">
         <quill-editor [modules]="mConfig" [(ngModel)]="quillValue"></quill-editor>
+    </div> -->
+    <div>
+        <textarea width-100 rows="4" cols="50" [(ngModel)]="quillValue"></textarea>
+
+        <!-- <quill-editor [modules]="mConfig" [(ngModel)]="quillValue"></quill-editor> -->
     </div>
     <div flex>
         <div padding8-vertical>

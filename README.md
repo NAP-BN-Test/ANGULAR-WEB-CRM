@@ -25,3 +25,9 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## add bootrap
+Run `npm install bootstrap --save`.
+Run `npm install jquery --save`.
+Copy `node_modules/bootstrap/dist/css/bootstrap.min.css` to angular.json at `projects/name_project/architect/build/options/styles`
+
