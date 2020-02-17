@@ -30,15 +30,20 @@ export class DialogAssignCompanyComponent implements OnInit {
       this.mData = data.dialog;
     });
     this.mService.getApiService().sendRequestGET_LIST_USER(
-      
-      
+
+
       this.mService.getUser().username,
       this.mService.getUser().id,
       1
     ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.listUser = data.array;
-      }
+      setTimeout(() => {
+        let rmAssign = this.mData.remove_assign;
+        if (data.status == STATUS.SUCCESS) {
+          this.listUser = data.array;
+
+          this.listUser.unshift({ id: -1, name: rmAssign })
+        }
+      }, 300);
     })
   }
 

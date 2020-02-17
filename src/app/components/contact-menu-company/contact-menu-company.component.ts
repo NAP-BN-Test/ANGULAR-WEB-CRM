@@ -7,6 +7,7 @@ import { Utils } from 'src/app/services/core/app/utils';
 import { MatDialog } from '@angular/material';
 import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
 import { DialogComponent } from '../dialog/dialog.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-contact-menu-company',
@@ -16,8 +17,6 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class ContactMenuCompanyComponent implements OnInit {
 
   listData = [];
-  // listDataSummary = [];
-  // listDataCache = [];
 
   mData: any;
 
@@ -36,8 +35,6 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   addSub = 0
 
-  page = 1;
-
   mPage = 1;
 
   searchKey = "";
@@ -48,7 +45,8 @@ export class ContactMenuCompanyComponent implements OnInit {
   constructor(
     public mService: AppModuleService,
     public router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
@@ -56,7 +54,10 @@ export class ContactMenuCompanyComponent implements OnInit {
       this.mData = data.contact;
     });
     if (this.mService.getUser()) {
-      this.onLoadData(1, 1, null);
+      this.menuSelected = Number(this.cookieService.get('company-menu'));
+      this.searchKey = this.cookieService.get('search-key');
+
+      this.onLoadData(1, this.menuSelected, this.searchKey);
     }
     else {
       this.router.navigate(['login']);
@@ -65,8 +66,6 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onLoadData(page: number, companyType: number, searchKey: string) {
     this.mService.getApiService().sendRequestGET_LIST_COMPANY(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id,
       page,
@@ -75,8 +74,6 @@ export class ContactMenuCompanyComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
-        // this.listDataCache = data.array;
-        // this.listDataSummary = data.array;
 
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
@@ -110,10 +107,12 @@ export class ContactMenuCompanyComponent implements OnInit {
   onClickMenu(index: number) {
     this.mPage = 1;
     this.menuSelected = index;
+    this.cookieService.set('company-menu', index + "");
+
     this.onLoadData(1, index, this.searchKey);
   }
 
-  onCheckBoxChange(item, event) {
+  onCheckBoxChange(event) {
     let checked = event.checked;
     if (checked) this.numberOfItemSelected += 1;
     else this.numberOfItemSelected -= 1;
@@ -161,6 +160,8 @@ export class ContactMenuCompanyComponent implements OnInit {
   onSearchChange(event) {
     let searchKey = event.target.value;
 
+    this.cookieService.set('search-key', searchKey);
+
     this.onLoadData(1, this.menuSelected, searchKey);
   }
 
@@ -177,8 +178,8 @@ export class ContactMenuCompanyComponent implements OnInit {
             if (item.checked) listID.push(item.id)
           })
           this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
-            
-            
+
+
             this.mService.getUser().username,
             this.mService.getUser().id,
             res,
@@ -187,7 +188,7 @@ export class ContactMenuCompanyComponent implements OnInit {
             if (data.status == STATUS.SUCCESS) {
               this.listData.forEach(item => {
                 if (item.checked) {
-                  item.email = data.obj.name;
+                  item.ownerName = data.obj ? data.obj.name : "";
                   item.checked = false;
                 }
               });
@@ -209,8 +210,8 @@ export class ContactMenuCompanyComponent implements OnInit {
             if (item.checked) listID.push(item.id)
           })
           this.mService.getApiService().sendRequestDELETE_COMPANY(
-            
-            
+
+
             this.mService.getUser().username,
             this.mService.getUser().id,
             JSON.stringify(listID)

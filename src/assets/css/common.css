@@ -76,6 +76,9 @@
 [no-wrap] {
     white-space: nowrap;
 }
+[wrap] {
+    white-space: normal;
+}
 
 /*Dòng ở giữa khung và align left*/
 .center-line {

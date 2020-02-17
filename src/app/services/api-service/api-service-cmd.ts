@@ -134,4 +134,6 @@ export class ApiCmd {
 
     public static GET_LIST_CITY: string = "crm/get_list_city";
 
+    public static DELETE_TASK: string = "crm/delete_task";
+
 }

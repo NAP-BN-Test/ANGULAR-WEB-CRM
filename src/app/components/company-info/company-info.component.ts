@@ -23,6 +23,8 @@ export class CompanyInfoComponent implements OnInit {
 
   mObj: any;
 
+  listCity = [];
+
   menuSelected = -1;
 
   showToast = false;
@@ -42,8 +44,6 @@ export class CompanyInfoComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_DETAIL_COMPANY(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -52,6 +52,13 @@ export class CompanyInfoComponent implements OnInit {
         this.mObj = data.obj;
       }
     });
+
+    this.mService.getApiService().sendRequestGET_LIST_CITY(
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      this.listCity = data.array;
+    })
   }
 
   onClickItem(index: number) {
@@ -67,17 +74,17 @@ export class CompanyInfoComponent implements OnInit {
     let companyPhone: string;
     let companyEmail: string;
     let companyCity: string;
+    let website: string;
 
     if (type == 1) companyName = value;
     else if (type == 2) companyShortName = value;
     else if (type == 3) companyAddress = value;
     else if (type == 4) companyPhone = value;
     else if (type == 5) companyEmail = value;
-    else if (type == 6) companyCity = value;
+    else if (type == 6) companyCity = event.target.value.split(': ')[1];
+    else if (type == 7) website = value;
 
     this.mService.getApiService().sendRequestUPDATE_COMPANY(
-      
-      
       this.mService.getUser().username,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
       companyName,
@@ -85,7 +92,8 @@ export class CompanyInfoComponent implements OnInit {
       companyAddress,
       companyPhone,
       companyEmail,
-      companyCity
+      companyCity,
+      website
     )
   }
 
@@ -95,8 +103,8 @@ export class CompanyInfoComponent implements OnInit {
 
   onClickFollow() {
     this.mService.getApiService().sendRequestFOLLOW_COMPANY(
-      
-      
+
+
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.mObj.id, !this.mObj.follow ? true : null
@@ -123,8 +131,8 @@ export class CompanyInfoComponent implements OnInit {
         listID.push(this.mObj.id);
 
         this.mService.getApiService().sendRequestDELETE_COMPANY(
-          
-          
+
+
           this.mService.getUser().username,
           this.mService.getUser().id,
           JSON.stringify(listID)

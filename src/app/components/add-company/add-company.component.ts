@@ -44,8 +44,6 @@ export class AddCompanyComponent implements OnInit {
     })
 
     this.mService.getApiService().sendRequestGET_LIST_CITY(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id
     ).then(data => {

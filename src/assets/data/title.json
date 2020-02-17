@@ -133,7 +133,8 @@
                 "phone": "Phone",
                 "email": "Email",
                 "city": "City",
-                "job_tile": "Job Tile"
+                "job_tile": "Job Title",
+                "website": "Website"
             }
         },
         "company_detail": {
@@ -239,7 +240,7 @@
             "company_role": "Company Role",
             "city": "City",
             "gender": "Gender",
-            "job_tile": "Job tile",
+            "job_tile": "Job title",
             "hand_phone": "Hand phone",
             "phone": "Phone",
             "home_phone": "Home phone",
@@ -356,12 +357,12 @@
                 ]
             },
             "company": {
-                "status": "STATUS",
-                "name": "NAME",
-                "owner": "COMPANY OWNER",
-                "phone": "PHONE",
-                "address": "ADDRESS",
-                "city": "CITY",
+                "col1": "NAME",
+                "col2": "ASSIGNING",
+                "col3": "DEAL STEP",
+                "col4": "ADDRESS",
+                "col5": "CITY",
+                "col6": "NOTE",
                 "list_select": [
                     {
                         "name": "Assign",
@@ -383,6 +384,10 @@
                     {
                         "name": "Mark as complete",
                         "index": 1
+                    },
+                    {
+                        "name": "Delete",
+                        "index": 2
                     }
                 ]
             },
@@ -390,7 +395,7 @@
                 "call_to": "CALL TO",
                 "mail_to": "MAIL TO",
                 "description": "DESCRIPTION",
-                "state": "STATE",
+                "state": "STATUS",
                 "duration": "DURATION",
                 "due_date": "DUE DATE",
                 "list_select": [
@@ -409,6 +414,7 @@
             "assign_company": "Assign Company",
             "assign_contact": "Assign Contact",
             "title_assign": "Assign selected items to this owner:",
+            "remove_assign": "Bỏ phân công",
             "assign": "Assign",
             "cancel": "Cancel"
         },

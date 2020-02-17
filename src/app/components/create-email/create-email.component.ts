@@ -39,7 +39,7 @@ export class CreateEmailComponent implements OnInit {
     ]
   }
 
-  listOutcome = LIST_SELECT.LIST_OUTCOME;
+  listOutcome = LIST_SELECT.LIST_MAIL_STATUS;
 
   constructor(
     public mService: AppModuleService,

@@ -52,8 +52,8 @@ export class CompanyDetailActivityComponent implements OnInit {
 
     if (this.mObj.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
-        
-        
+
+
         this.mService.getUser().username,
         this.mObj.id
       ).then(data => {
@@ -64,8 +64,8 @@ export class CompanyDetailActivityComponent implements OnInit {
         }
       });
       this.mService.getApiService().sendRequestGET_MEET_ASSOCIATE(
-        
-        
+
+
         this.mService.getUser().username,
         this.mObj.id
       ).then(data => {
@@ -78,8 +78,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.NOTE) {
       this.mService.getApiService().sendRequestGET_NOTE_ASSOCIATE(
-        
-        
+
+
         this.mService.getUser().username,
         this.mObj.id
       ).then(data => {
@@ -92,8 +92,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.CALL) {
       this.mService.getApiService().sendRequestGET_CALL_ASSOCIATE(
-        
-        
+
+
         this.mService.getUser().username,
         this.mObj.id
       ).then(data => {
@@ -106,8 +106,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.EMAIL) {
       this.mService.getApiService().sendRequestGET_EMAIL_ASSOCIATE(
-        
-        
+
+
         this.mService.getUser().username,
         this.mObj.id
       ).then(data => {
@@ -120,8 +120,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.TASK) {
       this.mService.getApiService().sendRequestGET_TASK_ASSOCIATE(
-        
-        
+
+
         this.mService.getUser().username,
         this.mObj.id
       ).then(data => {
@@ -137,8 +137,8 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onChangeContact(type) { //type is contactID:1 or state of activity:2
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
+
+
       this.mService.getUser().username,
       this.mObj,
       type == 1 ? this.mObj.contactID : null,
@@ -157,8 +157,8 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onChangeUser() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
+
+
       this.mService.getUser().username,
       this.mObj,
       null, null, null, null, null, null,
@@ -176,8 +176,8 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onTaskTypeChange() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
+
+
       this.mService.getUser().username,
       this.mObj,
       null, null, null, null, null, null, null,
@@ -193,7 +193,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     })
   }
 
-  onClickDeleteNote() {
+  onClickDeleteActivity(type: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px'
     });
@@ -202,25 +202,82 @@ export class CompanyDetailActivityComponent implements OnInit {
       if (res) {
         let listID = [];
         listID.push(Number(this.mObj.id));
-
-        this.mService.getApiService().sendRequestDELETE_NOTE(
-          
-          
-          this.mService.getUser().username,
-          this.mService.getUser().id,
-          JSON.stringify(listID)
-        ).then(data => {
-          if (data.status == STATUS.SUCCESS) {
-
-            this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
-
-            this.toasMessage = data.message;
-            this.showToast = true;
-            setTimeout(() => {
-              this.showToast = false;
-            }, 2000);
-          }
-        })
+        if (type == ACTIVITY_TYPE.CALL) {
+          this.mService.getApiService().sendRequestDELETE_CALL(
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.toasMessage = data.message;
+              this.showToast = true;
+              setTimeout(() => {
+                this.showToast = false;
+              }, 2000);
+            }
+          })
+        } else if (type == ACTIVITY_TYPE.EMAIL) {
+          this.mService.getApiService().sendRequestDELETE_EMAIL(
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.toasMessage = data.message;
+              this.showToast = true;
+              setTimeout(() => {
+                this.showToast = false;
+              }, 2000);
+            }
+          })
+        } else if (type == ACTIVITY_TYPE.MEET) {
+          this.mService.getApiService().sendRequestDELETE_MEET(
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.toasMessage = data.message;
+              this.showToast = true;
+              setTimeout(() => {
+                this.showToast = false;
+              }, 2000);
+            }
+          })
+        } else if (type == ACTIVITY_TYPE.NOTE) {
+          this.mService.getApiService().sendRequestDELETE_NOTE(
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.toasMessage = data.message;
+              this.showToast = true;
+              setTimeout(() => {
+                this.showToast = false;
+              }, 2000);
+            }
+          })
+        } else if (type == ACTIVITY_TYPE.TASK) {
+          this.mService.getApiService().sendRequestDELETE_TASK(
+            this.mService.getUser().username,
+            this.mService.getUser().id,
+            JSON.stringify(listID)
+          ).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.toasMessage = data.message;
+              this.showToast = true;
+              setTimeout(() => {
+                this.showToast = false;
+              }, 2000);
+            }
+          })
+        }
       }
     });
 
@@ -228,8 +285,8 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onChangeDuration() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
+
+
       this.mService.getUser().username,
       this.mObj,
       null, null, null, this.mObj.duration, null
@@ -254,8 +311,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mObj.timeStart = timeStart;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
+
+
       this.mService.getUser().username,
       this.mObj, null, null, timeStart, null, null
     ).then(data => {
@@ -279,8 +336,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
+
+
       this.mService.getUser().username,
       this.mObj, null, null, time, null, null
     ).then(data => {
@@ -304,8 +361,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
+
+
       this.mService.getUser().username,
       this.mObj, null, null, null, null, null, null, null, null, null, time
     ).then(data => {
@@ -337,8 +394,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj.description = event;
 
       this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-        
-        
+
+
         this.mService.getUser().username,
         this.mObj,
         null, null, null, null, null, this.mObj.description
@@ -360,8 +417,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj.taskName = event.target.value;
 
       this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-        
-        
+
+
         this.mService.getUser().username,
         this.mObj,
         null, null, null, null, null, null, null, null, this.mObj.taskName
@@ -420,8 +477,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     let checked = event.target.checked;
 
     this.mService.getApiService().sendRequestUPDATE_TASK(
-      
-      
+
+
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.mObj.id,

@@ -125,8 +125,10 @@ export const COMPANY_ROLE = {
 }
 
 export const CONTACT_ROLE = {
-    MANAGE: 1,
-    STAFF: 2,
+    UNDIFINE: 0,
+    CEO: 1,
+    MANAGE: 2,
+    STAFF: 3,
 }
 
 
@@ -138,6 +140,12 @@ export const LIST_SELECT = {
         { id: 4, name: "Left live message" },
         { id: 5, name: "Left voicemail" },
         { id: 6, name: "Connected" }
+    ],
+    LIST_MAIL_STATUS: [
+        { id: 1, name: "Đã gửi" },
+        { id: 2, name: "Đã nhận" },
+        { id: 3, name: "Đã trả lời" },
+        { id: 4, name: "Sai địa chỉ email" }
     ],
     LIST_DURATION: [
         { value: 900, name: "15 minutes" },
@@ -156,8 +164,10 @@ export const LIST_SELECT = {
         { id: 2, name: "Nữ" }
     ],
     LIST_JOB_TILE: [
-        { id: 1, name: "Quản lý" },
-        { id: 2, name: "Nhân viên" }
+        { id: 0, name: "Chưa xác định" },
+        { id: 1, name: "Lãnh đạo" },
+        { id: 2, name: "Quản lý" },
+        { id: 3, name: "Nhân viên" }
     ],
     LIST_COMPANY_ROLE: [
         { id: 1, name: "Parent" },

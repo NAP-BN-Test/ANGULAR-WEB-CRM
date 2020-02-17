@@ -24,7 +24,6 @@
     </div>
     <div padding32 center>
         <div bold font3 padding8-end>{{mObj.name}}</div>
-        <mat-icon color-primary>{{mData.btn_edit}}</mat-icon>
     </div>
 
     <div padding32 border-bottom center>
@@ -76,8 +75,17 @@
         <div padding-top>
             <div font7>{{mData.info.city}}</div>
             <div relative class="m-input">
-                <input class="form-control border-0" type="text" [placeholder]="mData.city" [value]="mObj.city"
+                <select class="custom-select border-0" width-100 [(ngModel)]="mObj.cityID"
                     (change)="onInputChange($event, 6)">
+                    <option *ngFor="let item of listCity" [ngValue]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div padding-top>
+            <div font7>{{mData.info.website}}</div>
+            <div relative class="m-input">
+                <input class="form-control border-0" type="text" [value]="mObj.website"
+                    (change)="onInputChange($event, 7)">
             </div>
         </div>
     </div>

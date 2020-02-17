@@ -10,6 +10,8 @@
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
+                    <div bold padding-start center-line color-red tappable (click)="onClickDeleteActivity(5)">
+                        {{mData.note.delete}}</div>
                     <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
                         [activityType]="mObj.activityType" [activityID]="mObj.id"
                         (dropdownChange)="onNoteAssociateChange($event)" tappable>
@@ -108,6 +110,8 @@
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
+                    <div bold padding-start center-line color-red tappable (click)="onClickDeleteActivity(1)">
+                        {{mData.note.delete}}</div>
                     <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
                         [activityType]="mObj.activityType" [activityID]="mObj.id"
                         (dropdownChange)="onNoteAssociateChange($event)" tappable>
@@ -179,6 +183,8 @@
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
+                    <div bold padding-start center-line color-red tappable (click)="onClickDeleteActivity(2)">
+                        {{mData.note.delete}}</div>
                     <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
                         [activityType]="mObj.activityType" [activityID]="mObj.id"
                         (dropdownChange)="onNoteAssociateChange($event)" tappable>
@@ -253,7 +259,7 @@
                     [activityType]="mObj.activityType" [activityID]="mObj.id"
                     (dropdownChange)="onNoteAssociateChange($event)" tappable>
                 </app-dropdown-associate>
-                <div bold padding-start center-line color-red tappable (click)="onClickDeleteNote()">
+                <div bold padding-start center-line color-red tappable (click)="onClickDeleteActivity(4)">
                     {{mData.note.delete}}</div>
             </div>
         </div>
@@ -281,6 +287,8 @@
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
+                    <div bold padding-start center-line color-red tappable (click)="onClickDeleteActivity(3)">
+                        {{mData.note.delete}}</div>
                     <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
                         [activityType]="mObj.activityType" [activityID]="mObj.id"
                         (dropdownChange)="onNoteAssociateChange($event)" tappable>

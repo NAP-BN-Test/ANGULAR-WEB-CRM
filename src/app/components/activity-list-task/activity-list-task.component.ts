@@ -57,8 +57,8 @@ export class ActivityListTaskComponent implements OnInit {
 
   onLoadData(type?: number) {
     this.mService.getApiService().sendRequestGET_LIST_TASK(
-      
-      
+
+
       this.mService.getUser().username,
       this.mService.getUser().id
     ).then(data => {
@@ -165,8 +165,8 @@ export class ActivityListTaskComponent implements OnInit {
     });
     if (obj) {
       this.mService.getApiService().sendRequestUPDATE_TASK(
-        
-        
+
+
         this.mService.getUser().username,
         this.mService.getUser().id,
         item.id,
@@ -241,8 +241,8 @@ export class ActivityListTaskComponent implements OnInit {
             if (item.checked) listID.push(item.id)
           })
           this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-            
-            
+
+
             this.mService.getUser().username,
             this.mService.getUser().id,
             res,
@@ -270,9 +270,7 @@ export class ActivityListTaskComponent implements OnInit {
           this.listDataSort.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-          this.mService.getApiService().sendRequestDELETE_CONTACT(
-            
-            
+          this.mService.getApiService().sendRequestDELETE_TASK(
             this.mService.getUser().username,
             this.mService.getUser().id,
             JSON.stringify(listID)
