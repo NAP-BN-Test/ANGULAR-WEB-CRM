@@ -24,6 +24,7 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   numberAll = 0;
   numberUnAssign = 0;
+  numberAssignAll = 0;
   numberAssign = 0;
   numberFollow = 0;
 
@@ -77,6 +78,7 @@ export class ContactMenuCompanyComponent implements OnInit {
 
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
+        this.numberAssignAll = data.assignAll;
         this.numberAssign = data.assign;
         this.numberFollow = data.follow;
 
@@ -88,6 +90,8 @@ export class ContactMenuCompanyComponent implements OnInit {
           this.collectionSize = data.follow;
         } else if (this.menuSelected == 4) {
           this.collectionSize = data.assign;
+        } else if (this.menuSelected == 5) {
+          this.collectionSize = data.assignAll;
         }
       }
     });

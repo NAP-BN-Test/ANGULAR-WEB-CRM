@@ -124,6 +124,11 @@ export const COMPANY_ROLE = {
     CHILD: 2,
 }
 
+export const COMPANY_TYPE = {
+    TRIAL: 0,
+    LICENCE: 1,
+}
+
 export const CONTACT_ROLE = {
     UNDIFINE: 0,
     CEO: 1,

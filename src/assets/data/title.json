@@ -333,6 +333,7 @@
             "my_company_assigned": "My company assigned ",
             "all_company": "All company ",
             "unassign_company": "Unassigned company ",
+            "assign_company": "Assigned company ",
             "follow_company": "Follow company ",
             "all_task": "All tasks ",
             "all": "All ",
@@ -363,6 +364,7 @@
                 "col4": "ADDRESS",
                 "col5": "CITY",
                 "col6": "NOTE",
+                "col7": "TYPE",
                 "list_select": [
                     {
                         "name": "Assign",
@@ -372,7 +374,9 @@
                         "name": "Delete",
                         "index": 2
                     }
-                ]
+                ],
+                "licence": "Licences",
+                "trial": "Trial"
             },
             "task": {
                 "status": "STATUS",

@@ -3,7 +3,7 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.130:3002/";
+    mUrl: string = "http://192.168.1.129:3002/";
     // mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";

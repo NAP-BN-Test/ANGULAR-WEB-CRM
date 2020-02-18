@@ -74,6 +74,7 @@ import { ActivityListNoteComponent } from './components/activity-list-note/activ
 import { CallStatusPipe } from './pipes/call-status/call-status.pipe';
 import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
 import { RefreshComponent } from './components/refresh/refresh.component';
+import { CompanyTypePipe } from './pipes/company-type/company-type.pipe';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,8 @@ import { RefreshComponent } from './components/refresh/refresh.component';
     ActivityListNoteComponent,
     CallStatusPipe,
     DialogLogoutComponent,
-    RefreshComponent
+    RefreshComponent,
+    CompanyTypePipe
   ],
   imports: [
     BrowserModule,
