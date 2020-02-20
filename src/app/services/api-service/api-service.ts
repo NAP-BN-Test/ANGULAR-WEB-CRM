@@ -119,12 +119,26 @@ export class ApiService extends HttpClient {
     }
 
     //9
-    public sendRequestGET_LIST_CONTACT_FULL(username: string, userID: number, contactType?: number): Promise<any> {
+    public sendRequestGET_LIST_CONTACT_FULL(
+        username: string,
+        userID: number,
+        page: number,
+        contactType: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CONTACT_FULL,
             ParamBuilder.builder()
                 .add("username", username)
                 .add("userID", userID)
-                .addIgnoreNull("contactType", contactType));
+                .add("page", page)
+                .addIgnoreNull("searchKey", searchKey)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .addIgnoreNull("userIDFind", userIDFind)
+                .add("contactType", contactType));
     }
 
     //10
@@ -359,8 +373,18 @@ export class ApiService extends HttpClient {
     }
 
     //28
-    public sendRequestUPDATE_COMPANY(username: string, companyID: string,
-        companyName?: string, companyShortName?: string, companyAddress?: string, companyPhone?: string, companyEmail?: string, companyCity?: string, website?: string): Promise<any> {
+    public sendRequestUPDATE_COMPANY(
+        username: string,
+        companyID: string,
+        companyName?: string,
+        companyShortName?: string,
+        companyAddress?: string,
+        companyPhone?: string,
+        companyEmail?: string,
+        companyCity?: string,
+        website?: string,
+        stageID?: string,
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_COMPANY,
             ParamBuilder.builder()
                 .add("username", username)
@@ -371,7 +395,8 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("companyPhone", companyPhone)
                 .addIgnoreNull("companyEmail", companyEmail)
                 .addIgnoreNull("companyCity", companyCity)
-                .addIgnoreNull("website", website));
+                .addIgnoreNull("website", website)
+                .addIgnoreNull("stageID", stageID));
     }
 
     //29
@@ -521,8 +546,6 @@ export class ApiService extends HttpClient {
     public sendRequestGET_DEAL_STAGE(username: string, userID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_DEAL_STAGE,
             ParamBuilder.builder()
-
-
                 .add("username", username)
                 .add("userID", userID));
     }

@@ -1,8 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { CookieService } from 'ngx-cookie-service';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-filter-bar',
@@ -10,6 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./filter-bar.component.scss']
 })
 export class FilterBarComponent implements OnInit {
+  @Input('onContact') onContact = false;
 
   @Output('searchChange') searchChange = new EventEmitter();
   @Output('clickAdd') clickAdd = new EventEmitter();
@@ -22,8 +22,8 @@ export class FilterBarComponent implements OnInit {
   searchKey = "";
 
   userID = -1;
-  timeFrom = moment.utc().format("YYYY-MM-DD");;
-  timeTo = moment.utc().format("YYYY-MM-DD");
+  timeFrom = null;
+  timeTo = null;
 
   constructor(
     public mService: AppModuleService,
@@ -34,7 +34,11 @@ export class FilterBarComponent implements OnInit {
     this.mService.LoadTitle(1).then((data: any) => {
       this.mData = data.contact;
     });
-    this.searchKey = this.cookieService.get('search-key');
+
+    if (this.onContact)
+      this.searchKey = this.cookieService.get('search-key-contact');
+    else
+      this.searchKey = this.cookieService.get('search-key');
 
     this.mService.getApiService().sendRequestGET_LIST_USER(
       this.mService.getUser().username,
@@ -51,7 +55,10 @@ export class FilterBarComponent implements OnInit {
   onSearchChange(event) {
     let searchKey = event.target.value;
 
-    this.cookieService.set('search-key', searchKey);
+    if (this.onContact)
+      this.cookieService.set('search-key-contact', searchKey);
+    else
+      this.cookieService.set('search-key', searchKey);
 
     this.searchChange.emit(searchKey);
   }
@@ -74,6 +81,12 @@ export class FilterBarComponent implements OnInit {
       timeFrom: this.timeFrom,
       timeTo: this.timeTo
     })
+  }
+
+  onClickClear() {
+    this.userID = -1;
+    this.timeFrom = null;
+    this.timeTo = null
   }
 
 }

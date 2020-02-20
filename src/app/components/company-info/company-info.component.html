@@ -82,6 +82,15 @@
             </div>
         </div>
         <div padding-top>
+            <div font7>{{mData.info.step}}</div>
+            <div relative class="m-input">
+                <select class="custom-select border-0" width-100 [(ngModel)]="mObj.stageID"
+                    (change)="onInputChange($event, 8)">
+                    <option *ngFor="let item of listStep" [ngValue]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div padding-top>
             <div font7>{{mData.info.website}}</div>
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [value]="mObj.website"

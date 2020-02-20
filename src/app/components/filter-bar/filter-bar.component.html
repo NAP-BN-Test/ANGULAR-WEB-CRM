@@ -8,11 +8,14 @@
         </div>
         <div padding-end>
             <div>{{mData.time_from}}</div>
-            <app-datetime-pick-date (pickDate)="onPickDate($event,1)"></app-datetime-pick-date>
+            <app-datetime-pick-date [mDate]="timeFrom" (pickDate)="onPickDate($event,1)"></app-datetime-pick-date>
         </div>
         <div padding-end>
             <div>{{mData.time_to}}</div>
-            <app-datetime-pick-date (pickDate)="onPickDate($event,2)"></app-datetime-pick-date>
+            <app-datetime-pick-date [mDate]="timeTo" (pickDate)="onPickDate($event,2)"></app-datetime-pick-date>
+        </div>
+        <div padding-end>
+            <button class="m-btn btn" type="button" (click)="onClickClear()">{{mData.clear}}</button>
         </div>
         <div padding-end>
             <button class="m-btn btn" type="button" (click)="onClickSort()">{{mData.sort}}</button>

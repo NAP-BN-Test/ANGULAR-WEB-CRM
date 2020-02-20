@@ -133,6 +133,7 @@
                 "phone": "Phone",
                 "email": "Email",
                 "city": "City",
+                "step": "Step",
                 "job_tile": "Job Title",
                 "website": "Website"
             }
@@ -343,6 +344,7 @@
             "time_to": "Time To",
             "user": "User",
             "sort": "Sort",
+            "clear": "Clear",
             "contact": {
                 "name": "NAME",
                 "email": "EMAIL",
@@ -364,7 +366,7 @@
             "company": {
                 "col1": "NAME",
                 "col2": "ASSIGNING",
-                "col3": "DEAL STEP",
+                "col3": "STEP",
                 "col4": "ADDRESS",
                 "col5": "CITY",
                 "col6": "TIME CREATE",

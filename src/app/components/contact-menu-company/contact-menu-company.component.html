@@ -30,9 +30,9 @@
                     <div padding-bottom [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
                         {{mData.my_company_assigned}}({{numberAssign}})</div>
                 </div>
-                <div padding32-top>
+                <!-- <div padding32-top>
                     <div bold color-primary>{{mData.company.add_filter}}</div>
-                </div>
+                </div> -->
             </div>
 
             <div width-fill>
@@ -90,8 +90,7 @@
                     <div wrap class="padding8-vertical flex" *ngFor="let item of listData;let i = index"
                         [class.background-whitesmoke]="i%2==1">
                         <div padding-horizontal center-line>
-                            <mat-checkbox [checked]="item.checked" [(ngModel)]="item.checked"
-                                (change)="onCheckBoxChange($event)">
+                            <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
                         <div class="width-20 center-line margin8-end" (click)="onClickItem(item)" tappable>
@@ -101,7 +100,7 @@
                             {{item.ownerName}}
                         </div>
                         <div class="width-10 center-line margin8-end">
-                            {{item.dealName}}
+                            {{item.stageName}}
                         </div>
                         <div class="width-30 center-line margin8-end">
                             {{item.address}}

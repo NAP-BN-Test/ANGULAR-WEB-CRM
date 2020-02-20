@@ -24,6 +24,7 @@ export class CompanyInfoComponent implements OnInit {
   mObj: any;
 
   listCity = [];
+  listStep = [];
 
   menuSelected = -1;
 
@@ -59,6 +60,13 @@ export class CompanyInfoComponent implements OnInit {
     ).then(data => {
       this.listCity = data.array;
     })
+
+    this.mService.getApiService().sendRequestGET_DEAL_STAGE(
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      this.listStep = data.array;
+    })
   }
 
   onClickItem(index: number) {
@@ -75,6 +83,7 @@ export class CompanyInfoComponent implements OnInit {
     let companyEmail: string;
     let companyCity: string;
     let website: string;
+    let stageID: string;
 
     if (type == 1) companyName = value;
     else if (type == 2) companyShortName = value;
@@ -83,6 +92,7 @@ export class CompanyInfoComponent implements OnInit {
     else if (type == 5) companyEmail = value;
     else if (type == 6) companyCity = event.target.value.split(': ')[1];
     else if (type == 7) website = value;
+    else if (type == 8) stageID = event.target.value.split(': ')[1];
 
     this.mService.getApiService().sendRequestUPDATE_COMPANY(
       this.mService.getUser().username,
@@ -93,7 +103,8 @@ export class CompanyInfoComponent implements OnInit {
       companyPhone,
       companyEmail,
       companyCity,
-      website
+      website,
+      stageID
     )
   }
 

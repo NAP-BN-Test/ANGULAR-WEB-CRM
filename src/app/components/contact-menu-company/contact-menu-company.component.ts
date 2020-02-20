@@ -40,6 +40,10 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   // searchKey = "";
 
+  timeFrom = null;
+  timeTo = null;
+  userIDFind = null;
+
   pageSize = 12;
   collectionSize = 0;
 
@@ -57,7 +61,7 @@ export class ContactMenuCompanyComponent implements OnInit {
     if (this.mService.getUser()) {
       this.menuSelected = Number(this.cookieService.get('company-menu'));
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), null, null, null);
+      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
       this.router.navigate(['login']);
@@ -77,6 +81,9 @@ export class ContactMenuCompanyComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
+
+        console.log(this.listData);
+        
 
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
@@ -115,7 +122,7 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.menuSelected = index;
     this.cookieService.set('company-menu', index + "");
 
-    this.onLoadData(1, index, this.cookieService.get('search-key'), null, null, null);
+    this.onLoadData(1, index, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onCheckBoxChange(event) {
@@ -156,7 +163,7 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key'), null, null, null);
+    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickItem(item) {
@@ -164,7 +171,7 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, null, null, null);
+    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickAssign(index) {
@@ -250,6 +257,10 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onClickSort(event) {
+    this.timeFrom = event.timeFrom;
+    this.timeTo = event.timeTo;
+    this.userIDFind = event.userID;
+
     this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), event.timeFrom, event.timeTo, event.userID);
   }
 
