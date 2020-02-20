@@ -91,6 +91,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       })
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.CALL) {
+
       this.mService.getApiService().sendRequestGET_CALL_ASSOCIATE(
 
 
@@ -217,7 +218,7 @@ export class CompanyDetailActivityComponent implements OnInit {
               }, 2000);
             }
           })
-        } else if (type == ACTIVITY_TYPE.EMAIL) {
+        } else if (type == ACTIVITY_TYPE.EMAIL) {          
           this.mService.getApiService().sendRequestDELETE_EMAIL(
             this.mService.getUser().username,
             this.mService.getUser().id,

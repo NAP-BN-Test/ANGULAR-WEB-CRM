@@ -59,6 +59,9 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("page", page)
                 .addIgnoreNull("searchKey", searchKey)
+                .addIgnoreNull("timeFrom", "2020-02-02")
+                .addIgnoreNull("timeTo", "2020-03-12")
+                // .addIgnoreNull("userIDFind", null)
                 .add("companyType", companyType));
     }
 

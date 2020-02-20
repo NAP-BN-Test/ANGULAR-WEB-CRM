@@ -75,6 +75,7 @@ import { CallStatusPipe } from './pipes/call-status/call-status.pipe';
 import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
 import { RefreshComponent } from './components/refresh/refresh.component';
 import { CompanyTypePipe } from './pipes/company-type/company-type.pipe';
+import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 
 @NgModule({
   declarations: [
@@ -137,7 +138,8 @@ import { CompanyTypePipe } from './pipes/company-type/company-type.pipe';
     CallStatusPipe,
     DialogLogoutComponent,
     RefreshComponent,
-    CompanyTypePipe
+    CompanyTypePipe,
+    FilterBarComponent
   ],
   imports: [
     BrowserModule,
