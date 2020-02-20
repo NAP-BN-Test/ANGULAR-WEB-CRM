@@ -339,6 +339,10 @@
             "all": "All ",
             "due_today": "Due today ",
             "due_week": "Due this week ",
+            "time_from": "Time From",
+            "time_to": "Time To",
+            "user": "User",
+            "sort": "Sort",
             "contact": {
                 "name": "NAME",
                 "email": "EMAIL",
@@ -363,7 +367,7 @@
                 "col3": "DEAL STEP",
                 "col4": "ADDRESS",
                 "col5": "CITY",
-                "col6": "NOTE",
+                "col6": "TIME CREATE",
                 "col7": "TYPE",
                 "list_select": [
                     {

@@ -1,1 +1,25 @@
-<p>filter-bar works!</p>
+<div *ngIf="mData">
+    <div center-line>
+        <div padding-end>
+            <div>{{mData.user}}</div>
+            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="userID">
+                <option *ngFor="let item of listUser" [ngValue]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+        <div padding-end>
+            <div>{{mData.time_from}}</div>
+            <app-datetime-pick-date (pickDate)="onPickDate($event,1)"></app-datetime-pick-date>
+        </div>
+        <div padding-end>
+            <div>{{mData.time_to}}</div>
+            <app-datetime-pick-date (pickDate)="onPickDate($event,2)"></app-datetime-pick-date>
+        </div>
+        <div padding-end>
+            <button class="m-btn btn" type="button" (click)="onClickSort()">{{mData.sort}}</button>
+        </div>
+        <div padding-end>
+            <input type="search" class="form-control" [(ngModel)]="searchKey" (keyup.enter)="onSearchChange($event)" />
+        </div>
+        <div tappable (click)="onClickAdd()">{{mData.create_new}}</div>
+    </div>
+</div>

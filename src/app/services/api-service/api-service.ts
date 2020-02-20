@@ -52,16 +52,25 @@ export class ApiService extends HttpClient {
     }
 
     //3
-    public sendRequestGET_LIST_COMPANY(username: string, userID: number, page: number, companyType: number, searchKey: string): Promise<any> {
+    public sendRequestGET_LIST_COMPANY(
+        username: string,
+        userID: number,
+        page: number,
+        companyType: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_COMPANY,
             ParamBuilder.builder()
                 .add("username", username)
                 .add("userID", userID)
                 .add("page", page)
                 .addIgnoreNull("searchKey", searchKey)
-                .addIgnoreNull("timeFrom", "2020-02-02")
-                .addIgnoreNull("timeTo", "2020-03-12")
-                // .addIgnoreNull("userIDFind", null)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .addIgnoreNull("userIDFind", userIDFind)
                 .add("companyType", companyType));
     }
 

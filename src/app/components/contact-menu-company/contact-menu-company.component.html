@@ -6,16 +6,12 @@
     <div padding32>
         <div padding32-bottom between>
             <div font2 bold>{{mData.company_title}}</div>
-            <div center-line bold color-primary>
-                <div padding-end>
-                    <input type="search" class="form-control" [(ngModel)]="searchKey"
-                        (keyup.enter)="onSearchChange($event)"/>
-                </div>
-                <div tappable (click)="onClickAdd()">{{mData.create_new}}</div>
-
+            <div>
                 <div class="box-add" [class.show-div]="addSub==1">
                     <app-add-company [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-company>
                 </div>
+                <app-filter-bar (searchChange)="onSearchChange($event)" (clickAdd)="onClickAdd()"
+                    (sort)="onClickSort($event)"></app-filter-bar>
             </div>
         </div>
 
@@ -114,7 +110,7 @@
                             {{item.city}}
                         </div>
                         <div class="width-10 center-line margin8-end">
-                            {{item.note}}
+                            {{item.timeCreate | datetimeFull}}
                         </div>
                         <div class="width-10 center-line margin8-end">
                             {{item.companyType | companyType}}
