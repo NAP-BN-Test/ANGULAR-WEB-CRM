@@ -76,6 +76,7 @@ import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.
 import { RefreshComponent } from './components/refresh/refresh.component';
 import { CompanyTypePipe } from './pipes/company-type/company-type.pipe';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
+import { DatetimeDefaultPipe } from './pipes/datetime-default/datetime-default.pipe';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,8 @@ import { FilterBarComponent } from './components/filter-bar/filter-bar.component
     DialogLogoutComponent,
     RefreshComponent,
     CompanyTypePipe,
-    FilterBarComponent
+    FilterBarComponent,
+    DatetimeDefaultPipe
   ],
   imports: [
     BrowserModule,

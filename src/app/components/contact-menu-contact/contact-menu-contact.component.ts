@@ -21,7 +21,7 @@ export class ContactMenuContactComponent implements OnInit {
 
   mData: any;
 
-  menuSelected = 0;
+  menuSelected = 1;
 
   numberAll = 0;
   numberUnAssign = 0;
@@ -199,8 +199,6 @@ export class ContactMenuContactComponent implements OnInit {
             if (item.checked) listID.push(item.id)
           })
           this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-
-
             this.mService.getUser().username,
             this.mService.getUser().id,
             res,
@@ -262,7 +260,7 @@ export class ContactMenuContactComponent implements OnInit {
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
 
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-call'), event.timeFrom, event.timeTo, event.userID);
   }
 
 }

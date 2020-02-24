@@ -16,8 +16,6 @@ import * as moment from 'moment'
 })
 export class ActivityListEmailComponent implements OnInit {
   listData = [];
-  listDataSummary = [];
-  listDataCache = [];
 
   mData: any;
 
@@ -31,9 +29,17 @@ export class ActivityListEmailComponent implements OnInit {
 
   addSub = 0
 
-  page = 1;
   pageSize = 12;
   collectionSize = 0;
+
+  timeFrom = null;
+  timeTo = null;
+  userIDFind = null;
+
+  page = 1;
+
+  numberAll = 0;
+
 
   constructor(
     public mService: AppModuleService,
@@ -46,51 +52,32 @@ export class ActivityListEmailComponent implements OnInit {
       this.mData = data.contact;
     });
     if (this.mService.getUser()) {
-      this.onLoadData();
+      this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
       this.router.navigate(['login']);
     }
   }
 
-  onLoadData(type?: number) {
+  onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestGET_LIST_EMAIL(
-      
-      
       this.mService.getUser().username,
-      this.mService.getUser().id
+      this.mService.getUser().id,
+      page,
+      menuType,
+      searchKey,
+      timeFrom,
+      timeTo,
+      userIDFind
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
-        this.listDataSummary = data.array;
-        this.listDataCache = data.array;
+
+        this.numberAll = data.all;
+        this.collectionSize = data.all;
       }
     })
   }
-
-  get listDataSort(): Array<any> {
-    this.collectionSize = this.listData.length;
-    return this.listData
-      .map((item, i) => ({ id: i + 1, ...item }))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  }
-
-  get contactInfo(): any {
-    let all = 0;
-    let today = 0;
-    let week = 0;
-
-    this.listDataSummary.forEach(item => {
-      all += 1;
-      if (moment.utc(item.timeRemind).format("YYYY-MM-DD") == moment.utc().format("YYYY-MM-DD"))
-        today += 1;
-      if (moment.utc(item.timeRemind).valueOf() >= moment.utc(moment.utc().format("YYYY-MM-DD")).valueOf() - 604800000)
-        week += 1;
-    });
-
-    return { all, today, week };
-  }
-
 
   pow = 0;
   onSort() {
@@ -104,76 +91,26 @@ export class ActivityListEmailComponent implements OnInit {
   }
 
   onClickMenu(index: number) {
-    this.menuSelected = index;
-    if (index == 0) {
-      this.listData = this.listDataCache;
-    } else if (index == 1) {
-      this.listData = this.listDataCache.filter(item => {
-        return moment.utc(item.timeRemind).format("YYYY-MM-DD") == moment.utc().format("YYYY-MM-DD");
-      });
-    } else if (index == 2) {
-      this.listData = this.listDataCache.filter(item => {
-        return moment.utc(item.timeRemind).valueOf() >= moment.utc(moment.utc().format("YYYY-MM-DD")).valueOf() - 604800000;
-      });
-    }
+    this.page = 1;
+
+    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
 
   }
 
-  onCheckBoxChange(item) {
-    let index = this.listData.findIndex(it => {
-      return it.id == item.id;
-    });
+  onCheckBoxChange(event) {
+    let checked = event.checked;
+    if (checked) this.numberOfItemSelected += 1;
+    else this.numberOfItemSelected -= 1;
 
-    if (index > -1) {
-      this.listData[index].checked = !this.listData[index].checked;
-    }
-
-    let value = this.listData[index].checked ? 2 : 0;
-
-    this.numberOfItemSelected = 0;
-
-    this.listDataSort.forEach(it => {
-      if (it.checked) this.numberOfItemSelected += 1;
-
-      if (!it.checked && value == 0) value = 0;
-      else if (!it.checked && value == 2) value = 1;
-      else if (it.checked && value == 0) value = 1;
-      else if (it.checked && value == 2) value = 2;
-      else value = 1;
-    });
-
-    if (value == 0) {
-      this.checked = false;
-      this.indeterminate = false
-    }
-    else if (value == 1) {
-      this.indeterminate = true;
-    }
-    else if (value == 2) {
-      this.checked = true;
+    if (this.numberOfItemSelected == 0) {
       this.indeterminate = false;
-    }
-
-  }
-
-  onStatusChange(event, item) {
-    let checked = event.target.checked;
-    let obj: any = this.listData.find(itm => {
-      return itm.id === item.id;
-    });
-    if (obj) {
-      this.mService.getApiService().sendRequestUPDATE_TASK(
-        
-        
-        this.mService.getUser().username,
-        this.mService.getUser().id,
-        item.id,
-        checked ? checked : null
-      ).then(data => {
-        if (data.status == STATUS.SUCCESS) {
-          obj.status = checked;
-        }
-      })
+      this.checked = false;
+    } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
+      this.indeterminate = true;
+      this.checked = false;
+    } else if (this.numberOfItemSelected >= 12) {
+      this.indeterminate = false;
+      this.checked = true;
     }
 
   }
@@ -187,7 +124,7 @@ export class ActivityListEmailComponent implements OnInit {
       })
     }
     else {
-      this.listDataSort.forEach(it => {
+      this.listData.forEach(it => {
         let obj = this.listData.find(it1 => {
           return it1.id == it.id;
         });
@@ -197,18 +134,9 @@ export class ActivityListEmailComponent implements OnInit {
     }
   }
 
-  onClickPagination() {
+  onClickPagination(event) {
     this.checked = false;
-    this.listData.forEach(item => {
-      item.checked = false;
-    })
-  }
-
-  onSearchChange(event) {
-    let searchKey = event.target.value;
-    this.listData = this.listDataCache.filter(item => {
-      return Utils.bodauTiengViet(item.name ? item.name : "").includes(Utils.bodauTiengViet(searchKey));
-    })
+    this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickItem(item) {
@@ -217,13 +145,6 @@ export class ActivityListEmailComponent implements OnInit {
     } else if (item.type == 2) {
       this.router.navigate(['contact-detail'], { state: { params: item } });
     }
-  }
-
-  onClickCloseAdd(event) {
-    if (event) {
-      this.listData.unshift(event)
-    }
-    this.addSub = 0
   }
 
   onClickAssign(index) {
@@ -235,18 +156,16 @@ export class ActivityListEmailComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           let listID = [];
-          this.listDataSort.forEach(item => {
+          this.listData.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
           this.mService.getApiService().sendRequestDELETE_EMAIL(
-            
-            
             this.mService.getUser().username,
             this.mService.getUser().id,
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listDataSort.forEach(item => {
+              this.listData.forEach(item => {
                 if (item.checked) {
                   let index = this.listData.findIndex(itm => {
                     return itm.id === item.id;
@@ -261,6 +180,14 @@ export class ActivityListEmailComponent implements OnInit {
         }
       });
     }
+  }
+
+  onClickSort(event) {
+    this.timeFrom = event.timeFrom;
+    this.timeTo = event.timeTo;
+    this.userIDFind = event.userID;
+
+    this.onLoadData(1, 1, "", event.timeFrom, event.timeTo, event.userID);
   }
 
 }

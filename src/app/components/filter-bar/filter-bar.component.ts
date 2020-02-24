@@ -10,6 +10,7 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 })
 export class FilterBarComponent implements OnInit {
   @Input('onContact') onContact = false;
+  @Input('listActivity') listActivity = false;
 
   @Output('searchChange') searchChange = new EventEmitter();
   @Output('clickAdd') clickAdd = new EventEmitter();
@@ -18,10 +19,15 @@ export class FilterBarComponent implements OnInit {
   mData: any;
 
   listUser = [];
+  listStep = [];
+  listCity = [];
 
   searchKey = "";
 
   userID = -1;
+  stepID = -1;
+  cityID = -1;
+  
   timeFrom = null;
   timeTo = null;
 
@@ -48,6 +54,26 @@ export class FilterBarComponent implements OnInit {
       if (data.status == STATUS.SUCCESS) {
         this.listUser = data.array;
         this.listUser.unshift({ id: -1, name: this.mData.all })
+      }
+    })
+
+    this.mService.getApiService().sendRequestGET_DEAL_STAGE(
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.listStep = data.array;
+        this.listStep.unshift({ id: -1, name: this.mData.all })
+      }
+    })
+
+    this.mService.getApiService().sendRequestGET_LIST_CITY(
+      this.mService.getUser().username,
+      this.mService.getUser().id
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.listCity = data.array;
+        this.listCity.unshift({ id: -1, name: this.mData.all })
       }
     })
   }
@@ -78,6 +104,8 @@ export class FilterBarComponent implements OnInit {
   onClickSort() {
     this.sort.emit({
       userID: this.userID > 0 ? this.userID : null,
+      cityID: this.cityID > 0 ? this.cityID : null,
+      stepID: this.stepID > 0 ? this.stepID : null,
       timeFrom: this.timeFrom,
       timeTo: this.timeTo
     })
@@ -85,6 +113,8 @@ export class FilterBarComponent implements OnInit {
 
   onClickClear() {
     this.userID = -1;
+    this.stepID = -1;
+    this.cityID = -1;
     this.timeFrom = null;
     this.timeTo = null
   }

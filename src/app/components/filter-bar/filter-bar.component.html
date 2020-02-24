@@ -1,5 +1,17 @@
 <div *ngIf="mData">
     <div center-line>
+        <div padding-end *ngIf="!onContact">
+            <div>{{mData.step}}</div>
+            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="stepID">
+                <option *ngFor="let item of listStep" [ngValue]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+        <div padding-end *ngIf="!onContact">
+            <div>{{mData.city}}</div>
+            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="cityID">
+                <option *ngFor="let item of listCity" [ngValue]="item.id">{{item.name}}</option>
+            </select>
+        </div>
         <div padding-end>
             <div>{{mData.user}}</div>
             <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="userID">
@@ -20,9 +32,9 @@
         <div padding-end>
             <button class="m-btn btn" type="button" (click)="onClickSort()">{{mData.sort}}</button>
         </div>
-        <div padding-end>
+        <div padding-end *ngIf="!listActivity">
             <input type="search" class="form-control" [(ngModel)]="searchKey" (keyup.enter)="onSearchChange($event)" />
         </div>
-        <div tappable (click)="onClickAdd()">{{mData.create_new}}</div>
+        <div *ngIf="!listActivity" tappable (click)="onClickAdd()">{{mData.create_new}}</div>
     </div>
 </div>

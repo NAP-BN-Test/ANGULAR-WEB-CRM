@@ -342,6 +342,8 @@
             "due_week": "Due this week ",
             "time_from": "Time From",
             "time_to": "Time To",
+            "step": "Step",
+            "city": "City",
             "user": "User",
             "sort": "Sort",
             "clear": "Clear",

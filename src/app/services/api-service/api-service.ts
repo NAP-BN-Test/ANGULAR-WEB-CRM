@@ -60,7 +60,9 @@ export class ApiService extends HttpClient {
         searchKey: string,
         timeFrom: string,
         timeTo: string,
-        userIDFind: number
+        userIDFind: number,
+        stageID: number,
+        cityID: number
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_COMPANY,
             ParamBuilder.builder()
@@ -71,6 +73,8 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)
                 .addIgnoreNull("userIDFind", userIDFind)
+                .addIgnoreNull("stageID", stageID)
+                .addIgnoreNull("cityID", cityID)
                 .add("companyType", companyType));
     }
 
@@ -687,13 +691,26 @@ export class ApiService extends HttpClient {
     }
 
     //51
-    public sendRequestGET_LIST_TASK(username: string, userID: number): Promise<any> {
+    public sendRequestGET_LIST_TASK(
+        username: string,
+        userID: number,
+        page: number,
+        menuType: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_TASK,
             ParamBuilder.builder()
-
-
                 .add("username", username)
-                .add("userID", userID));
+                .add("userID", userID)
+                .add("page", page)
+                .add("menuType", menuType)
+                .addIgnoreNull("searchKey", searchKey)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .addIgnoreNull("userIDFind", userIDFind));
     }
 
     //52
@@ -756,34 +773,58 @@ export class ApiService extends HttpClient {
     }
 
     //57
-    public sendRequestGET_LIST_CALL(username: string, userID: number): Promise<any> {
+    public sendRequestGET_LIST_CALL(
+        username: string,
+        userID: number,
+        page: number,
+        menuType: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CALL,
             ParamBuilder.builder()
-
-
                 .add("username", username)
-                .add("userID", userID));
+                .add("userID", userID)
+                .add("page", page)
+                .add("menuType", menuType)
+                .addIgnoreNull("searchKey", searchKey)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .addIgnoreNull("userIDFind", userIDFind));
     }
 
     //58
     public sendRequestDELETE_CALL(username: string, userID: number, activityIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_CALL,
             ParamBuilder.builder()
-
-
                 .add("username", username)
                 .add("userID", userID)
                 .add("activityIDs", activityIDs));
     }
 
     //59
-    public sendRequestGET_LIST_EMAIL(username: string, userID: number): Promise<any> {
+    public sendRequestGET_LIST_EMAIL(
+        username: string,
+        userID: number,
+        page: number,
+        menuType: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_EMAIL,
             ParamBuilder.builder()
-
-
                 .add("username", username)
-                .add("userID", userID));
+                .add("userID", userID)
+                .add("page", page)
+                .add("menuType", menuType)
+                .addIgnoreNull("searchKey", searchKey)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .addIgnoreNull("userIDFind", userIDFind));
     }
 
     //60
@@ -798,13 +839,26 @@ export class ApiService extends HttpClient {
     }
 
     //61
-    public sendRequestGET_LIST_MEET(username: string, userID: number): Promise<any> {
+    public sendRequestGET_LIST_MEET(
+        username: string,
+        userID: number,
+        page: number,
+        menuType: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_MEET,
             ParamBuilder.builder()
-
-
                 .add("username", username)
-                .add("userID", userID));
+                .add("userID", userID)
+                .add("page", page)
+                .add("menuType", menuType)
+                .addIgnoreNull("searchKey", searchKey)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .addIgnoreNull("userIDFind", userIDFind));
     }
 
     //62
@@ -819,13 +873,26 @@ export class ApiService extends HttpClient {
     }
 
     //63
-    public sendRequestGET_LIST_NOTE(username: string, userID: number): Promise<any> {
+    public sendRequestGET_LIST_NOTE(
+        username: string,
+        userID: number,
+        page: number,
+        menuType: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_NOTE,
             ParamBuilder.builder()
-
-
                 .add("username", username)
-                .add("userID", userID));
+                .add("userID", userID)
+                .add("page", page)
+                .add("menuType", menuType)
+                .addIgnoreNull("searchKey", searchKey)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .addIgnoreNull("userIDFind", userIDFind));
     }
 
     //16

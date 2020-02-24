@@ -7,12 +7,8 @@
         <div padding32-bottom between>
             <div font2 bold>{{mData.email_title}}</div>
             <div center-line bold color-primary>
-                <div padding-end>
-                    <input type="search" class="form-control" (change)="onSearchChange($event)" />
-                </div>
-                <div class="box-add" [class.show-div]="addSub==1">
-                    <app-add-contact [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-contact>
-                </div>
+                <app-filter-bar onContact="true" listActivity="true" (clickAdd)="onClickAdd()"
+                    (sort)="onClickSort($event)"></app-filter-bar>
             </div>
         </div>
 
@@ -21,11 +17,7 @@
             <div padding32-horizontal style="width: 300px;">
                 <div>
                     <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
-                        {{mData.all}}({{contactInfo.all}})</div>
-                    <div padding-bottom [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.due_today}}({{contactInfo.today}})</div>
-                    <div padding-bottom [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
-                        {{mData.due_week}}({{contactInfo.week}})</div>
+                        {{mData.all}}({{numberAll}})</div>
                 </div>
             </div>
 
@@ -69,10 +61,10 @@
                         </div>
                     </div>
 
-                    <div class="padding8-vertical flex" *ngFor="let item of listDataSort;let i = index"
+                    <div class="padding8-vertical flex" *ngFor="let item of listData;let i = index"
                         [class.background-whitesmoke]="i%2==1">
                         <div padding-horizontal center-line>
-                            <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
+                            <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
@@ -85,14 +77,14 @@
                             {{item.state | callStatus}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">
-                            {{item.timeRemind | datetimeFull}}
+                            {{item.timeRemind | datetimeDefault}}
                         </div>
                     </div>
                 </div>
 
                 <div center padding-top>
-                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page" [pageSize]="pageSize"
-                        (click)="onClickPagination()">
+                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
+                        [pageSize]="pageSize" (click)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>
             </div>

@@ -43,6 +43,8 @@ export class ContactMenuCompanyComponent implements OnInit {
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
+  stageID = null;
+  cityID = null;
 
   pageSize = 12;
   collectionSize = 0;
@@ -61,14 +63,14 @@ export class ContactMenuCompanyComponent implements OnInit {
     if (this.mService.getUser()) {
       this.menuSelected = Number(this.cookieService.get('company-menu'));
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
     }
     else {
       this.router.navigate(['login']);
     }
   }
 
-  onLoadData(page: number, companyType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
+  onLoadData(page: number, companyType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, stepID: number, cityID: number) {
     this.mService.getApiService().sendRequestGET_LIST_COMPANY(
       this.mService.getUser().username,
       this.mService.getUser().id,
@@ -77,13 +79,12 @@ export class ContactMenuCompanyComponent implements OnInit {
       searchKey,
       timeFrom,
       timeTo,
-      userIDFind
+      userIDFind,
+      stepID,
+      cityID
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
-
-        console.log(this.listData);
-        
 
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
@@ -122,11 +123,12 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.menuSelected = index;
     this.cookieService.set('company-menu', index + "");
 
-    this.onLoadData(1, index, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, index, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
   }
 
-  onCheckBoxChange(event) {
-    let checked = event.checked;
+  onCheckBoxChange(item) {
+    let checked = item.checked;
+
     if (checked) this.numberOfItemSelected += 1;
     else this.numberOfItemSelected -= 1;
 
@@ -163,7 +165,7 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
   }
 
   onClickItem(item) {
@@ -171,7 +173,7 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
   }
 
   onClickAssign(index) {
@@ -260,8 +262,10 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.timeFrom = event.timeFrom;
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
+    this.stageID = event.stepID;
+    this.cityID = event.cityID;
 
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), event.timeFrom, event.timeTo, event.userID, event.stepID, event.cityID);
   }
 
 

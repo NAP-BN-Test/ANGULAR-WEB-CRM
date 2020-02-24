@@ -90,7 +90,7 @@
                     <div wrap class="padding8-vertical flex" *ngFor="let item of listData;let i = index"
                         [class.background-whitesmoke]="i%2==1">
                         <div padding-horizontal center-line>
-                            <mat-checkbox [checked]="item.checked" (click)="onCheckBoxChange(item)">
+                            <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
                         <div class="width-20 center-line margin8-end" (click)="onClickItem(item)" tappable>
@@ -109,7 +109,7 @@
                             {{item.city}}
                         </div>
                         <div class="width-10 center-line margin8-end">
-                            {{item.timeCreate | datetimeFull}}
+                            {{item.timeCreate | datetimeDefault}}
                         </div>
                         <div class="width-10 center-line margin8-end">
                             {{item.companyType | companyType}}
