@@ -42,17 +42,25 @@
                         </div>
 
                         <div flex width-fill>
-                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.call.mail_to}}
                             </div>
-                            <div class="width-40 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
-                                {{mData.call.description}}
+                                {{mData.call.company}}
                             </div>
                             <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
+                                {{mData.call.description}}
+                            </div>
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
                                 {{mData.call.state}}
+                            </div>
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.call.create_date}}
                             </div>
                             <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
@@ -67,14 +75,20 @@
                             <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
-                        <div class="width-20 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
+                        <div class="width-10 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
                             tappable>
                             {{item.contactName}}
                         </div>
-                        <div class="width-40 center-line overflow-hidden margin8-end" [innerHTML]="item.description">
+                        <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.companyName}}
+                        </div>
+                        <div class="width-20 center-line overflow-hidden margin8-end" [innerHTML]="item.description">
+                        </div>
+                        <div class="width-10 center-line overflow-hidden margin8-end">
+                            {{item.state | mailStatus}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">
-                            {{item.state | callStatus}}
+                            {{item.timeCreate | datetimeDefault}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">
                             {{item.timeRemind | datetimeDefault}}
@@ -84,7 +98,7 @@
 
                 <div center padding-top>
                     <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
-                        [pageSize]="pageSize" (click)="onClickPagination($event)">
+                        [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>
             </div>

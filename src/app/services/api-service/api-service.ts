@@ -699,7 +699,8 @@ export class ApiService extends HttpClient {
         searchKey: string,
         timeFrom: string,
         timeTo: string,
-        userIDFind: number
+        userIDFind: number,
+        timeType: number
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_TASK,
             ParamBuilder.builder()
@@ -707,6 +708,7 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("page", page)
                 .add("menuType", menuType)
+                .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)
@@ -781,7 +783,8 @@ export class ApiService extends HttpClient {
         searchKey: string,
         timeFrom: string,
         timeTo: string,
-        userIDFind: number
+        userIDFind: number,
+        timeType: number
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CALL,
             ParamBuilder.builder()
@@ -789,6 +792,7 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("page", page)
                 .add("menuType", menuType)
+                .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)
@@ -813,7 +817,8 @@ export class ApiService extends HttpClient {
         searchKey: string,
         timeFrom: string,
         timeTo: string,
-        userIDFind: number
+        userIDFind: number,
+        timeType: number
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_EMAIL,
             ParamBuilder.builder()
@@ -821,6 +826,7 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("page", page)
                 .add("menuType", menuType)
+                .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)
@@ -847,7 +853,8 @@ export class ApiService extends HttpClient {
         searchKey: string,
         timeFrom: string,
         timeTo: string,
-        userIDFind: number
+        userIDFind: number,
+        timeType: number
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_MEET,
             ParamBuilder.builder()
@@ -855,6 +862,7 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("page", page)
                 .add("menuType", menuType)
+                .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)
@@ -881,7 +889,8 @@ export class ApiService extends HttpClient {
         searchKey: string,
         timeFrom: string,
         timeTo: string,
-        userIDFind: number
+        userIDFind: number,
+        timeType: number
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_NOTE,
             ParamBuilder.builder()
@@ -889,6 +898,7 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("page", page)
                 .add("menuType", menuType)
+                .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)

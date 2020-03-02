@@ -46,11 +46,15 @@
                                 tappable>
                                 {{mData.call.description}}
                             </div>
-                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.call.duration}}
                             </div>
-                            <div class="width-30 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.call.create_date}}
+                            </div>
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.call.due_date}}
                             </div>
@@ -66,10 +70,13 @@
                         <div class="width-50 center-line overflow-hidden margin8-end" [innerHTML]="item.description"
                             (click)="onClickItem(item)" tappable>
                         </div>
-                        <div class="width-20 center-line overflow-hidden margin8-end">
-                            {{item.duration }}
+                        <div class="width-10 center-line overflow-hidden margin8-end">
+                            {{item.duration | toHour }}
                         </div>
-                        <div class="width-30 center-line overflow-hidden margin8-end">
+                        <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.timeCreate | datetimeFull}}
+                        </div>
+                        <div class="width-20 center-line overflow-hidden margin8-end">
                             {{item.timeRemind | datetimeFull}}
                         </div>
                     </div>
@@ -77,7 +84,7 @@
 
                 <div center padding-top>
                     <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
-                        [pageSize]="pageSize" (click)="onClickPagination($event)">
+                        [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>
             </div>

@@ -61,7 +61,7 @@ export class ContactMenuCompanyComponent implements OnInit {
       this.mData = data.contact;
     });
     if (this.mService.getUser()) {
-      this.menuSelected = Number(this.cookieService.get('company-menu'));
+      this.menuSelected = this.cookieService.get('company-menu') ? Number(this.cookieService.get('company-menu')) : 1;
 
       this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
     }

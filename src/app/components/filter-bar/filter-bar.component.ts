@@ -27,7 +27,9 @@ export class FilterBarComponent implements OnInit {
   userID = -1;
   stepID = -1;
   cityID = -1;
-  
+
+  timeType = 1;
+
   timeFrom = null;
   timeTo = null;
 
@@ -107,7 +109,8 @@ export class FilterBarComponent implements OnInit {
       cityID: this.cityID > 0 ? this.cityID : null,
       stepID: this.stepID > 0 ? this.stepID : null,
       timeFrom: this.timeFrom,
-      timeTo: this.timeTo
+      timeTo: this.timeTo,
+      timeType: this.timeType
     })
   }
 
@@ -116,7 +119,8 @@ export class FilterBarComponent implements OnInit {
     this.stepID = -1;
     this.cityID = -1;
     this.timeFrom = null;
-    this.timeTo = null
+    this.timeTo = null;
+    this.timeType = 1;
   }
 
 }

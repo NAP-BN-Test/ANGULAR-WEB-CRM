@@ -33,6 +33,7 @@ export class ActivityListCallComponent implements OnInit {
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
+  timeType = 1;
 
   page = 1;
 
@@ -47,14 +48,14 @@ export class ActivityListCallComponent implements OnInit {
       this.mData = data.contact;
     });
     if (this.mService.getUser()) {
-      this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
     }
     else {
       this.router.navigate(['login']);
     }
   }
 
-  onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
+  onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, timeType: number) {
     this.mService.getApiService().sendRequestGET_LIST_CALL(
       this.mService.getUser().username,
       this.mService.getUser().id,
@@ -63,7 +64,8 @@ export class ActivityListCallComponent implements OnInit {
       searchKey,
       timeFrom,
       timeTo,
-      userIDFind
+      userIDFind,
+      timeType
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
@@ -89,7 +91,7 @@ export class ActivityListCallComponent implements OnInit {
   onClickMenu(index: number) {
     this.page = 1;
 
-    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
   onCheckBoxChange(event) {
@@ -131,7 +133,7 @@ export class ActivityListCallComponent implements OnInit {
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
   onClickItem(item) {
@@ -181,8 +183,9 @@ export class ActivityListCallComponent implements OnInit {
     this.timeFrom = event.timeFrom;
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
+    this.timeType = event.timeType;
 
-    this.onLoadData(1, 1, "", event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, 1, "", event.timeFrom, event.timeTo, event.userID, event.timeType);
   }
 
 }

@@ -347,6 +347,9 @@
             "user": "User",
             "sort": "Sort",
             "clear": "Clear",
+            "time_type": "Time type",
+            "create_date": "Create date",
+            "due_date": "Due date",
             "contact": {
                 "name": "NAME",
                 "email": "EMAIL",
@@ -390,6 +393,7 @@
                 "status": "STATUS",
                 "name": "NAME",
                 "type": "TYPE",
+                "create_date": "CREATE DATE",
                 "due_date": "DUE DATE",
                 "create_user": "CREATE USER",
                 "list_select": [
@@ -409,7 +413,9 @@
                 "description": "DESCRIPTION",
                 "state": "STATUS",
                 "duration": "DURATION",
+                "create_date": "CREATE DATE",
                 "due_date": "DUE DATE",
+                "company": "COMPANY",
                 "list_select": [
                     {
                         "name": "Delete",
@@ -442,6 +448,12 @@
             "left_message": "Left live message",
             "left_void": "Left voicemail",
             "connected": "Connected"
+        },
+        "mail_status": {
+            "sent": "Sent",
+            "received": "Received",
+            "answered": "Answered",
+            "wrong_email": "Wrong email"
         }
     }
 }

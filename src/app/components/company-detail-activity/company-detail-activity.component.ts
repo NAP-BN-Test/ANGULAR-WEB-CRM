@@ -30,6 +30,8 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   listOutcome = LIST_SELECT.LIST_OUTCOME;
 
+  listMailStatus = LIST_SELECT.LIST_MAIL_STATUS
+
   listDuration = LIST_SELECT.LIST_DURATION;
 
   listTaskType = LIST_SELECT.LIST_ACTIVITY;
@@ -218,7 +220,7 @@ export class CompanyDetailActivityComponent implements OnInit {
               }, 2000);
             }
           })
-        } else if (type == ACTIVITY_TYPE.EMAIL) {          
+        } else if (type == ACTIVITY_TYPE.EMAIL) {
           this.mService.getApiService().sendRequestDELETE_EMAIL(
             this.mService.getUser().username,
             this.mService.getUser().id,
@@ -493,7 +495,7 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onTextAreaChange(event) {
     console.log(event.target.value);
-    
+
   }
 
 }

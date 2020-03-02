@@ -60,7 +60,7 @@ export class ContactMenuContactComponent implements OnInit {
     });
 
     if (this.mService.getUser()) {
-      this.menuSelected = Number(this.cookieService.get('contact-menu'));
+      this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
 
       this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
     }
@@ -163,6 +163,9 @@ export class ContactMenuContactComponent implements OnInit {
   }
 
   onClickPagination(event) {
+    
+console.log(event);
+
     this.checked = false;
     this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
   }

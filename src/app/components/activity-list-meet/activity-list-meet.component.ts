@@ -3,11 +3,9 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { Utils } from 'src/app/services/core/app/utils';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 
-import * as moment from 'moment'
 
 @Component({
   selector: 'app-activity-list-meet',
@@ -35,6 +33,7 @@ export class ActivityListMeetComponent implements OnInit {
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
+  timeType = 1;
 
   numberAll = 0;
 
@@ -50,14 +49,14 @@ export class ActivityListMeetComponent implements OnInit {
       this.mData = data.contact;
     });
     if (this.mService.getUser()) {
-      this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
     }
     else {
       this.router.navigate(['login']);
     }
   }
 
-  onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
+  onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, timeType: number) {
     this.mService.getApiService().sendRequestGET_LIST_MEET(
       this.mService.getUser().username,
       this.mService.getUser().id,
@@ -66,7 +65,8 @@ export class ActivityListMeetComponent implements OnInit {
       searchKey,
       timeFrom,
       timeTo,
-      userIDFind
+      userIDFind,
+      timeType
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
@@ -93,7 +93,7 @@ export class ActivityListMeetComponent implements OnInit {
   onClickMenu(index: number) {
     this.page = 1;
 
-    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
   onCheckBoxChange(event) {
@@ -157,7 +157,7 @@ export class ActivityListMeetComponent implements OnInit {
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
   onClickItem(item) {
@@ -208,6 +208,6 @@ export class ActivityListMeetComponent implements OnInit {
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
 
-    this.onLoadData(1, 1, "", event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, 1, "", event.timeFrom, event.timeTo, event.userID, event.timeType);
   }
 }

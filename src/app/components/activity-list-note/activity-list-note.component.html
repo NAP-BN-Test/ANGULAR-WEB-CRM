@@ -42,11 +42,15 @@
                         </div>
 
                         <div flex width-fill>
-                            <div class="width-70 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-60 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.call.description}}
                             </div>
-                            <div class="width-30 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.call.create_date}}
+                            </div>
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.call.due_date}}
                             </div>
@@ -59,18 +63,21 @@
                             <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
-                        <div class="width-70 center-line overflow-hidden margin8-end" [innerHTML]="item.description"
+                        <div class="width-60 center-line overflow-hidden margin8-end" [innerHTML]="item.description"
                             (click)="onClickItem(item)" tappable>
                         </div>
-                        <div class="width-30 center-line overflow-hidden margin8-end">
-                            {{item.timeRemind | datetimeFull}}
+                        <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.timeCreate | datetimeDefault}}
+                        </div>
+                        <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.timeRemind | datetimeDefault}}
                         </div>
                     </div>
                 </div>
 
                 <div center padding-top>
                     <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
-                        [pageSize]="pageSize" (click)="onClickPagination($event)">
+                        [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>
             </div>

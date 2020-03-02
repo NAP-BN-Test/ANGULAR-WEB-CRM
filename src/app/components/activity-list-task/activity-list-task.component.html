@@ -46,7 +46,7 @@
                                 tappable>
                                 {{mData.task.status}}
                             </div>
-                            <div class="width-40 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-30 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.task.name}}
                             </div>
@@ -56,9 +56,13 @@
                             </div>
                             <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
-                                {{mData.task.due_date}}
+                                {{mData.task.create_date}}
                             </div>
                             <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.task.due_date}}
+                            </div>
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.task.create_user}}
                             </div>
@@ -74,7 +78,7 @@
                         <div class="width-10 padding-start center-line">
                             <input type="checkbox" [checked]="item.status" (change)="onStatusChange($event, item)">
                         </div>
-                        <div class="width-40 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
+                        <div class="width-30 center-line overflow-hidden margin8-end" (click)="onClickItem(item)"
                             tappable>
                             {{item.name}}
                         </div>
@@ -82,9 +86,12 @@
                             {{item.type | taskType}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">
-                            {{item.timeRemind | datetimeDefault}}
+                            {{item.timeCreate | datetimeDefault}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.timeRemind | datetimeDefault}}
+                        </div>
+                        <div class="width-10 center-line overflow-hidden margin8-end">
                             {{item.createName}}
                         </div>
                     </div>
@@ -92,7 +99,7 @@
 
                 <div center padding-top>
                     <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
-                        [pageSize]="pageSize" (click)="onClickPagination($event)">
+                        [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>
             </div>

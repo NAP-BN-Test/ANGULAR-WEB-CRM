@@ -46,13 +46,17 @@
                                 tappable>
                                 {{mData.call.call_to}}
                             </div>
-                            <div class="width-40 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-30 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.call.description}}
                             </div>
-                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.call.state}}
+                            </div>
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.call.create_date}}
                             </div>
                             <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
@@ -71,10 +75,13 @@
                             tappable>
                             {{item.contactName}}
                         </div>
-                        <div class="width-40 center-line overflow-hidden margin8-end" [innerHTML]="item.description">
+                        <div class="width-30 center-line overflow-hidden margin8-end" [innerHTML]="item.description">
+                        </div>
+                        <div class="width-10 center-line overflow-hidden margin8-end">
+                            {{item.state | callStatus}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">
-                            {{item.state | callStatus}}
+                            {{item.timeCreate | datetimeDefault}}
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">
                             {{item.timeRemind | datetimeDefault}}
@@ -84,7 +91,7 @@
 
                 <div center padding-top>
                     <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
-                        [pageSize]="pageSize" (click)="onClickPagination($event)">
+                        [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>
             </div>

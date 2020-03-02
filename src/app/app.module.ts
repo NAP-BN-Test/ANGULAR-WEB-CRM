@@ -77,6 +77,8 @@ import { RefreshComponent } from './components/refresh/refresh.component';
 import { CompanyTypePipe } from './pipes/company-type/company-type.pipe';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import { DatetimeDefaultPipe } from './pipes/datetime-default/datetime-default.pipe';
+import { MailStatusPipe } from './pipes/mail-status/mail-status.pipe';
+import { ToHourPipe } from './pipes/to-hour/to-hour.pipe';
 
 @NgModule({
   declarations: [
@@ -141,7 +143,9 @@ import { DatetimeDefaultPipe } from './pipes/datetime-default/datetime-default.p
     RefreshComponent,
     CompanyTypePipe,
     FilterBarComponent,
-    DatetimeDefaultPipe
+    DatetimeDefaultPipe,
+    MailStatusPipe,
+    ToHourPipe
   ],
   imports: [
     BrowserModule,

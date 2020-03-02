@@ -3,12 +3,10 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { Utils } from 'src/app/services/core/app/utils';
 import { DialogAssignContactComponent } from '../dialog-assign-contact/dialog-assign-contact.component';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 
-import * as moment from 'moment'
 
 @Component({
   selector: 'app-activity-list-task',
@@ -36,6 +34,7 @@ export class ActivityListTaskComponent implements OnInit {
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
+  timeType = 1;
 
   page = 1;
 
@@ -51,14 +50,14 @@ export class ActivityListTaskComponent implements OnInit {
     });
 
     if (this.mService.getUser()) {
-      this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
     }
     else {
       this.router.navigate(['login']);
     }
   }
 
-  onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
+  onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, timeType: number) {
     this.mService.getApiService().sendRequestGET_LIST_TASK(
       this.mService.getUser().username,
       this.mService.getUser().id,
@@ -67,7 +66,8 @@ export class ActivityListTaskComponent implements OnInit {
       searchKey,
       timeFrom,
       timeTo,
-      userIDFind
+      userIDFind,
+      timeType
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
@@ -93,7 +93,7 @@ export class ActivityListTaskComponent implements OnInit {
   onClickMenu(index: number) {
     this.page = 1;
 
-    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
 
   }
 
@@ -135,7 +135,7 @@ export class ActivityListTaskComponent implements OnInit {
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
   onClickItem(item) {
@@ -216,7 +216,7 @@ export class ActivityListTaskComponent implements OnInit {
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
 
-    this.onLoadData(1, 1, "", event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, 1, "", event.timeFrom, event.timeTo, event.userID, event.timeType);
   }
 
 }

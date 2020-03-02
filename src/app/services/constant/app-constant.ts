@@ -119,6 +119,13 @@ export const CALL_STATUS = {
     CONNECTED: 6,
 }
 
+export const MAIL_STATUS = {
+    SENT: 1,
+    RECEIVED: 2,
+    ANSWERED: 3,
+    WRONG_EMAIL: 4
+}
+
 export const COMPANY_ROLE = {
     PARENT: 1,
     CHILD: 2,
