@@ -14,7 +14,7 @@
 
         <div flex no-wrap>
 
-            <div padding32-horizontal style="width: 300px;">
+            <div padding32-horizontal>
                 <div>
                     <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
                         {{mData.all}}({{numberAll}})</div>
@@ -42,7 +42,15 @@
                         </div>
 
                         <div flex width-fill>
-                            <div class="width-60 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.call.contact}}
+                            </div>
+                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
+                                tappable>
+                                {{mData.call.company}}
+                            </div>
+                            <div class="width-30 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
                                 tappable>
                                 {{mData.call.description}}
                             </div>
@@ -63,7 +71,13 @@
                             <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
-                        <div class="width-60 center-line overflow-hidden margin8-end" [innerHTML]="item.description"
+                        <div class="width-10 center-line overflow-hidden margin8-end">
+                            {{item.contactName}}
+                        </div>
+                        <div class="width-20 center-line overflow-hidden margin8-end">
+                            {{item.companyName}}
+                        </div>
+                        <div class="width-30 center-line overflow-hidden margin8-end" [innerHTML]="item.description"
                             (click)="onClickItem(item)" tappable>
                         </div>
                         <div class="width-20 center-line overflow-hidden margin8-end">

@@ -410,12 +410,14 @@
             "call": {
                 "call_to": "CALL TO",
                 "mail_to": "MAIL TO",
+                "meet_with": "MEET WITH",
                 "description": "DESCRIPTION",
                 "state": "STATUS",
                 "duration": "DURATION",
                 "create_date": "CREATE DATE",
                 "due_date": "DUE DATE",
                 "company": "COMPANY",
+                "contact": "CONTACT",
                 "list_select": [
                     {
                         "name": "Delete",
