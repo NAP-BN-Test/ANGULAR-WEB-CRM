@@ -39,7 +39,7 @@ export class AddCompanyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mService.LoadTitle(1).then((data: any) => {
+    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.add_sub_detail;
     })
 
@@ -84,8 +84,6 @@ export class AddCompanyComponent implements OnInit {
       }
 
       this.mService.getApiService().sendRequestADD_COMPANY(
-        
-        
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -113,8 +111,6 @@ export class AddCompanyComponent implements OnInit {
 
     if (searchKey.trim() != "") {
       this.mService.getApiService().sendRequestSEARCH_COMPANY(
-        
-        
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,

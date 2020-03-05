@@ -49,7 +49,7 @@ export class CreateEmailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mService.LoadTitle(1).then((data: any) => {
+    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.create_tag;
     })
   }

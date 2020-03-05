@@ -64,8 +64,8 @@ export const STATUS = {
 }
 
 export const LANGUAGE_TYPE = {
-    VIETNAMESE: 1,
-    ENGLISH: 2
+    VIETNAMESE: "VI",
+    ENGLISH: "EN"
 }
 
 export const DEVICE_CHECK_STATUS = {

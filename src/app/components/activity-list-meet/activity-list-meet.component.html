@@ -14,15 +14,15 @@
 
         <div flex no-wrap>
 
-            <div padding32-horizontal>
+            <div padding32-horizontal width-10>
                 <div>
                     <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
                         {{mData.all}}({{numberAll}})</div>
                 </div>
             </div>
 
-            <div width-fill>
-                <div>
+            <div width-90>
+                <div class="m-table">
                     <div flex padding8-vertical [class.background-whitesmoke]="!checked"
                         [class.background-secondary]="checked">
                         <div padding-horizontal>
@@ -41,50 +41,64 @@
                             </div>
                         </div>
 
-                        <div flex width-fill>
-                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                        <div flex [hidden]="checked||indeterminate">
+                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.call.meet_with}}
                             </div>
-                            <div class="width-40 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 250px;" class="bold center-line" (click)="onSort()" tappable>
+                                {{mData.call.company}}
+                            </div>
+                            <div style="width: 300px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.call.description}}
                             </div>
-                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.call.duration}}
                             </div>
-                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 120px;" class="bold center-line" (click)="onSort()" tappable>
+                                {{mData.call.create_user}}
+                            </div>
+                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.call.create_date}}
                             </div>
-                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.call.due_date}}
+                            </div>
+                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
+                                {{mData.call.comment}}
                             </div>
                         </div>
                     </div>
 
-                    <div class="padding8-vertical flex" *ngFor="let item of listData;let i = index"
-                        [class.background-whitesmoke]="i%2==1">
+                    <div wrap flex *ngFor="let item of listData;let i = index" [class.background-white]="i%2==0">
                         <div padding-horizontal center-line>
                             <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
-                        <div class="width-10 center-line overflow-hidden margin8-end">
-                            {{item.contactName}}
-                        </div>
-                        <div class="width-40 center-line overflow-hidden margin8-end" [innerHTML]="item.description"
-                            (click)="onClickItem(item)" tappable>
-                        </div>
-                        <div class="width-10 center-line overflow-hidden margin8-end">
-                            {{item.duration | toHour }}
-                        </div>
-                        <div class="width-20 center-line overflow-hidden margin8-end">
-                            {{item.timeCreate | datetimeFull}}
-                        </div>
-                        <div class="width-20 center-line overflow-hidden margin8-end">
-                            {{item.timeRemind | datetimeFull}}
+                        <div padding8-vertical flex [class.background-white]="i%2==0">
+                            <div style="width: 150px;" class="center-line" (click)="onClickItem(item)" tappable>
+                                {{item.contactName}}
+                            </div>
+                            <div style="width: 250px;" class="center-line" (click)="onClickItem(item)" tappable>
+                                {{item.companyName}}
+                            </div>
+                            <div style="width: 300px;" class="center-line" (click)="onClickItem(item)" tappable>
+                                {{item.description}}
+                            </div>
+                            <div style="width: 150px;" class="center-line">
+                                {{item.duration | toHour}}
+                            </div>
+                            <div style="width: 120px;" class="center-line" (click)="onClickItem(item)" tappable>
+                                {{item.createName}}
+                            </div>
+                            <div style="width: 150px;" class="center-line">
+                                {{item.timeCreate | datetimeDefault}}
+                            </div>
+                            <div style="width: 150px;" class="center-line">
+                                {{item.timeRemind | datetimeDefault}}
+                            </div>
+                            <div style="width: 200px;" class="center-line">
+                                {{item.comment}}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ import { ActivityListEmailComponent } from './components/activity-list-email/act
 import { ActivityListMeetComponent } from './components/activity-list-meet/activity-list-meet.component';
 import { ActivityListNoteComponent } from './components/activity-list-note/activity-list-note.component';
 import { RefreshComponent } from './components/refresh/refresh.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
 
 
 const routes: Routes = [
@@ -74,6 +75,11 @@ const routes: Routes = [
     path: 'refresh',
     component: RefreshComponent,
     data: { title: 'refresh' }
+  },
+  {
+    path: 'add-user',
+    component: AddUserComponent,
+    data: { title: 'addUser' }
   },
   {
     path: '',

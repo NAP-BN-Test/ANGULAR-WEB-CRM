@@ -12,7 +12,7 @@ export class TaskTypePipe implements PipeTransform {
   constructor(
     public mService: AppModuleService
   ) {
-    this.mService.LoadTitle(1).then((data: any) => {
+    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.task_type;
     })
   }

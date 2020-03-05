@@ -27,7 +27,7 @@
     </div>
 
     <div padding32 border-bottom center>
-        <div padding8 *ngFor="let item of mData.list_icon" (click)="onClickItem(item.index)" tappable>
+        <div style="height: 100px !important;" padding8 *ngFor="let item of mData.list_icon" (click)="onClickItem(item.index)" tappable>
             <div center>
                 <mat-icon mat-icon-size color-primary [svgIcon]="item.icon"></mat-icon>
             </div>

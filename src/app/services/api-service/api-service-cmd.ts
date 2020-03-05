@@ -136,4 +136,7 @@ export class ApiCmd {
 
     public static DELETE_TASK: string = "crm/delete_task";
 
+    public static ADD_USER: string = "crm/add_user";
+
+
 }

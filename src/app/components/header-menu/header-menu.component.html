@@ -35,15 +35,23 @@
                 </button>
             </div> -->
 
-            <!-- <div color-white center-line>
-                <button class="btn btn-default color-white center">
-                    <mat-icon color-white>notifications</mat-icon>
-                </button>
-            </div> -->
-
             <div>
+                <ng-template #hoverSetting>
+                    <div>
+                        <button class="btn btn-block center" (click)="onClickLanguage()">{{language}}</button>
+                        <button *ngIf="mUser.role==2" class="btn btn-block center" (click)="onClickAddUser()">Thêm
+                            User</button>
+                    </div>
+
+                </ng-template>
+                <button class="btn btn-default color-white center" placement="bottom" [ngbPopover]="hoverSetting">
+                    <mat-icon color-white>settings</mat-icon>
+                </button>
+            </div>
+
+            <div padding32-end>
                 <ng-template #hoverImgTemp>
-                    <div style="margin-right: 32px;">
+                    <div>
                         <div border-bottom>
                             <div font2 bold>{{mUser.name}}</div>
                             <div padding-top>{{mUser.phone}}</div>

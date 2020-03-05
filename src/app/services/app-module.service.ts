@@ -97,7 +97,7 @@ export class AppModuleService {
     });
   }
 
-  public LoadTitle(languageType: number) {
+  public LoadTitle(languageType: any) {
     this.getApiService().createClient(this.mAngularHttp);
     return new Promise((resolve, reject) => {
       if (this.getAppConfig().hasData()) {
@@ -121,7 +121,7 @@ export class AppModuleService {
     });
   }
 
-  public LoadTitles(languageType: number) {
+  public LoadTitles(languageType: any) {
     return new Promise((resolve, reject) => {
       this.mAngularHttp.request("assets/data/title.json").subscribe(data => {
         let mData = data.json();

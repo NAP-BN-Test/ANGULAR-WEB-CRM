@@ -46,13 +46,7 @@
     </div>
 
     <div relative>
-        <!-- <quill-editor [modules]="mConfig" [(ngModel)]="quillValue"></quill-editor> -->
         <textarea padding border0 width-100 rows="5" cols="50" [(ngModel)]="quillValue"></textarea>
-
-        <div font6 center-line color-primary class="associate">
-            <app-dropdown-associate-create width-100 activityType="2" (dropdownChange)="onAssociateChange($event)">
-            </app-dropdown-associate-create>
-        </div>
     </div>
 
     <div padding8 center-line box-border>

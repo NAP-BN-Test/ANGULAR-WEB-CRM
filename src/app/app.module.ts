@@ -79,6 +79,7 @@ import { FilterBarComponent } from './components/filter-bar/filter-bar.component
 import { DatetimeDefaultPipe } from './pipes/datetime-default/datetime-default.pipe';
 import { MailStatusPipe } from './pipes/mail-status/mail-status.pipe';
 import { ToHourPipe } from './pipes/to-hour/to-hour.pipe';
+import { AddUserComponent } from './components/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -145,7 +146,8 @@ import { ToHourPipe } from './pipes/to-hour/to-hour.pipe';
     FilterBarComponent,
     DatetimeDefaultPipe,
     MailStatusPipe,
-    ToHourPipe
+    ToHourPipe,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

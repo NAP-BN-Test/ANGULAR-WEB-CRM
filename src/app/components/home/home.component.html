@@ -9,10 +9,12 @@
             <app-company-info (createAction)="onClickCreateAction($event)"></app-company-info>
         </div>
         <div [class]="colDetail" padding-top relative background-whitesmoke>
-            <app-company-detail [listContact]="listContact" [listUser]="listUser" [oneActivity]="oneActivity"></app-company-detail>
+            <app-company-detail [listContact]="listContact" [listUser]="listUser" [oneActivity]="oneActivity">
+            </app-company-detail>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">
-                <app-create-note (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-note>
+                <app-create-note (closeCreateAction)="onClickCloseCreateAction($event)">
+                </app-create-note>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==2">
@@ -21,12 +23,12 @@
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==3">
-                <app-create-call [listContact]="listContact" [listUser]="listUser"
+                <app-create-call [listUser]="listUser"
                     (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==4">
-                <app-create-email [listContact]="listContact" [listUser]="listUser"
+                <app-create-email [listUser]="listUser"
                     (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
             </div>
 

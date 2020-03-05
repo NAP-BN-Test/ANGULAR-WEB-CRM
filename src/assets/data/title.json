@@ -1,6 +1,484 @@
 {
     "VI": {
         "btn": {
+            "save": "Lưu",
+            "cancel": "Hủy",
+            "edit": "Sửa",
+            "delete": "Xóa"
+        },
+        "login": {
+            "logo": "../../assets/img/logo.png",
+            "company_name": "NAM AN PHÚ",
+            "company_name1": "TECHNOLOGIES JSC",
+            "logo1": "../../assets/img/logo1.png",
+            "title": "GIẢI PHÁP PHẦN MỀM QUẢN LÝ",
+            "title1": "DỊCH VỤ LOGISTICS",
+            "ip": "Tên server",
+            "db_name": "Tên database",
+            "username": "Tên đăng nhập",
+            "password": "Mật khẩu",
+            "btn_login": "Đăng nhập",
+            "sub": "Hệ thống quản trị quan hệ khách hàng CRM",
+            "sub1": "Nếu bạn chưa có tài khoản vui lòng nhấn vào đây để đăng ký sử dụng",
+            "ft_title": "THÔNG TIN LIÊN HỆ",
+            "ft_name": "CÔNG TY CỔ PHẦN CÔNG NGHỆ NAM AN PHÚ",
+            "ft_address": "Địa chỉ: Linh Đàm, Hà Nội, Việt Nam",
+            "ft_email": "Email: info.namanphu@gmail.com",
+            "ft_website": "Website: http://www/namanphu.com.vn",
+            "ft_phone": "Điện thoại: 024 35550 1618",
+            "invalid_db": "Chưa nhập ip hoặc tên database"
+        },
+        "header": {
+            "logo": "../../assets/img/logo_light.png",
+            "list_menu": [
+                {
+                    "name": "Khách hàng",
+                    "icon": "keyboard_arrow_down",
+                    "index": 1,
+                    "list": [
+                        {
+                            "name": "Khách hàng",
+                            "index": 1
+                        },
+                        {
+                            "name": "Công ty",
+                            "index": 2
+                        }
+                    ]
+                },
+                {
+                    "name": "Hoạt động",
+                    "icon": "keyboard_arrow_down",
+                    "index": 2,
+                    "list": [
+                        {
+                            "name": "Giao việc",
+                            "index": 1
+                        },
+                        {
+                            "name": "Cuộc gọi",
+                            "index": 2
+                        },
+                        {
+                            "name": "Email",
+                            "index": 3
+                        },
+                        {
+                            "name": "Gặp mặt",
+                            "index": 4
+                        },
+                        {
+                            "name": "Ghi chú",
+                            "index": 5
+                        }
+                    ]
+                },
+                {
+                    "name": "CSKH",
+                    "icon": "keyboard_arrow_down",
+                    "index": 3
+                },
+                {
+                    "name": "Báo cáo",
+                    "icon": "keyboard_arrow_down",
+                    "index": 4
+                }
+            ]
+        },
+        "company_info": {
+            "btn_edit": "sửa",
+            "btn_task": {
+                "name": "Công ty",
+                "icon": "home_work",
+                "contact": "Khách hàng",
+                "icon_contact": "account_circle"
+            },
+            "detail": "Chi tiết",
+            "action": "Hành động",
+            "follow": "Theo dõi",
+            "unfollow": "Bỏ theo dõi",
+            "delete": "Xóa",
+            "list_icon": [
+                {
+                    "icon": "note_circle",
+                    "name": "Ghi chú",
+                    "index": 1
+                },
+                {
+                    "icon": "task_circle",
+                    "name": "Giao việc",
+                    "index": 2
+                },
+                {
+                    "icon": "call_circle",
+                    "name": "Cuộc gọi",
+                    "index": 3
+                },
+                {
+                    "icon": "email_circle",
+                    "name": "Email",
+                    "index": 4
+                },
+                {
+                    "icon": "meet_circle",
+                    "name": "Gặp mặt",
+                    "index": 5
+                }
+            ],
+            "info": {
+                "title": "Thông tin về công ty",
+                "title_contact": "Thông tin về khách hàng",
+                "name": "Tên",
+                "short_name": "Tên viết tắt",
+                "address": "Địa chỉ",
+                "phone": "Số ĐT",
+                "email": "Email",
+                "city": "Tỉnh/TP",
+                "step": "Bước",
+                "job_tile": "Chức vụ",
+                "website": "Website"
+            }
+        },
+        "company_detail": {
+            "icon_date": "event",
+            "icon_time": "alarm",
+            "icon_chat": "chat",
+            "add_comment": "Thêm bình luận",
+            "comment": "Bình luận",
+            "create": "Tạo bởi ",
+            "date": "Ngày",
+            "out_come": "Outcome",
+            "contact": "Khách hàng",
+            "menu": [
+                "Hoạt động",
+                "Cuộc gọi",
+                "Email",
+                "Gặp mặt",
+                "Ghi chú",
+                "Giao việc"
+            ],
+            "task": {
+                "name": "Giao việc",
+                "icon": "check_circle",
+                "icon_type": "task",
+                "assign_to": "Phân công",
+                "due_date": "Ngày cảnh báo",
+                "add_description": "Thêm mô tả",
+                "detail": "Chi tiết",
+                "type": "Loại",
+                "remind": "Nhắc nhở"
+            },
+            "call": {
+                "name": "Cuộc gọi",
+                "icon_type": "phone"
+            },
+            "email": {
+                "name": "Email",
+                "icon_type": "email"
+            },
+            "note": {
+                "name": "Ghi chú",
+                "icon_type": "note",
+                "associate": "Associated with 2 records",
+                "delete": "Delete"
+            },
+            "meet": {
+                "name": "Gặp mặt",
+                "icon_type": "calendar",
+                "attend": "Tham gia",
+                "duration": "Thời lượng",
+                "start_time": "Thời gian bắt đầu",
+                "comment": "Bình luận"
+            }
+        },
+        "company_sub_detail": {
+            "contact": "Khách hàng ",
+            "add_contact": "+ Thêm khách hàng",
+            "company": "Công ty ",
+            "add_company": "+ Thêm công ty",
+            "deal": "Thỏa thuận ",
+            "add_deal": "+ Thêm thỏa thuận",
+            "detail": "Chi tiết",
+            "delete": "Xóa",
+            "stage": "Trạng thái",
+            "close_date": "Ngày kết thúc"
+        },
+        "create_tag": {
+            "note_tag": "Ghi chú",
+            "add_note": "Thêm mới ghi chú",
+            "associate": "Liên quan tới ",
+            "record": "bản ghi",
+            "save": "Lưu",
+            "follow_up": "Tạo một nhiệm vụ để theo dõi",
+            "task_tag": "Giao việc",
+            "mission_name": "Tên nhiệm vụ",
+            "placeholder_fill": "Nhập mới",
+            "due_date": "Ngày cảnh báo",
+            "add_call": "Thêm mới cuộc gọi",
+            "assign_to": "Phân công",
+            "type": "Loại",
+            "remind": "Nhắc nhở",
+            "icon_date": "event",
+            "icon_time": "alarm",
+            "email_tag": "Thu điện tử",
+            "contact": "Khách hàng",
+            "out_come": "Outcome",
+            "datetime": "Ngày tháng",
+            "add_email": "Thêm mới email",
+            "attend": "Tham gia",
+            "duration": "Thời lượng",
+            "start_time": "Thời gian bắt đầu",
+            "call_tag": "Cuộc gọi",
+            "meet_tag": "Gặp mặt"
+        },
+        "add_sub_detail": {
+            "add_contact": "Thêm khách hàng",
+            "add_company": "Thêm công ty",
+            "contact_intro": "Theo dõi những liên hệ nào là một phần của công ty này.",
+            "add_exist": "Thêm người liên hệ đã có",
+            "add_new": "Thêm mới người lên hệ",
+            "name": "Tên",
+            "short_name": "Tên viết tắt",
+            "company_role": "Vai trò của công ty",
+            "city": "Tỉnh/TP",
+            "gender": "Giới tính",
+            "job_tile": "Chức vụ",
+            "hand_phone": "Điện thoại",
+            "phone": "Điện thoại",
+            "home_phone": "Điện thoại",
+            "email": "Email",
+            "address": "Địa chỉ",
+            "contact_owner": "Người tạo",
+            "save": "Lưu",
+            "cancel": "Hủy",
+            "placeholder": "Tìm kiếm",
+            "add_deal": "Thêm thỏa thuận",
+            "deal_intro": "Theo dõi các cơ hội doanh thu cho công ty của bạn bằng cách liên kết một thỏa thuận mới.",
+            "create_new_deal": "Tạo mới thọa thuận",
+            "associate_deal": "Liện kết thỏa thuận với",
+            "deal_name": "Tên thỏa thuận",
+            "pipe_line": "Pipe line",
+            "deal_stage": "Trạng thái thoản thuận",
+            "amount": "Số lượng",
+            "close_date": "Ngày kết thúc",
+            "deal_owner": "Người tạo thỏa thuận",
+            "company": "Công ty",
+            "contact": "Khách hàng",
+            "add_timeline": "Thêm các hoạt động vào dòng thời gian của thỏa thuận",
+            "company_intro": "Theo dõi những liên hệ nào là một phần của công ty này.",
+            "add_parent_company": "Thêm công ty cha",
+            "add_child_company": "Thêm công ty con",
+            "create_new_comapny": "Thêm mới công ty"
+        },
+        "dashboard": {
+            "name": "Tổng hợp",
+            "activity": "Các hoạt động",
+            "action": "Hành động",
+            "create_by": "Tạo bởi",
+            "task": "Giao việc",
+            "call": "Cuộc gọi",
+            "email": "Email",
+            "meet": "Gặp mặt",
+            "note": "Ghi chú",
+            "deal": "Dự báo doanh thu theo giai đoạn",
+            "sumary": "Tóm lược",
+            "tasks": "GIAO VIỆC",
+            "calls": "CUỘC GỌI",
+            "emails": "EMAIL",
+            "meets": "GẶP MẶT",
+            "notes": "GHI CHÚ",
+            "notifications": "THÔNG BÁO",
+            "life_cycle": "Vòng đời của doanh nghiệp",
+            "create": "TẠO MỚI",
+            "assign": "PHÂN CÔNG",
+            "work": "CÔNG VIỆC",
+            "deal_created": "TẠO THỎA THUẬN",
+            "deal_won": "THỎA THUẬN THÀNH CÔNG",
+            "create_job": "TẠO MỚI JOB",
+            "notification_list": "Danh sách thông báo",
+            "stage_kpi": "Trạng thái và KPI",
+            "stage": "Trạng thái",
+            "total": "Tổng số",
+            "quota": "Hạn ngạch",
+            "done": "Hoàn thành",
+            "contact": "Khách hàng",
+            "send_email": "Gửi email",
+            "send_quote": "Gửi quote",
+            "send_contact": "Gửi liên hệ",
+            "create_type": [
+                "",
+                " tạo một cuộc gọi với ",
+                " tạo một email với ",
+                " tạo một cuộc gặp với ",
+                " tạo một ghi chú với ",
+                " giao một việc cho "
+            ]
+        },
+        "contact": {
+            "contact_title": "Khách hàng",
+            "company_title": "Công ty",
+            "task_title": "Giao việc",
+            "call_title": "Cuộc gọi",
+            "email_title": "Email",
+            "meet_title": "Gặp mặt",
+            "note_title": "Ghi chú",
+            "action": "Hành động",
+            "import": "Nhập",
+            "export": "Xuất",
+            "create_new": "Tạo mới",
+            "add_filter": "+ Thêm bộ lọc",
+            "selected": "đã chọn",
+            "all_contact": "Tất cả khách hàng ",
+            "my_contact": "Khách hàng của tôi ",
+            "unassign_contact": "Khách hàng chưa phân công ",
+            "follow_contact": "Khách hàng đang theo dõi ",
+            "my_company_assigned": "Công ty được giao việc cho tôi",
+            "all_company": "Tất cả công ty ",
+            "unassign_company": "Công ty chưa giao việc ",
+            "assign_company": "Các công ty được giao việc ",
+            "follow_company": "Công ty đang theo dõi ",
+            "all_task": "Tất cả công việc ",
+            "all": "Tất cả ",
+            "due_today": "Trong hôm nay ",
+            "due_week": "Trong tuần này ",
+            "time_from": "Thời gian bắt đầu",
+            "time_to": "Thời gian kết thúc",
+            "step": "Bước",
+            "city": "Tỉnh/TP",
+            "user": "User",
+            "sort": "Lọc",
+            "clear": "Làm mới",
+            "time_type": "Loại thời gian",
+            "create_date": "Ngày tạo",
+            "due_date": "Ngày cảnh báo",
+            "contact": {
+                "name": "TÊN",
+                "email": "EMAIL",
+                "phone": "SỐ ĐIỆN THOẠI",
+                "owner": "NGƯỜI TẠO",
+                "company": "CÔNG TY LIÊN KẾT",
+                "time_create": "NGÀY TẠO",
+                "list_select": [
+                    {
+                        "name": "Giao việc",
+                        "index": 1
+                    },
+                    {
+                        "name": "Xóa",
+                        "index": 2
+                    }
+                ]
+            },
+            "company": {
+                "col1": "TÊN",
+                "col2": "PHÂN CÔNG",
+                "col3": "BƯỚC",
+                "col4": "ĐỊA CHỈ",
+                "col5": "TỈNH/TP",
+                "col6": "THỜI GIAN TẠO",
+                "col7": "LOẠI",
+                "list_select": [
+                    {
+                        "name": "Giao việc",
+                        "index": 1
+                    },
+                    {
+                        "name": "Xóa",
+                        "index": 2
+                    }
+                ],
+                "licence": "Chính thức",
+                "trial": "Dùng thử"
+            },
+            "task": {
+                "status": "TRẠNG THÁI",
+                "name": "TÊN NHIỆM VỤ",
+                "description": "NỘI DUNG",
+                "assign_to": "PHÂN CÔNG",
+                "type": "LOẠI",
+                "create_user": "NGƯỜI TẠO",
+                "create_date": "NGÀY TẠO",
+                "due_date": "NGÀY HẾT HẠN",
+                "associate": "NGƯỜI LIÊN QUAN",
+                "list_select": [
+                    {
+                        "name": "Hoàn thành hết",
+                        "index": 1
+                    },
+                    {
+                        "name": "Xóa",
+                        "index": 2
+                    }
+                ]
+            },
+            "call": {
+                "call_to": "GỌI ĐẾN",
+                "mail_to": "GỬI MAIL ĐẾN",
+                "meet_with": "KHÁCH HÀNG",
+                "description": "MÔ TẢ",
+                "state": "TRẠNG THÁI",
+                "duration": "THỜI GIAN GẶP",
+                "create_date": "NGÀY TẠO",
+                "create_user": "NGƯỜI TẠO",
+                "due_date": "NGÀY HẾT HẠN",
+                "company": "CÔNG TY",
+                "contact": "NGƯỜI LIÊN HỆ",
+                "comment": "BÌNH LUẬN",
+                "list_select": [
+                    {
+                        "name": "Xóa",
+                        "index": 1
+                    }
+                ]
+            }
+        },
+        "dialog": {
+            "yes": "Có",
+            "no": "Không",
+            "ask_delete": "Bạn có chắc muốn xóa mục này?",
+            "ask_logout": "Bạn có chắc muốn đăng xuất?",
+            "assign_company": "Giao việc công ty",
+            "assign_contact": "Giao việc khách hàng",
+            "title_assign": "Chỉ định các mục đã chọn cho người tạo:",
+            "remove_assign": "Bỏ phân công",
+            "assign": "Phân công",
+            "cancel": "Hủy bỏ"
+        },
+        "task_type": {
+            "call": "Cuộc gọi",
+            "email": "Email",
+            "meet": "Gặp mặt"
+        },
+        "call_status": {
+            "no_answer": "Không trả lời",
+            "busy": "Bận",
+            "wrong_number": "Nhầm số",
+            "left_message": "Rời tín nhắn thoại",
+            "left_void": "Rời cuộc gọi",
+            "connected": "Đã liên kết"
+        },
+        "mail_status": {
+            "sent": "Đã gửi",
+            "received": "Đã nhận",
+            "answered": "Đã trả lời",
+            "wrong_email": "Nhầm địa chỉ email"
+        },
+        "add_user": {
+            "title": "Thêm user",
+            "name": "Họ tên",
+            "username": "Tên đăng nhập",
+            "phone": "Số điện thoại",
+            "email": "Email",
+            "password": "Mật khẩu",
+            "re_password": "Nhập lại mật khẩu",
+            "add": "Thêm",
+            "invalid_value": "Bạn chưa nhập đủ thông tin",
+            "password_match": "Nhập lại mật khẩu không đúng",
+            "add_success": "Thêm mới user thành công"
+        }
+    },
+    "EN": {
+        "btn": {
             "save": "Save",
             "cancel": "Cancel",
             "edit": "Edit",
@@ -127,6 +605,7 @@
             ],
             "info": {
                 "title": "About this company",
+                "title_contact": "About this contact",
                 "name": "Name",
                 "short_name": "Short name",
                 "address": "Address",
@@ -391,11 +870,14 @@
             },
             "task": {
                 "status": "STATUS",
-                "name": "NAME",
-                "type": "TYPE",
-                "create_date": "CREATE DATE",
-                "due_date": "DUE DATE",
-                "create_user": "CREATE USER",
+                "name": "TÊN NHIỆM VỤ",
+                "description": "NỘI DUNG",
+                "assign_to": "PHÂN CÔNG",
+                "type": "LOẠI",
+                "create_user": "NGƯỜI TẠO",
+                "create_date": "NGÀY TẠO",
+                "due_date": "NGÀY HẾT HẠN",
+                "associate": "NGƯỜI LIÊN QUAN",
                 "list_select": [
                     {
                         "name": "Mark as complete",
@@ -408,16 +890,18 @@
                 ]
             },
             "call": {
-                "call_to": "CALL TO",
-                "mail_to": "MAIL TO",
-                "meet_with": "MEET WITH",
-                "description": "DESCRIPTION",
-                "state": "STATUS",
-                "duration": "DURATION",
-                "create_date": "CREATE DATE",
-                "due_date": "DUE DATE",
-                "company": "COMPANY",
-                "contact": "CONTACT",
+                "call_to": "GỌI ĐẾN",
+                "mail_to": "GỬI MAIL ĐẾN",
+                "meet_with": "KHÁCH HÀNG",
+                "description": "MÔ TẢ",
+                "state": "TRẠNG THÁI",
+                "duration": "THỜI GIAN GẶP",
+                "create_date": "NGÀY TẠO",
+                "create_user": "NGƯỜI TẠO",
+                "due_date": "NGÀY HẾT HẠN",
+                "company": "CÔNG TY",
+                "contact": "NGƯỜI LIÊN HỆ",
+                "comment": "BÌNH LUẬN",
                 "list_select": [
                     {
                         "name": "Delete",
@@ -456,6 +940,19 @@
             "received": "Received",
             "answered": "Answered",
             "wrong_email": "Wrong email"
+        },
+        "add_user": {
+            "title": "Thêm user",
+            "name": "Họ tên",
+            "username": "Tên đăng nhập",
+            "phone": "Số điện thoại",
+            "email": "Email",
+            "password": "Mật khẩu",
+            "re_password": "Nhập lại mật khẩu",
+            "add": "Thêm",
+            "invalid_value": "Bạn chưa nhập đủ thông tin",
+            "password_match": "Nhập lại mật khẩu không đúng",
+            "add_success": "Thêm mới user thành công"
         }
     }
 }

@@ -35,7 +35,7 @@ export class ContactDetailOtherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mService.LoadTitles(1).then((data: any) => {
+    this.mService.LoadTitles(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.company_sub_detail;
     });
 

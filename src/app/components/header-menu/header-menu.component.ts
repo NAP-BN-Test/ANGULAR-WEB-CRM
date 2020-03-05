@@ -18,6 +18,8 @@ export class HeaderMenuComponent implements OnInit {
   showSearchBar = false;
   menuSelected = -1;
 
+  language = "Tiếng Việt";
+
   constructor(
     public mService: AppModuleService,
     public router: Router,
@@ -25,11 +27,19 @@ export class HeaderMenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mService.LoadTitle(1).then((data: any) => {
+
+    if (localStorage.getItem('language-key') == "VI") {
+      this.language = "English";
+    } else {
+      this.language = "Tiếng Việt";
+    }
+
+    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.header;
     });
 
     this.mUser = this.mService.getUser();
+
   }
 
   onClickSearch() {
@@ -81,6 +91,26 @@ export class HeaderMenuComponent implements OnInit {
         this.router.navigate(['login']);
       }
     });
+  }
+
+  onClickLanguage() {
+
+    if (localStorage.getItem('language-key') == "VI") {
+      this.language = "Tiếng Việt";
+      localStorage.setItem('language-key', "EN");
+    } else {
+      this.language = "English";
+      localStorage.setItem('language-key', "VI");
+    }
+
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    })
+  }
+
+  onClickAddUser() {
+    this.router.navigate(['add-user']);
   }
 
 }

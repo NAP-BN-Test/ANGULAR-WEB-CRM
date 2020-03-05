@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mService.LoadTitle(1).then(data => {
+    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then(data => {
       this.mData = data;
     });
 
@@ -83,6 +83,9 @@ export class HomeComponent implements OnInit {
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.listContact = data.array;
+
+          this.cookieService.set('list-contact', JSON.stringify(data.array));
+
         }
       });
 

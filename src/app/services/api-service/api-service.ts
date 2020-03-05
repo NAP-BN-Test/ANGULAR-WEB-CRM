@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.129:3002/";
-    // mUrl: string = "http://163.44.192.123:3302/";
+    // mUrl: string = "http://192.168.1.129:3002/";
+    mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
 
@@ -1019,5 +1019,20 @@ export class ApiService extends HttpClient {
                 .add("username", username)
                 .add("userID", userID)
                 .add("activityIDs", activityIDs));
+    }
+
+    //67
+    public sendRequestADD_USER(username: string, userID: number, userReg: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_USER,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("username", username)
+                .add("userID", userID)
+                .add("regName", userReg.name)
+                .add("regUsername", userReg.username)
+                .add("regPhone", userReg.phone)
+                .add("regEmail", userReg.email)
+                .add("regPassword", userReg.password));
     }
 }

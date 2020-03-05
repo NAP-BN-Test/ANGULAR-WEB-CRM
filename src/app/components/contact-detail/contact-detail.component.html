@@ -13,7 +13,8 @@
             </app-contact-detail-activity>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">
-                <app-create-note [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)">
+                <app-create-note [listContact]="listContact" [createInContact]="true"
+                    (closeCreateAction)="onClickCloseCreateAction($event)">
                 </app-create-note>
             </div>
 

@@ -17,17 +17,17 @@
 
         <div flex no-wrap>
 
-            <div padding32-horizontal style="width: 300px;">
+            <div padding32-horizontal width-20>
                 <div>
-                    <div padding-bottom [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
+                    <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
                         {{mData.all_company}}({{numberAll}})</div>
-                    <div padding-bottom [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
+                    <div padding-bottom wrap [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
                         {{mData.unassign_company}}({{numberUnAssign}})</div>
-                    <div padding-bottom [class.bold]="menuSelected==5" tappable (click)="onClickMenu(5)">
+                    <div padding-bottom wrap [class.bold]="menuSelected==5" tappable (click)="onClickMenu(5)">
                         {{mData.assign_company}}({{numberAssignAll}})</div>
-                    <div padding-bottom [class.bold]="menuSelected==3" tappable (click)="onClickMenu(3)">
+                    <div padding-bottom wrap [class.bold]="menuSelected==3" tappable (click)="onClickMenu(3)">
                         {{mData.follow_company}}({{numberFollow}})</div>
-                    <div padding-bottom [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
+                    <div padding-bottom wrap [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
                         {{mData.my_company_assigned}}({{numberAssign}})</div>
                 </div>
                 <!-- <div padding32-top>
@@ -35,8 +35,8 @@
                 </div> -->
             </div>
 
-            <div width-fill>
-                <div>
+            <div width-80>
+                <div class="m-table">
                     <div flex padding8-vertical [class.background-whitesmoke]="!checked && !indeterminate"
                         [class.background-secondary]="checked || indeterminate">
                         <div padding-horizontal center-line>
@@ -55,64 +55,58 @@
                             </div>
                         </div>
 
-                        <div flex width-fill>
-                            <div class="width-20 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                        <div flex [hidden]="checked||indeterminate">
+                            <div style="width: 300px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col1}}
                             </div>
-                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 120px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col2}}
                             </div>
-                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 200px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col3}}
                             </div>
-                            <div class="width-30 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 400px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col4}}
                             </div>
-                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 100px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col5}}
                             </div>
-                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 150px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col6}}
                             </div>
-                            <div class="width-10 bold center-line" [hidden]="checked||indeterminate" (click)="onSort()"
-                                tappable>
+                            <div style="width: 100px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col7}}
                             </div>
                         </div>
                     </div>
 
-                    <div wrap class="padding8-vertical flex" *ngFor="let item of listData;let i = index"
-                        [class.background-whitesmoke]="i%2==1">
+                    <div wrap flex *ngFor="let item of listData;let i = index" [class.background-white]="i%2==0">
                         <div padding-horizontal center-line>
                             <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
                             </mat-checkbox>
                         </div>
-                        <div class="width-20 center-line margin8-end" (click)="onClickItem(item)" tappable>
-                            {{item.name}}
-                        </div>
-                        <div class="width-10 center-line margin8-end">
-                            {{item.ownerName}}
-                        </div>
-                        <div class="width-10 center-line margin8-end">
-                            {{item.stageName}}
-                        </div>
-                        <div class="width-30 center-line margin8-end">
-                            {{item.address}}
-                        </div>
-                        <div class="width-10 center-line margin8-end">
-                            {{item.city}}
-                        </div>
-                        <div class="width-10 center-line margin8-end">
-                            {{item.timeCreate | datetimeDefault}}
-                        </div>
-                        <div class="width-10 center-line margin8-end">
-                            {{item.companyType | companyType}}
+                        <div padding8-vertical flex [class.background-white]="i%2==0">
+                            <div style="width: 300px" class="center-line" (click)="onClickItem(item)" tappable>
+                                {{item.name}}
+                            </div>
+                            <div style="width: 120px" class="center-line">
+                                {{item.ownerName}}
+                            </div>
+                            <div style="width: 200px" class="center-line">
+                                {{item.stageName}}
+                            </div>
+                            <div style="width: 400px" class="center-line">
+                                {{item.address}}
+                            </div>
+                            <div style="width: 100px" class="center-line">
+                                {{item.city}}
+                            </div>
+                            <div style="width: 150px" class="center-line">
+                                {{item.timeCreate | datetimeDefault}}
+                            </div>
+                            <div style="width: 100px" class="center-line">
+                                {{item.companyType | companyType}}
+                            </div>
                         </div>
                     </div>
                 </div>
