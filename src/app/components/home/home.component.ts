@@ -42,9 +42,12 @@ export class HomeComponent implements OnInit {
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
       let params = this.router.getCurrentNavigation().extras.state.params;
+
       if (params.type) {
         this.oneActivity = params;
         this.mID = params.companyID
+      } else if (!params.stageID) {
+        this.mID = params.companyID;
       } else {
         this.mID = params.id;
       }

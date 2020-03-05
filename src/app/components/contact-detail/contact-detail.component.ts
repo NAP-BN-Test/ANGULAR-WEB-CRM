@@ -41,7 +41,7 @@ export class ContactDetailComponent implements OnInit {
     private cookieService: CookieService
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
-      let params = this.router.getCurrentNavigation().extras.state.params;
+      let params = this.router.getCurrentNavigation().extras.state.params;      
       if (params.type) {
         this.oneActivity = params;
         this.mID = params.contactID;

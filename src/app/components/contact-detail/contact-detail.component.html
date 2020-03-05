@@ -9,7 +9,7 @@
             <app-contact-detail-intro (createAction)="onClickCreateAction($event)"></app-contact-detail-intro>
         </div>
         <div [class]="colDetail" padding-top relative background-whitesmoke>
-            <app-contact-detail-activity [listContact]="listContact" [listUser]="listUser">
+            <app-contact-detail-activity [listContact]="listContact" [listUser]="listUser" [oneActivity]="oneActivity">
             </app-contact-detail-activity>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">

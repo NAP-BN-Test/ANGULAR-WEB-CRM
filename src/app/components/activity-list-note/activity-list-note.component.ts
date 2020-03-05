@@ -66,7 +66,7 @@ export class ActivityListNoteComponent implements OnInit {
       timeTo,
       userIDFind,
       timeType
-    ).then(data => {      
+    ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listData = data.array;
 
@@ -137,11 +137,13 @@ export class ActivityListNoteComponent implements OnInit {
     this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
-  onClickItem(item) {
-    if (item.type == 1) {
-      this.router.navigate(['company-detail'], { state: { params: item } });
-    } else if (item.type == 2) {
-      this.router.navigate(['contact-detail'], { state: { params: item } });
+  onClickItem(item, type) {
+    if (type == 1) {
+      if (Number(item.contactID) > -1)
+        this.router.navigate(['contact-detail'], { state: { params: item } });
+    } else if (type == 2) {
+      if (Number(item.companyID) > -1)
+        this.router.navigate(['company-detail'], { state: { params: item } });
     }
   }
 

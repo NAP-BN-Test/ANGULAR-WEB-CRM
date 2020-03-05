@@ -75,19 +75,19 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 150px;" class="center-line" (click)="onClickItem(item)" tappable>
+                            <div style="width: 150px;" class="center-line" (click)="onClickItem(item,1)" tappable>
                                 {{item.contactName}}
                             </div>
-                            <div style="width: 250px;" class="center-line" (click)="onClickItem(item)" tappable>
+                            <div style="width: 250px;" class="center-line" (click)="onClickItem(item,2)" tappable>
                                 {{item.companyName}}
                             </div>
-                            <div style="width: 300px;" class="center-line" (click)="onClickItem(item)" tappable>
+                            <div style="width: 300px;" class="center-line">
                                 {{item.description}}
                             </div>
                             <div style="width: 120px;" class="center-line">
                                 {{item.state | mailStatus}}
                             </div>
-                            <div style="width: 120px;" class="center-line" (click)="onClickItem(item)" tappable>
+                            <div style="width: 120px;" class="center-line">
                                 {{item.createName}}
                             </div>
                             <div style="width: 150px;" class="center-line">

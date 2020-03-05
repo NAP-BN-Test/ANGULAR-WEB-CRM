@@ -86,7 +86,7 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 200px;" class="center-line" (click)="onClickItem(item)" tappable>
+                            <div style="width: 200px;" class="center-line" (click)="onClickItem(item,1)" tappable>
                                 {{item.name}}
                             </div>
                             <div style="width: 300px;" class="center-line overflow-hidden margin8-end">
@@ -95,7 +95,7 @@
                             <div style="width: 150px;" class="center-line">
                                 {{item.phone}}
                             </div>
-                            <div style="width: 500px;" class="center-line">
+                            <div style="width: 500px;" class="center-line" (click)="onClickItem(item,2)" tappable>
                                 {{item.companyName}}
                             </div>
                             <div style="width: 120px;" class="center-line">

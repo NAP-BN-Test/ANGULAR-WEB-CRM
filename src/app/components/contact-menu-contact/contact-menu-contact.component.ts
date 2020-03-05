@@ -163,9 +163,6 @@ export class ContactMenuContactComponent implements OnInit {
   }
 
   onClickPagination(event) {
-    
-console.log(event);
-
     this.checked = false;
     this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
   }
@@ -174,8 +171,14 @@ console.log(event);
     this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
-  onClickItem(item) {
-    this.router.navigate(['contact-detail'], { state: { params: item } });
+  onClickItem(item, type) {
+    if (type == 1) {
+      this.router.navigate(['contact-detail'], { state: { params: item } });
+    } else if (type == 2) {
+      if (item.companyID > 0) {
+        this.router.navigate(['company-detail'], { state: { params: item } });
+      }
+    }
   }
 
   onClickAdd() {
