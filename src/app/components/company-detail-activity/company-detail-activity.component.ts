@@ -52,6 +52,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mData = data.company_detail;
     });
 
+    console.log(this.mObj);
+    
     if (this.mObj.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
 
@@ -123,8 +125,6 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.TASK) {
       this.mService.getApiService().sendRequestGET_TASK_ASSOCIATE(
-
-
         this.mService.getUser().username,
         this.mObj.id
       ).then(data => {
@@ -479,23 +479,18 @@ export class CompanyDetailActivityComponent implements OnInit {
   onTaskStatusChange(event) {
     let checked = event.target.checked;
 
+    let listID = [this.mObj.id];
+
     this.mService.getApiService().sendRequestUPDATE_TASK(
-
-
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.mObj.id,
+      JSON.stringify(listID),
       checked ? checked : null
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.mObj.status = checked;
       }
     })
-  }
-
-  onTextAreaChange(event) {
-    console.log(event.target.value);
-
   }
 
 }

@@ -213,7 +213,7 @@ export class ContactMenuContactComponent implements OnInit {
             if (data.status == STATUS.SUCCESS) {
               this.listContact.forEach(item => {
                 if (item.checked) {
-                  item.ownerName = data.obj ? data.obj.name : "";
+                  item.assignName = data.obj ? data.obj.name : "";
                   item.checked = false;
                 }
               });

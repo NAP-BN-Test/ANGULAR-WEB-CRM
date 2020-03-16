@@ -114,28 +114,6 @@ export class ActivityListMeetComponent implements OnInit {
 
   }
 
-  onStatusChange(event, item) {
-    let checked = event.target.checked;
-    let obj: any = this.listData.find(itm => {
-      return itm.id === item.id;
-    });
-    if (obj) {
-      this.mService.getApiService().sendRequestUPDATE_TASK(
-        
-        
-        this.mService.getUser().username,
-        this.mService.getUser().id,
-        item.id,
-        checked ? checked : null
-      ).then(data => {
-        if (data.status == STATUS.SUCCESS) {
-          obj.status = checked;
-        }
-      })
-    }
-
-  }
-
   onCheckAllChange() {
     this.numberOfItemSelected = 0;
 
