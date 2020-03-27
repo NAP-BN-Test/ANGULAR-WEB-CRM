@@ -199,7 +199,7 @@ export class ContactMenuCompanyComponent implements OnInit {
             if (data.status == STATUS.SUCCESS) {
               this.listData.forEach(item => {
                 if (item.checked) {
-                  item.ownerName = data.obj ? data.obj.name : "";
+                  item.assignName = data.obj ? data.obj.name : "";
                   item.checked = false;
                 }
               });

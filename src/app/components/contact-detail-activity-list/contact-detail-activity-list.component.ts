@@ -423,12 +423,13 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onTaskStatusChange(event) {
     let checked = event.target.checked;
+
+    let listID = [this.mObj.id];
+
     this.mService.getApiService().sendRequestUPDATE_TASK(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id,
-      this.mObj.id,
+      JSON.stringify(listID),
       checked ? checked : null
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {

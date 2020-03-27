@@ -114,6 +114,28 @@ export class ActivityListTaskComponent implements OnInit {
     }
   }
 
+
+  onStatusChange(event, item) {
+    let checked = event.target.checked;
+    let obj: any = this.listData.find(itm => {
+      return itm.id === item.id;
+    });
+    if (obj) {
+      let listID = [item.id]
+      this.mService.getApiService().sendRequestUPDATE_TASK(
+        this.mService.getUser().username,
+        this.mService.getUser().id,
+        JSON.stringify(listID),
+        checked ? checked : null
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
+          obj.status = checked;
+        }
+      })
+    }
+
+  }
+
   onCheckAllChange() {
     this.numberOfItemSelected = 0;
 
@@ -148,35 +170,22 @@ export class ActivityListTaskComponent implements OnInit {
 
   onClickAssign(index) {
     if (index == 0) {
-      const dialogRef = this.dialog.open(DialogAssignContactComponent, {
-        width: '500px'
-      });
-
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
+      let listID = [];
+      this.listData.forEach(item => {
+        if (item.checked) listID.push(item.id)
+      })
+      this.mService.getApiService().sendRequestUPDATE_TASK(
+        this.mService.getUser().username,
+        this.mService.getUser().id,
+        JSON.stringify(listID),
+        true
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
           this.listData.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-
-
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            res,
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listData.forEach(item => {
-                if (item.checked) {
-                  item.ownerID = data.obj.id;
-                  item.ownerName = data.obj.name;
-                }
-              });
-            }
-          })
+            item.status = true;
+          });
         }
-      });
+      })
     } else if (index == 1) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'

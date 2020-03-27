@@ -780,14 +780,14 @@ export class ApiService extends HttpClient {
     }
 
     //52
-    public sendRequestUPDATE_TASK(username: string, userID: number, taskID: string, status: boolean): Promise<any> {
+    public sendRequestUPDATE_TASK(username: string, userID: number, taskIDs: string, status: boolean): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_TASK,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("username", username)
                 .add("userID", userID)
-                .add("taskID", taskID)
+                .add("taskIDs", taskIDs)
                 .addIgnoreNull("status", status));
     }
 

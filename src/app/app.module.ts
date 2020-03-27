@@ -147,7 +147,7 @@ import { AddUserComponent } from './components/add-user/add-user.component';
     DatetimeDefaultPipe,
     MailStatusPipe,
     ToHourPipe,
-    AddUserComponent
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
