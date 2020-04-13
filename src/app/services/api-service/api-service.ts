@@ -3,7 +3,7 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.129:3002/";
+    // mUrl: string = "http://192.168.86.6:3002/";
     mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
@@ -405,7 +405,6 @@ export class ApiService extends HttpClient {
                 .add("gender", contact.gender)
                 .add("jobTile", contact.jobTile)
                 .add("phone", contact.phone)
-                .add("homePhone", contact.homePhone)
                 .add("email", contact.email)
                 .add("address", contact.address)
                 .addIgnoreNull("addOut", addOut));
@@ -446,6 +445,7 @@ export class ApiService extends HttpClient {
         companyCity?: string,
         website?: string,
         stageID?: string,
+        timeActive?: string
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_COMPANY,
             ParamBuilder.builder()
@@ -460,7 +460,8 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("companyEmail", companyEmail)
                 .addIgnoreNull("companyCity", companyCity)
                 .addIgnoreNull("website", website)
-                .addIgnoreNull("stageID", stageID));
+                .addIgnoreNull("stageID", stageID)
+                .addIgnoreNull("timeActive", timeActive));
     }
 
     //29

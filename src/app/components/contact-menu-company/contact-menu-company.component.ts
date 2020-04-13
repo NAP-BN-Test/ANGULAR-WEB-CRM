@@ -27,6 +27,7 @@ export class ContactMenuCompanyComponent implements OnInit {
   numberAssignAll = 0;
   numberAssign = 0;
   numberFollow = 0;
+  numberCustomer = 0;
 
   checked = false;
   indeterminate = false;
@@ -91,6 +92,7 @@ export class ContactMenuCompanyComponent implements OnInit {
         this.numberAssignAll = data.assignAll;
         this.numberAssign = data.assign;
         this.numberFollow = data.follow;
+        this.numberCustomer = data.customer;
 
         if (this.menuSelected == 1) {
           this.collectionSize = data.all;
@@ -102,6 +104,8 @@ export class ContactMenuCompanyComponent implements OnInit {
           this.collectionSize = data.assign;
         } else if (this.menuSelected == 5) {
           this.collectionSize = data.assignAll;
+        } else if (this.menuSelected == 6) {
+          this.collectionSize = data.customer;
         }
       }
     });

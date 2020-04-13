@@ -40,8 +40,6 @@ export class CompanyDetailComponent implements OnInit {
 
   onLoadActivity(activityType: number) {
     this.mService.getApiService().sendRequestGET_LIST_ACTIVITY(
-      
-      
       this.mService.getUser().username,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
       activityType

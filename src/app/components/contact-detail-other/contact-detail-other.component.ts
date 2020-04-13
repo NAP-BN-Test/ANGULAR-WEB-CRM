@@ -40,9 +40,7 @@ export class ContactDetailOtherComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL_FOR_CONTACT(
-       
-      
-      this.mService.getUser().username,
+       this.mService.getUser().username,
       this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
       ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {

@@ -18,7 +18,7 @@
             "username": "Tên đăng nhập",
             "password": "Mật khẩu",
             "btn_login": "Đăng nhập",
-            "sub": "Hệ thống quản trị quan hệ khách hàng CRM",
+            "sub": "Hệ thống quản trị quan hệ Liên hệ CRM",
             "sub1": "Nếu bạn chưa có tài khoản vui lòng nhấn vào đây để đăng ký sử dụng",
             "ft_title": "THÔNG TIN LIÊN HỆ",
             "ft_name": "CÔNG TY CỔ PHẦN CÔNG NGHỆ NAM AN PHÚ",
@@ -32,12 +32,12 @@
             "logo": "../../assets/img/logo_light.png",
             "list_menu": [
                 {
-                    "name": "Khách hàng",
+                    "name": "Liên hệ",
                     "icon": "keyboard_arrow_down",
                     "index": 1,
                     "list": [
                         {
-                            "name": "Khách hàng",
+                            "name": "Liên hệ",
                             "index": 1
                         },
                         {
@@ -86,11 +86,11 @@
             ]
         },
         "company_info": {
-            "btn_edit": "sửa",
+            "btn_edit": "Sửa",
             "btn_task": {
                 "name": "Công ty",
                 "icon": "home_work",
-                "contact": "Khách hàng",
+                "contact": "Liên hệ",
                 "icon_contact": "account_circle"
             },
             "detail": "Chi tiết",
@@ -132,6 +132,7 @@
                 "short_name": "Tên viết tắt",
                 "address": "Địa chỉ",
                 "phone": "Số ĐT",
+                "time_active": "Ngày thành lập/Hoạt động",
                 "email": "Email",
                 "city": "Tỉnh/TP",
                 "step": "Bước",
@@ -148,7 +149,7 @@
             "create": "Tạo bởi ",
             "date": "Ngày",
             "out_come": "Outcome",
-            "contact": "Khách hàng",
+            "contact": "Liên hệ",
             "menu": [
                 "Hoạt động",
                 "Cuộc gọi",
@@ -161,7 +162,7 @@
                 "name": "Giao việc",
                 "icon": "check_circle",
                 "icon_type": "task",
-                "assign_to": "Phân công",
+                "assign_to": "Phân công cho",
                 "due_date": "Ngày cảnh báo",
                 "add_description": "Thêm mô tả",
                 "detail": "Chi tiết",
@@ -179,8 +180,8 @@
             "note": {
                 "name": "Ghi chú",
                 "icon_type": "note",
-                "associate": "Associated with 2 records",
-                "delete": "Delete"
+                "associate": "Liên quan tới",
+                "delete": "Xóa"
             },
             "meet": {
                 "name": "Gặp mặt",
@@ -192,12 +193,12 @@
             }
         },
         "company_sub_detail": {
-            "contact": "Khách hàng ",
+            "contact": "Liên hệ",
             "add_contact": "+ Thêm khách hàng",
             "company": "Công ty ",
             "add_company": "+ Thêm công ty",
-            "deal": "Thỏa thuận ",
-            "add_deal": "+ Thêm thỏa thuận",
+            "deal": "Thương vụ",
+            "add_deal": "+ Thêm Thương vụ",
             "detail": "Chi tiết",
             "delete": "Xóa",
             "stage": "Trạng thái",
@@ -205,7 +206,7 @@
         },
         "create_tag": {
             "note_tag": "Ghi chú",
-            "add_note": "Thêm mới ghi chú",
+            "add_note": "Thêm ghi chú",
             "associate": "Liên quan tới ",
             "record": "bản ghi",
             "save": "Lưu",
@@ -220,7 +221,7 @@
             "remind": "Nhắc nhở",
             "icon_date": "event",
             "icon_time": "alarm",
-            "email_tag": "Thu điện tử",
+            "email_tag": "Thư điện tử",
             "contact": "Khách hàng",
             "out_come": "Outcome",
             "datetime": "Ngày tháng",
@@ -232,14 +233,14 @@
             "meet_tag": "Gặp mặt"
         },
         "add_sub_detail": {
-            "add_contact": "Thêm khách hàng",
+            "add_contact": "Thêm liên hệ",
             "add_company": "Thêm công ty",
             "contact_intro": "Theo dõi những liên hệ nào là một phần của công ty này.",
             "add_exist": "Thêm người liên hệ đã có",
-            "add_new": "Thêm mới người lên hệ",
+            "add_new": "Thêm mới người liên hệ",
             "name": "Tên",
             "short_name": "Tên viết tắt",
-            "company_role": "Vai trò của công ty",
+            "company_role": "Vai trò",
             "city": "Tỉnh/TP",
             "gender": "Giới tính",
             "job_tile": "Chức vụ",
@@ -252,21 +253,21 @@
             "save": "Lưu",
             "cancel": "Hủy",
             "placeholder": "Tìm kiếm",
-            "add_deal": "Thêm thỏa thuận",
-            "deal_intro": "Theo dõi các cơ hội doanh thu cho công ty của bạn bằng cách liên kết một thỏa thuận mới.",
-            "create_new_deal": "Tạo mới thọa thuận",
-            "associate_deal": "Liện kết thỏa thuận với",
-            "deal_name": "Tên thỏa thuận",
-            "pipe_line": "Pipe line",
-            "deal_stage": "Trạng thái thoản thuận",
-            "amount": "Số lượng",
+            "add_deal": "Thêm thương vụ",
+            "deal_intro": "Theo dõi các cơ hội doanh thu cho công ty của bạn bằng cách liên kết một thương vụ mới.",
+            "create_new_deal": "Tạo mới thương vụ",
+            "associate_deal": "Liện kết thương vụ với",
+            "deal_name": "Tên thương vụ",
+            "pipe_line": "Quy trình",
+            "deal_stage": "Trạng thái thương vụ",
+            "amount": "Số tiền",
             "close_date": "Ngày kết thúc",
-            "deal_owner": "Người tạo thỏa thuận",
+            "deal_owner": "Người tạo thương vụ",
             "company": "Công ty",
             "contact": "Khách hàng",
             "add_timeline": "Thêm các hoạt động vào dòng thời gian của thỏa thuận",
             "company_intro": "Theo dõi những liên hệ nào là một phần của công ty này.",
-            "add_parent_company": "Thêm công ty cha",
+            "add_parent_company": "Thêm công ty mẹ",
             "add_child_company": "Thêm công ty con",
             "create_new_comapny": "Thêm mới công ty"
         },
@@ -292,8 +293,8 @@
             "create": "TẠO MỚI",
             "assign": "PHÂN CÔNG",
             "work": "CÔNG VIỆC",
-            "deal_created": "TẠO THỎA THUẬN",
-            "deal_won": "THỎA THUẬN THÀNH CÔNG",
+            "deal_created": "TẠO THƯƠNG VỤ",
+            "deal_won": "THƯƠNG VỤ THÀNH CÔNG",
             "create_job": "TẠO MỚI JOB",
             "notification_list": "Danh sách thông báo",
             "stage_kpi": "Trạng thái và KPI",
@@ -315,7 +316,7 @@
             ]
         },
         "contact": {
-            "contact_title": "Khách hàng",
+            "contact_title": "Liên hệ",
             "company_title": "Công ty",
             "task_title": "Giao việc",
             "call_title": "Cuộc gọi",
@@ -328,14 +329,16 @@
             "create_new": "Tạo mới",
             "add_filter": "+ Thêm bộ lọc",
             "selected": "đã chọn",
-            "all_contact": "Tất cả khách hàng ",
-            "my_contact": "Khách hàng của tôi ",
-            "unassign_contact": "Khách hàng chưa phân công ",
-            "follow_contact": "Khách hàng đang theo dõi ",
-            "my_company_assigned": "Công ty được giao việc cho tôi",
+            "all_contact": "Tất cả Liên hệ",
+            "my_contact": "Liên hệ của tôi ",
+            "unassign_contact": "Liên hệ chưa gán ",
+            "assign_contact": "Liên hệ được gán ",
+            "follow_contact": "Liên hệ đang theo dõi ",
+            "my_contact_assigned": "Liên hệ được gán cho tôi",
+            "my_company_assigned": "Công ty được gán cho tôi",
             "all_company": "Tất cả công ty ",
-            "unassign_company": "Công ty chưa giao việc ",
-            "assign_company": "Các công ty được giao việc ",
+            "unassign_company": "Công ty chưa gán",
+            "assign_company": "Công ty được gán",
             "follow_company": "Công ty đang theo dõi ",
             "all_task": "Tất cả công việc ",
             "all": "Tất cả ",
@@ -351,6 +354,7 @@
             "time_type": "Loại thời gian",
             "create_date": "Ngày tạo",
             "due_date": "Ngày cảnh báo",
+            "my_customer": "Khách hàng",
             "contact": {
                 "name": "TÊN",
                 "email": "EMAIL",
@@ -358,6 +362,7 @@
                 "owner": "NGƯỜI TẠO",
                 "company": "CÔNG TY LIÊN KẾT",
                 "time_create": "NGÀY TẠO",
+                "last_activity": "HĐ GẦN ĐÂY",
                 "list_select": [
                     {
                         "name": "Giao việc",
@@ -376,7 +381,9 @@
                 "col4": "ĐỊA CHỈ",
                 "col5": "TỈNH/TP",
                 "col6": "THỜI GIAN TẠO",
-                "col7": "LOẠI",
+                "col7": "ĐĂNG KÝ",
+                "col8": "LOẠI",
+                "col9": "HĐ GẦN ĐÂY",
                 "list_select": [
                     {
                         "name": "Giao việc",
@@ -387,8 +394,8 @@
                         "index": 2
                     }
                 ],
-                "licence": "Chính thức",
-                "trial": "Dùng thử"
+                "licence": "Không",
+                "trial": "Có"
             },
             "task": {
                 "status": "TRẠNG THÁI",
@@ -453,9 +460,9 @@
             "no_answer": "Không trả lời",
             "busy": "Bận",
             "wrong_number": "Nhầm số",
-            "left_message": "Rời tín nhắn thoại",
-            "left_void": "Rời cuộc gọi",
-            "connected": "Đã liên kết"
+            "left_message": "Tin nhắn",
+            "left_void": "Cúp máy",
+            "connected": "Đã kết nối"
         },
         "mail_status": {
             "sent": "Đã gửi",
@@ -496,7 +503,7 @@
             "username": "Tên đăng nhập",
             "password": "Mật khẩu",
             "btn_login": "Đăng nhập",
-            "sub": "Hệ thống quản trị quan hệ khách hàng CRM",
+            "sub": "Hệ thống quản trị quan hệ Liên hệCRM",
             "sub1": "Nếu bạn chưa có tài khoản vui lòng nhấn vào đây để đăng ký sử dụng",
             "ft_title": "THÔNG TIN LIÊN HỆ",
             "ft_name": "CÔNG TY CỔ PHẦN CÔNG NGHỆ NAM AN PHÚ",
@@ -610,6 +617,7 @@
                 "short_name": "Short name",
                 "address": "Address",
                 "phone": "Phone",
+                "time_active": "Date active",
                 "email": "Email",
                 "city": "City",
                 "step": "Step",
@@ -809,7 +817,9 @@
             "all_contact": "All contacts ",
             "my_contact": "My contacts ",
             "unassign_contact": "Unassigned contacts ",
+            "assign_contact": "Assign contacts ",
             "follow_contact": "Follow contacts ",
+            "my_contact_assigned": "My contact assigned",
             "my_company_assigned": "My company assigned ",
             "all_company": "All company ",
             "unassign_company": "Unassigned company ",
@@ -829,6 +839,7 @@
             "time_type": "Time type",
             "create_date": "Create date",
             "due_date": "Due date",
+            "my_customer": "Customers",
             "contact": {
                 "name": "NAME",
                 "email": "EMAIL",
@@ -836,6 +847,7 @@
                 "owner": "CONTACT OWNER",
                 "company": "ASSOCIATED COMPANY",
                 "time_create": "CREATE DATE",
+                "last_activity": "LAST ACTIVITY",
                 "list_select": [
                     {
                         "name": "Assign",
@@ -854,7 +866,9 @@
                 "col4": "ADDRESS",
                 "col5": "CITY",
                 "col6": "TIME CREATE",
-                "col7": "TYPE",
+                "col7": "REGISTER",
+                "col8": "TYPE",
+                "col9": "LAST ACTIVITY",
                 "list_select": [
                     {
                         "name": "Assign",
@@ -865,8 +879,8 @@
                         "index": 2
                     }
                 ],
-                "licence": "Licences",
-                "trial": "Trial"
+                "licence": "No",
+                "trial": "Yes"
             },
             "task": {
                 "status": "STATUS",

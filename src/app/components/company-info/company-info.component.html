@@ -27,7 +27,8 @@
     </div>
 
     <div padding32 border-bottom center>
-        <div style="height: 100px !important;" padding8 *ngFor="let item of mData.list_icon" (click)="onClickItem(item.index)" tappable>
+        <div style="height: 100px !important;" padding8 *ngFor="let item of mData.list_icon"
+            (click)="onClickItem(item.index)" tappable>
             <div center>
                 <mat-icon mat-icon-size color-primary [svgIcon]="item.icon"></mat-icon>
             </div>
@@ -63,6 +64,13 @@
             <div relative class="m-input">
                 <input class="form-control border-0" type="text" [placeholder]="mData.phone" [value]="mObj.phone"
                     (change)="onInputChange($event, 4)">
+            </div>
+        </div>
+        <div padding-top>
+            <div font7>{{mData.info.time_active}}</div>
+            <div font6 color-primary flex>
+                <app-datetime-pick-date [mDate]="mObj.timeActive" (pickDate)="onInputChange($event,9)">
+                </app-datetime-pick-date>
             </div>
         </div>
         <div padding-top>

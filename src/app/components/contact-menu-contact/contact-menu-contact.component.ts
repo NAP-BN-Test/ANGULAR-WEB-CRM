@@ -3,8 +3,6 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { Utils } from 'src/app/services/core/app/utils';
-import { DialogAssignContactComponent } from '../dialog-assign-contact/dialog-assign-contact.component';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';

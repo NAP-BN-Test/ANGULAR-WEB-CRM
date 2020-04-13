@@ -29,6 +29,8 @@
                         {{mData.follow_company}}({{numberFollow}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
                         {{mData.my_company_assigned}}({{numberAssign}})</div>
+                    <div padding-bottom wrap [class.bold]="menuSelected==6" tappable (click)="onClickMenu(6)">
+                        {{mData.my_customer}}({{numberCustomer}})</div>
                 </div>
                 <!-- <div padding32-top>
                     <div bold color-primary>{{mData.company.add_filter}}</div>
@@ -71,6 +73,9 @@
                             <div style="width: 100px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col5}}
                             </div>
+                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
+                                {{mData.company.col9}}
+                            </div>
                             <div style="width: 150px" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.company.col6}}
                             </div>
@@ -100,6 +105,9 @@
                             </div>
                             <div style="width: 100px" class="center-line">
                                 {{item.city}}
+                            </div>
+                            <div style="width: 150px;" class="center-line">
+                                {{item.lastActivity | datetimeDefault}}
                             </div>
                             <div style="width: 150px" class="center-line">
                                 {{item.timeCreate | datetimeDefault}}

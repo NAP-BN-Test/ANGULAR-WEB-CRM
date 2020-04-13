@@ -20,7 +20,6 @@ export class AddContactComponent implements OnInit {
   gender = -1;
   jobTile = -1;
   phone = "";
-  homePhone = "";
   email = "";
   address = "";
 
@@ -50,7 +49,6 @@ export class AddContactComponent implements OnInit {
     this.gender = -1;
     this.jobTile = -1;
     this.phone = "";
-    this.homePhone = "";
     this.email = "";
     this.address = "";
   }
@@ -75,14 +73,11 @@ export class AddContactComponent implements OnInit {
         gender: this.gender,
         jobTile: this.jobTile,
         phone: this.phone,
-        homePhone: this.homePhone,
         email: this.email,
         address: this.address,
       }
 
       this.mService.getApiService().sendRequestADD_CONTACT(
-        
-        
         this.mService.getUser().username,
         this.mService.getUser().id,
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -95,7 +90,6 @@ export class AddContactComponent implements OnInit {
           this.gender = -1;
           this.jobTile = -1;
           this.phone = "";
-          this.homePhone = "";
           this.email = "";
           this.address = "";
         }
@@ -107,8 +101,6 @@ export class AddContactComponent implements OnInit {
     let searchKey = event.target.value;
 
     this.mService.getApiService().sendRequestSEARCH_CONTACT(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id,
       searchKey
@@ -121,8 +113,6 @@ export class AddContactComponent implements OnInit {
 
   onClickAddContact(item) {
     this.mService.getApiService().sendRequestADD_CONTACT_BY_ID(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,

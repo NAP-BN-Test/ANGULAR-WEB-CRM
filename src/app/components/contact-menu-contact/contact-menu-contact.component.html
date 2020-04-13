@@ -22,15 +22,15 @@
             <div padding32-horizontal width-20>
                 <div>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.all_company}}({{numberAll}})</div>
+                        {{mData.all_contact}}({{numberAll}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
-                        {{mData.unassign_company}}({{numberUnAssign}})</div>
+                        {{mData.unassign_contact}}({{numberUnAssign}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==5" tappable (click)="onClickMenu(5)">
-                        {{mData.assign_company}}({{numberAssignAll}})</div>
+                        {{mData.assign_contact}}({{numberAssignAll}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==3" tappable (click)="onClickMenu(3)">
-                        {{mData.follow_company}}({{numberFollow}})</div>
+                        {{mData.follow_contact}}({{numberFollow}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
-                        {{mData.my_company_assigned}}({{numberAssign}})</div>
+                        {{mData.my_contact_assigned}}({{numberAssign}})</div>
                 </div>
                 <!-- <div padding-top>
                     <div bold color-primary>{{mData.add_filter}}</div>
@@ -76,7 +76,9 @@
                             <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.contact.time_create}}
                             </div>
-
+                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
+                                {{mData.contact.last_activity}}
+                            </div>
                         </div>
                     </div>
 
@@ -103,6 +105,9 @@
                             </div>
                             <div style="width: 150px;" class="center-line">
                                 {{item.timeCreate | datetimeDefault}}
+                            </div>
+                            <div style="width: 150px;" class="center-line">
+                                {{item.lastActivity | datetimeDefault}}
                             </div>
                         </div>
                     </div>

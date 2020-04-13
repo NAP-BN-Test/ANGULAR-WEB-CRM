@@ -42,8 +42,6 @@ export class ContactDetailActivityComponent implements OnInit {
 
   onLoadActivity(activityType: number) {
     this.mService.getApiService().sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(
-      
-      
       this.mService.getUser().username,
       this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
       activityType

@@ -74,7 +74,6 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   onInputChange(event, type) {
-    let value = event.target.value;
 
     let companyName: string;
     let companyShortName: string;
@@ -84,16 +83,18 @@ export class CompanyInfoComponent implements OnInit {
     let companyCity: string;
     let website: string;
     let stageID: string;
+    let timeActive: string;
 
-    if (type == 1) companyName = value;
-    else if (type == 2) companyShortName = value;
-    else if (type == 3) companyAddress = value;
-    else if (type == 4) companyPhone = value;
-    else if (type == 5) companyEmail = value;
+    if (type == 1) companyName = event.target.value;
+    else if (type == 2) companyShortName = event.target.value;
+    else if (type == 3) companyAddress = event.target.value;
+    else if (type == 4) companyPhone = event.target.value;
+    else if (type == 5) companyEmail = event.target.value;
     else if (type == 6) companyCity = event.target.value.split(': ')[1];
-    else if (type == 7) website = value;
+    else if (type == 7) website = event.target.value;
     else if (type == 8) stageID = event.target.value.split(': ')[1];
-
+    else if (type == 9) timeActive = event;
+    
     this.mService.getApiService().sendRequestUPDATE_COMPANY(
       this.mService.getUser().username,
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
@@ -104,7 +105,8 @@ export class CompanyInfoComponent implements OnInit {
       companyEmail,
       companyCity,
       website,
-      stageID
+      stageID,
+      timeActive
     )
   }
 

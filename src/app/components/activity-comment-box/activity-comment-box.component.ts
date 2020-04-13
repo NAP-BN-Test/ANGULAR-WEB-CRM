@@ -50,8 +50,6 @@ export class ActivityCommentBoxComponent implements OnInit {
 
   onDeleteCmtChange(item, index) {
     this.mService.getApiService().sendRequestDELETE_COMMENT(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id,
       this.mObj,

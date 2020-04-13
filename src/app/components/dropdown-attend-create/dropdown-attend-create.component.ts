@@ -29,8 +29,6 @@ export class DropdownAttendCreateComponent implements OnInit {
   ngOnInit() {
 
     this.mService.getApiService().sendRequestGET_LIST_USER(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id
     ).then(data => {

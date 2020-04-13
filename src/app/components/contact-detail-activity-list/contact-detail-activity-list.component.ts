@@ -142,8 +142,6 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onChangeContact(type) { //type is contactID:1 or state of activity:2
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
       this.mService.getUser().username,
       this.mObj,
       type == 1 ? this.mObj.contactID : null,
@@ -162,8 +160,6 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onChangeUser() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
       this.mService.getUser().username,
       this.mObj,
       null, null, null, null, null, null,
@@ -181,8 +177,6 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onTaskTypeChange() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
       this.mService.getUser().username,
       this.mObj,
       null, null, null, null, null, null, null,
@@ -233,8 +227,6 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onChangeDuration() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
       this.mService.getUser().username,
       this.mObj,
       null, null, null, this.mObj.duration, null
@@ -259,8 +251,6 @@ export class ContactDetailActivityListComponent implements OnInit {
     this.mObj.timeStart = timeStart;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
       this.mService.getUser().username,
       this.mObj, null, null, timeStart, null, null
     ).then(data => {
@@ -284,8 +274,6 @@ export class ContactDetailActivityListComponent implements OnInit {
     this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
       this.mService.getUser().username,
       this.mObj, null, null, time, null, null
     ).then(data => {
@@ -309,8 +297,6 @@ export class ContactDetailActivityListComponent implements OnInit {
     this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      
-      
       this.mService.getUser().username,
       this.mObj, null, null, null, null, null, null, null, null, null, time
     ).then(data => {

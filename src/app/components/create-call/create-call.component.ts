@@ -80,8 +80,6 @@ export class CreateCallComponent implements OnInit {
 
   onClickSave() {
     this.mService.getApiService().sendRequestCREATE_CALL(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id,
       !this.createInContact ? this.cookieService.get('company-id') : null,

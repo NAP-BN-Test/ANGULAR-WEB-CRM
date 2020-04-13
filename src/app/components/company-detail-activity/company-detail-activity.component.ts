@@ -52,8 +52,6 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mData = data.company_detail;
     });
 
-    console.log(this.mObj);
-    
     if (this.mObj.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
 

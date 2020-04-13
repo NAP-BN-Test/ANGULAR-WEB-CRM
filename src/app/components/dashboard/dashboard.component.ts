@@ -25,8 +25,6 @@ export class DashboardComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_SUMMARY_INFO(
-      
-      
       this.mService.getUser().username,
       this.mService.getUser().id
     ).then(data => {
