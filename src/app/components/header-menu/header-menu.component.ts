@@ -50,27 +50,35 @@ export class HeaderMenuComponent implements OnInit {
     if (index > 0 && indexChild > 0) {
       this.menuSelected = index
       if (index == 1) {
-        if (index == 1 && indexChild == 1) {
+        if (indexChild == 1) {
           this.router.navigate(['contact-menu-contact']);
         }
-        else if (index == 1 && indexChild == 2) {
+        else if (indexChild == 2) {
           this.router.navigate(['contact-menu-company']);
         }
-      } else if (index == 2) {
-        if (index == 2 && indexChild == 1) {
+      }
+      else if (index == 2) {
+        if (indexChild == 1) {
           this.router.navigate(['task']);
         }
-        else if (index == 2 && indexChild == 2) {
+        else if (indexChild == 2) {
           this.router.navigate(['call']);
         }
-        else if (index == 2 && indexChild == 3) {
+        else if (indexChild == 3) {
           this.router.navigate(['email']);
         }
-        else if (index == 2 && indexChild == 4) {
+        else if (indexChild == 4) {
           this.router.navigate(['meet']);
         }
-        else if (index == 2 && indexChild == 5) {
+        else if (indexChild == 5) {
           this.router.navigate(['note']);
+        }
+      }
+      else if (index == 3) {
+        if (indexChild == 1) {
+          this.router.navigate(['email-list']);
+        } else if (indexChild == 2) {
+          this.router.navigate(['email-campain']);
         }
       }
     }

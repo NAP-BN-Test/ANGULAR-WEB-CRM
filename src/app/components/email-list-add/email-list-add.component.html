@@ -1,0 +1,59 @@
+<div shadow height-100 *ngIf="mData">
+    <div class="m-header" padding between>
+        <div bold font3>{{mData.add_email}}</div>
+        <div (click)="onClickClose()" tappable>
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <div padding height-90>
+        <div>{{mData.contact_intro}}</div>
+
+
+        <div padding32-top>
+            <div padding-start center-line>
+                <div class="col-3" font6>{{mData.name}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="name">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.owner}}</div>
+                <div class="col-9">
+                    <select class="custom-select" width-100 [(ngModel)]="jobTile">
+                        <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.email_send}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="email">
+                </div>
+            </div>
+
+            <div padding-start padding-top center-line>
+                <div class="col-3" font6>{{mData.email_receive}}</div>
+                <div class="col-9">
+                    <input class="form-control" type="text" [(ngModel)]="address">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div padding class="m-footer">
+        <div flex>
+            <div padding-vertical>
+                <button class="btn m-btn-footer" [disabled]="!btnCanClicked"
+                    [class.btn-footer-cant-clicked]="!btnCanClicked" (click)="onClickSave()">{{mData.save}}</button>
+            </div>
+            <div padding>
+                <button class="btn m-btn-footer" (click)="onClickClose()">{{mData.cancel}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

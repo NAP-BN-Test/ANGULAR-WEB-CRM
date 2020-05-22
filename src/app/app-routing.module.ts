@@ -13,6 +13,8 @@ import { ActivityListMeetComponent } from './components/activity-list-meet/activ
 import { ActivityListNoteComponent } from './components/activity-list-note/activity-list-note.component';
 import { RefreshComponent } from './components/refresh/refresh.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
+import { EmailListComponent } from './components/email-list/email-list.component';
+import { EmailCampainComponent } from './components/email-campain/email-campain.component';
 
 
 const routes: Routes = [
@@ -80,6 +82,16 @@ const routes: Routes = [
     path: 'add-user',
     component: AddUserComponent,
     data: { title: 'addUser' }
+  },
+  {
+    path: 'email-list',
+    component: EmailListComponent,
+    data: { title: 'emailList' }
+  },
+  {
+    path: 'email-campain',
+    component: EmailCampainComponent,
+    data: { title: 'emailCampain' }
   },
   {
     path: '',

@@ -80,6 +80,10 @@ import { DatetimeDefaultPipe } from './pipes/datetime-default/datetime-default.p
 import { MailStatusPipe } from './pipes/mail-status/mail-status.pipe';
 import { ToHourPipe } from './pipes/to-hour/to-hour.pipe';
 import { AddUserComponent } from './components/add-user/add-user.component';
+import { EmailListComponent } from './components/email-list/email-list.component';
+import { EmailListAddComponent } from './components/email-list-add/email-list-add.component';
+import { EmailCampainComponent } from './components/email-campain/email-campain.component';
+import { EmailCampainAddComponent } from './components/email-campain-add/email-campain-add.component';
 
 @NgModule({
   declarations: [
@@ -148,6 +152,10 @@ import { AddUserComponent } from './components/add-user/add-user.component';
     MailStatusPipe,
     ToHourPipe,
     AddUserComponent,
+    EmailListComponent,
+    EmailListAddComponent,
+    EmailCampainComponent,
+    EmailCampainAddComponent,
   ],
   imports: [
     BrowserModule,

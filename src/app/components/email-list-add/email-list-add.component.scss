@@ -1,0 +1,56 @@
+.m-header {
+    background-color: #F0E9F4;
+}
+.m-btn-clicked {
+    background-color: #F0E9F4 !important;
+    color: #707070 !important;
+}
+.m-btn {
+    background-color: #F5F5F5;
+    color: #707070;
+}
+
+.m-btn-footer {
+    padding: 5px 32px;
+    background-color: #F0E9F4;
+    color: #707070;
+    border-radius: 20px;
+    border: .5px solid #702C90;
+}
+
+.btn-footer-cant-clicked {
+    background-color: #F5F5F5 !important;
+    color: #707070 !important;
+    border: .5px solid #E4E4E4;
+}
+
+.m-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #cccccc;
+}
+
+.btn-border-color {
+    border-color: #ced4da;
+}
+
+.m-contact {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    position: relative;
+}
+
+.btn-add {
+    position: absolute;
+    right: 16px;
+    top: 0;
+    transform: translate(0, 50%);
+    background-color: #F0E9F4;
+    border: .5px solid #702C90;
+    display: none;
+}
+
+.m-contact:hover .btn-add{
+    display: inline-block;
+}
