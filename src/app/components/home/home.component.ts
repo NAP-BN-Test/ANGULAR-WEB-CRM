@@ -12,8 +12,8 @@ import { CompanySubDetailComponent } from '../company-sub-detail/company-sub-det
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild(CompanyDetailComponent, { static: false }) companyDetailComponent: CompanyDetailComponent;
-  @ViewChild(CompanySubDetailComponent, { static: false }) companySubDetailComponent: CompanySubDetailComponent;
+  @ViewChild(CompanyDetailComponent) companyDetailComponent: CompanyDetailComponent;
+  @ViewChild(CompanySubDetailComponent) companySubDetailComponent: CompanySubDetailComponent;
 
   mData: any;
 

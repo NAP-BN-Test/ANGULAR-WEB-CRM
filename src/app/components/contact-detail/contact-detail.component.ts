@@ -12,8 +12,8 @@ import { ContactDetailActivityComponent } from '../contact-detail-activity/conta
   styleUrls: ['./contact-detail.component.scss']
 })
 export class ContactDetailComponent implements OnInit {
-  @ViewChild(ContactDetailActivityComponent, { static: false }) contactDetailActivityComponent: ContactDetailActivityComponent;
-  @ViewChild(ContactDetailOtherComponent, { static: false }) ContactDetailOtherComponent: ContactDetailOtherComponent;
+  @ViewChild(ContactDetailActivityComponent) contactDetailActivityComponent: ContactDetailActivityComponent;
+  @ViewChild(ContactDetailOtherComponent) ContactDetailOtherComponent: ContactDetailOtherComponent;
 
   mData: any;
 
