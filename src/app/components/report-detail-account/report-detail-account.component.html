@@ -1,0 +1,126 @@
+<div>
+
+    <div class="m-header">
+        <app-header-menu></app-header-menu>
+    </div>
+
+    <div class="m-title" tappable (click)="onClickBack()">
+        <div center padding-start>
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </div>
+        <div padding-end>Báo cáo</div>
+        <div center padding8-end>
+            <mat-icon>description</mat-icon>
+        </div>
+    </div>
+
+    <div class="padding bold">Thống kê chiến dịch email "Chuyển đổi số"</div>
+
+
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem (click)="onClickMenu(1)">
+            <a ngbNavLink>Thống kê tài khoản người dùng</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(2)">
+            <a ngbNavLink>Tổng lượng email gửi</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(3)">
+            <a ngbNavLink>Thống kê toàn bộ các chiến dịch</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(4)">
+            <a ngbNavLink>Tổng lượng email đã mở</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(5)">
+            <a ngbNavLink>Tổng lượng email đã nhấp link</a>
+        </li>
+    </ul>
+
+    <div>
+        <div class="row m-content padding" [hidden]="menuIndex!=1">
+            <div class="col-md-5 padding-horizontal box-border">
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Người dùng được tạo</div>
+                    <div class="width-50">26/05/2020 5:00</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Người dùng đăng nhập gần đây</div>
+                    <div class="width-50">18/05/2020 5:00</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Chiến dịch email được gửi gần nhất</div>
+                    <div class="width-50">21/05/2020 5:00</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Danh sách liên hệ</div>
+                    <div class="width-50">5</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Tạo mail gửi tự động</div>
+                    <div class="width-50">1</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Chiến dịch mail được gửi</div>
+                    <div class="width-50">2</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Gửi email</div>
+                    <div class="width-50">3</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Tổng số lượt mở</div>
+                    <div class="width-50">20</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Tổng số người mở</div>
+                    <div class="width-50">10</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-50">Tổng số bị trả lại</div>
+                    <div class="width-50">2</div>
+                </div>
+                
+            </div>
+            <div class="col-md-7 padding-horizontal">
+                <div fill-parent>
+                    <div class="chart-wrapper">
+                        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                            [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                        </canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row m-content padding" [hidden]="menuIndex!=2">
+
+            <div class="col-12">
+                <div width-30>
+                    <select class="custom-select" width-100>
+                        <option value="30">15 ngày trước</option>
+                        <option value="30">30 ngày trước</option>
+                        <option value="30">45 ngày trước</option>
+                        <option value="30">60 ngày trước</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-2 padding-horizontal">
+                <div class="padding8 border-bottom bold">Tóm tắt lượt mở</div>
+                <div class="padding8">Tổng số email: 10</div>
+                <div class="padding8">Tổng số lượt mở: 6</div>
+                <div class="padding8">Tổng số lượt click link: 1</div>
+                <div class="padding8">Tổng số lượt hủy nhận email: 1</div>
+                <div class="padding8">Tỉ lệ mở: 40%</div>
+            </div>
+            <div class="col-md-8 padding-horizontal">
+                <div class="chart-wrapper">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                        [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>

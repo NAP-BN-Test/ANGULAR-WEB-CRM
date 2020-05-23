@@ -47,11 +47,11 @@
     <div padding class="m-footer">
         <div flex>
             <div padding-vertical>
-                <button class="btn m-btn-footer" [disabled]="!btnCanClicked"
-                    [class.btn-footer-cant-clicked]="!btnCanClicked" (click)="onClickSave()">{{mData.save}}</button>
+                <button mat-raised-button color="primary" [disabled]="!btnCanClicked"
+                    (click)="onClickSave()">{{mData.save}}</button>
             </div>
             <div padding>
-                <button class="btn m-btn-footer" (click)="onClickClose()">{{mData.cancel}}</button>
+                <button mat-raised-button color="accent" (click)="onClickClose()">{{mData.cancel}}</button>
             </div>
         </div>
     </div>

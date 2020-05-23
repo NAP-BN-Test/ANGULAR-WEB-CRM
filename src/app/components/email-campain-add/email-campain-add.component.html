@@ -7,50 +7,23 @@
     </div>
 
     <div padding height-90>
-        <div>{{mData.contact_intro}}</div>
 
-        <!-- <div flex>
-            <div padding-vertical>
-                <button class="btn m-btn" [class.m-btn-clicked]="btnType==1"
-                    (click)="onClickAdd(1)">{{mData.step1}}</button>
-            </div>
-            <div padding>
-                <button class="btn m-btn" [class.m-btn-clicked]="btnType==2"
-                    (click)="onClickAdd(2)">{{mData.step2}}</button>
-            </div>
-            <div padding-vertical>
-                <button class="btn m-btn" [class.m-btn-clicked]="btnType==3"
-                    (click)="onClickAdd(3)">{{mData.step3}}</button>
-            </div>
-        </div> -->
-
-        <div class="tab-header">
-            <ul ngbNav #nav="ngbNav" class="nav-tabs">
-                <li ngbNavItem>
-                    <a ngbNavLink>Dr An</a>
-                </li>
-                <li ngbNavItem>
-                    <a ngbNavLink>Fanpage</a>
-                </li>
-                <li ngbNavItem>
-                    <a ngbNavLink>Sản phẩm</a>
-                </li>
-                <li ngbNavItem>
-                    <a ngbNavLink>Liên hệ</a>
-                </li>
-                <li ngbNavItem>
-                    <a ngbNavLink>Đặt hàng</a>
-                </li>
-            </ul>
-        </div>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <li ngbNavItem (click)="onClickStep(1)">
+                <a ngbNavLink>{{mData.step1}}</a>
+            </li>
+            <li ngbNavItem (click)="onClickStep(2)">
+                <a ngbNavLink>{{mData.step2}}</a>
+            </li>
+        </ul>
 
         <div [hidden]="btnType!=1" height-80>
             <div padding>
-                <input type="search" [placeholder]="mData.placeholder" class="form-control"
-                    (change)="onSeachCompany($event)" />
+                <!-- <input type="search" [placeholder]="mData.placeholder" class="form-control"
+                    (change)="onSeachCompany($event)" /> -->
             </div>
 
-            <div padding-horizontal height-90 style="overflow-y: scroll;">
+            <!-- <div padding-horizontal height-90 style="overflow-y: scroll;">
                 <div padding-top *ngFor="let item of listCompany">
                     <div padding8 class="m-contact">
                         <div bold>{{item.name}}</div>
@@ -61,96 +34,77 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div [hidden]="btnType!=2">
-            <div padding>
-                <input type="search" [placeholder]="mData.placeholder" class="form-control"
-                    (change)="onSeachCompany($event)" />
+
+            <div padding32-top>
+
+                <div padding-start center-line>
+                    <div class="col-3" font6>{{mData.campain_name}}</div>
+                    <div class="col-9">
+                        <select class="custom-select" width-100 [(ngModel)]="jobTile">
+                            <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div padding-start padding-top center-line>
+                    <div class="col-3" font6>{{mData.campain_sender}}</div>
+                    <div class="col-9">
+                        <input class="form-control" type="text" [(ngModel)]="name">
+                    </div>
+                </div>
+
+                <div padding-start padding-top center-line>
+                    <div class="col-3" font6>{{mData.campain_email_send}}</div>
+                    <div class="col-9">
+                        <select class="custom-select" width-100 [(ngModel)]="jobTile">
+                            <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div padding-start padding-top center-line>
+                    <div class="col-3" font6>{{mData.campain_email_receive}}</div>
+                    <div class="col-9">
+                        <input class="form-control" type="text" [(ngModel)]="email">
+                    </div>
+                </div>
+
             </div>
 
-            <div padding-horizontal>
-                <div padding-top *ngFor="let item of listCompany">
-                    <div padding8 class="m-contact">
-                        <div bold>{{item.name}}</div>
-                        <div>{{item.phone | na}}</div>
-                        <div>
-                            <button class="btn-add btn-sm" type="button"
-                                (click)="onClickAddCompany(item, 2)">{{mData.add_company}}</button>
-                        </div>
+            <div padding32-top>
+
+                <div padding-start padding-top center-line>
+                    <mat-radio-group (change)="onRadioChange($event)">
+                        <mat-radio-button value="1">{{mData.campain_send_all}}</mat-radio-button>
+                        <mat-radio-button value="2">{{mData.campain_send_by_time}}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div padding-start center-line [hidden]="!sendByTime">
+                    <div class="col-9 offset-3">
+                        <select class="custom-select" width-100 [(ngModel)]="jobTile">
+                            <option *ngFor="let item of mData.campain_list_time" [ngValue]="item.value">{{item.name}}
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div [hidden]="btnType!=3">
-            <div padding-start center-line>
-                <div class="col-3" font6>{{mData.name}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="name">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.short_name}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="shortName">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.hand_phone}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="phone">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.email}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="email">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.address}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="address">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.city}}</div>
-                <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="city">
-                        <option *ngFor="let item of listCity" [ngValue]="item">{{item.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line *ngIf="!addOut">
-                <div class="col-3" font6>{{mData.company_role}}</div>
-                <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="role">
-                        <option *ngFor="let item of listCompanyRole" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-        </div>
-
 
     </div>
 
     <div padding background-white class="m-footer">
         <div flex>
             <div padding-vertical>
-                <button class="btn m-btn-footer" [disabled]="!btnCanClicked"
-                    [class.btn-footer-cant-clicked]="!btnCanClicked" (click)="onClickSave()">{{mData.save}}</button>
+                <button mat-raised-button color="primary" [disabled]="!btnCanClicked"
+                    (click)="onClickSave()">{{mData.campain_btn_send}}</button>
             </div>
             <div padding>
-                <button class="btn m-btn-footer" (click)="onClickClose()">{{mData.cancel}}</button>
+                <button mat-raised-button color="accent" (click)="onClickClose()">{{mData.cancel}}</button>
             </div>
         </div>
     </div>

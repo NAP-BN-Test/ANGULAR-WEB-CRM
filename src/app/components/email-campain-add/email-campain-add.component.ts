@@ -14,6 +14,10 @@ export class EmailCampainAddComponent implements OnInit {
 
   @Input("addOut") addOut: number;
 
+  btnType = 1;
+
+  sendByTime = false;
+
   mData: any;
 
   name = "";
@@ -59,7 +63,10 @@ export class EmailCampainAddComponent implements OnInit {
 
   onClickAddNew() {
     this.btnAddExist = false;
+  }
 
+  onClickStep(index) {
+    this.btnType = index;
   }
 
   onClickGenger(value) {
@@ -124,4 +131,11 @@ export class EmailCampainAddComponent implements OnInit {
     })
   }
 
+  onRadioChange(event) {
+    if (event.value == 2) {
+      this.sendByTime = true;
+    } else {
+      this.sendByTime = false;
+    }
+  }
 }

@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -84,6 +86,12 @@ import { EmailListComponent } from './components/email-list/email-list.component
 import { EmailListAddComponent } from './components/email-list-add/email-list-add.component';
 import { EmailCampainComponent } from './components/email-campain/email-campain.component';
 import { EmailCampainAddComponent } from './components/email-campain-add/email-campain-add.component';
+import { ReportListComponent } from './components/report-list/report-list.component';
+import { ReportDetailComponent } from './components/report-detail/report-detail.component';
+
+import { ChartsModule } from 'ng2-charts';
+import { ReportListAccountComponent } from './components/report-list-account/report-list-account.component';
+import { ReportDetailAccountComponent } from './components/report-detail-account/report-detail-account.component';
 
 @NgModule({
   declarations: [
@@ -156,6 +164,10 @@ import { EmailCampainAddComponent } from './components/email-campain-add/email-c
     EmailListAddComponent,
     EmailCampainComponent,
     EmailCampainAddComponent,
+    ReportListComponent,
+    ReportDetailComponent,
+    ReportListAccountComponent,
+    ReportDetailAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -165,10 +177,13 @@ import { EmailCampainAddComponent } from './components/email-campain-add/email-c
     MatIconModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatRadioModule,
+    MatButtonModule,
     HttpClientModule,
     QuillModule.forRoot(),
     NgbModule,
     FormsModule,
+    ChartsModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

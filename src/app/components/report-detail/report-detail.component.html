@@ -1,0 +1,184 @@
+<div>
+
+    <div class="m-header">
+        <app-header-menu></app-header-menu>
+    </div>
+
+    <div class="m-title" tappable (click)="onClickBack()">
+        <div center padding-start>
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </div>
+        <div padding-end>Báo cáo</div>
+        <div center padding8-end>
+            <mat-icon>description</mat-icon>
+        </div>
+    </div>
+
+    <div class="padding bold">Thống kê chiến dịch email "Chuyển đổi số"</div>
+
+
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem (click)="onClickMenu(1)">
+            <a ngbNavLink>Thống kê tổng quan</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(2)">
+            <a ngbNavLink>Lượt mở</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(3)">
+            <a ngbNavLink>Lượt click link</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(4)">
+            <a ngbNavLink>Mail bị trả lại</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(5)">
+            <a ngbNavLink>Lượt hủy nhận mail</a>
+        </li>
+        <li ngbNavItem (click)="onClickMenu(6)">
+            <a ngbNavLink>Thống kê chuyển tiếp</a>
+        </li>
+    </ul>
+
+    <div>
+        <div class="row m-content padding" [hidden]="menuIndex!=1">
+            <div class="col-md-6 padding-horizontal box-border">
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Tiêu đề email</div>
+                    <div class="width-70">Bây giờ chính là cơ hội tốt nhất để chuyển đổi số. Thời COVID-19</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Chiến dịch email</div>
+                    <div class="width-70">Chuyển đổi số</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Danh sách liên hệ</div>
+                    <div class="width-70">NAP</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Bắt đầu gửi</div>
+                    <div class="width-70">23/05/2020 20:00</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Hoàn thành gửi</div>
+                    <div class="width-70">23/05/2020 20:00</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Thời gian gửi</div>
+                    <div class="width-70">3 giây</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Gửi tới</div>
+                    <div class="width-70">10 email</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Gửi bởi</div>
+                    <div class="width-70">Le Minh Son</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Tỉ lệ mở</div>
+                    <div class="width-70">5/10</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Tỉ lệ click link</div>
+                    <div class="width-70">50%</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Bị trả lại</div>
+                    <div class="width-70">0</div>
+                </div>
+            </div>
+            <div class="col-md-6 padding-horizontal">
+                <div fill-parent>
+                    <div class="chart-wrapper">
+                        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                            [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                        </canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row m-content padding" [hidden]="menuIndex!=2">
+
+            <div class="col-12">
+                <div width-30>
+                    <select class="custom-select" width-100>
+                        <option value="30">15 ngày trước</option>
+                        <option value="30">30 ngày trước</option>
+                        <option value="30">45 ngày trước</option>
+                        <option value="30">60 ngày trước</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-2 padding-horizontal">
+                <div class="padding8 border-bottom bold">Tóm tắt lượt mở</div>
+                <div class="padding8">Tổng số email: 10</div>
+                <div class="padding8">Tổng số lượt mở: 6</div>
+                <div class="padding8">Người mở từ 2 lần: 1</div>
+                <div class="padding8">Trung binh lượt mở: 0.8</div>
+                <div class="padding8">Tỉ lệ mở: 40%</div>
+            </div>
+            <div class="col-md-8 padding-horizontal">
+                <div class="chart-wrapper">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                        [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row m-content">
+        <div class="col-md-3" padding-top>
+            <app-contact-detail-intro (createAction)="onClickCreateAction($event)"></app-contact-detail-intro>
+        </div>
+        <div [class]="colDetail" padding-top relative background-whitesmoke>
+            <app-contact-detail-activity [listContact]="listContact" [listUser]="listUser" [oneActivity]="oneActivity">
+            </app-contact-detail-activity>
+
+            <div class="box-create" [class.show-div]="createTabIndex==1">
+                <app-create-note [listContact]="listContact" [createInContact]="true"
+                    (closeCreateAction)="onClickCloseCreateAction($event)">
+                </app-create-note>
+            </div>
+
+            <div class="box-create" [class.show-div]="createTabIndex==2">
+                <app-create-task [createInContact]="true" [listUser]="listUser"
+                    (closeCreateAction)="onClickCloseCreateAction($event)">
+                </app-create-task>
+            </div>
+
+            <div class="box-create" [class.show-div]="createTabIndex==3">
+                <app-create-call [listContact]="listContact" [listUser]="listUser" [createInContact]="true"
+                    (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
+            </div>
+
+            <div class="box-create" [class.show-div]="createTabIndex==4">
+                <app-create-email [listContact]="listContact" [listUser]="listUser" [createInContact]="true"
+                    (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
+            </div>
+
+            <div class="box-create" [class.show-div]="createTabIndex==5">
+                <app-create-meet [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)">
+                </app-create-meet>
+            </div>
+
+        </div>
+        <div [class]="colSubDetail">
+            <div border-bottom padding-top tappable (click)="onClickShowSubDetail()">
+                <mat-icon>{{iconSubDetail}}</mat-icon>
+            </div>
+            <div [class.hide-div]="!iconSubDetailState">
+                <app-contact-detail-other [listDealStage]="listDealStage" (addSubDetail)="onClickAddSubDetail($event)">
+                </app-contact-detail-other>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="box-add" [class.show-div]="addSubDetail==3">
+            <app-add-deal [contactAddDeal]="1" [listDealStage]="listDealStage"
+                (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
+        </div>
+    </div> -->
+</div>

@@ -9,20 +9,17 @@
     <div padding height-90>
         <div>{{mData.contact_intro}}</div>
 
-        <div flex>
-            <div padding-vertical>
-                <button class="btn m-btn" [class.m-btn-clicked]="btnType==1"
-                    (click)="onClickAdd(1)">{{mData.add_parent_company}}</button>
-            </div>
-            <div padding>
-                <button class="btn m-btn" [class.m-btn-clicked]="btnType==2"
-                    (click)="onClickAdd(2)">{{mData.add_child_company}}</button>
-            </div>
-            <div padding-vertical>
-                <button class="btn m-btn" [class.m-btn-clicked]="btnType==3"
-                    (click)="onClickAdd(3)">{{mData.create_new_comapny}}</button>
-            </div>
-        </div>
+        <ul padding-top bold ngbNav #nav="ngbNav" class="nav-tabs">
+            <li ngbNavItem (click)="onClickAdd(1)">
+                <a ngbNavLink>{{mData.add_parent_company}}</a>
+            </li>
+            <li ngbNavItem (click)="onClickAdd(2)">
+                <a ngbNavLink>{{mData.add_child_company}}</a>
+            </li>
+            <li ngbNavItem (click)="onClickAdd(3)">
+                <a ngbNavLink>{{mData.create_new_comapny}}</a>
+            </li>
+        </ul>
 
         <div [hidden]="btnType!=1" height-80>
             <div padding>
@@ -64,7 +61,7 @@
             </div>
         </div>
 
-        <div [hidden]="btnType!=3">
+        <div padding32-top [hidden]="btnType!=3">
             <div padding-start center-line>
                 <div class="col-3" font6>{{mData.name}}</div>
                 <div class="col-9">
@@ -126,11 +123,11 @@
     <div padding background-white class="m-footer">
         <div flex>
             <div padding-vertical>
-                <button class="btn m-btn-footer" [disabled]="!btnCanClicked"
-                    [class.btn-footer-cant-clicked]="!btnCanClicked" (click)="onClickSave()">{{mData.save}}</button>
+                <button mat-raised-button color="primary" [disabled]="!btnCanClicked"
+                    (click)="onClickSave()">{{mData.campain_btn_send}}</button>
             </div>
             <div padding>
-                <button class="btn m-btn-footer" (click)="onClickClose()">{{mData.cancel}}</button>
+                <button mat-raised-button color="accent" (click)="onClickClose()">{{mData.cancel}}</button>
             </div>
         </div>
     </div>

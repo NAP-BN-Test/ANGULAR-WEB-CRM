@@ -91,7 +91,17 @@
                 {
                     "name": "Báo cáo",
                     "icon": "keyboard_arrow_down",
-                    "index": 4
+                    "index": 4,
+                    "list": [
+                        {
+                            "name": "Theo chiến dịch",
+                            "index": 1
+                        },
+                        {
+                            "name": "Theo người SD",
+                            "index": 2
+                        }
+                    ]
                 }
             ]
         },
@@ -285,9 +295,33 @@
             "email_send": "Email gửi",
             "email_receive": "Email nhận",
             "owner": "Chủ sở hữu",
-            "step1": "Bước 1",
-            "step2": "Bước 2",
-            "step3": "Bước 3"
+            "step1": "Chọn DS Liên hệ",
+            "step2": "Chọn chiến dịch email",
+            "campain_btn_send": "Bắt đầu lên chiến dịch gửi mail",
+            "campain_name": "Tên chiến dịch",
+            "campain_sender": "Tên người gửi",
+            "campain_email_send": "Email gửi",
+            "campain_email_receive": "Email nhận",
+            "campain_send_all": "Gửi chiến dịch tới tất cả Email trong danh sách",
+            "campain_send_by_time": "Gửi chiến dịch tới các Email đã mở các chiến dịch trước trong khoảng thời gian",
+            "campain_list_time": [
+                {
+                    "value": 1,
+                    "name": "1 tháng"
+                },
+                {
+                    "value": 2,
+                    "name": "2 tháng"
+                },
+                {
+                    "value": 3,
+                    "name": "3 tháng"
+                },
+                {
+                    "value": 6,
+                    "name": "6 tháng"
+                }
+            ]
         },
         "dashboard": {
             "name": "Tổng hợp",
@@ -468,14 +502,9 @@
         "email": {
             "contact_title": "Danh sách Email Marketing",
             "email_campain_title": "Chiến dịch gửi mail",
-            "create_new": "Tạo mới",
             "selected": "đã chọn",
             "manager_campain": "Quản lý chiến dịch gửi mail",
-            "time_from": "Thời gian bắt đầu",
-            "time_to": "Thời gian kết thúc",
-            "user": "User",
-            "sort": "Lọc",
-            "clear": "Làm mới",
+            "all_email_list": "Tất cả danh sách email",
             "contact": {
                 "name": "TÊN",
                 "email": "EMAIL",
@@ -504,6 +533,32 @@
                 "list_select": [
                     {
                         "name": "Sửa",
+                        "index": 1
+                    },
+                    {
+                        "name": "Xóa",
+                        "index": 2
+                    }
+                ]
+            }
+        },
+        "report": {
+            "contact_title": "Danh sách báo cáo theo chiến dịch",
+            "report_title_account": "Danh sách báo cáo theo account",
+            "selected": "đã chọn",
+            "report_campain": "Danh sách chiến dịch email",
+            "report": {
+                "col1": "TÊN CHIẾN DỊCH",
+                "col2": "EMAIL LIST",
+                "col3": "THỜI GIAN BẮT ĐẦU",
+                "col4": "KẾT THÚC",
+                "col5": "NHẬN",
+                "col6": "HỦY NHẬN",
+                "col7": "TRẢ LẠI",
+                "col8": "HĐ GẦN ĐÂY",
+                "list_select": [
+                    {
+                        "name": "In",
                         "index": 1
                     },
                     {
@@ -1019,14 +1074,9 @@
         "email": {
             "contact_title": "Danh sách Email Marketing",
             "email_campain_title": "Chiến dịch gửi mail",
-            "create_new": "Tạo mới",
             "selected": "đã chọn",
             "manager_campain": "Quản lý chiến dịch gửi mail",
-            "time_from": "Thời gian bắt đầu",
-            "time_to": "Thời gian kết thúc",
-            "user": "User",
-            "sort": "Lọc",
-            "clear": "Làm mới",
+            "all_email_list": "Tất cả danh sách email",
             "contact": {
                 "name": "TÊN",
                 "email": "EMAIL",
@@ -1055,6 +1105,31 @@
                 "list_select": [
                     {
                         "name": "Sửa",
+                        "index": 1
+                    },
+                    {
+                        "name": "Xóa",
+                        "index": 2
+                    }
+                ]
+            }
+        },
+        "report": {
+            "contact_title": "Danh sách báo cáo",
+            "selected": "đã chọn",
+            "report_campain": "Danh sách chiến dịch email",
+            "report": {
+                "col1": "TÊN CHIẾN DỊCH",
+                "col2": "EMAIL LIST",
+                "col3": "THỜI GIAN BẮT ĐẦU",
+                "col4": "KẾT THÚC",
+                "col5": "NHẬN",
+                "col6": "HỦY NHẬN",
+                "col7": "TRẢ LẠI",
+                "col8": "HĐ GẦN ĐÂY",
+                "list_select": [
+                    {
+                        "name": "In",
                         "index": 1
                     },
                     {

@@ -34,14 +34,16 @@
             <app-datetime-pick-date [mDate]="timeTo" (pickDate)="onPickDate($event,2)"></app-datetime-pick-date>
         </div>
         <div padding-end>
-            <button class="m-btn btn" type="button" (click)="onClickClear()">{{mData.clear}}</button>
+            <button mat-raised-button color="primary" (click)="onClickClear()">{{mData.clear}}</button>
         </div>
         <div padding-end>
-            <button class="m-btn btn" type="button" (click)="onClickSort()">{{mData.sort}}</button>
+            <button mat-raised-button color="primary" (click)="onClickSort()">{{mData.sort}}</button>
         </div>
         <div padding-end *ngIf="!listActivity">
             <input type="search" class="form-control" [(ngModel)]="searchKey" (keyup.enter)="onSearchChange($event)" />
         </div>
-        <div *ngIf="!listActivity" tappable (click)="onClickAdd()">{{mData.create_new}}</div>
+        <div *ngIf="!listActivity">
+            <button mat-raised-button color="primary" (click)="onClickAdd()">{{mData.create_new}}</button>
+        </div>
     </div>
 </div>

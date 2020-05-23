@@ -15,6 +15,10 @@ import { RefreshComponent } from './components/refresh/refresh.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { EmailListComponent } from './components/email-list/email-list.component';
 import { EmailCampainComponent } from './components/email-campain/email-campain.component';
+import { ReportListComponent } from './components/report-list/report-list.component';
+import { ReportDetailComponent } from './components/report-detail/report-detail.component';
+import { ReportDetailAccountComponent } from './components/report-detail-account/report-detail-account.component';
+import { ReportListAccountComponent } from './components/report-list-account/report-list-account.component';
 
 
 const routes: Routes = [
@@ -92,6 +96,26 @@ const routes: Routes = [
     path: 'email-campain',
     component: EmailCampainComponent,
     data: { title: 'emailCampain' }
+  },
+  {
+    path: 'report-list',
+    component: ReportListComponent,
+    data: { title: 'reportList' }
+  },
+  {
+    path: 'report-detail',
+    component: ReportDetailComponent,
+    data: { title: 'reportDetail' }
+  },
+  {
+    path: 'report-detail-account',
+    component: ReportDetailAccountComponent,
+    data: { title: 'reportDetailAccount' }
+  },
+  {
+    path: 'report-list-account',
+    component: ReportListAccountComponent,
+    data: { title: 'reportDetailAccount' }
   },
   {
     path: '',

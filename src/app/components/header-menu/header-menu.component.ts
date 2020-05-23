@@ -81,6 +81,13 @@ export class HeaderMenuComponent implements OnInit {
           this.router.navigate(['email-campain']);
         }
       }
+      else if (index == 4) {
+        if (indexChild == 1) {
+          this.router.navigate(['report-list']);
+        } else if (indexChild == 2) {
+          this.router.navigate(['report-list-account']);
+        }
+      }
     }
   }
 

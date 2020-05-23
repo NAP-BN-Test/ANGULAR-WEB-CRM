@@ -1,0 +1,21 @@
+.box-add {
+    display: none;
+    position: fixed;
+    width: 40%;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    height: 100%;
+    background-color: white;
+    animation: slideInRight 500ms;
+}
+
+.show-div {
+    display: block;
+}
+
+.m-table {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    background: whitesmoke;
+}
