@@ -12,7 +12,7 @@ export class DatetimeTimeDefaultPipe implements PipeTransform {
       return time;
     }
     else {
-      return "N/A"
+      return " "
     }
   }
 

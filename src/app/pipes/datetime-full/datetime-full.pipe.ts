@@ -15,7 +15,7 @@ export class DatetimeFullPipe implements PipeTransform {
       return date + " at " + time;
     }
     else {
-      return "N/A"
+      return " "
     }
   }
 

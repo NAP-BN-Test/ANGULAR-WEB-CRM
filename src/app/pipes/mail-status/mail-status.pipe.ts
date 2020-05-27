@@ -30,7 +30,7 @@ export class MailStatusPipe implements PipeTransform {
       return this.mData.wrong_email
     }
     else {
-      return "N/A"
+      return " "
     }
   }
 

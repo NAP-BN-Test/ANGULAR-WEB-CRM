@@ -46,6 +46,10 @@ export class LoginComponent implements OnInit {
 
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.login;
+
+      if (localStorage.getItem('data-local') == null) {
+        localStorage.setItem('data-local', JSON.stringify(data));
+      }
     });
 
     if (localStorage.getItem('user-login')) {

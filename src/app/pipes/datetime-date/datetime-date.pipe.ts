@@ -12,7 +12,7 @@ export class DatetimeDatePipe implements PipeTransform {
       return date;
     }
     else {
-      return "N/A"
+      return " "
     }
   }
 

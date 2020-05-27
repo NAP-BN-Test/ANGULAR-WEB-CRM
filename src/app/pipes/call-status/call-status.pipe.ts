@@ -36,7 +36,7 @@ export class CallStatusPipe implements PipeTransform {
       return this.mData.connected
     }
     else {
-      return "N/A"
+      return " "
     }
   }
 

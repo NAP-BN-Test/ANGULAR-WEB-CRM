@@ -11,6 +11,7 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 export class FilterBarComponent implements OnInit {
   @Input('onContact') onContact = false;
   @Input('listActivity') listActivity = false;
+  @Input('noCreate') noCreate = false;
 
   @Output('searchChange') searchChange = new EventEmitter();
   @Output('clickAdd') clickAdd = new EventEmitter();

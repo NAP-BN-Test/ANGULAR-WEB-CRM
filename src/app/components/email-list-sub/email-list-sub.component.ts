@@ -9,11 +9,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
 
 @Component({
-  selector: 'app-email-list',
-  templateUrl: './email-list.component.html',
-  styleUrls: ['./email-list.component.scss']
+  selector: 'app-email-list-sub',
+  templateUrl: './email-list-sub.component.html',
+  styleUrls: ['./email-list-sub.component.scss']
 })
-export class EmailListComponent implements OnInit {
+export class EmailListSubComponent implements OnInit {
 
   listContact = [];
 
@@ -169,8 +169,14 @@ export class EmailListComponent implements OnInit {
     this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
-  onClickItem(item) {
-    this.router.navigate(['email-list-sub'], { state: { params: item } });
+  onClickItem(item, type) {
+    if (type == 1) {
+      this.router.navigate(['contact-detail'], { state: { params: item } });
+    } else if (type == 2) {
+      if (item.companyID > 0) {
+        this.router.navigate(['company-detail'], { state: { params: item } });
+      }
+    }
   }
 
   onClickAdd() {

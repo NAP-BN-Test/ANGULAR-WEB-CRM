@@ -5,14 +5,10 @@
 
     <div padding32>
         <div padding32-bottom between>
-            <div font2 bold>{{mData.email_campain_title}}</div>
+            <div font2 bold>{{mData.email_sub_title}}</div>
             <div center-line bold color-primary>
 
-                <div class="box-add" [class.show-div]="addSub==1">
-                    <app-email-campain-add [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-email-campain-add>
-                </div>
-
-                <app-filter-bar onContact="true" (searchChange)="onSearchChange($event)" (clickAdd)="onClickAdd()"
+                <app-filter-bar onContact="true" noCreate="true" (searchChange)="onSearchChange($event)" (clickAdd)="onClickAdd()"
                     (sort)="onClickSort($event)"></app-filter-bar>
             </div>
         </div>
@@ -22,7 +18,7 @@
             <div padding32-horizontal width-20>
                 <div>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.manager_campain}}({{numberAll}})</div>
+                        {{mData.all_email_list}}({{numberAll}})</div>
                 </div>
                 <!-- <div padding-top>
                     <div bold color-primary>{{mData.add_filter}}</div>
@@ -43,30 +39,24 @@
                             <div padding-start center-line style="font-weight: normal;">{{numberOfItemSelected}}
                                 {{mData.selected}}</div>
                             <div padding-start></div>
-                            <div *ngFor="let item of mData.campaign.list_select; let i = index" padding-start bold
+                            <div *ngFor="let item of mData.emai_sub.list_select; let i = index" padding-start bold
                                 center-line tappable (click)="onClickAssign(i)">
                                 {{item.name}}
                             </div>
                         </div>
 
                         <div flex [hidden]="checked||indeterminate">
-                            <div style="width: 300px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.campaign.col1}}
-                            </div>
-                            <div style="width: 400px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.campaign.col2}}
+                            <div style="width: 500px;" class="bold center-line" (click)="onSort()" tappable>
+                                {{mData.emai_sub.col1}}
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.campaign.col3}}
+                                {{mData.emai_sub.col2}}
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.campaign.col4}}
-                            </div>
-                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.campaign.col5}}
+                                {{mData.emai_sub.col3}}
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.campaign.col6}}
+                                {{mData.emai_sub.col4}}
                             </div>
                         </div>
                     </div>
@@ -77,23 +67,17 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 300px;" class="center-line" (click)="onClickItem(item,1)" tappable>
+                            <div style="width: 500px;" class="center-line" (click)="onClickItem(item,1)" tappable>
                                 {{item.name}}
-                            </div>
-                            <div style="width: 400px;" class="center-line overflow-hidden margin8-end">
-                                {{item.email}}
-                            </div>
-                            <div style="width: 200px;" class="center-line">
-                                {{item.phone}}
                             </div>
                             <div style="width: 200px;" class="center-line">
                                 {{item.assignName}}
                             </div>
-                            <div style="width: 150px;" class="center-line">
+                            <div style="width: 200px;" class="center-line">
                                 {{item.timeCreate | datetimeDefault}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.lastActivity | datetimeDefault}}
+                                {{item.phone}}
                             </div>
                         </div>
                     </div>

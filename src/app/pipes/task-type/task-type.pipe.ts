@@ -27,7 +27,7 @@ export class TaskTypePipe implements PipeTransform {
       return this.mData.meet
     }
     else {
-      return "N/A"
+      return " "
     }
   }
 

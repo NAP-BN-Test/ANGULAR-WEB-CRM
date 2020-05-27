@@ -113,9 +113,18 @@ export class HeaderMenuComponent implements OnInit {
     if (localStorage.getItem('language-key') == "VI") {
       this.language = "Tiếng Việt";
       localStorage.setItem('language-key', "EN");
+
+      this.mService.LoadTitle("EN").then(data => {
+        localStorage.setItem('data-local', JSON.stringify(data))
+      })
+
     } else {
       this.language = "English";
       localStorage.setItem('language-key', "VI");
+
+      this.mService.LoadTitle("VI").then(data => {
+        localStorage.setItem('data-local', JSON.stringify(data))
+      })
     }
 
     let currentUrl = this.router.url;

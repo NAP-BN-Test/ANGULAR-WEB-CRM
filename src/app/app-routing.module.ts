@@ -19,6 +19,7 @@ import { ReportListComponent } from './components/report-list/report-list.compon
 import { ReportDetailComponent } from './components/report-detail/report-detail.component';
 import { ReportDetailAccountComponent } from './components/report-detail-account/report-detail-account.component';
 import { ReportListAccountComponent } from './components/report-list-account/report-list-account.component';
+import { EmailListSubComponent } from './components/email-list-sub/email-list-sub.component';
 
 
 const routes: Routes = [
@@ -91,6 +92,11 @@ const routes: Routes = [
     path: 'email-list',
     component: EmailListComponent,
     data: { title: 'emailList' }
+  },
+  {
+    path: 'email-list-sub',
+    component: EmailListSubComponent,
+    data: { title: 'emailListSub' }
   },
   {
     path: 'email-campain',

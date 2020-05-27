@@ -258,6 +258,7 @@
             "add_email": "Thêm email",
             "add_email_campain": "Thêm chiến dịch mail",
             "contact_intro": "Theo dõi những liên hệ nào là một phần của công ty này.",
+            "email_intro": "Thêm danh sách email marketing với các thông tin sau",
             "add_exist": "Thêm người liên hệ đã có",
             "add_new": "Thêm mới người liên hệ",
             "name": "Tên",
@@ -295,8 +296,10 @@
             "email_send": "Email gửi",
             "email_receive": "Email nhận",
             "owner": "Chủ sở hữu",
-            "step1": "Chọn DS Liên hệ",
-            "step2": "Chọn chiến dịch email",
+            "step1": "Bước 1",
+            "step1_title": "Chọn DS Liên hệ",
+            "step2": "Bước 2",
+            "step2_title": "Chọn chiến dịch email",
             "campain_btn_send": "Bắt đầu lên chiến dịch gửi mail",
             "campain_name": "Tên chiến dịch",
             "campain_sender": "Tên người gửi",
@@ -430,7 +433,7 @@
                     }
                 ]
             },
-            "company": {
+            "   ": {
                 "col1": "TÊN",
                 "col2": "PHÂN CÔNG",
                 "col3": "BƯỚC",
@@ -501,30 +504,37 @@
         },
         "email": {
             "contact_title": "Danh sách Email Marketing",
+            "email_sub_title": "Chi tiết danh sách Email Marketing",
             "email_campain_title": "Chiến dịch gửi mail",
             "selected": "đã chọn",
             "manager_campain": "Quản lý chiến dịch gửi mail",
             "all_email_list": "Tất cả danh sách email",
             "contact": {
-                "name": "TÊN",
-                "email": "EMAIL",
-                "phone": "SỐ ĐIỆN THOẠI",
-                "owner": "NGƯỜI TẠO",
-                "time_create": "NGÀY TẠO",
-                "last_activity": "HĐ GẦN ĐÂY",
+                "col1": "TÊN DANH SÁCH",
+                "col2": "NGƯỜI TẠO",
+                "col3": "NGÀY TẠO",
+                "col4": "LIÊN HỆ",
                 "list_select": [
                     {
-                        "name": "Giao việc",
-                        "index": 1
-                    },
-                    {
                         "name": "Xóa",
-                        "index": 2
+                        "index": 1
+                    }
+                ]
+            },
+            "emai_sub": {
+                "col1": "EMAIL",
+                "col2": "NGƯỜI TẠO",
+                "col3": "THỜI GIAN THÊM",
+                "col4": "SỐ MAIL ĐÃ GỬI",
+                "list_select": [
+                    {
+                        "name": "Xóa khỏi danh sách",
+                        "index": 1
                     }
                 ]
             },
             "campaign": {
-                "col1": "TÊN",
+                "col1": "TÊN CHIẾN DỊCH",
                 "col2": "TIÊU ĐỀ",
                 "col3": "NGÀY TẠO",
                 "col4": "LẦN GỬI GẦN NHẤT",

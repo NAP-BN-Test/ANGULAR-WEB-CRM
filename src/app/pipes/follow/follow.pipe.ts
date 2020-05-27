@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppModuleService } from 'src/app/services/app-module.service';
 
 
 @Pipe({
@@ -7,22 +6,22 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 })
 export class FollowPipe implements PipeTransform {
 
-  mData: any;
+  constructor() { }
 
-  constructor(
-    public mService: AppModuleService
-  ) {
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.company_info;
-    })
-  }
   transform(value: any): any {
-    if (value) {
-      return this.mData.unfollow
+
+    let data = localStorage.getItem('data-local') != null ? JSON.parse(localStorage.getItem('data-local')) : null;
+    if (data) {
+      let mData = data.company_info;
+      if (value) {
+        return mData.unfollow
+      }
+      else {
+        return mData.follow
+      }
     }
-    else {
-      return this.mData.follow
-    }
+    else return "";
+
   }
 
 }

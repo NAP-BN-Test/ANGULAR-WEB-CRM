@@ -13,7 +13,7 @@ export class ToHourPipe implements PipeTransform {
       else if (Number(value) == 7200) return "2h";
       else if (Number(value) == 10800) return "3h";
     } else {
-      return "N/A"
+      return " "
     }
   }
 

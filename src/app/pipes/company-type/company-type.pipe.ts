@@ -1,28 +1,25 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { COMPANY_TYPE } from 'src/app/services/constant/app-constant';
-import { AppModuleService } from 'src/app/services/app-module.service';
 
 @Pipe({
   name: 'companyType'
 })
 export class CompanyTypePipe implements PipeTransform {
 
-  mData: any;
-
-  constructor(
-    public mService: AppModuleService
-  ) {
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.contact.company;
-    })
-  }
+  constructor() { }
 
   transform(value: any): any {
-    if (value == COMPANY_TYPE.LICENCE)
-      return this.mData.licence;
-    else {
-      return this.mData.trial;
-    }
-  }
 
+    let data = localStorage.getItem('data-local') != null ? JSON.parse(localStorage.getItem('data-local')) : null;
+    if (data) {
+      let mData = data.contact.company;
+      if (value == COMPANY_TYPE.LICENCE)
+        return mData.licence;
+      else {
+        return mData.trial;
+      }
+    }
+    else return "";
+
+  }
 }

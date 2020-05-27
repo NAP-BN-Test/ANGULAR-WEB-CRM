@@ -47,16 +47,16 @@
                         </div>
 
                         <div flex [hidden]="checked||indeterminate">
-                            <div style="width: 500px;" class="bold center-line" (click)="onSort()" tappable>
+                            <div style="width: 300px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.report.col1}}
                             </div>
                             <div style="width: 300px;" class="bold center-line margin8-end" (click)="onSort()" tappable>
                                 {{mData.report.col2}}
                             </div>
-                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
+                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.report.col3}}
                             </div>
-                            <div style="width: 120px;" class="bold center-line" (click)="onSort()" tappable>
+                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.report.col4}}
                             </div>
                             <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
@@ -74,16 +74,16 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 500px;" class="center-line" (click)="onClickItem(item)" tappable>
+                            <div style="width: 300px;" class="center-line" (click)="onClickItem(item)" tappable>
                                 {{item.name}}
                             </div>
                             <div style="width: 300px;" class="center-line overflow-hidden margin8-end">
                                 {{item.email}}
                             </div>
-                            <div style="width: 150px;" class="center-line">
+                            <div style="width: 200px;" class="center-line">
                                 {{item.phone}}
                             </div>
-                            <div style="width: 120px;" class="center-line">
+                            <div style="width: 200px;" class="center-line">
                                 {{item.assignName}}
                             </div>
                             <div style="width: 150px;" class="center-line">

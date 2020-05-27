@@ -92,6 +92,7 @@ import { ReportDetailComponent } from './components/report-detail/report-detail.
 import { ChartsModule } from 'ng2-charts';
 import { ReportListAccountComponent } from './components/report-list-account/report-list-account.component';
 import { ReportDetailAccountComponent } from './components/report-detail-account/report-detail-account.component';
+import { EmailListSubComponent } from './components/email-list-sub/email-list-sub.component';
 
 @NgModule({
   declarations: [
@@ -167,7 +168,8 @@ import { ReportDetailAccountComponent } from './components/report-detail-account
     ReportListComponent,
     ReportDetailComponent,
     ReportListAccountComponent,
-    ReportDetailAccountComponent
+    ReportDetailAccountComponent,
+    EmailListSubComponent
   ],
   imports: [
     BrowserModule,
