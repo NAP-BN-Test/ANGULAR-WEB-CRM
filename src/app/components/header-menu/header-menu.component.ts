@@ -54,7 +54,13 @@ export class HeaderMenuComponent implements OnInit {
           this.router.navigate(['contact-menu-contact']);
         }
         else if (indexChild == 2) {
-          this.router.navigate(['contact-menu-company']);
+          this.router.navigate(['contact-menu-company'], { queryParams: { page: 1 } });
+        }
+        else if (indexChild == 3) {
+          this.router.navigate(['logistic_company'], { queryParams: { page: 1 } });
+        }
+        else if (indexChild == 4) {
+          this.router.navigate(['trasport_company'], { queryParams: { page: 1 } });
         }
       }
       else if (index == 2) {

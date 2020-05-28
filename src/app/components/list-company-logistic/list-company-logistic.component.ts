@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
+import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
-import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
 
 @Component({
-  selector: 'app-contact-menu-contact',
-  templateUrl: './contact-menu-contact.component.html',
-  styleUrls: ['./contact-menu-contact.component.scss']
+  selector: 'app-list-company-logistic',
+  templateUrl: './list-company-logistic.component.html',
+  styleUrls: ['./list-company-logistic.component.scss']
 })
-export class ContactMenuContactComponent implements OnInit {
+export class ListCompanyLogisticComponent implements OnInit {
 
-  listContact = [];
+  listData = [];
 
   mData: any;
 
@@ -26,6 +26,7 @@ export class ContactMenuContactComponent implements OnInit {
   numberAssignAll = 0;
   numberAssign = 0;
   numberFollow = 0;
+  numberCustomer = 0;
 
   checked = false;
   indeterminate = false;
@@ -35,59 +36,71 @@ export class ContactMenuContactComponent implements OnInit {
 
   addSub = 0
 
-  page = 1;
-  pageSize = 12;
-  collectionSize: number;
+  mPage: number = 1;
+
+  // searchKey = "";
 
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
+  stageID = null;
+  cityID = null;
 
-  mPage = 1;
+  pageSize = 12;
+  collectionSize: number;
 
   constructor(
     public mService: AppModuleService,
     public router: Router,
+    public activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private cookieService: CookieService
-  ) { }
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.mPage = params.page;
+    });
+  }
 
   ngOnInit() {
+
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.contact;
     });
-
     if (this.mService.getUser()) {
-      this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
+      this.menuSelected = this.cookieService.get('company-menu') ? Number(this.cookieService.get('company-menu')) : 1;
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(this.mPage, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+
     }
     else {
       this.router.navigate(['login']);
     }
-
   }
 
-  onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
-    this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL(
+
+  onLoadData(page: number, companyType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, stepID: number, cityID: number) {
+    this.mService.getApiService().sendRequestGET_LIST_COMPANY(
       this.mService.getUser().username,
       this.mService.getUser().id,
       page,
-      contactType,
+      companyType,
       searchKey,
       timeFrom,
       timeTo,
-      userIDFind
+      userIDFind,
+      stepID,
+      cityID,
+      true
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-
-        this.listContact = data.array;
+        this.listData = data.array;
 
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
         this.numberAssignAll = data.assignAll;
         this.numberAssign = data.assign;
         this.numberFollow = data.follow;
+        this.numberCustomer = data.customer;
 
         if (this.menuSelected == 1) {
           this.collectionSize = data.all;
@@ -99,16 +112,18 @@ export class ContactMenuContactComponent implements OnInit {
           this.collectionSize = data.assign;
         } else if (this.menuSelected == 5) {
           this.collectionSize = data.assignAll;
+        } else if (this.menuSelected == 6) {
+          this.collectionSize = data.customer;
         }
       }
-    })
+    });
   }
 
   pow = 0;
   onSort() {
     this.pow += 1;
 
-    this.listContact = this.listContact.sort((a, b) => {
+    this.listData = this.listData.sort((a, b) => {
       if (a.name > b.name) return Math.pow(-1, this.pow);
       if (a.name < b.name) return Math.pow(-1, this.pow + 1);
       return 0;
@@ -118,14 +133,18 @@ export class ContactMenuContactComponent implements OnInit {
   onClickMenu(index: number) {
     this.mPage = 1;
     this.menuSelected = index;
-    this.cookieService.set('contact-menu', index + "");
+    this.cookieService.set('company-menu', index + "");
 
-    this.onLoadData(1, index, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.router.navigate([], {
+      queryParams: { page: 1 }
+    })
 
+    this.onLoadData(1, index, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
   }
 
-  onCheckBoxChange(event) {
-    let checked = event.checked;
+  onCheckBoxChange(item) {
+    let checked = item.checked;
+
     if (checked) this.numberOfItemSelected += 1;
     else this.numberOfItemSelected -= 1;
 
@@ -145,13 +164,13 @@ export class ContactMenuContactComponent implements OnInit {
     this.numberOfItemSelected = 0;
 
     if (this.checked) {
-      this.listContact.forEach(item => {
+      this.listData.forEach(item => {
         item.checked = false;
       })
     }
     else {
-      this.listContact.forEach(it => {
-        let obj = this.listContact.find(it1 => {
+      this.listData.forEach(it => {
+        let obj = this.listData.find(it1 => {
           return it1.id == it.id;
         });
         obj.checked = true;
@@ -162,32 +181,19 @@ export class ContactMenuContactComponent implements OnInit {
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+
+    this.router.navigate([], {
+      queryParams: { page: event }
+    })
+  }
+
+  onClickItem(item) {
+    this.router.navigate(['company-detail'], { state: { params: item } });
   }
 
   onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
-  }
-
-  onClickItem(item, type) {
-    if (type == 1) {
-      this.router.navigate(['contact-detail'], { state: { params: item } });
-    } else if (type == 2) {
-      if (item.companyID > 0) {
-        this.router.navigate(['company-detail'], { state: { params: item } });
-      }
-    }
-  }
-
-  onClickAdd() {
-    this.addSub = 1;
-  }
-
-  onClickCloseAdd(event) {
-    if (event) {
-      this.listContact.unshift(event)
-    }
-    this.addSub = 0
+    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
   }
 
   onClickAssign(index) {
@@ -199,17 +205,19 @@ export class ContactMenuContactComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           let listID = [];
-          this.listContact.forEach(item => {
+          this.listData.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-          this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
+          this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
+
+
             this.mService.getUser().username,
             this.mService.getUser().id,
             res,
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
+              this.listData.forEach(item => {
                 if (item.checked) {
                   item.assignName = data.obj ? data.obj.name : "";
                   item.checked = false;
@@ -229,10 +237,10 @@ export class ContactMenuContactComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           let listID = [];
-          this.listContact.forEach(item => {
+          this.listData.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-          this.mService.getApiService().sendRequestDELETE_CONTACT(
+          this.mService.getApiService().sendRequestDELETE_COMPANY(
 
 
             this.mService.getUser().username,
@@ -240,13 +248,13 @@ export class ContactMenuContactComponent implements OnInit {
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
+              this.listData.forEach(item => {
                 if (item.checked) {
-                  let index = this.listContact.findIndex(itm => {
+                  let index = this.listData.findIndex(itm => {
                     return itm.id === item.id;
                   });
                   if (index > -1) {
-                    this.listContact.splice(index, 1)
+                    this.listData.splice(index, 1)
                   }
                   this.checked = false;
                   this.indeterminate = false;
@@ -259,12 +267,24 @@ export class ContactMenuContactComponent implements OnInit {
     }
   }
 
+  onClickAdd() {
+    this.addSub = 1;
+  }
+
+  onClickCloseAdd(event) {
+    if (event) {
+      this.listData.unshift(event)
+    }
+    this.addSub = 0
+  }
+
   onClickSort(event) {
     this.timeFrom = event.timeFrom;
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
+    this.stageID = event.stepID;
+    this.cityID = event.cityID;
 
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-call'), event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), event.timeFrom, event.timeTo, event.userID, event.stepID, event.cityID);
   }
-
 }

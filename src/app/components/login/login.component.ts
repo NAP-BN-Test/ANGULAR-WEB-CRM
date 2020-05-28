@@ -85,7 +85,8 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('user-info', JSON.stringify(data.obj));
 
-        this.router.navigate(['contact-menu-company']);
+        this.router.navigate(['contact-menu-company'], { queryParams: { page: 1 } });
+
       } else {
         this.loginMessage = data.message;
       }

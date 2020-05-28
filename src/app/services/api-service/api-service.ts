@@ -3,7 +3,7 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.86.6:3002/";
+    // mUrl: string = "http://192.168.1.10:3002/";
     mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "";
@@ -72,7 +72,9 @@ export class ApiService extends HttpClient {
         timeTo: string,
         userIDFind: number,
         stageID: number,
-        cityID: number
+        cityID: number,
+        logistic?: any,
+        transport?: any
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_COMPANY,
             ParamBuilder.builder()
@@ -87,6 +89,8 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("userIDFind", userIDFind)
                 .addIgnoreNull("stageID", stageID)
                 .addIgnoreNull("cityID", cityID)
+                .addIgnoreNull("logistic", logistic)
+                .addIgnoreNull("transport", transport)
                 .add("companyType", companyType));
     }
 

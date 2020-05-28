@@ -20,6 +20,8 @@ import { ReportDetailComponent } from './components/report-detail/report-detail.
 import { ReportDetailAccountComponent } from './components/report-detail-account/report-detail-account.component';
 import { ReportListAccountComponent } from './components/report-list-account/report-list-account.component';
 import { EmailListSubComponent } from './components/email-list-sub/email-list-sub.component';
+import { ListCompanyLogisticComponent } from './components/list-company-logistic/list-company-logistic.component';
+import { ListCompanyTransportComponent } from './components/list-company-transport/list-company-transport.component';
 
 
 const routes: Routes = [
@@ -121,7 +123,17 @@ const routes: Routes = [
   {
     path: 'report-list-account',
     component: ReportListAccountComponent,
-    data: { title: 'reportDetailAccount' }
+    data: { title: 'reportListAccount' }
+  },
+  {
+    path: 'logistic_company',
+    component: ListCompanyLogisticComponent,
+    data: { title: 'listCompanyLogistic' }
+  },
+  {
+    path: 'trasport_company',
+    component: ListCompanyTransportComponent,
+    data: { title: 'listCompanyTransport' }
   },
   {
     path: '',

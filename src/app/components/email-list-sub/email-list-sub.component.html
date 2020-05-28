@@ -18,7 +18,7 @@
             <div padding32-horizontal width-20>
                 <div>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.all_email_list}}({{numberAll}})</div>
+                        {{mData.all_email_list_sub}}({{numberAll}})</div>
                 </div>
                 <!-- <div padding-top>
                     <div bold color-primary>{{mData.add_filter}}</div>
@@ -46,7 +46,7 @@
                         </div>
 
                         <div flex [hidden]="checked||indeterminate">
-                            <div style="width: 500px;" class="bold center-line" (click)="onSort()" tappable>
+                            <div style="width: 400px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.emai_sub.col1}}
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
@@ -67,7 +67,7 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 500px;" class="center-line" (click)="onClickItem(item,1)" tappable>
+                            <div style="width: 400px;" class="center-line">
                                 {{item.name}}
                             </div>
                             <div style="width: 200px;" class="center-line">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <div center padding-top>
+                <div center padding-top *ngIf="collectionSize">
                     <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
                         [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>

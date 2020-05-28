@@ -32,9 +32,6 @@
                     <div padding-bottom wrap [class.bold]="menuSelected==6" tappable (click)="onClickMenu(6)">
                         {{mData.my_customer}}({{numberCustomer}})</div>
                 </div>
-                <!-- <div padding32-top>
-                    <div bold color-primary>{{mData.company.add_filter}}</div>
-                </div> -->
             </div>
 
             <div width-80>
@@ -119,8 +116,8 @@
                     </div>
                 </div>
 
-                <div center padding-top>
-                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="8" [(page)]="mPage"
+                <div center padding-top *ngIf="collectionSize">
+                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="8" [page]="mPage"
                         [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>
                 </div>

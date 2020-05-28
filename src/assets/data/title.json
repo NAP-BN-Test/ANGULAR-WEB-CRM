@@ -43,7 +43,16 @@
                         {
                             "name": "Công ty",
                             "index": 2
+                        },
+                        {
+                            "name": "Logistic",
+                            "index": 3
+                        },
+                        {
+                            "name": "Transport",
+                            "index": 4
                         }
+                        
                     ]
                 },
                 {
@@ -433,7 +442,7 @@
                     }
                 ]
             },
-            "   ": {
+            "company": {
                 "col1": "TÊN",
                 "col2": "PHÂN CÔNG",
                 "col3": "BƯỚC",
@@ -509,6 +518,7 @@
             "selected": "đã chọn",
             "manager_campain": "Quản lý chiến dịch gửi mail",
             "all_email_list": "Tất cả danh sách email",
+            "all_email_list_sub": "Tất cả chi tiết danh sách email",
             "contact": {
                 "col1": "TÊN DANH SÁCH",
                 "col2": "NGƯỜI TẠO",

@@ -28,7 +28,7 @@ export class ActivityListCallComponent implements OnInit {
   numberAll = 0;
 
   pageSize = 12;
-  collectionSize = 0;
+  collectionSize: number;
 
   timeFrom = null;
   timeTo = null;

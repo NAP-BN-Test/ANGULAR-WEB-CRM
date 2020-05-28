@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 import { LANGUAGE_TYPE } from './constant/app-constant';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -157,5 +158,14 @@ export class AppModuleService {
 
   remove(toast) {
     this.toasts = this.toasts.filter(t => t !== toast);
+  }
+
+  //----------------------------------------------------//
+
+  private dataObserved = new BehaviorSubject<any>('');
+  currentEvent = this.dataObserved.asObservable();
+
+  publishEvent(name: string, params: any) {
+    this.dataObserved.next({ name: name, params: params });
   }
 }

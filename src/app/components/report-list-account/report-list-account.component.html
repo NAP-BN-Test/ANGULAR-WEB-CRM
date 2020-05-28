@@ -96,7 +96,7 @@
                     </div>
                 </div>
 
-                <div center padding-top>
+                <div center padding-top *ngIf="collectionSize">
                     <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
                         [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
                     </ngb-pagination>

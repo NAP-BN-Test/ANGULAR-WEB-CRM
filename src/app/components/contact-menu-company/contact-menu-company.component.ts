@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { Utils } from 'src/app/services/core/app/utils';
 import { MatDialog } from '@angular/material';
 import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -37,7 +36,7 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   addSub = 0
 
-  mPage = 1;
+  mPage: number = 1;
 
   // searchKey = "";
 
@@ -48,28 +47,36 @@ export class ContactMenuCompanyComponent implements OnInit {
   cityID = null;
 
   pageSize = 12;
-  collectionSize = 0;
+  collectionSize: number;
 
   constructor(
     public mService: AppModuleService,
     public router: Router,
+    public activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private cookieService: CookieService
-  ) { }
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.mPage = params.page;
+    });
+  }
 
   ngOnInit() {
+
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.contact;
     });
     if (this.mService.getUser()) {
       this.menuSelected = this.cookieService.get('company-menu') ? Number(this.cookieService.get('company-menu')) : 1;
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+      this.onLoadData(this.mPage, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+
     }
     else {
       this.router.navigate(['login']);
     }
   }
+
 
   onLoadData(page: number, companyType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, stepID: number, cityID: number) {
     this.mService.getApiService().sendRequestGET_LIST_COMPANY(
@@ -127,6 +134,10 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.menuSelected = index;
     this.cookieService.set('company-menu', index + "");
 
+    this.router.navigate([], {
+      queryParams: { page: 1 }
+    })
+
     this.onLoadData(1, index, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
   }
 
@@ -170,6 +181,10 @@ export class ContactMenuCompanyComponent implements OnInit {
   onClickPagination(event) {
     this.checked = false;
     this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+
+    this.router.navigate([], {
+      queryParams: { page: event }
+    })
   }
 
   onClickItem(item) {
@@ -271,6 +286,5 @@ export class ContactMenuCompanyComponent implements OnInit {
 
     this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), event.timeFrom, event.timeTo, event.userID, event.stepID, event.cityID);
   }
-
 
 }

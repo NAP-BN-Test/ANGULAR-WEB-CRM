@@ -28,7 +28,7 @@ export class ActivityListEmailComponent implements OnInit {
   addSub = 0
 
   pageSize = 12;
-  collectionSize = 0;
+  collectionSize: number;
 
   timeFrom = null;
   timeTo = null;

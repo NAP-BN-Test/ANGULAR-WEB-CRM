@@ -37,7 +37,7 @@ export class ReportListComponent implements OnInit {
 
   page = 1;
   pageSize = 12;
-  collectionSize = 0;
+  collectionSize: number;
 
   timeFrom = null;
   timeTo = null;

@@ -37,7 +37,7 @@ export class EmailListSubComponent implements OnInit {
 
   page = 1;
   pageSize = 12;
-  collectionSize = 0;
+  collectionSize: number;
 
   timeFrom = null;
   timeTo = null;
@@ -167,16 +167,6 @@ export class EmailListSubComponent implements OnInit {
 
   onSearchChange(event) {
     this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
-  }
-
-  onClickItem(item, type) {
-    if (type == 1) {
-      this.router.navigate(['contact-detail'], { state: { params: item } });
-    } else if (type == 2) {
-      if (item.companyID > 0) {
-        this.router.navigate(['company-detail'], { state: { params: item } });
-      }
-    }
   }
 
   onClickAdd() {
