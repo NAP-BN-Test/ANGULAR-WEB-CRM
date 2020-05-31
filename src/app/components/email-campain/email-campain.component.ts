@@ -69,11 +69,10 @@ export class EmailCampainComponent implements OnInit {
   }
 
   onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
-    this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL(
+    this.mService.getApiService().sendRequestGET_LIST_MAIL_CAMPAIN(
       this.mService.getUser().username,
       this.mService.getUser().id,
       page,
-      contactType,
       searchKey,
       timeFrom,
       timeTo,
@@ -83,7 +82,7 @@ export class EmailCampainComponent implements OnInit {
 
         this.listContact = data.array;
 
-        this.numberAll = data.all;
+        this.numberAll = data.count;
         this.numberUnAssign = data.unassign;
         this.numberAssignAll = data.assignAll;
         this.numberAssign = data.assign;

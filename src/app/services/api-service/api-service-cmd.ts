@@ -139,4 +139,21 @@ export class ApiCmd {
     public static ADD_USER: string = "crm/add_user";
 
 
+    public static GET_MAIL_LIST: string = "crm/get_mail_list";
+
+    public static GET_MAIL_LIST_DETAIL: string = "crm/get_mail_list_detail";
+
+    public static GET_LIST_MAIL_CAMPAIN: string = "crm/get_list_mail_campain";
+
+
+    public static GET_LIST_REPORT_BY_CAMPAIN: string = "crm/get_list_report_by_campain";
+
+    public static GET_LIST_REPORT_BY_USER: string = "crm/get_list_report_by_user";
+
+    public static GET_REPORT_BY_CAMPAIN_SUMMARY: string = "crm/get_report_by_campain_summary";
+
+    public static GET_REPORT_BY_CAMPAIN_OPEN_MAIL: string = "crm/get_report_by_campain_open_mail";
+
+
+
 }

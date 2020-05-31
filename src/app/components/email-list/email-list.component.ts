@@ -69,21 +69,21 @@ export class EmailListComponent implements OnInit {
   }
 
   onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
-    this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL(
+    this.mService.getApiService().sendRequestGET_MAIL_LIST(
       this.mService.getUser().username,
       this.mService.getUser().id,
       page,
-      contactType,
       searchKey,
       timeFrom,
       timeTo,
       userIDFind
     ).then(data => {
+
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
         this.listContact = data.array;
 
-        this.numberAll = data.all;
+        this.numberAll = data.count;
         this.numberUnAssign = data.unassign;
         this.numberAssignAll = data.assignAll;
         this.numberAssign = data.assign;

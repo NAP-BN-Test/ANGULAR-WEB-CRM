@@ -43,6 +43,10 @@ export class ReportDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onLoadData() {
+    
+  }
+
   onClickMenu(index) {
     this.menuIndex = index;
   }

@@ -77,20 +77,20 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 300px;" class="center-line" (click)="onClickItem(item,1)" tappable>
+                            <div style="width: 300px;" class="center-line">
                                 {{item.name}}
                             </div>
-                            <div style="width: 400px;" class="center-line overflow-hidden margin8-end">
-                                {{item.email}}
+                            <div style="width: 400px;" class="center-line">
+                                {{item.subject}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.phone}}
+                                {{item.createTime}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.assignName}}
+                                {{item.nearestSend}}
                             </div>
                             <div style="width: 150px;" class="center-line">
-                                {{item.timeCreate | datetimeDefault}}
+                                {{item.owner}}
                             </div>
                             <div style="width: 200px;" class="center-line">
                                 {{item.lastActivity | datetimeDefault}}

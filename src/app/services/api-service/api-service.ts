@@ -3,10 +3,10 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.10:3002/";
-    mUrl: string = "http://163.44.192.123:3302/";
+    mUrl: string = "http://192.168.1.237:3002/";
+    // mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
-    mSecretKey: string = "";
+    mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
     mUserID: string = "";
 
@@ -1026,7 +1026,7 @@ export class ApiService extends HttpClient {
                 .add("activityIDs", activityIDs));
     }
 
-    //67
+    //==============================
     public sendRequestADD_USER(username: string, userID: number, userReg: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_USER,
             ParamBuilder.builder()
@@ -1039,5 +1039,106 @@ export class ApiService extends HttpClient {
                 .add("regPhone", userReg.phone)
                 .add("regEmail", userReg.email)
                 .add("regPassword", userReg.password));
+    }
+
+    //==============================
+    public sendRequestGET_MAIL_LIST(
+        username: string,
+        userID: number,
+        page: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_MAIL_LIST,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestGET_MAIL_LIST_DETAIL(
+        username: string,
+        userID: number,
+        page: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_MAIL_LIST_DETAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestGET_LIST_MAIL_CAMPAIN(
+        username: string,
+        userID: number,
+        page: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_MAIL_CAMPAIN,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestGET_LIST_REPORT_BY_CAMPAIN(
+        username: string,
+        userID: number,
+        page: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_REPORT_BY_CAMPAIN,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    public sendRequestGET_LIST_REPORT_BY_USER(
+        username: string,
+        userID: number,
+        page: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number
+    ): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_REPORT_BY_USER,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY(): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_SUMMARY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_OPEN_MAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
     }
 }

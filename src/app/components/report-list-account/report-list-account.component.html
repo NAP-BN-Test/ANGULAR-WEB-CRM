@@ -81,16 +81,16 @@
                                 {{item.email}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.phone}}
+                                {{item.startTime | datetimeDefault}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.assignName}}
+                                {{item.endTime | datetimeDefault}}
                             </div>
                             <div style="width: 150px;" class="center-line">
-                                {{item.timeCreate | datetimeDefault}}
+                                {{item.receive}}
                             </div>
                             <div style="width: 150px;" class="center-line">
-                                {{item.lastActivity | datetimeDefault}}
+                                {{item.cancel}}
                             </div>
                         </div>
                     </div>

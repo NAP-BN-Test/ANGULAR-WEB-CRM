@@ -20,9 +20,6 @@
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
                         {{mData.all_email_list_sub}}({{numberAll}})</div>
                 </div>
-                <!-- <div padding-top>
-                    <div bold color-primary>{{mData.add_filter}}</div>
-                </div> -->
             </div>
 
             <div width-80>
@@ -68,16 +65,16 @@
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
                             <div style="width: 400px;" class="center-line">
-                                {{item.name}}
+                                {{item.email}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.assignName}}
+                                {{item.owner}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.timeCreate | datetimeDefault}}
+                                {{item.createTime | datetimeDefault}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.phone}}
+                                {{item.mailCount}}
                             </div>
                         </div>
                     </div>
