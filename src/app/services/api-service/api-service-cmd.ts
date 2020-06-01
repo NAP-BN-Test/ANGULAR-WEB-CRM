@@ -154,6 +154,9 @@ export class ApiCmd {
 
     public static GET_REPORT_BY_CAMPAIN_OPEN_MAIL: string = "crm/get_report_by_campain_open_mail";
 
+    public static GET_REPORT_BY_USER_SUMMARY: string = "crm/get_report_by_user_summary";
+
+    public static GET_REPORT_BY_USER_MAIL_SEND: string = "crm/get_report_by_user_mail_send";
 
 
 }

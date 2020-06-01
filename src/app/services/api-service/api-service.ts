@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.237:3002/";
-    // mUrl: string = "http://163.44.192.123:3302/";
+    // mUrl: string = "http://192.168.1.10:3002/";
+    mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
@@ -1136,6 +1136,24 @@ export class ApiService extends HttpClient {
     //==============================
     public sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_OPEN_MAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestGET_REPORT_BY_USER_SUMMARY(): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_USER_SUMMARY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestGET_REPORT_BY_USER_MAIL_SEND(): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_USER_MAIL_SEND,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)

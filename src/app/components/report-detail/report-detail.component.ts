@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import { Location } from '@angular/common';
+import { AppModuleService } from 'src/app/services/app-module.service';
+import { async } from '@angular/core/testing';
+import { STATUS } from 'src/app/services/constant/app-constant';
 
 @Component({
   selector: 'app-report-detail',
@@ -13,11 +16,13 @@ export class ReportDetailComponent implements OnInit {
 
   menuIndex = 1;
 
+  mData: any;
+
   public pieChartOptions: ChartOptions = {
     responsive: true,
   };
   public pieChartLabels: Label[] = [['Đã mở'], ['Không được mở']];
-  public pieChartData: SingleDataSet = [60, 40];
+  public pieChartData: SingleDataSet = [];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
@@ -26,29 +31,90 @@ export class ReportDetailComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  barChartLabels: Label[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
+  barChartLabels: Label[] = [];
+
   barChartType: ChartType = 'bar';
 
   barChartData: ChartDataSets[] = [
-    { data: [1, 0, 0, 3, 0, 0], label: 'Tổng số lượt mở' }
+    { data: [], label: 'Tổng số lượt mở' }
   ];
 
+  objSummary: any;
+  objMailOpen: any;
+
   constructor(
-    private location: Location
+    private location: Location,
+    public mService: AppModuleService,
+
   ) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
 
   ngOnInit(): void {
+    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
+      this.mData = data.email;
+    });
+
+    this.onLoadDataSummary();
   }
 
-  onLoadData() {
-    
+  onLoadDataSummary() {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY().then(async data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.objSummary = data.obj;
+
+        let percentOpen = Number(data.obj.percentOpen.replace('%', ''));
+
+        this.pieChartData = [];
+        this.pieChartData.push(percentOpen);
+        this.pieChartData.push(100 - percentOpen);
+      }
+    })
+  }
+
+  tbMailOpen = [];
+  onLoadMailOpen() {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL().then(async data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.objMailOpen = data.obj;
+
+        let labels = [];
+        let datas = [];
+        data.array.forEach(item => {
+          labels.push(item.date);
+          datas.push(item.value);
+
+          if (item.value > 0) {
+            this.tbMailOpen.push({
+              date: item.date,
+              total: item.value
+            })
+          }
+        });
+        this.barChartLabels = labels;
+        this.barChartData[0].data = datas;
+      }
+    })
   }
 
   onClickMenu(index) {
     this.menuIndex = index;
+
+    if (index == 1) {
+      this.onLoadDataSummary();
+    }
+    else if (index == 2) {
+      this.onLoadMailOpen();
+    }
+    else if (index == 2) {
+    }
+    else if (index == 2) {
+    }
+    else if (index == 2) {
+    }
+    else if (index == 2) {
+    }
   }
 
   onClickBack() {
