@@ -1061,6 +1061,7 @@ export class ApiService extends HttpClient {
     public sendRequestGET_MAIL_LIST_DETAIL(
         username: string,
         userID: number,
+        mailListID: number,
         page: number,
         searchKey: string,
         timeFrom: string,
@@ -1071,7 +1072,8 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("mailListID", mailListID));
     }
 
     //==============================
@@ -1125,21 +1127,24 @@ export class ApiService extends HttpClient {
     }
 
     //==============================
-    public sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY(): Promise<any> {
+    public sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY(campainID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_SUMMARY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("campainID", campainID));
     }
 
     //==============================
-    public sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(): Promise<any> {
+    public sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(campainID: number, daies): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_OPEN_MAIL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("campainID", campainID)
+                .add("daies", daies));
     }
 
     //==============================
@@ -1158,5 +1163,78 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestGET_MAIL_LIST_OPTION(): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_MAIL_LIST_OPTION,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey));
+    }
+
+    //==============================
+    public sendRequestADD_MAIL_CAMPAIN(userID: number, obj: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_MAIL_CAMPAIN,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("userID", userID)
+                .add("name", obj.name)
+                .add("subject", obj.subject)
+                .add("mailListID", obj.mailListID)
+                .add("body", obj.body));
+    }
+
+    //==============================
+    public sendRequestADD_MAIL_LIST(userID: number, obj: any, listMail?: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_MAIL_LIST,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("userID", userID)
+                .add("name", obj.name)
+                .add("phone", obj.phone)
+                .addIgnoreNull("listMail", listMail));
+    }
+
+    //==============================
+    public sendRequestDELETE_MAIL_LIST(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_MAIL_LIST,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
+    }
+
+    //==============================
+    public sendRequestDELETE_MAIL_LIST_DETAIL(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_MAIL_LIST_DETAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
+    }
+
+    //==============================
+    public sendRequestADD_MAIL_LIST_DETAIL(userID: number, mailListID: number, listMail: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_MAIL_LIST_DETAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("userID", userID)
+                .add("mailListID", mailListID)
+                .add("listMail", listMail));
     }
 }

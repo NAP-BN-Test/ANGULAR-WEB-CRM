@@ -8,6 +8,8 @@
 
     <div padding height-90>
 
+        <div padding-bottom>Thêm mới chiến dịch mail với các thông tin sau</div>
+
         <ul ngbNav #nav="ngbNav" class="nav-tabs">
             <li ngbNavItem (click)="onClickStep(1)">
                 <a ngbNavLink>{{mData.step1}}</a>
@@ -17,68 +19,34 @@
             </li>
         </ul>
 
-        <div [hidden]="btnType!=1" height-80>
-            <div padding-top>{{mData.step1_title}}</div>
-
-            <div padding>
-                <!-- <input type="search" [placeholder]="mData.placeholder" class="form-control"
-                    (change)="onSeachCompany($event)" /> -->
-            </div>
-
-            <!-- <div padding-horizontal height-90 style="overflow-y: scroll;">
-                <div padding-top *ngFor="let item of listCompany">
-                    <div padding8 class="m-contact">
-                        <div bold>{{item.name}}</div>
-                        <div>{{item.phone | na}}</div>
-                        <div>
-                            <button class="btn-add btn-sm" type="button"
-                                (click)="onClickAddCompany(item, 1)">{{mData.add_company}}</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-
-        <div [hidden]="btnType!=2">
-            <div padding-top>{{mData.step2_title}}</div>
-
-            <div padding32-top>
+        <div [hidden]="btnType!=1">
+            <div padding-top>
 
                 <div padding-start center-line>
-                    <div class="col-3" font6>{{mData.campain_name}}</div>
+                    <div class="col-3" font6>Danh sách email</div>
                     <div class="col-9">
-                        <select class="custom-select" width-100 [(ngModel)]="jobTile">
-                            <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
+                        <select class="custom-select" width-100 [(ngModel)]="mailListID">
+                            <option *ngFor="let item of listMailList" [ngValue]="item.id">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
 
                 <div padding-start padding-top center-line>
-                    <div class="col-3" font6>{{mData.campain_sender}}</div>
+                    <div class="col-3" font6>{{mData.campain_name}}</div>
                     <div class="col-9">
                         <input class="form-control" type="text" [(ngModel)]="name">
                     </div>
                 </div>
 
                 <div padding-start padding-top center-line>
-                    <div class="col-3" font6>{{mData.campain_email_send}}</div>
+                    <div class="col-3" font6>Tiêu đề</div>
                     <div class="col-9">
-                        <select class="custom-select" width-100 [(ngModel)]="jobTile">
-                            <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
-                        </select>
+                        <input class="form-control" type="text" [(ngModel)]="subject">
                     </div>
                 </div>
-
-                <div padding-start padding-top center-line>
-                    <div class="col-3" font6>{{mData.campain_email_receive}}</div>
-                    <div class="col-9">
-                        <input class="form-control" type="text" [(ngModel)]="email">
-                    </div>
-                </div>
-
             </div>
 
-            <div padding32-top>
+            <!-- <div padding32-top>
 
                 <div padding-start padding-top center-line>
                     <mat-radio-group (change)="onRadioChange($event)">
@@ -95,7 +63,16 @@
                         </select>
                     </div>
                 </div>
+            </div> -->
+        </div>
+
+        <div [hidden]="btnType!=2">
+            <div padding-top>
+
+                <quill-editor [(ngModel)]="quillContent" [styles]="{height: '400px'}"></quill-editor>
+
             </div>
+
         </div>
 
     </div>

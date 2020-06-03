@@ -17,11 +17,9 @@ export class EmailListAddComponent implements OnInit {
   mData: any;
 
   name = "";
-  gender = -1;
-  jobTile = -1;
   phone = "";
-  email = "";
-  address = "";
+
+  btnType = 1;
 
   listContact = [];
 
@@ -46,11 +44,7 @@ export class EmailListAddComponent implements OnInit {
     this.closeAddSub.emit();
 
     this.name = "";
-    this.gender = -1;
-    this.jobTile = -1;
     this.phone = "";
-    this.email = "";
-    this.address = "";
   }
 
   onClickAddExist() {
@@ -62,39 +56,31 @@ export class EmailListAddComponent implements OnInit {
 
   }
 
-  onClickGenger(value) {
-    this.gender = value;
-  }
-
   onClickSave() {
-    if (!this.btnAddExist) {
+    if (this.name.trim() != "" && this.phone.trim() != "") {
       let obj = {
         name: this.name,
-        gender: this.gender,
-        jobTile: this.jobTile,
         phone: this.phone,
-        email: this.email,
-        address: this.address,
+        owner: this.mService.getUser().name,
+        createTime: new Date()
       }
 
-      this.mService.getApiService().sendRequestADD_CONTACT(
-        this.mService.getUser().username,
+      this.mService.getApiService().sendRequestADD_MAIL_LIST(
         this.mService.getUser().id,
-        this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-        obj, this.addOut
+        obj
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
-          this.closeAddSub.emit(data.obj);
+          this.closeAddSub.emit(obj);
 
           this.name = "";
-          this.gender = -1;
-          this.jobTile = -1;
           this.phone = "";
-          this.email = "";
-          this.address = "";
         }
       })
     }
+  }
+
+  onClickStep(index) {
+    this.btnType = index;
   }
 
   onSeachContact(event) {

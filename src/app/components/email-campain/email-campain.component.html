@@ -84,10 +84,10 @@
                                 {{item.subject}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.createTime}}
+                                {{item.createTime | datetimeDefault}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.nearestSend}}
+                                {{item.nearestSend | datetimeDefault}}
                             </div>
                             <div style="width: 150px;" class="center-line">
                                 {{item.owner}}

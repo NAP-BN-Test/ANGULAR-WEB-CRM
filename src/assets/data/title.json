@@ -52,7 +52,6 @@
                             "name": "Transport",
                             "index": 4
                         }
-                        
                     ]
                 },
                 {
@@ -105,10 +104,6 @@
                         {
                             "name": "Theo chiến dịch",
                             "index": 1
-                        },
-                        {
-                            "name": "Theo người SD",
-                            "index": 2
                         }
                     ]
                 }
@@ -304,11 +299,12 @@
             "create_new_comapny": "Thêm mới công ty",
             "email_send": "Email gửi",
             "email_receive": "Email nhận",
-            "owner": "Chủ sở hữu",
+            "owner": "Người tạo",
             "step1": "Bước 1",
             "step1_title": "Chọn DS Liên hệ",
             "step2": "Bước 2",
             "step2_title": "Chọn chiến dịch email",
+            "add_mail": "Chọn danh sách email",
             "campain_btn_send": "Bắt đầu lên chiến dịch gửi mail",
             "campain_name": "Tên chiến dịch",
             "campain_sender": "Tên người gửi",
@@ -548,7 +544,7 @@
                 "col2": "TIÊU ĐỀ",
                 "col3": "NGÀY TẠO",
                 "col4": "LẦN GỬI GẦN NHẤT",
-                "col5": "CHỦ SỞ HỮU",
+                "col5": "NGƯỜI TẠO",
                 "col6": "HOẠT ĐỘNG",
                 "list_select": [
                     {
@@ -918,7 +914,7 @@
             "create_new_comapny": "Create a new company",
             "email_send": "Email gửi",
             "email_receive": "Email nhận",
-            "owner": "Chủ sở hữu",
+            "owner": "Người tạo",
             "step1": "Bước 1",
             "step2": "Bước 2",
             "step3": "Bước 3"
@@ -1120,7 +1116,7 @@
                 "col2": "TIÊU ĐỀ",
                 "col3": "NGÀY TẠO",
                 "col4": "LẦN GỬI GẦN NHẤT",
-                "col5": "CHỦ SỞ HỮU",
+                "col5": "NGƯỜI TẠO",
                 "col6": "HOẠT ĐỘNG",
                 "list_select": [
                     {

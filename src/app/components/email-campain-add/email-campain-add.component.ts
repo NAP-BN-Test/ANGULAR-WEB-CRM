@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
@@ -9,23 +9,23 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./email-campain-add.component.scss']
 })
 export class EmailCampainAddComponent implements OnInit {
+  @ViewChild('editor') editor;
 
   @Output("closeAddSub") closeAddSub = new EventEmitter();
 
   @Input("addOut") addOut: number;
-
-  btnType = 1;
 
   sendByTime = false;
 
   mData: any;
 
   name = "";
-  gender = -1;
-  jobTile = -1;
-  phone = "";
-  email = "";
-  address = "";
+  subject = "";
+  mailListID = -1;
+
+  btnType = 1;
+
+  quillContent = "";
 
   listContact = [];
 
@@ -33,7 +33,8 @@ export class EmailCampainAddComponent implements OnInit {
   btnCanClicked = true;
 
   listGender = LIST_SELECT.LIST_GENDER;
-  listJobTile = LIST_SELECT.LIST_JOB_TILE;
+  listMailList = [];
+
 
   constructor(
     public mService: AppModuleService,
@@ -44,17 +45,20 @@ export class EmailCampainAddComponent implements OnInit {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.add_sub_detail;
     });
+
+    this.mService.getApiService().sendRequestGET_MAIL_LIST_OPTION().then(data => {
+      if (data.status == STATUS.SUCCESS)
+        this.listMailList = data.array;
+    })
   }
 
   onClickClose() {
     this.closeAddSub.emit();
 
     this.name = "";
-    this.gender = -1;
-    this.jobTile = -1;
-    this.phone = "";
-    this.email = "";
-    this.address = "";
+    this.mailListID = -1;
+    this.subject = "";
+    this.quillContent = "";
   }
 
   onClickAddExist() {
@@ -65,40 +69,29 @@ export class EmailCampainAddComponent implements OnInit {
     this.btnAddExist = false;
   }
 
-  onClickStep(index) {
-    this.btnType = index;
-  }
-
-  onClickGenger(value) {
-    this.gender = value;
-  }
-
   onClickSave() {
-    if (!this.btnAddExist) {
+    if (this.name.trim() != "" && this.subject.trim() != "" && this.quillContent.trim() != "" && this.mailListID != -1) {
       let obj = {
         name: this.name,
-        gender: this.gender,
-        jobTile: this.jobTile,
-        phone: this.phone,
-        email: this.email,
-        address: this.address,
+        mailListID: this.mailListID,
+        subject: this.subject,
+        body: this.quillContent,
+        createTime: new Date(),
+        nearestSend: new Date(),
+        owner: this.mService.getUser().name
       }
 
-      this.mService.getApiService().sendRequestADD_CONTACT(
-        this.mService.getUser().username,
+      this.mService.getApiService().sendRequestADD_MAIL_CAMPAIN(
         this.mService.getUser().id,
-        this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-        obj, this.addOut
+        obj
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
-          this.closeAddSub.emit(data.obj);
+          this.closeAddSub.emit(obj);
 
           this.name = "";
-          this.gender = -1;
-          this.jobTile = -1;
-          this.phone = "";
-          this.email = "";
-          this.address = "";
+          this.mailListID = -1;
+          this.subject = "";
+          this.quillContent = "";
         }
       })
     }
@@ -138,4 +131,10 @@ export class EmailCampainAddComponent implements OnInit {
       this.sendByTime = false;
     }
   }
+
+  onClickStep(index) {
+    this.btnType = index;
+  }
+
+
 }

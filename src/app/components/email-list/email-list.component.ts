@@ -170,6 +170,7 @@ export class EmailListComponent implements OnInit {
   }
 
   onClickItem(item) {
+    this.cookieService.set('mail-list-id', item.id);
     this.router.navigate(['email-list-sub'], { state: { params: item } });
   }
 
@@ -186,36 +187,6 @@ export class EmailListComponent implements OnInit {
 
   onClickAssign(index) {
     if (index == 0) {
-      const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
-        width: '500px'
-      });
-
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            res,
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
-                if (item.checked) {
-                  item.assignName = data.obj ? data.obj.name : "";
-                  item.checked = false;
-                }
-              });
-              this.checked = false;
-              this.indeterminate = false;
-            }
-          })
-        }
-      });
-    } else if (index == 1) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
@@ -226,13 +197,8 @@ export class EmailListComponent implements OnInit {
           this.listContact.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-          this.mService.getApiService().sendRequestDELETE_CONTACT(
 
-
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            JSON.stringify(listID)
-          ).then(data => {
+          this.mService.getApiService().sendRequestDELETE_MAIL_LIST(JSON.stringify(listID)).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.listContact.forEach(item => {
                 if (item.checked) {

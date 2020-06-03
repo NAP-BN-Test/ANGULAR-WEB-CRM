@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { async } from '@angular/core/testing';
 import { STATUS } from 'src/app/services/constant/app-constant';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-report-detail',
@@ -17,6 +18,10 @@ export class ReportDetailComponent implements OnInit {
   menuIndex = 1;
 
   mData: any;
+
+  daies = 15;
+
+  campainID = -1;
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -45,6 +50,7 @@ export class ReportDetailComponent implements OnInit {
   constructor(
     private location: Location,
     public mService: AppModuleService,
+    private cookieService: CookieService
 
   ) {
     monkeyPatchChartJsTooltip();
@@ -56,11 +62,14 @@ export class ReportDetailComponent implements OnInit {
       this.mData = data.email;
     });
 
+    this.campainID = this.cookieService.get('campain-id') ? Number(this.cookieService.get('campain-id')) : -1;
+
     this.onLoadDataSummary();
   }
 
   onLoadDataSummary() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY().then(async data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY(this.campainID).then(async data => {
+      
       if (data.status == STATUS.SUCCESS) {
         this.objSummary = data.obj;
 
@@ -75,12 +84,14 @@ export class ReportDetailComponent implements OnInit {
 
   tbMailOpen = [];
   onLoadMailOpen() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL().then(async data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(this.campainID, this.daies).then(async data => {
       if (data.status == STATUS.SUCCESS) {
         this.objMailOpen = data.obj;
 
         let labels = [];
         let datas = [];
+
+        this.tbMailOpen = [];
         data.array.forEach(item => {
           labels.push(item.date);
           datas.push(item.value);
@@ -119,6 +130,10 @@ export class ReportDetailComponent implements OnInit {
 
   onClickBack() {
     this.location.back();
+  }
+
+  onSelectChange() {
+    this.onLoadMailOpen();
   }
 
 }

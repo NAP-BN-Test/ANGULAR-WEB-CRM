@@ -95,6 +95,7 @@ import { ReportDetailAccountComponent } from './components/report-detail-account
 import { EmailListSubComponent } from './components/email-list-sub/email-list-sub.component';
 import { ListCompanyLogisticComponent } from './components/list-company-logistic/list-company-logistic.component';
 import { ListCompanyTransportComponent } from './components/list-company-transport/list-company-transport.component';
+import { DialogAddMailListComponent } from './components/dialog-add-mail-list/dialog-add-mail-list.component';
 
 @NgModule({
   declarations: [
@@ -173,7 +174,8 @@ import { ListCompanyTransportComponent } from './components/list-company-transpo
     ReportDetailAccountComponent,
     EmailListSubComponent,
     ListCompanyLogisticComponent,
-    ListCompanyTransportComponent
+    ListCompanyTransportComponent,
+    DialogAddMailListComponent
   ],
   imports: [
     BrowserModule,
@@ -189,7 +191,7 @@ import { ListCompanyTransportComponent } from './components/list-company-transpo
     QuillModule.forRoot(),
     NgbModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
@@ -203,7 +205,8 @@ import { ListCompanyTransportComponent } from './components/list-company-transpo
     DialogComponent, 
     DialogAssignCompanyComponent,
     DialogAssignContactComponent,
-    DialogLogoutComponent
+    DialogLogoutComponent,
+    DialogAddMailListComponent
   ]
 })
 export class AppModule { }

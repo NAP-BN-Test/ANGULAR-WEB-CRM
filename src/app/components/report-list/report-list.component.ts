@@ -169,6 +169,7 @@ export class ReportListComponent implements OnInit {
   }
 
   onClickItem(item) {
+    this.cookieService.set('campain-id', item.id);
     this.router.navigate(['report-detail'], { state: { params: item } });
   }
 

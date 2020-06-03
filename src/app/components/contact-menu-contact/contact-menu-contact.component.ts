@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
+import { DialogAddMailListComponent } from '../dialog-add-mail-list/dialog-add-mail-list.component';
 
 @Component({
   selector: 'app-contact-menu-contact',
@@ -30,6 +31,10 @@ export class ContactMenuContactComponent implements OnInit {
   checked = false;
   indeterminate = false;
   disabled = false;
+
+  showToast = false;
+
+  toasMessage = "";
 
   numberOfItemSelected = 0;
 
@@ -252,6 +257,34 @@ export class ContactMenuContactComponent implements OnInit {
                   this.indeterminate = false;
                 }
               })
+            }
+          })
+        }
+      });
+    } else if (index == 2) {
+      const dialogRef = this.dialog.open(DialogAddMailListComponent, {
+        width: '500px'
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          let listMail = [];
+          this.listContact.forEach(item => {
+            if (item.checked) listMail.push(item.email)
+          })
+
+          this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(this.mService.getUser().id, res, JSON.stringify(listMail)).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.listContact.forEach(item => {
+                this.checked = false;
+                this.indeterminate = false;
+              });
+
+              this.toasMessage = data.message;
+              this.showToast = true;
+              setTimeout(() => {
+                this.showToast = false;
+              }, 2000);
             }
           })
         }

@@ -7,10 +7,18 @@
     </div>
 
     <div padding height-90>
-        <div>{{mData.email_intro}}</div>
+        <div padding-bottom>{{mData.email_intro}}</div>
 
+        <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <li ngbNavItem (click)="onClickStep(1)">
+                <a ngbNavLink>{{mData.step1}}</a>
+            </li>
+            <li ngbNavItem (click)="onClickStep(2)">
+                <a ngbNavLink>{{mData.step2}}</a>
+            </li>
+        </ul> -->
 
-        <div padding32-top>
+        <div [hidden]="btnType!=1" padding32-top>
             <div padding-start center-line>
                 <div class="col-3" font6>{{mData.name}}</div>
                 <div class="col-9">
@@ -19,29 +27,21 @@
             </div>
 
             <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.owner}}</div>
+                <div class="col-3" font6>Liên hệ</div>
                 <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="jobTile">
-                        <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.email_send}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="email">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.email_receive}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="address">
+                    <input class="form-control" type="text" [(ngModel)]="phone">
                 </div>
             </div>
 
         </div>
+
+        <!-- <div [hidden]="btnType!=2" height-80>
+            <div padding-top>{{mData.add_mail}}</div>
+
+            <div padding>
+            </div>
+           
+        </div> -->
     </div>
 
     <div padding class="m-footer">

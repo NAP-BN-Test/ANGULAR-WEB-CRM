@@ -92,11 +92,11 @@
 
             <div class="col-12">
                 <div width-30>
-                    <select class="custom-select" width-100>
-                        <option value="30">15 ngày trước</option>
+                    <select class="custom-select" width-100 [(ngModel)]="daies" (change)="onSelectChange()">
+                        <option value="15">15 ngày trước</option>
                         <option value="30">30 ngày trước</option>
-                        <option value="30">45 ngày trước</option>
-                        <option value="30">60 ngày trước</option>
+                        <option value="40">45 ngày trước</option>
+                        <option value="60">60 ngày trước</option>
                     </select>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="col-md-12 padding-top">
                 <div flex padding-horizontal bold background-primary color-white>
                     <div width-40>Ngày</div>
-                    <div width-60>Tổng số lượt mở</div>
+                    <div width-60>Tổng số lượt mở các ngày</div>
                 </div>
 
                 <div flex padding-horizontal *ngFor="let item of tbMailOpen; let i = index" [class.background-whitesmoke]="i%2==0">

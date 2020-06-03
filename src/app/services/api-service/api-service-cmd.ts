@@ -145,6 +145,19 @@ export class ApiCmd {
 
     public static GET_LIST_MAIL_CAMPAIN: string = "crm/get_list_mail_campain";
 
+    public static GET_MAIL_LIST_OPTION: string = "crm/get_mail_list_option";
+
+    public static ADD_MAIL_CAMPAIN: string = "crm/add_mail_campain";
+
+    public static ADD_MAIL_LIST: string = "crm/add_mail_list";
+
+    public static DELETE_MAIL_LIST: string = "crm/delete_mail_list";
+
+    public static DELETE_MAIL_LIST_DETAIL: string = "crm/delete_mail_list_detail";
+
+    public static ADD_MAIL_LIST_DETAIL: string = "crm/add_mail_list_detail";
+
+
 
     public static GET_LIST_REPORT_BY_CAMPAIN: string = "crm/get_list_report_by_campain";
 

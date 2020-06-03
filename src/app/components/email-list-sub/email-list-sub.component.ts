@@ -19,6 +19,8 @@ export class EmailListSubComponent implements OnInit {
 
   mData: any;
 
+  mailListID = -1;
+
   menuSelected = 1;
 
   numberAll = 0;
@@ -60,6 +62,8 @@ export class EmailListSubComponent implements OnInit {
     if (this.mService.getUser()) {
       this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
 
+      this.mailListID = this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1;
+
       this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
@@ -69,16 +73,18 @@ export class EmailListSubComponent implements OnInit {
   }
 
   onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
+
     this.mService.getApiService().sendRequestGET_MAIL_LIST_DETAIL(
       this.mService.getUser().username,
       this.mService.getUser().id,
+      this.mailListID,
       page,
       searchKey,
       timeFrom,
       timeTo,
       userIDFind
     ).then(data => {
-      
+
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
         this.listContact = data.array;
@@ -182,36 +188,6 @@ export class EmailListSubComponent implements OnInit {
 
   onClickAssign(index) {
     if (index == 0) {
-      const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
-        width: '500px'
-      });
-
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            res,
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
-                if (item.checked) {
-                  item.assignName = data.obj ? data.obj.name : "";
-                  item.checked = false;
-                }
-              });
-              this.checked = false;
-              this.indeterminate = false;
-            }
-          })
-        }
-      });
-    } else if (index == 1) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
@@ -222,11 +198,7 @@ export class EmailListSubComponent implements OnInit {
           this.listContact.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-          this.mService.getApiService().sendRequestDELETE_CONTACT(
-
-
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+          this.mService.getApiService().sendRequestDELETE_MAIL_LIST_DETAIL(
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
