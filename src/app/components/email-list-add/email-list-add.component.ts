@@ -3,6 +3,8 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-email-list-add',
   templateUrl: './email-list-add.component.html',
@@ -62,7 +64,7 @@ export class EmailListAddComponent implements OnInit {
         name: this.name,
         phone: this.phone,
         owner: this.mService.getUser().name,
-        createTime: new Date()
+        createTime: moment().format("YYYY-MM-DD"),
       }
 
       this.mService.getApiService().sendRequestADD_MAIL_LIST(

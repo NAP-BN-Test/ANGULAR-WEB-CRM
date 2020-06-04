@@ -3,6 +3,8 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-email-campain-add',
   templateUrl: './email-campain-add.component.html',
@@ -22,7 +24,7 @@ export class EmailCampainAddComponent implements OnInit {
   name = "";
   subject = "";
   mailListID = -1;
-
+  endTime: any;
   btnType = 1;
 
   quillContent = "";
@@ -76,8 +78,9 @@ export class EmailCampainAddComponent implements OnInit {
         mailListID: this.mailListID,
         subject: this.subject,
         body: this.quillContent,
-        createTime: new Date(),
-        nearestSend: new Date(),
+        createTime: moment().format("YYYY-MM-DD"),
+        endTime: moment(this.endTime.year + "-" + this.endTime.month + "-" + this.endTime.day).format("YYYY-MM-DD"),
+        nearestSend: moment().format("YYYY-MM-DD"),
         owner: this.mService.getUser().name
       }
 

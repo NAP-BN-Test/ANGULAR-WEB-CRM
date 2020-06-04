@@ -157,6 +157,8 @@ export class ApiCmd {
 
     public static ADD_MAIL_LIST_DETAIL: string = "crm/add_mail_list_detail";
 
+    public static DELETE_MAIL_CAMPAIN: string = "crm/delete_mail_campain";
+
 
 
     public static GET_LIST_REPORT_BY_CAMPAIN: string = "crm/get_list_report_by_campain";

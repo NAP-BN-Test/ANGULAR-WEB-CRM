@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.10:3002/";
-    mUrl: string = "http://163.44.192.123:3302/";
+    mUrl: string = "http://192.168.1.10:3002/";
+    // mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
@@ -1185,6 +1185,7 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("name", obj.name)
                 .add("subject", obj.subject)
+                .add("endTime", obj.endTime)
                 .add("mailListID", obj.mailListID)
                 .add("body", obj.body));
     }
@@ -1236,5 +1237,16 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("mailListID", mailListID)
                 .add("listMail", listMail));
+    }
+
+    //==============================
+    public sendRequestDELETE_MAIL_CAMPAIN(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_MAIL_CAMPAIN,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
     }
 }

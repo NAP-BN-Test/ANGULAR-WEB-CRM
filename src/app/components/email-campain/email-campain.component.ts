@@ -231,11 +231,7 @@ export class EmailCampainComponent implements OnInit {
           this.listContact.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-          this.mService.getApiService().sendRequestDELETE_CONTACT(
-
-
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+          this.mService.getApiService().sendRequestDELETE_MAIL_CAMPAIN(
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
