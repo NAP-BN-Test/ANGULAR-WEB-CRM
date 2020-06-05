@@ -43,8 +43,6 @@ export class EmailListComponent implements OnInit {
   timeTo = null;
   userIDFind = null;
 
-  mPage = 1;
-
   constructor(
     public mService: AppModuleService,
     public router: Router,
@@ -84,21 +82,9 @@ export class EmailListComponent implements OnInit {
         this.listContact = data.array;
 
         this.numberAll = data.count;
-        this.numberUnAssign = data.unassign;
-        this.numberAssignAll = data.assignAll;
-        this.numberAssign = data.assign;
-        this.numberFollow = data.follow;
 
         if (this.menuSelected == 1) {
-          this.collectionSize = data.all;
-        } else if (this.menuSelected == 2) {
-          this.collectionSize = data.unassign;
-        } else if (this.menuSelected == 3) {
-          this.collectionSize = data.follow;
-        } else if (this.menuSelected == 4) {
-          this.collectionSize = data.assign;
-        } else if (this.menuSelected == 5) {
-          this.collectionSize = data.assignAll;
+          this.collectionSize = data.count;
         }
       }
     })
@@ -116,7 +102,7 @@ export class EmailListComponent implements OnInit {
   }
 
   onClickMenu(index: number) {
-    this.mPage = 1;
+    this.page = 1;
     this.menuSelected = index;
     this.cookieService.set('contact-menu', index + "");
 
@@ -197,21 +183,15 @@ export class EmailListComponent implements OnInit {
           this.listContact.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-
           this.mService.getApiService().sendRequestDELETE_MAIL_LIST(JSON.stringify(listID)).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
-                if (item.checked) {
-                  let index = this.listContact.findIndex(itm => {
-                    return itm.id === item.id;
-                  });
-                  if (index > -1) {
-                    this.listContact.splice(index, 1)
-                  }
-                  this.checked = false;
-                  this.indeterminate = false;
-                }
+
+              this.listContact = this.listContact.filter(contactItem => {
+                return contactItem.checked != true;
               })
+
+              this.checked = false;
+              this.indeterminate = false;
             }
           })
         }

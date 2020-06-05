@@ -85,9 +85,8 @@
 
         <div [hidden]="btnType!=2">
             <div padding-top>
-
-                <quill-editor [(ngModel)]="quillContent" [styles]="{height: '400px'}"></quill-editor>
-
+                <quill-editor [(ngModel)]="quillContent" [styles]="{height: '400px'}" [modules]="editorModules">
+                </quill-editor>
             </div>
 
         </div>
@@ -104,6 +103,10 @@
                 <button mat-raised-button color="accent" (click)="onClickClose()">{{mData.cancel}}</button>
             </div>
         </div>
+    </div>
+
+    <div class="invisible-input-cont">
+        <input #quillFile type="file" (change)="quillFileSelected($event)">
     </div>
 
 </div>

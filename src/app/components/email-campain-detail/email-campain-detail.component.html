@@ -1,0 +1,88 @@
+<div>
+
+    <div class="m-header">
+        <app-header-menu></app-header-menu>
+    </div>
+
+    <div class="row padding" *ngIf="mObj">
+        <div class="col-md-3 padding-top">
+            <div bold>Thông tin chiến dịch</div>
+
+            <div padding-top>
+                <div font7>Tên chiến dịch</div>
+                <div relative class="m-input">
+                    <input class="form-control" type="text" [(ngModel)]="mObj.name">
+                </div>
+            </div>
+            <div padding-top>
+                <div font7>Tiêu đề</div>
+                <div relative class="m-input">
+                    <input class="form-control" type="text" [(ngModel)]="mObj.subject">
+                </div>
+            </div>
+            <div padding-top>
+                <div font7>Ngày bắt đầu</div>
+                <div class="form-group">
+                    <div class="input-group" *ngIf="timeStart">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="timeStart"
+                            ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div font7>Ngày kết thúc</div>
+                <div class="form-group">
+                    <div class="input-group" *ngIf="timeEnd">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="timeEnd"
+                            ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div font7>Mail list</div>
+            <div relative class="m-input">
+                <select class="custom-select" width-100 [(ngModel)]="mObj.mailListID">
+                    <option *ngFor="let item of listMailList" [value]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-9 padding-vertical" relative background-whitesmoke>
+            <div bold>Nội dung email</div>
+
+            <div padding-top>
+                <quill-editor [(ngModel)]="mObj.body" [styles]="{height: '500px'}" [modules]="editorModules">
+                </quill-editor>
+            </div>
+
+            <div flex>
+                <div padding>
+                    <button mat-raised-button color="primary" (click)="onClickSave()">Lưu</button>
+                </div>
+                <div padding>
+                    <button mat-raised-button color="primary" (click)="onClickSend()">Gửi chiến dịch</button>
+                </div>
+                <div padding>
+                    <button mat-raised-button color="accent" (click)="onClickSendTest()">Gửi mail test</button>
+                </div>
+                <div padding>
+                    <button mat-raised-button color="warn" (click)="onClickDelete()">Xóa chiến dịch</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div hidden="true">
+        <input #quillFile type="file" (change)="quillFileSelected($event)">
+    </div>
+
+</div>

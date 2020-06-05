@@ -1054,7 +1054,8 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("page", page));
     }
 
     //==============================
@@ -1073,7 +1074,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("mailListID", mailListID));
+                .add("mailListID", mailListID)
+                .add("page", page));
     }
 
     //==============================
@@ -1090,7 +1092,8 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("page", page));
     }
 
     //==============================
@@ -1107,7 +1110,8 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("page", page));
     }
 
     public sendRequestGET_LIST_REPORT_BY_USER(
@@ -1123,7 +1127,8 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("page", page));
     }
 
     //==============================
@@ -1248,5 +1253,39 @@ export class ApiService extends HttpClient {
                 .add("secretKey", this.mSecretKey)
 
                 .add("listID", listID));
+    }
+
+    //==============================
+    public sendRequestUPLOAD_FILE(uri: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPLOAD_FILE,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("uri", uri));
+    }
+
+    //==============================
+    public sendRequestGET_MAIL_CAMPAIN_DETAIL(campainID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_MAIL_CAMPAIN_DETAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("campainID", campainID));
+    }
+
+    //==============================
+    public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("campainID", obj.id)
+                .add("name", obj.name));
     }
 }

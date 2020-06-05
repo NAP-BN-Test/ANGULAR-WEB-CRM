@@ -71,6 +71,7 @@ export class ReportDetailComponent implements OnInit {
     this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY(this.campainID).then(async data => {
       
       if (data.status == STATUS.SUCCESS) {
+
         this.objSummary = data.obj;
 
         let percentOpen = Number(data.obj.percentOpen.replace('%', ''));
@@ -86,6 +87,9 @@ export class ReportDetailComponent implements OnInit {
   onLoadMailOpen() {
     this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(this.campainID, this.daies).then(async data => {
       if (data.status == STATUS.SUCCESS) {
+
+        console.log(data);
+        
         this.objMailOpen = data.obj;
 
         let labels = [];

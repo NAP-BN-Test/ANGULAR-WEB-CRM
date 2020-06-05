@@ -43,7 +43,6 @@ export class ReportListComponent implements OnInit {
   timeTo = null;
   userIDFind = null;
 
-  mPage = 1;
 
   constructor(
     public mService: AppModuleService,
@@ -83,21 +82,10 @@ export class ReportListComponent implements OnInit {
         this.listContact = data.array;
 
         this.numberAll = data.count;
-        this.numberUnAssign = data.unassign;
-        this.numberAssignAll = data.assignAll;
-        this.numberAssign = data.assign;
-        this.numberFollow = data.follow;
+        
 
         if (this.menuSelected == 1) {
-          this.collectionSize = data.all;
-        } else if (this.menuSelected == 2) {
-          this.collectionSize = data.unassign;
-        } else if (this.menuSelected == 3) {
-          this.collectionSize = data.follow;
-        } else if (this.menuSelected == 4) {
-          this.collectionSize = data.assign;
-        } else if (this.menuSelected == 5) {
-          this.collectionSize = data.assignAll;
+          this.collectionSize = data.count;
         }
       }
     })
@@ -115,7 +103,7 @@ export class ReportListComponent implements OnInit {
   }
 
   onClickMenu(index: number) {
-    this.mPage = 1;
+    this.page = 1;
     this.menuSelected = index;
     this.cookieService.set('contact-menu', index + "");
 

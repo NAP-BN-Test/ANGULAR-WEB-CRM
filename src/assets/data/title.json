@@ -548,12 +548,8 @@
                 "col6": "HOẠT ĐỘNG",
                 "list_select": [
                     {
-                        "name": "Sửa",
-                        "index": 1
-                    },
-                    {
                         "name": "Xóa",
-                        "index": 2
+                        "index": 1
                     }
                 ]
             }

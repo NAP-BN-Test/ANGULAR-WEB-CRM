@@ -36,7 +36,7 @@ export class ListCompanyTransportComponent implements OnInit {
 
   addSub = 0
 
-  mPage: number = 1;
+  page: number = 1;
 
   // searchKey = "";
 
@@ -57,7 +57,7 @@ export class ListCompanyTransportComponent implements OnInit {
     private cookieService: CookieService
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.mPage = params.page;
+      this.page = params.page;
     });
   }
 
@@ -69,7 +69,7 @@ export class ListCompanyTransportComponent implements OnInit {
     if (this.mService.getUser()) {
       this.menuSelected = this.cookieService.get('company-menu') ? Number(this.cookieService.get('company-menu')) : 1;
 
-      this.onLoadData(this.mPage, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+      this.onLoadData(this.page, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
 
     }
     else {
@@ -132,7 +132,7 @@ export class ListCompanyTransportComponent implements OnInit {
   }
 
   onClickMenu(index: number) {
-    this.mPage = 1;
+    this.page = 1;
     this.menuSelected = index;
     this.cookieService.set('company-menu', index + "");
 

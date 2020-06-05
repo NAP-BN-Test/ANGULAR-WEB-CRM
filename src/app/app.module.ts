@@ -96,6 +96,7 @@ import { EmailListSubComponent } from './components/email-list-sub/email-list-su
 import { ListCompanyLogisticComponent } from './components/list-company-logistic/list-company-logistic.component';
 import { ListCompanyTransportComponent } from './components/list-company-transport/list-company-transport.component';
 import { DialogAddMailListComponent } from './components/dialog-add-mail-list/dialog-add-mail-list.component';
+import { EmailCampainDetailComponent } from './components/email-campain-detail/email-campain-detail.component';
 
 @NgModule({
   declarations: [
@@ -175,7 +176,8 @@ import { DialogAddMailListComponent } from './components/dialog-add-mail-list/di
     EmailListSubComponent,
     ListCompanyLogisticComponent,
     ListCompanyTransportComponent,
-    DialogAddMailListComponent
+    DialogAddMailListComponent,
+    EmailCampainDetailComponent
   ],
   imports: [
     BrowserModule,

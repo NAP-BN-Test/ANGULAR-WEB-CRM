@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,6 +12,7 @@ import * as moment from 'moment';
 })
 export class EmailCampainAddComponent implements OnInit {
   @ViewChild('editor') editor;
+  @ViewChild('quillFile') quillFileRef: ElementRef;
 
   @Output("closeAddSub") closeAddSub = new EventEmitter();
 
@@ -37,6 +38,39 @@ export class EmailCampainAddComponent implements OnInit {
   listGender = LIST_SELECT.LIST_GENDER;
   listMailList = [];
 
+  quillFile: any;
+  meQuillRef: any;
+
+  editorModules = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+
+        ['clean'],                                         // remove formatting button
+
+        // ['link', 'image', 'video']                         // link and image, video
+      ],
+      handlers: {
+        image: () => {
+          this.quillFileRef.nativeElement.click();
+        }
+      }
+    },
+  };
 
   constructor(
     public mService: AppModuleService,
@@ -72,6 +106,7 @@ export class EmailCampainAddComponent implements OnInit {
   }
 
   onClickSave() {
+
     if (this.name.trim() != "" && this.subject.trim() != "" && this.quillContent.trim() != "" && this.mailListID != -1) {
       let obj = {
         name: this.name,
@@ -139,5 +174,45 @@ export class EmailCampainAddComponent implements OnInit {
     this.btnType = index;
   }
 
+
+
+
+  quillFileSelected(ev: any) {
+
+    let file = ev.target.files[0];
+    if (file.type.startsWith("image")) {
+      var reader = new FileReader();
+      reader.readAsBinaryString(file);
+      
+      reader.addEventListener("load", (image) => {
+        console.log(image);
+        
+        let avatar: any = image.target["result"];
+
+
+        this.mService.getApiService().sendRequestUPLOAD_FILE(btoa(avatar)).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+            console.log(data.url);
+
+            this.quillContent = this.quillContent + data.url;
+
+          }
+        })
+      })
+    }
+
+    // const imageData = {
+    //   id: this.article != null && this.article !== undefined ? this.article.post_id : null,
+    //   title: this.quillFile.name,
+    //   file: this.quillFile
+    // };
+    // this.dataService.postImage(imageData).subscribe(
+    //   (response: any) => {
+    //     console.log(response);
+    //     const filename = response.data.filename;
+    //   }
+    // );
+
+  }
 
 }

@@ -48,8 +48,6 @@ export class ContactMenuContactComponent implements OnInit {
   timeTo = null;
   userIDFind = null;
 
-  mPage = 1;
-
   constructor(
     public mService: AppModuleService,
     public router: Router,
@@ -121,7 +119,7 @@ export class ContactMenuContactComponent implements OnInit {
   }
 
   onClickMenu(index: number) {
-    this.mPage = 1;
+    this.page = 1;
     this.menuSelected = index;
     this.cookieService.set('contact-menu', index + "");
 
@@ -276,6 +274,7 @@ export class ContactMenuContactComponent implements OnInit {
           this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(this.mService.getUser().id, res, JSON.stringify(listMail)).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.listContact.forEach(item => {
+                item.checked = false;
                 this.checked = false;
                 this.indeterminate = false;
               });

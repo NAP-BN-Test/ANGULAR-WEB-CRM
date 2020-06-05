@@ -65,9 +65,9 @@
                             <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.campaign.col5}}
                             </div>
-                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
+                            <!-- <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.campaign.col6}}
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -77,7 +77,7 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 300px;" class="center-line">
+                            <div style="width: 300px;" class="center-line" (click)="onClickItem(item)" tappable>
                                 {{item.name}}
                             </div>
                             <div style="width: 400px;" class="center-line">
@@ -92,9 +92,9 @@
                             <div style="width: 150px;" class="center-line">
                                 {{item.owner}}
                             </div>
-                            <div style="width: 200px;" class="center-line">
+                            <!-- <div style="width: 200px;" class="center-line">
                                 {{item.lastActivity | datetimeDefault}}
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
