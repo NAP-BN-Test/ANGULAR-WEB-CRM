@@ -158,10 +158,12 @@ export class ApiCmd {
     public static ADD_MAIL_LIST_DETAIL: string = "crm/add_mail_list_detail";
 
     public static DELETE_MAIL_CAMPAIN: string = "crm/delete_mail_campain";
-    
+
     public static GET_MAIL_CAMPAIN_DETAIL: string = "crm/get_mail_campain_detail";
 
     public static UPDATE_MAIL_CAMPAIN: string = "crm/update_mail_campain";
+
+    public static ADD_MAIL_SEND: string = "crm/add_mail_send";
 
 
     public static GET_LIST_REPORT_BY_CAMPAIN: string = "crm/get_list_report_by_campain";
@@ -175,6 +177,9 @@ export class ApiCmd {
     public static GET_REPORT_BY_USER_SUMMARY: string = "crm/get_report_by_user_summary";
 
     public static GET_REPORT_BY_USER_MAIL_SEND: string = "crm/get_report_by_user_mail_send";
+
+
+    public static CHECK_VERIFY_EMAIL: string = "crm/check_verify_email";
 
 
     public static UPLOAD_FILE: string = "crm/upload_file";

@@ -10,16 +10,7 @@
 
         <div padding-bottom>Thêm mới chiến dịch mail với các thông tin sau</div>
 
-        <ul ngbNav #nav="ngbNav" class="nav-tabs">
-            <li ngbNavItem (click)="onClickStep(1)">
-                <a ngbNavLink>{{mData.step1}}</a>
-            </li>
-            <li ngbNavItem (click)="onClickStep(2)">
-                <a ngbNavLink>{{mData.step2}}</a>
-            </li>
-        </ul>
-
-        <div [hidden]="btnType!=1">
+        <div>
             <div padding-top>
 
                 <div padding-start center-line>
@@ -63,33 +54,9 @@
                 </div>
             </div>
 
-            <!-- <div padding32-top>
-
-                <div padding-start padding-top center-line>
-                    <mat-radio-group (change)="onRadioChange($event)">
-                        <mat-radio-button value="1">{{mData.campain_send_all}}</mat-radio-button>
-                        <mat-radio-button value="2">{{mData.campain_send_by_time}}</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-
-                <div padding-start center-line [hidden]="!sendByTime">
-                    <div class="col-9 offset-3">
-                        <select class="custom-select" width-100 [(ngModel)]="jobTile">
-                            <option *ngFor="let item of mData.campain_list_time" [ngValue]="item.value">{{item.name}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-
-        <div [hidden]="btnType!=2">
-            <div padding-top>
-                <quill-editor [(ngModel)]="quillContent" [styles]="{height: '400px'}" [modules]="editorModules">
-                </quill-editor>
-            </div>
 
         </div>
+
 
     </div>
 
@@ -97,7 +64,7 @@
         <div flex>
             <div padding-vertical>
                 <button mat-raised-button color="primary" [disabled]="!btnCanClicked"
-                    (click)="onClickSave()">{{mData.campain_btn_send}}</button>
+                    (click)="onClickSave()">Tạo mới</button>
             </div>
             <div padding>
                 <button mat-raised-button color="accent" (click)="onClickClose()">{{mData.cancel}}</button>
@@ -105,8 +72,5 @@
         </div>
     </div>
 
-    <div class="invisible-input-cont">
-        <input #quillFile type="file" (change)="quillFileSelected($event)">
-    </div>
 
 </div>

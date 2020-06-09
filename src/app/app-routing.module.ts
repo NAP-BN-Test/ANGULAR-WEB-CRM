@@ -23,6 +23,7 @@ import { EmailListSubComponent } from './components/email-list-sub/email-list-su
 import { ListCompanyLogisticComponent } from './components/list-company-logistic/list-company-logistic.component';
 import { ListCompanyTransportComponent } from './components/list-company-transport/list-company-transport.component';
 import { EmailCampainDetailComponent } from './components/email-campain-detail/email-campain-detail.component';
+import { EmailListSubReportComponent } from './components/email-list-sub-report/email-list-sub-report.component';
 
 
 const routes: Routes = [
@@ -140,6 +141,11 @@ const routes: Routes = [
     path: 'email-campain-detail',
     component: EmailCampainDetailComponent,
     data: { title: 'mailCampainDetail' }
+  },
+  {
+    path: 'email-list-sub-report',
+    component: EmailListSubReportComponent,
+    data: { title: 'mailListSubReport' }
   },
   {
     path: '',

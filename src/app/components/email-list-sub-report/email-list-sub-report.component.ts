@@ -6,26 +6,22 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
-import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
+
 
 @Component({
-  selector: 'app-email-campain',
-  templateUrl: './email-campain.component.html',
-  styleUrls: ['./email-campain.component.scss']
+  selector: 'app-email-list-sub-report',
+  templateUrl: './email-list-sub-report.component.html',
+  styleUrls: ['./email-list-sub-report.component.scss']
 })
-export class EmailCampainComponent implements OnInit {
-
+export class EmailListSubReportComponent implements OnInit {
   listContact = [];
 
   mData: any;
+  email: any;
+
+  mailListID = -1;
 
   menuSelected = 1;
-
-  numberAll = 0;
-  numberUnAssign = 0;
-  numberAssignAll = 0;
-  numberAssign = 0;
-  numberFollow = 0;
 
   checked = false;
   indeterminate = false;
@@ -43,6 +39,7 @@ export class EmailCampainComponent implements OnInit {
   timeTo = null;
   userIDFind = null;
 
+
   constructor(
     public mService: AppModuleService,
     public router: Router,
@@ -58,6 +55,8 @@ export class EmailCampainComponent implements OnInit {
     if (this.mService.getUser()) {
       this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
 
+      this.mailListID = this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1;
+
       this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
@@ -67,20 +66,21 @@ export class EmailCampainComponent implements OnInit {
   }
 
   onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
-    this.mService.getApiService().sendRequestGET_LIST_MAIL_CAMPAIN(
+
+    this.mService.getApiService().sendRequestGET_MAIL_LIST_DETAIL(
       this.mService.getUser().username,
       this.mService.getUser().id,
+      this.mailListID,
       page,
       searchKey,
       timeFrom,
       timeTo,
       userIDFind
     ).then(data => {
+
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
         this.listContact = data.array;
-
-        this.numberAll = data.count;
 
         if (this.menuSelected == 1) {
           this.collectionSize = data.count;
@@ -154,22 +154,13 @@ export class EmailCampainComponent implements OnInit {
     this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
-  onClickItem(item) {
-    this.cookieService.set('campain-id', item.id);
-    this.router.navigate(['email-campain-detail'], { state: { params: item } });
-  }
-
   onClickAdd() {
     this.addSub = 1;
   }
 
   onClickCloseAdd(event) {
-    console.log(event)
     if (event) {
-      this.listContact.unshift(event);
-
-      this.cookieService.set('campain-id', event.id);
-      this.router.navigate(['email-campain-detail'], { state: { params: event } });
+      this.listContact.unshift(event)
     }
     this.addSub = 0
   }
@@ -186,7 +177,7 @@ export class EmailCampainComponent implements OnInit {
           this.listContact.forEach(item => {
             if (item.checked) listID.push(item.id)
           })
-          this.mService.getApiService().sendRequestDELETE_MAIL_CAMPAIN(
+          this.mService.getApiService().sendRequestDELETE_MAIL_LIST_DETAIL(
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {

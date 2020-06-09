@@ -42,8 +42,12 @@
         <div padding-end *ngIf="!listActivity">
             <input type="search" class="form-control" [(ngModel)]="searchKey" (keyup.enter)="onSearchChange($event)" />
         </div>
-        <div *ngIf="!listActivity" [hidden]="noCreate">
+        <div padding-end *ngIf="!listActivity">
             <button mat-raised-button color="primary" (click)="onClickAdd()">{{mData.create_new}}</button>
+        </div>
+
+        <div padding-end [hidden]="type!=1">
+            <button mat-raised-button color="accent" (click)="onClickImport()">Import</button>
         </div>
     </div>
 </div>

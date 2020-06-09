@@ -5,24 +5,11 @@
 
     <div padding32>
         <div padding32-bottom between>
-            <div font2 bold>{{mData.email_sub_title}}</div>
-            <div center-line bold color-primary>
-
-                <app-filter-bar onContact="true" type="1" (searchChange)="onSearchChange($event)"
-                    (clickAdd)="onClickAdd()" (sort)="onClickSort($event)"></app-filter-bar>
-            </div>
+            <div font2 bold>Báo cáo chi tiết {{mData.email_sub_title}}</div>
         </div>
 
         <div flex no-wrap>
-
-            <div padding32-horizontal width-20>
-                <div>
-                    <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.all_email_list_sub}}({{numberAll}})</div>
-                </div>
-            </div>
-
-            <div width-80>
+            <div width-100>
                 <div class="m-table">
                     <div flex padding8-vertical [class.background-whitesmoke]="!checked && !indeterminate"
                         [class.background-secondary]="checked || indeterminate">
@@ -44,19 +31,19 @@
 
                         <div flex [hidden]="checked||indeterminate">
                             <div style="width: 400px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.emai_sub.col1}}
+                                TÊN CHIẾN DỊCH
+                            </div>
+                            <div style="width: 400px;" class="bold center-line" (click)="onSort()" tappable>
+                                TÊN MAIL LIST
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.emai_sub.col2}}
+                                NGÀY GỬI
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.emai_sub.col3}}
+                                NGƯỜI GỬI
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                NGƯỜI LIÊN HỆ
-                            </div>
-                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.emai_sub.col4}}
+                                TRẠNG THÁI
                             </div>
                         </div>
                     </div>
@@ -67,10 +54,10 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 400px;" class="center-line" (click)="onClickItem(item)" tappable>
+                            <div style="width: 400px;" class="center-line">
                                 {{item.email}}
                             </div>
-                            <div style="width: 200px;" class="center-line">
+                            <div style="width: 400px;" class="center-line">
                                 {{item.owner}}
                             </div>
                             <div style="width: 200px;" class="center-line">

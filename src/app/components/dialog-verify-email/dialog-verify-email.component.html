@@ -1,0 +1,20 @@
+<div *ngIf="mData">
+    <div mat-dialog-content>
+        <p>Email của bạn chưa có trong danh sách gửi! Điền địa chỉ email và xác nhận?</p>
+
+        <div padding-start padding-bottom>
+            <input class="form-control" type="text" [(ngModel)]="email">
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div flex>
+            <div>
+                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mData.no}}</button>
+            </div>
+            <div padding-start>
+                <button type="button" class="btn btn-danger" [mat-dialog-close]="email"
+                    cdkFocusInitial>{{mData.yes}}</button>
+            </div>
+        </div>
+    </div>
+</div>

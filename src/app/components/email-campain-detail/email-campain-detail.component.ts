@@ -7,6 +7,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { Location } from '@angular/common';
 
 import * as moment from 'moment';
+import { DialogVerifyEmailComponent } from '../dialog-verify-email/dialog-verify-email.component';
 
 @Component({
   selector: 'app-email-campain-detail',
@@ -28,8 +29,13 @@ export class EmailCampainDetailComponent implements OnInit {
 
   listMailList = [];
 
+  showToast = false;
+  toasMessage = "";
+
   timeStart: any;
   timeEnd: any;
+
+  btnVerify = false;
 
   editorModules = {
     toolbar: {
@@ -81,8 +87,8 @@ export class EmailCampainDetailComponent implements OnInit {
     this.campainID = this.cookieService.get('campain-id') ? Number(this.cookieService.get('campain-id')) : -1;
 
     this.mService.getApiService().sendRequestGET_MAIL_CAMPAIN_DETAIL(this.campainID).then(data => {
-
       if (data.status == STATUS.SUCCESS) {
+
         this.mObj = data.obj;
         this.timeStart = this.toNgbDatetime(this.mObj.createTime);
         this.timeEnd = this.toNgbDatetime(this.mObj.endTime);
@@ -120,16 +126,49 @@ export class EmailCampainDetailComponent implements OnInit {
 
   onClickSave() {
 
-    console.log(this.timeStart);
+    let obj = {
+      id: this.mObj.id,
+      name: this.mObj.name,
+      subject: this.mObj.subject,
+      startTime: moment(this.timeStart.year + "-" + this.timeStart.month + "-" + this.timeStart.day).format("YYYY-MM-DD"),
+      endTime: moment(this.timeEnd.year + "-" + this.timeEnd.month + "-" + this.timeEnd.day).format("YYYY-MM-DD"),
+      body: this.mObj.body,
+      mailListID: this.mObj.mailListID
+    };
 
-    this.mService.getApiService().sendRequestUPDATE_MAIL_CAMPAIN(this.mObj).then(data => {
-      console.log(data);
+    this.mService.getApiService().sendRequestUPDATE_MAIL_CAMPAIN(obj).then(data => {
 
+      if (data.status == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
     })
   }
 
   onClickSend() {
+    let obj = {
+      id: this.mObj.id,
+      subject: this.mObj.subject,
+      body: this.mObj.body,
+      mailListID: this.mObj.mailListID,
+      myMail: 'a2fiend@gmail.com'
+    };
 
+
+    // this.checkEmailVerify()
+
+    this.mService.getApiService().sendRequestADD_MAIL_SEND(obj).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
   }
 
   onClickSendTest() {
@@ -155,14 +194,35 @@ export class EmailCampainDetailComponent implements OnInit {
     });
   }
 
+  checkEmailVerify(email: string) {
+    this.mService.getApiService().sendRequestCHECK_VERIFY_EMAIL(email).then(data => {
+      if (data.status == STATUS.SUCCESS)
+        this.btnVerify = true;
+      else
+        this.btnVerify = false;
+    })
+  }
+
 
   toNgbDatetime(time: any) {
     let datetime = moment(time);
     return {
       "year": datetime.years(),
       "month": datetime.months() + 1,
-      "day": datetime.days() + 1
+      "day": datetime.dates()
     }
+  }
+
+  onClickVerifyEmail() {
+    const dialogRef = this.dialog.open(DialogVerifyEmailComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.checkEmailVerify(res);
+      }
+    });
   }
 
 }

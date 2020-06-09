@@ -268,7 +268,8 @@ export class ContactMenuContactComponent implements OnInit {
         if (res) {
           let listMail = [];
           this.listContact.forEach(item => {
-            if (item.checked) listMail.push(item.email)
+            if (item.email.trim() != "" && item.checked)
+              listMail.push(item.email)
           })
 
           this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(this.mService.getUser().id, res, JSON.stringify(listMail)).then(data => {

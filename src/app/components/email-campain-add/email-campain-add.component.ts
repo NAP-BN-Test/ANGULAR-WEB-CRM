@@ -11,9 +11,6 @@ import * as moment from 'moment';
   styleUrls: ['./email-campain-add.component.scss']
 })
 export class EmailCampainAddComponent implements OnInit {
-  @ViewChild('editor') editor;
-  @ViewChild('quillFile') quillFileRef: ElementRef;
-
   @Output("closeAddSub") closeAddSub = new EventEmitter();
 
   @Input("addOut") addOut: number;
@@ -26,9 +23,6 @@ export class EmailCampainAddComponent implements OnInit {
   subject = "";
   mailListID = -1;
   endTime: any;
-  btnType = 1;
-
-  quillContent = "";
 
   listContact = [];
 
@@ -40,37 +34,6 @@ export class EmailCampainAddComponent implements OnInit {
 
   quillFile: any;
   meQuillRef: any;
-
-  editorModules = {
-    toolbar: {
-      container: [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block'],
-
-        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
-
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'font': [] }],
-        [{ 'align': [] }],
-
-        ['clean'],                                         // remove formatting button
-
-        // ['link', 'image', 'video']                         // link and image, video
-      ],
-      handlers: {
-        image: () => {
-          this.quillFileRef.nativeElement.click();
-        }
-      }
-    },
-  };
 
   constructor(
     public mService: AppModuleService,
@@ -94,7 +57,6 @@ export class EmailCampainAddComponent implements OnInit {
     this.name = "";
     this.mailListID = -1;
     this.subject = "";
-    this.quillContent = "";
   }
 
   onClickAddExist() {
@@ -107,12 +69,12 @@ export class EmailCampainAddComponent implements OnInit {
 
   onClickSave() {
 
-    if (this.name.trim() != "" && this.subject.trim() != "" && this.quillContent.trim() != "" && this.mailListID != -1) {
+    if (this.name.trim() != "" && this.subject.trim() != "" && this.mailListID != -1) {
       let obj = {
+        id: -1,
         name: this.name,
         mailListID: this.mailListID,
         subject: this.subject,
-        body: this.quillContent,
         createTime: moment().format("YYYY-MM-DD"),
         endTime: moment(this.endTime.year + "-" + this.endTime.month + "-" + this.endTime.day).format("YYYY-MM-DD"),
         nearestSend: moment().format("YYYY-MM-DD"),
@@ -123,13 +85,15 @@ export class EmailCampainAddComponent implements OnInit {
         this.mService.getUser().id,
         obj
       ).then(data => {
+        
         if (data.status == STATUS.SUCCESS) {
+          obj.id = data.id;
+
           this.closeAddSub.emit(obj);
 
           this.name = "";
           this.mailListID = -1;
           this.subject = "";
-          this.quillContent = "";
         }
       })
     }
@@ -168,51 +132,6 @@ export class EmailCampainAddComponent implements OnInit {
     } else {
       this.sendByTime = false;
     }
-  }
-
-  onClickStep(index) {
-    this.btnType = index;
-  }
-
-
-
-
-  quillFileSelected(ev: any) {
-
-    let file = ev.target.files[0];
-    if (file.type.startsWith("image")) {
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
-      
-      reader.addEventListener("load", (image) => {
-        console.log(image);
-        
-        let avatar: any = image.target["result"];
-
-
-        this.mService.getApiService().sendRequestUPLOAD_FILE(btoa(avatar)).then(data => {
-          if (data.status == STATUS.SUCCESS) {
-            console.log(data.url);
-
-            this.quillContent = this.quillContent + data.url;
-
-          }
-        })
-      })
-    }
-
-    // const imageData = {
-    //   id: this.article != null && this.article !== undefined ? this.article.post_id : null,
-    //   title: this.quillFile.name,
-    //   file: this.quillFile
-    // };
-    // this.dataService.postImage(imageData).subscribe(
-    //   (response: any) => {
-    //     console.log(response);
-    //     const filename = response.data.filename;
-    //   }
-    // );
-
   }
 
 }

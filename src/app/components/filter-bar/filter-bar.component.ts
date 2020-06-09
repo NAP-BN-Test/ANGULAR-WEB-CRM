@@ -13,6 +13,9 @@ export class FilterBarComponent implements OnInit {
   @Input('listActivity') listActivity = false;
   @Input('noCreate') noCreate = false;
 
+  @Input('type') type = -1;
+
+
   @Output('searchChange') searchChange = new EventEmitter();
   @Output('clickAdd') clickAdd = new EventEmitter();
   @Output('sort') sort = new EventEmitter();
@@ -122,6 +125,10 @@ export class FilterBarComponent implements OnInit {
     this.timeFrom = null;
     this.timeTo = null;
     this.timeType = 1;
+  }
+
+  onClickImport() {
+    
   }
 
 }
