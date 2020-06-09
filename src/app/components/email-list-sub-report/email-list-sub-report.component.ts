@@ -66,16 +66,14 @@ export class EmailListSubReportComponent implements OnInit {
   }
 
   onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
-
-    this.mService.getApiService().sendRequestGET_MAIL_LIST_DETAIL(
-      this.mService.getUser().username,
+    this.mService.getApiService().sendRequestREPORT_MAIL_DETAIL(
       this.mService.getUser().id,
-      this.mailListID,
       page,
       searchKey,
       timeFrom,
       timeTo,
-      userIDFind
+      userIDFind,
+      this.cookieService.get('mail-list-detail') ? this.cookieService.get('mail-list-detail') : ""
     ).then(data => {
 
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {

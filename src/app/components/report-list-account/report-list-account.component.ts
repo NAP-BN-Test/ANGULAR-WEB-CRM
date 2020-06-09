@@ -68,14 +68,14 @@ export class ReportListAccountComponent implements OnInit {
   }
 
   onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
-    this.mService.getApiService().sendRequestGET_LIST_REPORT_BY_USER(
+    this.mService.getApiService().sendRequestGET_LIST_REPORT_BY_CAMPAIN(
       this.mService.getUser().username,
       this.mService.getUser().id,
       page,
       searchKey,
       timeFrom,
       timeTo,
-      userIDFind
+      this.mService.getUser().id
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
@@ -157,7 +157,8 @@ export class ReportListAccountComponent implements OnInit {
   }
 
   onClickItem(item) {
-    this.router.navigate(['report-detail-account'], { state: { params: item } });
+    this.cookieService.set('campain-id', item.id);
+    this.router.navigate(['report-detail'], { state: { params: item } });
   }
 
   onClickAdd() {

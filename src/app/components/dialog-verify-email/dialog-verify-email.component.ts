@@ -26,6 +26,8 @@ export class DialogVerifyEmailComponent implements OnInit {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.dialog;
     });
+
+    this.email = this.mService.getUser().email; 
   }
 
 }

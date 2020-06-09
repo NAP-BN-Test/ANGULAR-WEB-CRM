@@ -69,10 +69,12 @@
                     <button mat-raised-button color="primary" (click)="onClickSave()">Lưu</button>
                 </div>
                 <div padding>
-                    <button mat-raised-button color="primary" (click)="onClickSend()">Gửi chiến dịch</button>
+                    <button [disabled]="!btnVerify" mat-raised-button color="primary" (click)="onClickSend()">Gửi chiến
+                        dịch</button>
                 </div>
                 <div padding>
-                    <button mat-raised-button color="accent" (click)="onClickSendTest()">Gửi mail test</button>
+                    <button [disabled]="!btnVerify" mat-raised-button color="accent" (click)="onClickSendTest()">Gửi
+                        mail test</button>
                 </div>
                 <div padding>
                     <button [disabled]="btnVerify" mat-raised-button color="accent" (click)="onClickVerifyEmail()">Xác
@@ -84,10 +86,6 @@
             </div>
 
         </div>
-    </div>
-
-    <div hidden="true">
-        <input #quillFile type="file" (change)="quillFileSelected($event)">
     </div>
 
 </div>

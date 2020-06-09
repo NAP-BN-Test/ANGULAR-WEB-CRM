@@ -202,7 +202,9 @@ export class EmailListSubComponent implements OnInit {
   }
 
   onClickItem(item) {
-    this.cookieService.set('mail-list-detail-id', item.id);
+    console.log(item);
+    
+    this.cookieService.set('mail-list-detail', item.email);
     this.router.navigate(['email-list-sub-report'], { state: { params: item } });
   }
 

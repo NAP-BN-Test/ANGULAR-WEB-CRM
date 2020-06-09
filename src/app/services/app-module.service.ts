@@ -52,6 +52,7 @@ export class AppModuleService {
   }
 
   public setUser(user: any) {
+    localStorage.setItem('user-info', user)
     this.mUser = user;
   }
 

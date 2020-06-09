@@ -165,6 +165,8 @@ export class ApiCmd {
 
     public static ADD_MAIL_SEND: string = "crm/add_mail_send";
 
+    public static REPORT_MAIL_DETAIL: string = "crm/report_mail_detail";
+
 
     public static GET_LIST_REPORT_BY_CAMPAIN: string = "crm/get_list_report_by_campain";
 
@@ -179,7 +181,9 @@ export class ApiCmd {
     public static GET_REPORT_BY_USER_MAIL_SEND: string = "crm/get_report_by_user_mail_send";
 
 
-    public static CHECK_VERIFY_EMAIL: string = "crm/check_verify_email";
+    public static CHECK_VERIFY_EMAIL: string = "aws/check_verify_email";
+
+    public static VERIFY_EMAIL: string = "aws/verify_email";
 
 
     public static UPLOAD_FILE: string = "crm/upload_file";

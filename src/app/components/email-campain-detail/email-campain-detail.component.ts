@@ -8,6 +8,10 @@ import { Location } from '@angular/common';
 
 import * as moment from 'moment';
 import { DialogVerifyEmailComponent } from '../dialog-verify-email/dialog-verify-email.component';
+import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file';
+import { HttpClient } from '@angular/common/http';
+import { UploadType } from 'src/app/services/core/upload-image/upload-type';
+
 
 @Component({
   selector: 'app-email-campain-detail',
@@ -15,7 +19,6 @@ import { DialogVerifyEmailComponent } from '../dialog-verify-email/dialog-verify
   styleUrls: ['./email-campain-detail.component.scss']
 })
 export class EmailCampainDetailComponent implements OnInit {
-  @ViewChild('quillFile') quillFileRef: ElementRef;
 
   mData: any;
   mObj: any;
@@ -58,13 +61,13 @@ export class EmailCampainDetailComponent implements OnInit {
 
         ['clean'],                                         // remove formatting button
 
-        // ['link', 'image', 'video']                         // link and image, video
+        ['link', 'image', 'video']                         // link and image, video
       ],
-      // handlers: {
-      //   image: () => {
-      //     this.quillFileRef.nativeElement.click();
-      //   }
-      // }
+      handlers: {
+        image: () => {
+          this.quillFileSelected()
+        }
+      }
     },
   };
 
@@ -73,6 +76,7 @@ export class EmailCampainDetailComponent implements OnInit {
     private cookieService: CookieService,
     public dialog: MatDialog,
     private location: Location,
+    public http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -99,29 +103,33 @@ export class EmailCampainDetailComponent implements OnInit {
       if (data.status == STATUS.SUCCESS)
         this.listMailList = data.array;
     })
+
+    this.checkEmailVerify(this.mService.getUser().email);
+
+    UploadFileModule.getInstance().setHttp(this.http);
   }
 
-  quillFileSelected(ev: any) {
+  quillFileSelected() {
 
-    let file = ev.target.files[0];
-    if (file.type.startsWith("image")) {
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
+    UploadFileModule.getInstance()._openFileInBrowser(res => {
+      if (res) {
+        UploadFileModule.getInstance()
+          ._onUploadFileInBrowser(
+            res.selectedFile,
+            UploadType.LOGO,
+            "true"
+          )
+          .then((data) => {
+            this.mObj.body = this.mObj.body + `<img src="${data.url}">`;
+            console.log(data);
 
-      reader.addEventListener("load", (image) => {
+          })
+          .catch(err => {
+            console.log(err);
 
-        let avatar: any = image.target["result"];
-
-        this.mService.getApiService().sendRequestUPLOAD_FILE(btoa(avatar)).then(data => {
-          if (data.status == STATUS.SUCCESS) {
-            console.log(data.url);
-
-            this.quillContent = this.quillContent + data.url;
-
-          }
-        })
-      })
-    }
+          });
+      }
+    });
   }
 
   onClickSave() {
@@ -154,11 +162,8 @@ export class EmailCampainDetailComponent implements OnInit {
       subject: this.mObj.subject,
       body: this.mObj.body,
       mailListID: this.mObj.mailListID,
-      myMail: 'a2fiend@gmail.com'
+      myMail: this.mService.getUser().email
     };
-
-
-    // this.checkEmailVerify()
 
     this.mService.getApiService().sendRequestADD_MAIL_SEND(obj).then(data => {
       if (data.status == STATUS.SUCCESS) {
@@ -172,7 +177,23 @@ export class EmailCampainDetailComponent implements OnInit {
   }
 
   onClickSendTest() {
+    let obj = {
+      id: this.mObj.id,
+      subject: this.mObj.subject,
+      body: this.mObj.body,
+      mailListID: this.mObj.mailListID,
+      myMail: this.mService.getUser().email
+    };
 
+    this.mService.getApiService().sendRequestADD_MAIL_SEND(obj, true).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.toasMessage = data.message;
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 2000);
+      }
+    })
   }
 
   onClickDelete() {
@@ -220,7 +241,20 @@ export class EmailCampainDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        this.checkEmailVerify(res);
+        this.mService.getApiService().sendRequestVERIFY_EMAIL(this.mService.getUser().id, res).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+
+            let user = this.mService.getUser();
+            user.email = res;
+            this.mService.setUser(user);
+
+            this.toasMessage = data.message;
+            this.showToast = true;
+            setTimeout(() => {
+              this.showToast = false;
+            }, 2000);
+          }
+        })
       }
     });
   }

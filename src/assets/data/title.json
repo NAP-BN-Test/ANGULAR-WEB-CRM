@@ -102,8 +102,12 @@
                     "index": 4,
                     "list": [
                         {
-                            "name": "Theo chiến dịch",
+                            "name": "Tất cả chiến dịch",
                             "index": 1
+                        },
+                        {
+                            "name": "Theo cá nhân",
+                            "index": 2
                         }
                     ]
                 }

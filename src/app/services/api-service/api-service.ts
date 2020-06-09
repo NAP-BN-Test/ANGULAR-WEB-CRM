@@ -1,9 +1,10 @@
 import { HttpClient } from '../core/http/http-client';
 import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
+import { Headers } from '@angular/http';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.9:3002/";
+    mUrl: string = "http://192.168.1.130:3002/";
     // mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
@@ -1104,14 +1105,15 @@ export class ApiService extends HttpClient {
         searchKey: string,
         timeFrom: string,
         timeTo: string,
-        userIDFind: number
+        userIDFind?: number
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_REPORT_BY_CAMPAIN,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("page", page));
+                .add("page", page)
+                .addIgnoreNull("userIDFind", userIDFind));
     }
 
     public sendRequestGET_LIST_REPORT_BY_USER(
@@ -1278,6 +1280,7 @@ export class ApiService extends HttpClient {
 
     //==============================
     public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
+        let body = obj.body.replace(/&/g, '%26');
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -1288,13 +1291,13 @@ export class ApiService extends HttpClient {
                 .add("subject", obj.subject)
                 .add("startTime", obj.startTime)
                 .add("endTime", obj.endTime)
-                .add("body", obj.body)
+                .add("body", body)
                 .add("mailListID", obj.mailListID)
                 .add("name", obj.name));
     }
 
     //==============================
-    public sendRequestADD_MAIL_SEND(obj: any): Promise<any> {
+    public sendRequestADD_MAIL_SEND(obj: any, isTestMail?: boolean): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_MAIL_SEND,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -1305,7 +1308,8 @@ export class ApiService extends HttpClient {
                 .add("subject", obj.subject)
                 .add("body", obj.body)
                 .add("mailListID", obj.mailListID)
-                .add("myMail", obj.myMail));
+                .add("myMail", obj.myMail)
+                .addIgnoreNull("isTestMail", isTestMail));
     }
 
     //==============================
@@ -1316,6 +1320,38 @@ export class ApiService extends HttpClient {
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
 
+                .add("email", email));
+    }
+
+    //==============================
+    public sendRequestVERIFY_EMAIL(userID: number, email: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.VERIFY_EMAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", userID)
+
+                .add("email", email));
+    }
+
+    //==============================
+    public sendRequestREPORT_MAIL_DETAIL(
+        userID: number,
+        page: number,
+        searchKey: string,
+        timeFrom: string,
+        timeTo: string,
+        userIDFind: number,
+        email: string
+    ): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.REPORT_MAIL_DETAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("page", page)
                 .add("email", email));
     }
 }
