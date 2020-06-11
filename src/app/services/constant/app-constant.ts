@@ -123,12 +123,14 @@ export const BUTTON_TYPE = {
 
 export const EVENT_PUSH = {
     TABLE: 'table-event',
-    SELECTION: 'table-selection'
+    SELECTION: 'table-selection',
 }
 
 export const CLICK_DETAIL = {
     COMPANY: 1,
-    CONTACT: 2
+    CONTACT: 2,
+    ACTIVITY: 3,
+    MAIL_LIST: 4
 }
 
 export const SORT_TYPE = {
@@ -136,6 +138,10 @@ export const SORT_TYPE = {
     TIME_START: 2,
     TIME_END: 3,
     SEARCH: 4,
+    STEP: 5,
+    CITY: 6,
+    TIME_TYPE: 7,
+
 }
 
 

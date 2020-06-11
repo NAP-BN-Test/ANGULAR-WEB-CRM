@@ -15,9 +15,6 @@ import { DialogAddMailListComponent } from '../../dialogs/dialog-add-mail-list/d
   styleUrls: ['./contact-menu-contact.component.scss']
 })
 export class ContactMenuContactComponent implements OnInit {
-
-  listContact = [];
-  
   //data for component table
   listTbData = {
     clickDetail: CLICK_DETAIL.CONTACT,
@@ -115,15 +112,6 @@ export class ContactMenuContactComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.listContact = data.array;
-
-        setTimeout(() => {
-          this.mService.publishEvent(EVENT_PUSH.TABLE, this.listContact);
-        }, 200);
-        this.router.navigate([], {
-          queryParams: { page: this.page }
-        })
-
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
         this.numberAssignAll = data.assignAll;
@@ -141,18 +129,17 @@ export class ContactMenuContactComponent implements OnInit {
         } else if (this.menuSelected == 5) {
           this.collectionSize = data.assignAll;
         }
+
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: this.page,
+          collectionSize: this.collectionSize,
+          listData: data.array,
+          listTbData: this.listTbData
+        });
+        this.router.navigate([], {
+          queryParams: { page: this.page }
+        })
       }
-    })
-  }
-
-  pow = 0;
-  onSort() {
-    this.pow += 1;
-
-    this.listContact = this.listContact.sort((a, b) => {
-      if (a.name > b.name) return Math.pow(-1, this.pow);
-      if (a.name < b.name) return Math.pow(-1, this.pow + 1);
-      return 0;
     })
   }
 
@@ -164,49 +151,9 @@ export class ContactMenuContactComponent implements OnInit {
     this.onLoadData(1, index, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
-  // onCheckBoxChange(event) {
-  //   let checked = event.checked;
-  //   if (checked) this.numberOfItemSelected += 1;
-  //   else this.numberOfItemSelected -= 1;
-
-  //   if (this.numberOfItemSelected == 0) {
-  //     this.indeterminate = false;
-  //     this.checked = false;
-  //   } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
-  //     this.indeterminate = true;
-  //     this.checked = false;
-  //   } else if (this.numberOfItemSelected >= 12) {
-  //     this.indeterminate = false;
-  //     this.checked = true;
-  //   }
-  // }
-
-  // onCheckAllChange() {
-  //   this.numberOfItemSelected = 0;
-
-  //   if (this.checked) {
-  //     this.listContact.forEach(item => {
-  //       item.checked = false;
-  //     })
-  //   }
-  //   else {
-  //     this.listContact.forEach(it => {
-  //       let obj = this.listContact.find(it1 => {
-  //         return it1.id == it.id;
-  //       });
-  //       obj.checked = true;
-  //       this.numberOfItemSelected += 1;
-  //     })
-  //   }
-  // }
-
   onClickPagination(event) {
     this.page = event;
     this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
-  }
-
-  onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickCell(event) {
@@ -246,8 +193,9 @@ export class ContactMenuContactComponent implements OnInit {
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.onShowToast(data.message);
+
               this.mService.publishEvent(EVENT_PUSH.SELECTION, true);
+              this.onShowToast(data.message);
             }
           })
         }

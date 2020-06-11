@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,8 +14,28 @@ import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-compan
   styleUrls: ['./email-campain.component.scss']
 })
 export class EmailCampainComponent implements OnInit {
+  //data for component table
+  listTbData = {
+    clickDetail: CLICK_DETAIL.MAIL_LIST,
+    listColum: [
+      { name: 'Tên chiến dịch', cell: 'name' },
+      { name: 'Tiêu đề', cell: 'subject' },
+      { name: 'Người tạo', cell: 'owner' },
+      { name: 'Ngày tạo', cell: 'createTime' },
+      { name: 'Lần gửi gần nhất', cell: 'nearestSend' },
+    ],
+    listButton: [
+      { id: BUTTON_TYPE.DELETE, name: 'Xóa', color: 'warn' }
+    ]
+  };
 
-  listContact = [];
+  //data for component fillter bar
+  toppingList = [
+    { id: SORT_TYPE.USER, name: 'User' },
+    { id: SORT_TYPE.TIME_START, name: 'Tg bắt đầu' },
+    { id: SORT_TYPE.TIME_END, name: 'Tg kết thúc' },
+    { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
+  ]
 
   mData: any;
 
@@ -39,6 +59,7 @@ export class EmailCampainComponent implements OnInit {
   itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
+  searchKey = "";
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
@@ -78,25 +99,20 @@ export class EmailCampainComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.listContact = data.array;
-
         this.numberAll = data.count;
-
         if (this.menuSelected == 1) {
           this.collectionSize = data.count;
         }
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: this.page,
+          collectionSize: this.collectionSize,
+          listData: data.array,
+          listTbData: this.listTbData
+        });
+        this.router.navigate([], {
+          queryParams: { page: this.page }
+        })
       }
-    })
-  }
-
-  pow = 0;
-  onSort() {
-    this.pow += 1;
-
-    this.listContact = this.listContact.sort((a, b) => {
-      if (a.name > b.name) return Math.pow(-1, this.pow);
-      if (a.name < b.name) return Math.pow(-1, this.pow + 1);
-      return 0;
     })
   }
 
@@ -109,58 +125,18 @@ export class EmailCampainComponent implements OnInit {
 
   }
 
-  onCheckBoxChange(event) {
-    let checked = event.checked;
-    if (checked) this.numberOfItemSelected += 1;
-    else this.numberOfItemSelected -= 1;
-
-    if (this.numberOfItemSelected == 0) {
-      this.indeterminate = false;
-      this.checked = false;
-    } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
-      this.indeterminate = true;
-      this.checked = false;
-    } else if (this.numberOfItemSelected >= 12) {
-      this.indeterminate = false;
-      this.checked = true;
-    }
-  }
-
-  onCheckAllChange() {
-    this.numberOfItemSelected = 0;
-
-    if (this.checked) {
-      this.listContact.forEach(item => {
-        item.checked = false;
-      })
-    }
-    else {
-      this.listContact.forEach(it => {
-        let obj = this.listContact.find(it1 => {
-          return it1.id == it.id;
-        });
-        obj.checked = true;
-        this.numberOfItemSelected += 1;
-      })
-    }
-  }
-
   onClickPagination(event) {
     this.checked = false;
     this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
   }
-  onClickSettingItemPerPage(event) {
-    this.itemPerPage = event;
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
-  }
 
-  onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
-  }
-
-  onClickItem(item) {
-    this.cookieService.set('campain-id', item.id);
-    this.router.navigate(['email-campain-detail'], { state: { params: item } });
+  onClickCell(event) {
+    if (event) {
+      if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
+        this.cookieService.set('campain-id', event.data.id);
+        this.router.navigate(['email-campain-detail'], { state: { params: event.data } });
+      }
+    }
   }
 
   onClickAdd() {
@@ -168,37 +144,24 @@ export class EmailCampainComponent implements OnInit {
   }
 
   onClickCloseAdd(event) {
-    console.log(event)
     if (event) {
-      this.listContact.unshift(event);
-
       this.cookieService.set('campain-id', event.id);
       this.router.navigate(['email-campain-detail'], { state: { params: event } });
     }
     this.addSub = 0
   }
 
-  onClickAssign(index) {
-    if (index == 0) {
+  onClickBtn(event) {
+    if (event.btnType == BUTTON_TYPE.DELETE) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestDELETE_MAIL_CAMPAIN(
-            JSON.stringify(listID)
-          ).then(data => {
+          this.mService.getApiService().sendRequestDELETE_MAIL_CAMPAIN(event.data).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listContact = this.listContact.filter(contactItem => {
-                return contactItem.checked != true;
-              })
-              this.checked = false;
-              this.indeterminate = false;
+              this.onLoadData(1, this.menuSelected, this.searchKey, event.timeFrom, event.timeTo, event.userID);
             }
           })
         }
@@ -211,7 +174,7 @@ export class EmailCampainComponent implements OnInit {
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
 
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-call'), event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, this.menuSelected, this.searchKey, event.timeFrom, event.timeTo, event.userID);
   }
 
 }

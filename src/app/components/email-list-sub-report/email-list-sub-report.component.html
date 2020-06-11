@@ -4,79 +4,16 @@
     </div>
 
     <div padding32>
-        <div padding32-bottom between>
+        <div padding-bottom between>
             <div font2 bold>Báo cáo chi tiết {{mData.email_sub_title}}</div>
         </div>
 
         <div flex no-wrap>
             <div width-100>
-                <div class="m-table">
-                    <div flex padding8-vertical [class.background-whitesmoke]="!checked && !indeterminate"
-                        [class.background-secondary]="checked || indeterminate">
-                        <div padding-horizontal center-line>
-                            <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate"
-                                (click)="onCheckAllChange()">
-                            </mat-checkbox>
-                        </div>
+                <app-filter-bar [toppingList]="toppingList" noAdd="true" (sort)="onClickSort($event)">
+                </app-filter-bar>
 
-                        <div flex [hidden]="!checked&&!indeterminate">
-                            <div padding-start center-line style="font-weight: normal;">{{numberOfItemSelected}}
-                                {{mData.selected}}</div>
-                            <div padding-start></div>
-                            <div *ngFor="let item of mData.emai_sub.list_select; let i = index" padding-start bold
-                                center-line tappable (click)="onClickAssign(i)">
-                                {{item.name}}
-                            </div>
-                        </div>
-
-                        <div flex [hidden]="checked||indeterminate">
-                            <div style="width: 400px;" class="bold center-line" (click)="onSort()" tappable>
-                                TÊN CHIẾN DỊCH
-                            </div>
-                            <div style="width: 400px;" class="bold center-line" (click)="onSort()" tappable>
-                                TÊN MAIL LIST
-                            </div>
-                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                NGÀY GỬI
-                            </div>
-                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                NGƯỜI GỬI
-                            </div>
-                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                TRẠNG THÁI
-                            </div>
-                        </div>
-                    </div>
-
-                    <div wrap flex *ngFor="let item of listContact;let i = index" [class.background-white]="i%2==0">
-                        <div padding-horizontal center-line>
-                            <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
-                            </mat-checkbox>
-                        </div>
-                        <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 400px;" class="center-line">
-                                {{item.campainName}}
-                            </div>
-                            <div style="width: 400px;" class="center-line">
-                                {{item.mailListName}}
-                            </div>
-                            <div style="width: 200px;" class="center-line">
-                                {{item.createTime | datetimeDefault}}
-                            </div>
-                            <div style="width: 200px;" class="center-line">
-                                {{item.senderName}}
-                            </div>
-                            <div style="width: 200px;" class="center-line">
-                                {{item.status}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <app-pagination [page]="page" [itemPerPage]="itemPerPage" [collectionSize]="collectionSize"
-                    (clickPagination)="onClickPagination($event)"
-                    (clickSettingItemPerPage)="onClickSettingItemPerPage($event)">
-                </app-pagination>
+                <app-mat-table (clickPagination)="onClickPagination($event)"></app-mat-table>
             </div>
 
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -14,19 +14,15 @@ import { BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL } from 'src/app/services/constant
 export class MatTableComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  @Input('page') page;
-  @Input('collectionSize') collectionSize;
-
-  @Input('listData') listData: any;
-  @Input('listTbData') listTbData: any;
-
   @Output('clickPagination') clickPagination = new EventEmitter();
   @Output('clickBtn') clickBtn = new EventEmitter();
   @Output('clickCell') clickCell = new EventEmitter();
 
+  page;
+  collectionSize;
 
+  listTbData: any;
   itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
-
   pageSizeOptions: number[] = [10, 25, 50, 100, 200];
 
   displayedColumns: string[] = ['id'];
@@ -39,21 +35,27 @@ export class MatTableComponent implements OnInit {
   constructor(
     public mService: AppModuleService,
   ) {
-    // Assign the data to the data source for the table to render
-    setTimeout(() => {
-      this.dataSource = new MatTableDataSource(this.listData);
-      this.dataSource.sort = this.sort;
-
-      this.onUpdateTable();
-    }, 1000);
-
     // Bắt event thay đổi list
     this.mService.currentEvent.subscribe(sData => {
+      // event update data trong bảng
       if (sData.name == EVENT_PUSH.TABLE) {
-        this.dataSource = new MatTableDataSource(sData.params);
+        //thông tin pagination
+        this.page = sData.params.page;
+        this.collectionSize = sData.params.collectionSize;
+        //thông tin data trong bảng
+        this.dataSource = new MatTableDataSource(sData.params.listData);
         this.dataSource.sort = this.sort;
         this.selection.clear();
+        //thông tin setup bảng
+        this.displayedColumns = ['id'];
+        this.displayedColumnsAll = [];
+        this.listTbData = sData.params.listTbData;
+        this.listTbData.listColum.forEach(item => {
+          this.displayedColumns.push(item.cell);
+        })
+        this.displayedColumnsAll = this.listTbData.listColum;
       }
+      //event xóa nút check khi đã thao tác xong
       if (sData.name == EVENT_PUSH.SELECTION) {
         this.selection.clear();
       }
@@ -95,24 +97,17 @@ export class MatTableComponent implements OnInit {
     }
   }
 
-  /** Sắp xếp các cột */
-  onUpdateTable() {
-
-    this.listTbData.listColum.forEach(item => {
-      this.displayedColumns.push(item.cell);
-    })
-    this.displayedColumnsAll = this.listTbData.listColum;
-  }
-
   /** Click các button và trả về các loại btn tương ứng, gồm loại btn và data */
   onClickBtn(item) {
     let ev;
     if (item.id == BUTTON_TYPE.ADD_LIST_MAIL) {
       let listMail = [];
-      this.selection.selected.forEach(item => {
-        if (item.email.trim() != "" && item.checked)
-          listMail.push({ email: item.email, name: item.name })
+
+      this.selection.selected.forEach(selectionItem => {
+        if (selectionItem.email.trim())
+          listMail.push({ email: selectionItem.email, name: selectionItem.name })
       })
+
       ev = {
         btnType: item.id,
         data: JSON.stringify(listMail)
@@ -141,26 +136,61 @@ export class MatTableComponent implements OnInit {
           data: row
         });
       } else if (cell.includes('company')) {
-        if (!row.companyID || row.companyID != -1)
+        if (row.companyID != null)
           this.clickCell.emit({
             clickDetail: CLICK_DETAIL.COMPANY,
             data: row
           });
       }
     }
-    // else if (this.listTbData.clickDetail == CLICK_DETAIL.COMPANY) {
-    //   if (cell == 'name') {
-    //     this.clickCell.emit({
-    //       clickDetail: CLICK_DETAIL.CONTACT,
-    //       data: row
-    //     });
-    //   } else if (cell.includes('company')) {
-    //     this.clickCell.emit({
-    //       clickDetail: CLICK_DETAIL.CONTACT,
-    //       data: row
-    //     });
-    //   }
-    // }
+
+    else if (this.listTbData.clickDetail == CLICK_DETAIL.COMPANY) {
+      if (cell == 'name') {
+        this.clickCell.emit({
+          clickDetail: CLICK_DETAIL.COMPANY,
+          data: row
+        });
+      }
+    }
+
+    else if (this.listTbData.clickDetail == CLICK_DETAIL.ACTIVITY) {
+      if (cell.includes('contact')) {
+        if (row.companyID != null)
+          this.clickCell.emit({
+            clickDetail: CLICK_DETAIL.CONTACT,
+            data: row
+          });
+      }
+      else if (cell.includes('company')) {
+        if (row.companyID != null)
+          this.clickCell.emit({
+            clickDetail: CLICK_DETAIL.COMPANY,
+            data: row
+          });
+      }
+      else if (cell.includes('taskName')) {
+        console.log(row);
+        if (row.type == 1) {
+          this.clickCell.emit({
+            clickDetail: CLICK_DETAIL.COMPANY,
+            data: row
+          });
+        }
+        else if (row.type == 2) {
+          this.clickCell.emit({
+            clickDetail: CLICK_DETAIL.CONTACT,
+            data: row
+          });
+        }
+      }
+    }
+
+    else if (this.listTbData.clickDetail == CLICK_DETAIL.MAIL_LIST) {
+      this.clickCell.emit({
+        clickDetail: CLICK_DETAIL.MAIL_LIST,
+        data: row
+      });
+    }
   }
 
 }

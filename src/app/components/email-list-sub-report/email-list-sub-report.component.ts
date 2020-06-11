@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,7 +14,28 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./email-list-sub-report.component.scss']
 })
 export class EmailListSubReportComponent implements OnInit {
-  listContact = [];
+  //data for component table
+  listTbData = {
+    clickDetail: CLICK_DETAIL.MAIL_LIST,
+    listColum: [
+      { name: 'Tên chiến dịch', cell: 'campainName' },
+      { name: 'Tên mail list', cell: 'mailListName' },
+      { name: 'Ngày gửi', cell: 'createTime' },
+      { name: 'Người gửi', cell: 'senderName' },
+      { name: 'Trạng thái', cell: 'status' },
+    ],
+    listButton: [
+      { id: BUTTON_TYPE.DELETE, name: 'Xóa', color: 'warn' }
+    ]
+  };
+
+  //data for component fillter bar
+  toppingList = [
+    { id: SORT_TYPE.USER, name: 'User' },
+    { id: SORT_TYPE.TIME_START, name: 'Tg bắt đầu' },
+    { id: SORT_TYPE.TIME_END, name: 'Tg kết thúc' },
+    { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
+  ]
 
   mData: any;
   email: any;
@@ -23,18 +44,13 @@ export class EmailListSubReportComponent implements OnInit {
 
   menuSelected = 1;
 
-  checked = false;
-  indeterminate = false;
-  disabled = false;
-
-  numberOfItemSelected = 0;
-
   addSub = 0
 
   page = 1;
   itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
+  searchKey = "";
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
@@ -57,7 +73,7 @@ export class EmailListSubReportComponent implements OnInit {
 
       this.mailListID = this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1;
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
       this.router.navigate(['login']);
@@ -78,121 +94,23 @@ export class EmailListSubReportComponent implements OnInit {
 
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.listContact = data.array;
+        this.collectionSize = data.count;
 
-        if (this.menuSelected == 1) {
-          this.collectionSize = data.count;
-        }
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: this.page,
+          collectionSize: this.collectionSize,
+          listData: data.array,
+          listTbData: this.listTbData
+        });
+        this.router.navigate([], {
+          queryParams: { page: this.page }
+        })
       }
     })
   }
 
-  pow = 0;
-  onSort() {
-    this.pow += 1;
-
-    this.listContact = this.listContact.sort((a, b) => {
-      if (a.name > b.name) return Math.pow(-1, this.pow);
-      if (a.name < b.name) return Math.pow(-1, this.pow + 1);
-      return 0;
-    })
-  }
-
-  onClickMenu(index: number) {
-    this.page = 1;
-    this.menuSelected = index;
-    this.cookieService.set('contact-menu', index + "");
-
-    this.onLoadData(1, index, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
-
-  }
-
-  onCheckBoxChange(event) {
-    let checked = event.checked;
-    if (checked) this.numberOfItemSelected += 1;
-    else this.numberOfItemSelected -= 1;
-
-    if (this.numberOfItemSelected == 0) {
-      this.indeterminate = false;
-      this.checked = false;
-    } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
-      this.indeterminate = true;
-      this.checked = false;
-    } else if (this.numberOfItemSelected >= 12) {
-      this.indeterminate = false;
-      this.checked = true;
-    }
-  }
-
-  onCheckAllChange() {
-    this.numberOfItemSelected = 0;
-
-    if (this.checked) {
-      this.listContact.forEach(item => {
-        item.checked = false;
-      })
-    }
-    else {
-      this.listContact.forEach(it => {
-        let obj = this.listContact.find(it1 => {
-          return it1.id == it.id;
-        });
-        obj.checked = true;
-        this.numberOfItemSelected += 1;
-      })
-    }
-  }
-
   onClickPagination(event) {
-    this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
-  }
-  onClickSettingItemPerPage(event) {
-    this.itemPerPage = event;
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
-  }
-
-  onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
-  }
-
-  onClickAdd() {
-    this.addSub = 1;
-  }
-
-  onClickCloseAdd(event) {
-    if (event) {
-      this.listContact.unshift(event)
-    }
-    this.addSub = 0
-  }
-
-  onClickAssign(index) {
-    if (index == 0) {
-      const dialogRef = this.dialog.open(DialogComponent, {
-        width: '500px'
-      });
-
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestDELETE_MAIL_LIST_DETAIL(
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listContact = this.listContact.filter(contactItem => {
-                return contactItem.checked != true;
-              })
-              this.checked = false;
-              this.indeterminate = false;
-            }
-          })
-        }
-      });
-    }
+    this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickSort(event) {

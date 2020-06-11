@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angu
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { CookieService } from 'ngx-cookie-service';
 import { STATUS, SORT_TYPE } from 'src/app/services/constant/app-constant';
-import { FormControl } from '@angular/forms';
 import { MatInput, MatSelect } from '@angular/material';
 
 import * as moment from 'moment';
@@ -17,16 +16,16 @@ export class FilterBarComponent implements OnInit {
   @ViewChild('dateStartInput', { read: MatInput }) dateStartInput: MatInput;
   @ViewChild('dateEndInput', { read: MatInput }) dateEndInput: MatInput;
   @ViewChild('searchKeyInput', { read: MatInput }) searchKeyInput: MatInput;
+
   @ViewChild('userSelect', { read: MatSelect }) userSelect: MatSelect;
+  @ViewChild('stepSelect', { read: MatSelect }) stepSelect: MatSelect;
+  @ViewChild('citySelect', { read: MatSelect }) citySelect: MatSelect;
+  @ViewChild('timeTypeSelect', { read: MatSelect }) timeTypeSelect: MatSelect;
 
-  @Input('onContact') onContact = false;
-  @Input('listActivity') listActivity = false;
-  @Input('noCreate') noCreate = false;
-
-  @Input('type') type = -1;
+  @Input('noAdd') noAdd = false;
+  @Input('noImport') noImport = false;
 
   @Input('toppingList') toppingList = [];
-
 
   @Output('searchChange') searchChange = new EventEmitter();
   @Output('clickAdd') clickAdd = new EventEmitter();
@@ -53,9 +52,12 @@ export class FilterBarComponent implements OnInit {
 
 
   sortUser = false;
+  sortStep = false;
+  sortCity = false;
   sortTimeStart = false;
   sortTimeEnd = false;
   sortSearch = false;
+  sortTimeType = false;
 
   constructor(
     public mService: AppModuleService,
@@ -66,11 +68,6 @@ export class FilterBarComponent implements OnInit {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mData = data.contact;
     });
-
-    if (this.onContact)
-      this.searchKey = this.cookieService.get('search-key-contact');
-    else
-      this.searchKey = this.cookieService.get('search-key');
 
     this.mService.getApiService().sendRequestGET_LIST_USER(
       this.mService.getUser().username,
@@ -105,38 +102,20 @@ export class FilterBarComponent implements OnInit {
 
   }
 
-  onSearchChange(event) {
-    let searchKey = event.target.value;
-
-    if (this.onContact)
-      this.cookieService.set('search-key-contact', searchKey);
-    else
-      this.cookieService.set('search-key', searchKey);
-
-    this.searchChange.emit(searchKey);
-  }
-
   onClickAdd() {
     this.clickAdd.emit();
   }
 
-  // onPickDate(event, type) {
-  //   if (type == 1) {
-  //     this.timeFrom = event;
-  //   } else {
-  //     this.timeTo = event;
-  //   }
-  // }
+  onClickImport() {
+    this.clickImport.emit();
+  }
 
   onClickSort() {
     this.sort.emit({
-      // userID: this.userID > 0 ? this.userID : null,
-      // cityID: this.cityID > 0 ? this.cityID : null,
-      // stepID: this.stepID > 0 ? this.stepID : null,
-      // timeFrom: this.timeFrom,
-      // timeTo: this.timeTo,
-      // timeType: this.timeType
       userID: toID(this.userSelect.value),
+      stepID: toID(this.stepSelect.value),
+      cityID: toID(this.citySelect.value),
+      timeType: this.timeType,
       timeFrom: toDate(this.dateStartInput.value),
       timeTo: toDate(this.dateEndInput.value),
       searchKey: this.searchKeyInput.value
@@ -145,38 +124,24 @@ export class FilterBarComponent implements OnInit {
   }
 
   onClickClear() {
-    // this.userID = -1;
-    // this.stepID = -1;
-    // this.cityID = -1;
-    // this.timeFrom = null;
-    // this.timeTo = null;
-    // this.timeType = 1;
-
     this.dateStartInput.value = '';
     this.dateEndInput.value = '';
     this.searchKeyInput.value = '';
     this.userSelect.value = '';
+    this.stepSelect.value = '';
+    this.citySelect.value = '';
+    this.timeTypeSelect.value = '';
 
-  }
-
-  onClickImport() {
-    this.clickImport.emit();
   }
 
   onSortChange(event) {
     this.sortUser = event.value.includes(SORT_TYPE.USER);
+    this.sortStep = event.value.includes(SORT_TYPE.STEP);
+    this.sortCity = event.value.includes(SORT_TYPE.CITY);
     this.sortTimeStart = event.value.includes(SORT_TYPE.TIME_START);
     this.sortTimeEnd = event.value.includes(SORT_TYPE.TIME_END);
     this.sortSearch = event.value.includes(SORT_TYPE.SEARCH);
-  }
-
-  onUserChange(event) {
-    if (event)
-      this.userID = Number(event.value)
-  }
-
-  applyFilter(event: Event) {
-    console.log(event);
+    this.sortTimeType = event.value.includes(SORT_TYPE.TIME_TYPE);
   }
 
 }

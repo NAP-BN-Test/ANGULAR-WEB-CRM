@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, CLICK_DETAIL, BUTTON_TYPE, SORT_TYPE, EVENT_PUSH } from 'src/app/services/constant/app-constant';
 import { DialogAssignContactComponent } from '../../dialogs/dialog-assign-contact/dialog-assign-contact.component';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
@@ -14,7 +14,32 @@ import { DialogComponent } from '../../dialogs/dialog/dialog.component';
   styleUrls: ['./activity-list-task.component.scss']
 })
 export class ActivityListTaskComponent implements OnInit {
-  listData = [];
+  //data for component table
+  listTbData = {
+    clickDetail: CLICK_DETAIL.ACTIVITY,
+    listColum: [
+      { name: 'Tên', cell: 'taskName' },
+      { name: 'Nội dung', cell: 'description' },
+      { name: 'Phân công', cell: 'assignName' },
+      { name: 'Loại', cell: 'type' },
+      { name: 'Người tạo', cell: 'createName' },
+      { name: 'Ngày tạo', cell: 'timeCreate' },
+      { name: 'Hết hạn', cell: 'timeRemind' },
+    ],
+    listButton: [
+      { id: BUTTON_TYPE.COMPLETE, name: 'Hoàn thành hết', color: 'primary' },
+      { id: BUTTON_TYPE.DELETE, name: 'Xóa', color: 'warn' }
+    ]
+  };
+
+  //data for component fillter bar
+  toppingList = [
+    { id: SORT_TYPE.USER, name: 'User' },
+    { id: SORT_TYPE.TIME_TYPE, name: 'Loại tg' },
+    { id: SORT_TYPE.TIME_START, name: 'Tg bắt đầu' },
+    { id: SORT_TYPE.TIME_END, name: 'Tg kết thúc' },
+    { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
+  ]
 
   mData: any;
 
@@ -70,23 +95,21 @@ export class ActivityListTaskComponent implements OnInit {
       timeType
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.listData = data.array;
 
         this.numberAll = data.all;
 
         this.collectionSize = data.all;
+
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: this.page,
+          collectionSize: this.collectionSize,
+          listData: data.array,
+          listTbData: this.listTbData
+        });
+        this.router.navigate([], {
+          queryParams: { page: this.page }
+        })
       }
-    })
-  }
-
-  pow = 0;
-  onSort() {
-    this.pow += 1;
-
-    this.listData = this.listData.sort((a, b) => {
-      if (a.name > b.name) return Math.pow(-1, this.pow);
-      if (a.name < b.name) return Math.pow(-1, this.pow + 1);
-      return 0;
     })
   }
 
@@ -115,46 +138,6 @@ export class ActivityListTaskComponent implements OnInit {
   }
 
 
-  onStatusChange(event, item) {
-    let checked = event.target.checked;
-    let obj: any = this.listData.find(itm => {
-      return itm.id === item.id;
-    });
-    if (obj) {
-      let listID = [item.id]
-      this.mService.getApiService().sendRequestUPDATE_TASK(
-        this.mService.getUser().username,
-        this.mService.getUser().id,
-        JSON.stringify(listID),
-        checked ? checked : null
-      ).then(data => {
-        if (data.status == STATUS.SUCCESS) {
-          obj.status = checked;
-        }
-      })
-    }
-
-  }
-
-  onCheckAllChange() {
-    this.numberOfItemSelected = 0;
-
-    if (this.checked) {
-      this.listData.forEach(item => {
-        item.checked = false;
-      })
-    }
-    else {
-      this.listData.forEach(it => {
-        let obj = this.listData.find(it1 => {
-          return it1.id == it.id;
-        });
-        obj.checked = true;
-        this.numberOfItemSelected += 1;
-      })
-    }
-  }
-
   onClickPagination(event) {
     this.checked = false;
     this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
@@ -164,63 +147,37 @@ export class ActivityListTaskComponent implements OnInit {
     this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
-  onClickItem(item) {
-    if (item.type == 1) {
-      this.router.navigate(['company-detail'], { state: { params: item } });
-    } else if (item.type == 2) {
-      this.router.navigate(['contact-detail'], { state: { params: item } });
-    }
-  }
-
-  onClickAssign(index) {
-    if (index == 0) {
-      let listID = [];
-      this.listData.forEach(item => {
-        if (item.checked) listID.push(item.id)
-      })
-      this.mService.getApiService().sendRequestUPDATE_TASK(
-        this.mService.getUser().username,
-        this.mService.getUser().id,
-        JSON.stringify(listID),
-        true
-      ).then(data => {
-        if (data.status == STATUS.SUCCESS) {
-          this.listData.forEach(item => {
-            item.status = true;
-          });
-        }
-      })
-    } else if (index == 1) {
+  onClickBtn(event) {
+    if (event.btnType == BUTTON_TYPE.DELETE) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          let listID = [];
-          this.listData.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
           this.mService.getApiService().sendRequestDELETE_TASK(
             this.mService.getUser().username,
             this.mService.getUser().id,
-            JSON.stringify(listID)
+            event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listData.forEach(item => {
-                if (item.checked) {
-                  let index = this.listData.findIndex(itm => {
-                    return itm.id === item.id;
-                  });
-                  if (index > -1) {
-                    this.listData.splice(index, 1)
-                  }
-                }
-              })
+              this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
+
             }
           })
         }
       });
+    }
+  }
+
+  onClickCell(event) {
+    if (event) {
+      if (event.clickDetail == CLICK_DETAIL.CONTACT) {
+        this.router.navigate(['contact-detail'], { state: { params: event.data } });
+      }
+      else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
+        this.router.navigate(['company-detail'], { state: { params: event.data } });
+      }
     }
   }
 

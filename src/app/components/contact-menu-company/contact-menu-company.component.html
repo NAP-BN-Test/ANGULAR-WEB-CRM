@@ -4,22 +4,19 @@
     </div>
 
     <div padding32>
-        <div padding32-bottom between>
-            <div font2 bold>{{mData.company_title}}</div>
-            <div>
-                <div class="box-add" [class.show-div]="addSub==1">
-                    <app-add-company [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-company>
-                </div>
-
-                <!-- <app-filter-bar type="1" (searchChange)="onSearchChange($event)" (clickAdd)="onClickAdd()"
-                    (sort)="onClickSort($event)" (clickImport)="onClickImport()"></app-filter-bar> -->
-            </div>
-        </div>
-
         <div flex no-wrap>
-
-            <div padding32-horizontal width-20>
-                <div>
+            <div width-20>
+                <div padding-bottom between>
+                    <div font2 bold>{{mData.company_title}}</div>
+                    <div>
+                        <div class="box-add" [class.show-div]="addSub==1">
+                            <app-add-company [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-company>
+                        </div>
+                        <!-- <app-filter-bar type="1" (searchChange)="onSearchChange($event)" (clickAdd)="onClickAdd()"
+                            (sort)="onClickSort($event)" (clickImport)="onClickImport()"></app-filter-bar> -->
+                    </div>
+                </div>
+                <div padding32-horizontal>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
                         {{mData.all_company}}({{numberAll}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
@@ -36,98 +33,12 @@
             </div>
 
             <div width-80>
-                <!-- <div class="m-table">
-                    <div flex padding8-vertical [class.background-whitesmoke]="!checked && !indeterminate"
-                        [class.background-secondary]="checked || indeterminate">
-                        <div padding-horizontal center-line>
-                            <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate"
-                                (click)="onCheckAllChange()">
-                            </mat-checkbox>
-                        </div>
-
-                        <div flex [hidden]="!checked&&!indeterminate">
-                            <div padding-start center-line style="font-weight: normal;">{{numberOfItemSelected}}
-                                {{mData.selected}}</div>
-                            <div padding-start></div>
-                            <div *ngFor="let item of mData.company.list_select; let i = index" padding-start bold
-                                center-line tappable (click)="onClickAssign(i)">
-                                {{item.name}}
-                            </div>
-                        </div>
-
-                        <div flex [hidden]="checked||indeterminate">
-                            <div style="width: 300px" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.company.col1}}
-                            </div>
-                            <div style="width: 120px" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.company.col2}}
-                            </div>
-                            <div style="width: 200px" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.company.col3}}
-                            </div>
-                            <div style="width: 400px" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.company.col4}}
-                            </div>
-                            <div style="width: 100px" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.company.col5}}
-                            </div>
-                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.company.col9}}
-                            </div>
-                            <div style="width: 150px" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.company.col6}}
-                            </div>
-                            <div style="width: 100px" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.company.col7}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div wrap flex *ngFor="let item of listData;let i = index" [class.background-white]="i%2==0">
-                        <div padding-horizontal center-line>
-                            <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
-                            </mat-checkbox>
-                        </div>
-                        <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 300px" class="center-line" (click)="onClickItem(item)" tappable>
-                                {{item.name}}
-                            </div>
-                            <div style="width: 120px" class="center-line">
-                                {{item.assignName}}
-                            </div>
-                            <div style="width: 200px" class="center-line">
-                                {{item.stageName}}
-                            </div>
-                            <div style="width: 400px" class="center-line">
-                                {{item.address}}
-                            </div>
-                            <div style="width: 100px" class="center-line">
-                                {{item.city}}
-                            </div>
-                            <div style="width: 150px;" class="center-line">
-                                {{item.lastActivity | datetimeDefault}}
-                            </div>
-                            <div style="width: 150px" class="center-line">
-                                {{item.timeCreate | datetimeDefault}}
-                            </div>
-                            <div style="width: 100px" class="center-line">
-                                {{item.companyType | companyType}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <app-pagination [page]="page" [itemPerPage]="itemPerPage" [collectionSize]="collectionSize"
-                    (clickPagination)="onClickPagination($event)"
-                    (clickSettingItemPerPage)="onClickSettingItemPerPage($event)">
-                </app-pagination> -->
-
-                <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
+                <app-filter-bar [toppingList]="toppingList" noImport="true" (clickAdd)="onClickAdd()"
+                    (sort)="onClickSort($event)" (clickImport)="onClickImport()">
                 </app-filter-bar>
 
-                <app-mat-table [page]="page" [collectionSize]="collectionSize" [listData]="listContact"
-                    [listTbData]="listTbData" (clickPagination)="onClickPagination($event)"
-                    (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
+                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)"
+                    (clickCell)="onClickCell($event)"></app-mat-table>
 
             </div>
 

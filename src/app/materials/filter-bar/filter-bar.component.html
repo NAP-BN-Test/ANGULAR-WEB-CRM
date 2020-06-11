@@ -1,64 +1,36 @@
-<!-- <div *ngIf="mData">
-    <div center-line>
-        <div padding-end *ngIf="!onContact">
-            <div>{{mData.step}}</div>
-            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="stepID">
-                <option *ngFor="let item of listStep" [ngValue]="item.id">{{item.name}}</option>
-            </select>
-        </div>
-        <div padding-end *ngIf="!onContact">
-            <div>{{mData.city}}</div>
-            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="cityID">
-                <option *ngFor="let item of listCity" [ngValue]="item.id">{{item.name}}</option>
-            </select>
-        </div>
-        <div padding-end>
-            <div>{{mData.user}}</div>
-            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="userID">
-                <option *ngFor="let item of listUser" [ngValue]="item.id">{{item.name}}</option>
-            </select>
-        </div>
-        <div padding-end *ngIf="listActivity">
-            <div>{{mData.time_type}}</div>
-            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="timeType">
-                <option [ngValue]="1">{{mData.create_date}}</option>
-                <option [ngValue]="2">{{mData.due_date}}</option>
-            </select>
-        </div>
-        <div padding-end>
-            <div>{{mData.time_from}}</div>
-            <app-datetime-pick-date [mDate]="timeFrom" (pickDate)="onPickDate($event,1)"></app-datetime-pick-date>
-        </div>
-        <div padding-end>
-            <div>{{mData.time_to}}</div>
-            <app-datetime-pick-date [mDate]="timeTo" (pickDate)="onPickDate($event,2)"></app-datetime-pick-date>
-        </div>
-        <div padding-end>
-            <button mat-raised-button (click)="onClickClear()">{{mData.clear}}</button>
-        </div>
-        <div padding-end>
-            <button mat-raised-button (click)="onClickSort()">{{mData.sort}}</button>
-        </div>
-        <div padding-end *ngIf="!listActivity">
-            <input type="search" class="form-control" [(ngModel)]="searchKey" (keyup.enter)="onSearchChange($event)" />
-        </div>
-        <div padding-end *ngIf="!listActivity">
-            <button mat-raised-button (click)="onClickAdd()">{{mData.create_new}}</button>
-        </div>
-
-        <div padding-end [hidden]="type!=1">
-            <button mat-raised-button color="accent" (click)="onClickImport()">Import</button>
-        </div>
-    </div>
-</div> -->
-
 <div style="display: flex; justify-content: flex-end;">
     <mat-form-field [hidden]="!sortUser">
         <mat-label>User</mat-label>
-        <mat-select #userSelect (selectionChange)="onUserChange($event)">
+        <mat-select #userSelect>
             <mat-option *ngFor="let item of listUser" [value]="item.id">
                 {{item.name}}
             </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field [hidden]="!sortStep">
+        <mat-label>Bước</mat-label>
+        <mat-select #stepSelect>
+            <mat-option *ngFor="let item of listStep" [value]="item.id">
+                {{item.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field [hidden]="!sortCity">
+        <mat-label>Tỉnh/TP</mat-label>
+        <mat-select #citySelect>
+            <mat-option *ngFor="let item of listCity" [value]="item.id">
+                {{item.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field [hidden]="!sortTimeType">
+        <mat-label>Loại tg</mat-label>
+        <mat-select #timeTypeSelect>
+            <mat-option value="1">Tg tạo</mat-option>
+            <mat-option value="2">Tg hết hạn</mat-option>
         </mat-select>
     </mat-form-field>
 
@@ -89,8 +61,8 @@
     </mat-form-field>
 
     <button style="animation: fadeIn 300ms;"
-        *ngIf="dateStartInput.value||dateEndInput.value||searchKeyInput.value||userSelect.value" mat-mini-fab
-        color="primary" (click)="onClickClear()">
+        *ngIf="dateStartInput.value||dateEndInput.value||searchKeyInput.value||userSelect.value||stepSelect.value||citySelect.value||timeTypeSelect.value"
+        mat-mini-fab color="primary" (click)="onClickClear()">
         <mat-icon>refresh</mat-icon>
     </button>
 
@@ -99,9 +71,14 @@
         <mat-icon>filter_alt</mat-icon>
     </button>
 
-    <div padding-start></div>
-    <button mat-mini-fab color="primary" (click)="onClickAdd()">
+    <div padding-start *ngIf="!noAdd"></div>
+    <button *ngIf="!noAdd" mat-mini-fab color="primary" (click)="onClickAdd()">
         <mat-icon>add</mat-icon>
+    </button>
+
+    <div padding-start *ngIf="noImport"></div>
+    <button *ngIf="noImport" mat-mini-fab color="accent" (click)="onClickImport()">
+        <mat-icon>save</mat-icon>
     </button>
 
 </div>

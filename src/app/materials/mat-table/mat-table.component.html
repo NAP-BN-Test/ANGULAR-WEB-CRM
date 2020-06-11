@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8 relative">
-    <div class="m-option" [hidden]="selection.selected.length==0">
+    <div class="m-option" [hidden]="selection.selected.length==0" *ngIf="listTbData">
         <div padding-start *ngFor="let item of listTbData.listButton">
             <button mat-flat-button [color]="item.color" (click)="onClickBtn(item)">{{item.name}}</button>
         </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -17,8 +17,28 @@ import * as moment from 'moment';
   styleUrls: ['./email-list-sub.component.scss']
 })
 export class EmailListSubComponent implements OnInit {
+  //data for component table
+  listTbData = {
+    clickDetail: CLICK_DETAIL.MAIL_LIST,
+    listColum: [
+      { name: 'Người LH', cell: 'contactName' },
+      { name: 'Email', cell: 'email' },
+      { name: 'Người tạo', cell: 'owner' },
+      { name: 'Ngày tạo', cell: 'createTime' },
+      { name: 'Số mail đã gửi', cell: 'mailCount' },
+    ],
+    listButton: [
+      { id: BUTTON_TYPE.DELETE, name: 'Xóa khỏi danh sách', color: 'warn' }
+    ]
+  };
 
-  listContact = [];
+  //data for component fillter bar
+  toppingList = [
+    { id: SORT_TYPE.USER, name: 'User' },
+    { id: SORT_TYPE.TIME_START, name: 'Tg bắt đầu' },
+    { id: SORT_TYPE.TIME_END, name: 'Tg kết thúc' },
+    { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
+  ]
 
   mData: any;
 
@@ -44,6 +64,7 @@ export class EmailListSubComponent implements OnInit {
   itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
+  searchKey = "";
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
@@ -66,7 +87,7 @@ export class EmailListSubComponent implements OnInit {
 
       this.mailListID = this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1;
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
       this.router.navigate(['login']);
@@ -89,25 +110,21 @@ export class EmailListSubComponent implements OnInit {
 
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.listContact = data.array;
-
         this.numberAll = data.count;
-
         if (this.menuSelected == 1) {
           this.collectionSize = data.count;
         }
+
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: this.page,
+          collectionSize: this.collectionSize,
+          listData: data.array,
+          listTbData: this.listTbData
+        });
+        this.router.navigate([], {
+          queryParams: { page: this.page }
+        })
       }
-    })
-  }
-
-  pow = 0;
-  onSort() {
-    this.pow += 1;
-
-    this.listContact = this.listContact.sort((a, b) => {
-      if (a.name > b.name) return Math.pow(-1, this.pow);
-      if (a.name < b.name) return Math.pow(-1, this.pow + 1);
-      return 0;
     })
   }
 
@@ -116,53 +133,17 @@ export class EmailListSubComponent implements OnInit {
     this.menuSelected = index;
     this.cookieService.set('contact-menu', index + "");
 
-    this.onLoadData(1, index, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, index, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
 
-  }
-
-  onCheckBoxChange(event) {
-    let checked = event.checked;
-    if (checked) this.numberOfItemSelected += 1;
-    else this.numberOfItemSelected -= 1;
-
-    if (this.numberOfItemSelected == 0) {
-      this.indeterminate = false;
-      this.checked = false;
-    } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
-      this.indeterminate = true;
-      this.checked = false;
-    } else if (this.numberOfItemSelected >= 12) {
-      this.indeterminate = false;
-      this.checked = true;
-    }
-  }
-
-  onCheckAllChange() {
-    this.numberOfItemSelected = 0;
-
-    if (this.checked) {
-      this.listContact.forEach(item => {
-        item.checked = false;
-      })
-    }
-    else {
-      this.listContact.forEach(it => {
-        let obj = this.listContact.find(it1 => {
-          return it1.id == it.id;
-        });
-        obj.checked = true;
-        this.numberOfItemSelected += 1;
-      })
-    }
   }
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
   onClickSettingItemPerPage(event) {
     this.itemPerPage = event;
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onSearchChange(event) {
@@ -174,62 +155,52 @@ export class EmailListSubComponent implements OnInit {
   }
 
   onClickImport() {
-    UploadFileModule.getInstance().__openFileInBrowser(res => {
-      if (res) {
-        this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
-          this.mService.getUser().id,
-          this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1,
-          JSON.stringify(res)
-        ).then(data => {
-          if (data.status == STATUS.SUCCESS) {
-            res.forEach(item => {
-              let obj = this.listContact.find(emailItem => {
-                return emailItem.email == item.email;
-              });
-              if (obj == undefined) {
-                this.listContact.unshift({
-                  email: item.email,
-                  owner: this.mService.getUser().name,
-                  createTime: moment().format("YYYY-MM-DD HH:mm"),
-                  contactName: item.name,
-                  mailCount: 0
-                });
-              }
-            })
-          }
-        })
-      }
-    })
+    // UploadFileModule.getInstance().__openFileInBrowser(res => {
+    //   if (res) {
+    //     this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
+    //       this.mService.getUser().id,
+    //       this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1,
+    //       JSON.stringify(res)
+    //     ).then(data => {
+    //       if (data.status == STATUS.SUCCESS) {
+    //         res.forEach(item => {
+    //           let obj = this.listContact.find(emailItem => {
+    //             return emailItem.email == item.email;
+    //           });
+    //           if (obj == undefined) {
+    //             this.listContact.unshift({
+    //               email: item.email,
+    //               owner: this.mService.getUser().name,
+    //               createTime: moment().format("YYYY-MM-DD HH:mm"),
+    //               contactName: item.name,
+    //               mailCount: 0
+    //             });
+    //           }
+    //         })
+    //       }
+    //     })
+    //   }
+    // })
   }
 
   onClickCloseAdd(event) {
     if (event) {
-      this.listContact.unshift(event)
+      this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     this.addSub = 0
   }
 
-  onClickAssign(index) {
-    if (index == 0) {
+  onClickBtn(event) {
+    if (event.btnType == BUTTON_TYPE.DELETE) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestDELETE_MAIL_LIST_DETAIL(
-            JSON.stringify(listID)
-          ).then(data => {
+          this.mService.getApiService().sendRequestDELETE_MAIL_LIST_DETAIL(event.data).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listContact = this.listContact.filter(contactItem => {
-                return contactItem.checked != true;
-              })
-              this.checked = false;
-              this.indeterminate = false;
+              this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
             }
           })
         }
@@ -237,11 +208,13 @@ export class EmailListSubComponent implements OnInit {
     }
   }
 
-  onClickItem(item) {
-    console.log(item);
-
-    this.cookieService.set('mail-list-detail', item.email);
-    this.router.navigate(['email-list-sub-report'], { state: { params: item } });
+  onClickCell(event) {
+    if (event) {
+      if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
+        this.cookieService.set('mail-list-detail', event.data.email);
+        this.router.navigate(['email-list-sub-report'], { state: { params: event.data } });
+      }
+    }
   }
 
   onClickSort(event) {

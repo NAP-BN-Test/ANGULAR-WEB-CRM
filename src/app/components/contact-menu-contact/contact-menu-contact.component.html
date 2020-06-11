@@ -6,21 +6,22 @@
     </div>
 
     <div padding32>
-        <div padding32-bottom between>
-            <div font2 bold>{{mData.contact_title}}</div>
-            <div center-line bold color-primary>
-
-                <div class="box-add" [class.show-div]="addSub==1">
-                    <app-add-contact [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-contact>
-                </div>
-
-            </div>
-        </div>
-
         <div flex no-wrap>
 
-            <div padding32-horizontal width-20>
-                <div>
+            <div width-20>
+
+                <div padding-bottom between>
+                    <div font2 bold>{{mData.contact_title}}</div>
+                    <div center-line bold color-primary>
+
+                        <div class="box-add" [class.show-div]="addSub==1">
+                            <app-add-contact [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-contact>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div padding32-horizontal>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
                         {{mData.all_contact}}({{numberAll}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
@@ -39,9 +40,8 @@
                 <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
                 </app-filter-bar>
 
-                <app-mat-table [page]="page" [collectionSize]="collectionSize" [listData]="listContact"
-                    [listTbData]="listTbData" (clickPagination)="onClickPagination($event)"
-                    (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
+                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)"
+                    (clickCell)="onClickCell($event)"></app-mat-table>
             </div>
 
         </div>

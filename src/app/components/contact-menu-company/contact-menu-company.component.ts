@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, CLICK_DETAIL, BUTTON_TYPE, SORT_TYPE, EVENT_PUSH } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-company/dialog-assign-company.component';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
@@ -15,8 +15,34 @@ import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file
   styleUrls: ['./contact-menu-company.component.scss']
 })
 export class ContactMenuCompanyComponent implements OnInit {
+  //data for component table
+  listTbData = {
+    clickDetail: CLICK_DETAIL.COMPANY,
+    listColum: [
+      { name: 'Tên', cell: 'name' },
+      { name: 'Phân công', cell: 'assignName' },
+      { name: 'Bước', cell: 'stageName' },
+      { name: 'Địa chỉ', cell: 'address' },
+      { name: 'Tỉnh/TP', cell: 'city' },
+      { name: 'HĐ gần đây', cell: 'lastActivity' },
+      { name: 'Ngày tạo', cell: 'timeCreate' },
+      { name: 'Agent/Company', cell: 'companyType' },
+    ],
+    listButton: [
+      { id: BUTTON_TYPE.ASSIGN, name: 'Giao việc', color: 'primary' },
+      { id: BUTTON_TYPE.DELETE, name: 'Xóa', color: 'warn' }
+    ]
+  };
 
-  listData = [];
+  //data for component fillter bar
+  toppingList = [
+    { id: SORT_TYPE.USER, name: 'User' },
+    { id: SORT_TYPE.STEP, name: 'Bước' },
+    { id: SORT_TYPE.CITY, name: 'Tỉnh/TP' },
+    { id: SORT_TYPE.TIME_START, name: 'Tg bắt đầu' },
+    { id: SORT_TYPE.TIME_END, name: 'Tg kết thúc' },
+    { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
+  ]
 
   mData: any;
 
@@ -39,8 +65,7 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   page: number = 1;
 
-  // searchKey = "";
-
+  searchKey = "";
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
@@ -56,11 +81,7 @@ export class ContactMenuCompanyComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private cookieService: CookieService
-  ) {
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.page = params.page;
-    });
-  }
+  ) { }
 
   ngOnInit() {
 
@@ -70,7 +91,10 @@ export class ContactMenuCompanyComponent implements OnInit {
     if (this.mService.getUser()) {
       this.menuSelected = this.cookieService.get('company-menu') ? Number(this.cookieService.get('company-menu')) : 1;
 
-      this.onLoadData(this.page, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.page = params.page;
+        this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+      });
 
     }
     else {
@@ -93,7 +117,6 @@ export class ContactMenuCompanyComponent implements OnInit {
       cityID
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.listData = data.array;
 
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
@@ -115,19 +138,18 @@ export class ContactMenuCompanyComponent implements OnInit {
         } else if (this.menuSelected == 6) {
           this.collectionSize = data.customer;
         }
+
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: this.page,
+          collectionSize: this.collectionSize,
+          listData: data.array,
+          listTbData: this.listTbData
+        });
+        this.router.navigate([], {
+          queryParams: { page: this.page }
+        })
       }
     });
-  }
-
-  pow = 0;
-  onSort() {
-    this.pow += 1;
-
-    this.listData = this.listData.sort((a, b) => {
-      if (a.name > b.name) return Math.pow(-1, this.pow);
-      if (a.name < b.name) return Math.pow(-1, this.pow + 1);
-      return 0;
-    })
   }
 
   onClickMenu(index: number) {
@@ -135,136 +157,48 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.menuSelected = index;
     this.cookieService.set('company-menu', index + "");
 
-    this.router.navigate([], {
-      queryParams: { page: 1 }
-    })
-
-    this.onLoadData(1, index, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
-  }
-
-  onCheckBoxChange(item) {
-    let checked = item.checked;
-
-    if (checked) this.numberOfItemSelected += 1;
-    else this.numberOfItemSelected -= 1;
-
-    if (this.numberOfItemSelected == 0) {
-      this.indeterminate = false;
-      this.checked = false;
-    } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
-      this.indeterminate = true;
-      this.checked = false;
-    } else if (this.numberOfItemSelected >= 12) {
-      this.indeterminate = false;
-      this.checked = true;
-    }
-  }
-
-  onCheckAllChange() {
-    this.numberOfItemSelected = 0;
-
-    if (this.checked) {
-      this.listData.forEach(item => {
-        item.checked = false;
-      })
-    }
-    else {
-      this.listData.forEach(it => {
-        let obj = this.listData.find(it1 => {
-          return it1.id == it.id;
-        });
-        obj.checked = true;
-        this.numberOfItemSelected += 1;
-      })
-    }
+    this.onLoadData(1, index, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
   }
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
-
-    this.router.navigate([], {
-      queryParams: { page: event }
-    })
+    this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
   }
 
-  onClickSettingItemPerPage(event) {
-    this.itemPerPage = event;
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
-  }
-
-  onClickItem(item) {
-    this.router.navigate(['company-detail'], { state: { params: item } });
-  }
-
-  onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
-  }
-
-  onClickAssign(index) {
-    if (index == 0) {
+  onClickBtn(event: any) {
+    if (event.btnType == BUTTON_TYPE.ASSIGN) {
       const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
         width: '500px'
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          let listID = [];
-          this.listData.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
           this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
-
-
             this.mService.getUser().username,
             this.mService.getUser().id,
             res,
-            JSON.stringify(listID)
+            event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listData.forEach(item => {
-                if (item.checked) {
-                  item.assignName = data.obj ? data.obj.name : "";
-                  item.checked = false;
-                }
-              });
-              this.checked = false;
-              this.indeterminate = false;
+              this.mService.publishEvent(EVENT_PUSH.SELECTION, true);
             }
           })
         }
       });
-    } else if (index == 1) {
+    } else if (event.btnType == BUTTON_TYPE.DELETE) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          let listID = [];
-          this.listData.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
           this.mService.getApiService().sendRequestDELETE_COMPANY(
-
-
             this.mService.getUser().username,
             this.mService.getUser().id,
-            JSON.stringify(listID)
+            event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listData.forEach(item => {
-                if (item.checked) {
-                  let index = this.listData.findIndex(itm => {
-                    return itm.id === item.id;
-                  });
-                  if (index > -1) {
-                    this.listData.splice(index, 1)
-                  }
-                  this.checked = false;
-                  this.indeterminate = false;
-                }
-              })
+              this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
             }
           })
         }
@@ -278,7 +212,7 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   onClickCloseAdd(event) {
     if (event) {
-      this.listData.unshift(event)
+      this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
     }
     this.addSub = 0
   }
@@ -289,19 +223,31 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.userIDFind = event.userID;
     this.stageID = event.stepID;
     this.cityID = event.cityID;
+    this.searchKey = event.searchKey;
 
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), event.timeFrom, event.timeTo, event.userID, event.stepID, event.cityID);
+    this.onLoadData(1, this.menuSelected, this.searchKey, event.timeFrom, event.timeTo, event.userID, event.stepID, event.cityID);
   }
 
   onClickImport() {
     UploadFileModule.getInstance().openFileImport(res => {
-      console.log(res);
-      
       this.mService.getApiService().sendRequestIMPORT_DATA(JSON.stringify(res)).then(data => {
-        console.log(data);
-        
+        if (data.status == STATUS.SUCCESS) {
+          this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+        }
       })
     });
   }
+
+  onClickCell(event) {
+    if (event) {
+      if (event.clickDetail == CLICK_DETAIL.CONTACT) {
+        this.router.navigate(['contact-detail'], { state: { params: event.data } });
+      }
+      else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
+        this.router.navigate(['company-detail'], { state: { params: event.data } });
+      }
+    }
+  }
+
 
 }

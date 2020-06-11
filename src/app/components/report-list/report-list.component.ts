@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
-import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-company/dialog-assign-company.component';
 
 @Component({
   selector: 'app-report-list',
@@ -14,8 +12,26 @@ import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-compan
   styleUrls: ['./report-list.component.scss']
 })
 export class ReportListComponent implements OnInit {
+  //data for component table
+  listTbData = {
+    clickDetail: CLICK_DETAIL.MAIL_LIST,
+    listColum: [
+      { name: 'Tên chiến dịch', cell: 'name' },
+      { name: 'Email list', cell: 'email' },
+      { name: 'Tg bắt đầu', cell: 'startTime' },
+      { name: 'Tg kết thúc', cell: 'endTime' },
+      { name: 'Nhận', cell: 'receive' },
+    ],
+    listButton: []
+  };
 
-  listContact = [];
+  //data for component fillter bar
+  toppingList = [
+    { id: SORT_TYPE.USER, name: 'User' },
+    { id: SORT_TYPE.TIME_START, name: 'Tg bắt đầu' },
+    { id: SORT_TYPE.TIME_END, name: 'Tg kết thúc' },
+    { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
+  ]
 
   mData: any;
 
@@ -39,6 +55,7 @@ export class ReportListComponent implements OnInit {
   itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
+  searchKey = "";
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
@@ -59,7 +76,7 @@ export class ReportListComponent implements OnInit {
     if (this.mService.getUser()) {
       this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
       this.router.navigate(['login']);
@@ -79,26 +96,20 @@ export class ReportListComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.listContact = data.array;
-
         this.numberAll = data.count;
-        
-
         if (this.menuSelected == 1) {
           this.collectionSize = data.count;
         }
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: this.page,
+          collectionSize: this.collectionSize,
+          listData: data.array,
+          listTbData: this.listTbData
+        });
+        this.router.navigate([], {
+          queryParams: { page: this.page }
+        })
       }
-    })
-  }
-
-  pow = 0;
-  onSort() {
-    this.pow += 1;
-
-    this.listContact = this.listContact.sort((a, b) => {
-      if (a.name > b.name) return Math.pow(-1, this.pow);
-      if (a.name < b.name) return Math.pow(-1, this.pow + 1);
-      return 0;
     })
   }
 
@@ -107,141 +118,21 @@ export class ReportListComponent implements OnInit {
     this.menuSelected = index;
     this.cookieService.set('contact-menu', index + "");
 
-    this.onLoadData(1, index, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, index, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
 
-  }
-
-  onCheckBoxChange(event) {
-    let checked = event.checked;
-    if (checked) this.numberOfItemSelected += 1;
-    else this.numberOfItemSelected -= 1;
-
-    if (this.numberOfItemSelected == 0) {
-      this.indeterminate = false;
-      this.checked = false;
-    } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
-      this.indeterminate = true;
-      this.checked = false;
-    } else if (this.numberOfItemSelected >= 12) {
-      this.indeterminate = false;
-      this.checked = true;
-    }
-  }
-
-  onCheckAllChange() {
-    this.numberOfItemSelected = 0;
-
-    if (this.checked) {
-      this.listContact.forEach(item => {
-        item.checked = false;
-      })
-    }
-    else {
-      this.listContact.forEach(it => {
-        let obj = this.listContact.find(it1 => {
-          return it1.id == it.id;
-        });
-        obj.checked = true;
-        this.numberOfItemSelected += 1;
-      })
-    }
   }
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
-  }
-  onClickSettingItemPerPage(event) {
-    this.itemPerPage = event;
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
-  onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
-  }
-
-  onClickItem(item) {
-    this.cookieService.set('campain-id', item.id);
-    this.router.navigate(['report-detail'], { state: { params: item } });
-  }
-
-  onClickAdd() {
-    this.addSub = 1;
-  }
-
-  onClickCloseAdd(event) {
+  onClickCell(event) {
     if (event) {
-      this.listContact.unshift(event)
-    }
-    this.addSub = 0
-  }
-
-  onClickAssign(index) {
-    if (index == 0) {
-      const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
-        width: '500px'
-      });
-
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            res,
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
-                if (item.checked) {
-                  item.assignName = data.obj ? data.obj.name : "";
-                  item.checked = false;
-                }
-              });
-              this.checked = false;
-              this.indeterminate = false;
-            }
-          })
-        }
-      });
-    } else if (index == 1) {
-      const dialogRef = this.dialog.open(DialogComponent, {
-        width: '500px'
-      });
-
-      dialogRef.afterClosed().subscribe(res => {
-        if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
-          this.mService.getApiService().sendRequestDELETE_CONTACT(
-
-
-            this.mService.getUser().username,
-            this.mService.getUser().id,
-            JSON.stringify(listID)
-          ).then(data => {
-            if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
-                if (item.checked) {
-                  let index = this.listContact.findIndex(itm => {
-                    return itm.id === item.id;
-                  });
-                  if (index > -1) {
-                    this.listContact.splice(index, 1)
-                  }
-                  this.checked = false;
-                  this.indeterminate = false;
-                }
-              })
-            }
-          })
-        }
-      });
+      if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
+        this.cookieService.set('campain-id', event.data.id);
+        this.router.navigate(['report-detail'], { state: { params: event.data } });
+      }
     }
   }
 
