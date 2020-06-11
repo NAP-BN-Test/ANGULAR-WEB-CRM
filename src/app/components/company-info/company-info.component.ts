@@ -6,7 +6,7 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 
 @Component({
   selector: 'app-company-info',

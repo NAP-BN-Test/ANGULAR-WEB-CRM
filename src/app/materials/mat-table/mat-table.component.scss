@@ -1,0 +1,26 @@
+table {
+    width: 100%;
+  }
+
+  th {
+    font-weight: bold !important;
+    font-size: .9rem !important;
+  }
+
+  td , th {
+    padding-right: 8px !important;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
+}
+
+.m-option {
+  position: absolute;
+  box-shadow: 0 3px 6px rgba($color: #000000, $alpha: .2);
+  z-index: 999;
+  padding: 10px 32px;
+  background-color: rgba($color: #ffff, $alpha: .9);
+  right: 0;
+  animation: fadeIn 300ms;
+  display: flex;
+}

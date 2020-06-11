@@ -189,4 +189,7 @@ export class ApiCmd {
     public static UPLOAD_FILE: string = "crm/upload_file";
 
 
+    public static IMPORT_DATA: string = "import/import_tx";
+
+
 }

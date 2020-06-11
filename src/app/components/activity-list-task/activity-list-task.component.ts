@@ -3,9 +3,9 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { DialogAssignContactComponent } from '../dialog-assign-contact/dialog-assign-contact.component';
+import { DialogAssignContactComponent } from '../../dialogs/dialog-assign-contact/dialog-assign-contact.component';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class ActivityListTaskComponent implements OnInit {
 
   numberAll = 0;
 
-  pageSize = 12;
+  itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
   timeFrom = null;
@@ -158,6 +158,10 @@ export class ActivityListTaskComponent implements OnInit {
   onClickPagination(event) {
     this.checked = false;
     this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
+  }
+  onClickSettingItemPerPage(event) {
+    this.itemPerPage = event;
+    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
   onClickItem(item) {

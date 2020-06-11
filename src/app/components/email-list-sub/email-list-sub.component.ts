@@ -4,9 +4,12 @@ import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
-import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
+import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file';
+
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-email-list-sub',
@@ -38,7 +41,7 @@ export class EmailListSubComponent implements OnInit {
   addSub = 0
 
   page = 1;
-  pageSize = 12;
+  itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
   timeFrom = null;
@@ -157,6 +160,10 @@ export class EmailListSubComponent implements OnInit {
     this.checked = false;
     this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
   }
+  onClickSettingItemPerPage(event) {
+    this.itemPerPage = event;
+    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+  }
 
   onSearchChange(event) {
     this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
@@ -164,6 +171,35 @@ export class EmailListSubComponent implements OnInit {
 
   onClickAdd() {
     this.addSub = 1;
+  }
+
+  onClickImport() {
+    UploadFileModule.getInstance().__openFileInBrowser(res => {
+      if (res) {
+        this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
+          this.mService.getUser().id,
+          this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1,
+          JSON.stringify(res)
+        ).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+            res.forEach(item => {
+              let obj = this.listContact.find(emailItem => {
+                return emailItem.email == item.email;
+              });
+              if (obj == undefined) {
+                this.listContact.unshift({
+                  email: item.email,
+                  owner: this.mService.getUser().name,
+                  createTime: moment().format("YYYY-MM-DD HH:mm"),
+                  contactName: item.name,
+                  mailCount: 0
+                });
+              }
+            })
+          }
+        })
+      }
+    })
   }
 
   onClickCloseAdd(event) {
@@ -203,7 +239,7 @@ export class EmailListSubComponent implements OnInit {
 
   onClickItem(item) {
     console.log(item);
-    
+
     this.cookieService.set('mail-list-detail', item.email);
     this.router.navigate(['email-list-sub-report'], { state: { params: item } });
   }

@@ -15,9 +15,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
-import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { CookieService } from 'ngx-cookie-service'
 
@@ -36,7 +43,9 @@ import { CreateMeetComponent } from './components/create-meet/create-meet.compon
 import { AddContactComponent } from './components/add-contact/add-contact.component';
 import { AddCompanyComponent } from './components/add-company/add-company.component';
 import { AddDealComponent } from './components/add-deal/add-deal.component';
-import { FormsModule } from '@angular/forms';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DatetimePickDateComponent } from './components/datetime-pick-date/datetime-pick-date.component';
 import { DatetimePickTimeComponent } from './components/datetime-pick-time/datetime-pick-time.component';
@@ -51,7 +60,7 @@ import { ToastComponent } from './components/toast/toast.component';
 import { DropdownMultiComponent } from './components/dropdown-multi/dropdown-multi.component';
 import { QuillBoxComponent } from './components/quill-box/quill-box.component';
 import { DropdownAssociateComponent } from './components/dropdown-associate/dropdown-associate.component';
-import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogComponent } from './dialogs/dialog/dialog.component';
 import { DropdownAssociateCreateComponent } from './components/dropdown-associate-create/dropdown-associate-create.component';
 import { ActivityCommentComponent } from './components/activity-comment/activity-comment.component';
 import { ActivityCommentBoxComponent } from './components/activity-comment-box/activity-comment-box.component';
@@ -64,8 +73,8 @@ import { ContactDetailIntroComponent } from './components/contact-detail-intro/c
 import { ContactDetailActivityComponent } from './components/contact-detail-activity/contact-detail-activity.component';
 import { ContactDetailOtherComponent } from './components/contact-detail-other/contact-detail-other.component';
 import { ContactDetailActivityListComponent } from './components/contact-detail-activity-list/contact-detail-activity-list.component';
-import { DialogAssignCompanyComponent } from './components/dialog-assign-company/dialog-assign-company.component';
-import { DialogAssignContactComponent } from './components/dialog-assign-contact/dialog-assign-contact.component';
+import { DialogAssignCompanyComponent } from './dialogs/dialog-assign-company/dialog-assign-company.component';
+import { DialogAssignContactComponent } from './dialogs/dialog-assign-contact/dialog-assign-contact.component';
 import { FollowPipe } from './pipes/follow/follow.pipe';
 import { ActivityListTaskComponent } from './components/activity-list-task/activity-list-task.component';
 import { TaskTypePipe } from './pipes/task-type/task-type.pipe';
@@ -74,10 +83,10 @@ import { ActivityListEmailComponent } from './components/activity-list-email/act
 import { ActivityListMeetComponent } from './components/activity-list-meet/activity-list-meet.component';
 import { ActivityListNoteComponent } from './components/activity-list-note/activity-list-note.component';
 import { CallStatusPipe } from './pipes/call-status/call-status.pipe';
-import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
+import { DialogLogoutComponent } from './dialogs/dialog-logout/dialog-logout.component';
 import { RefreshComponent } from './components/refresh/refresh.component';
 import { CompanyTypePipe } from './pipes/company-type/company-type.pipe';
-import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
+import { FilterBarComponent } from './materials/filter-bar/filter-bar.component';
 import { DatetimeDefaultPipe } from './pipes/datetime-default/datetime-default.pipe';
 import { MailStatusPipe } from './pipes/mail-status/mail-status.pipe';
 import { ToHourPipe } from './pipes/to-hour/to-hour.pipe';
@@ -94,10 +103,14 @@ import { ReportListAccountComponent } from './components/report-list-account/rep
 import { EmailListSubComponent } from './components/email-list-sub/email-list-sub.component';
 import { ListCompanyLogisticComponent } from './components/list-company-logistic/list-company-logistic.component';
 import { ListCompanyTransportComponent } from './components/list-company-transport/list-company-transport.component';
-import { DialogAddMailListComponent } from './components/dialog-add-mail-list/dialog-add-mail-list.component';
+import { DialogAddMailListComponent } from './dialogs/dialog-add-mail-list/dialog-add-mail-list.component';
 import { EmailCampainDetailComponent } from './components/email-campain-detail/email-campain-detail.component';
 import { EmailListSubReportComponent } from './components/email-list-sub-report/email-list-sub-report.component';
-import { DialogVerifyEmailComponent } from './components/dialog-verify-email/dialog-verify-email.component';
+import { DialogVerifyEmailComponent } from './dialogs/dialog-verify-email/dialog-verify-email.component';
+import { EmailListSubAddComponent } from './components/email-list-sub-add/email-list-sub-add.component';
+import { DialogSettingItemPerPageComponent } from './dialogs/dialog-setting-item-per-page/dialog-setting-item-per-page.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { MatTableComponent } from './materials/mat-table/mat-table.component';
 
 @NgModule({
   declarations: [
@@ -179,7 +192,11 @@ import { DialogVerifyEmailComponent } from './components/dialog-verify-email/dia
     DialogAddMailListComponent,
     EmailCampainDetailComponent,
     EmailListSubReportComponent,
-    DialogVerifyEmailComponent
+    DialogVerifyEmailComponent,
+    EmailListSubAddComponent,
+    DialogSettingItemPerPageComponent,
+    PaginationComponent,
+    MatTableComponent
   ],
   imports: [
     BrowserModule,
@@ -191,11 +208,19 @@ import { DialogVerifyEmailComponent } from './components/dialog-verify-email/dia
     MatDialogModule,
     MatRadioModule,
     MatButtonModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
     HttpClientModule,
-    QuillModule.forRoot(),
     NgbModule,
     FormsModule,
+    ReactiveFormsModule,
     ChartsModule,
+    AngularEditorModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
@@ -206,12 +231,13 @@ import { DialogVerifyEmailComponent } from './components/dialog-verify-email/dia
     DatetimeDatePipe
   ],
   entryComponents: [
-    DialogComponent, 
+    DialogComponent,
     DialogAssignCompanyComponent,
     DialogAssignContactComponent,
     DialogLogoutComponent,
     DialogAddMailListComponent,
-    DialogVerifyEmailComponent
+    DialogVerifyEmailComponent,
+    DialogSettingItemPerPageComponent
   ]
 })
 export class AppModule { }

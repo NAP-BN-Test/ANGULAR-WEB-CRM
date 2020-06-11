@@ -8,8 +8,13 @@
             <div font2 bold>{{mData.email_sub_title}}</div>
             <div center-line bold color-primary>
 
+                <div class="box-add" [class.show-div]="addSub==1">
+                    <app-email-list-sub-add [addOut]="1" (closeAddSub)="onClickCloseAdd($event)">
+                    </app-email-list-sub-add>
+                </div>
+
                 <app-filter-bar onContact="true" type="1" (searchChange)="onSearchChange($event)"
-                    (clickAdd)="onClickAdd()" (sort)="onClickSort($event)"></app-filter-bar>
+                    (clickAdd)="onClickAdd()" (sort)="onClickSort($event)" (clickImport)="onClickImport()"></app-filter-bar>
             </div>
         </div>
 
@@ -43,6 +48,9 @@
                         </div>
 
                         <div flex [hidden]="checked||indeterminate">
+                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
+                                NGƯỜI LIÊN HỆ
+                            </div>
                             <div style="width: 400px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.emai_sub.col1}}
                             </div>
@@ -51,9 +59,6 @@
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.emai_sub.col3}}
-                            </div>
-                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                NGƯỜI LIÊN HỆ
                             </div>
                             <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
                                 {{mData.emai_sub.col4}}
@@ -67,6 +72,9 @@
                             </mat-checkbox>
                         </div>
                         <div padding8-vertical flex [class.background-white]="i%2==0">
+                            <div style="width: 200px;" class="center-line">
+                                {{item.contactName}}
+                            </div>
                             <div style="width: 400px;" class="center-line" (click)="onClickItem(item)" tappable>
                                 {{item.email}}
                             </div>
@@ -77,20 +85,16 @@
                                 {{item.createTime | datetimeDefault}}
                             </div>
                             <div style="width: 200px;" class="center-line">
-                                {{item.contactName}}
-                            </div>
-                            <div style="width: 200px;" class="center-line">
                                 {{item.mailCount}}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div center padding-top *ngIf="collectionSize">
-                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
-                        [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
-                    </ngb-pagination>
-                </div>
+                <app-pagination [page]="page" [itemPerPage]="itemPerPage" [collectionSize]="collectionSize"
+                    (clickPagination)="onClickPagination($event)"
+                    (clickSettingItemPerPage)="onClickSettingItemPerPage($event)">
+                </app-pagination>
             </div>
 
         </div>

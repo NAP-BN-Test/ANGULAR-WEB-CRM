@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';

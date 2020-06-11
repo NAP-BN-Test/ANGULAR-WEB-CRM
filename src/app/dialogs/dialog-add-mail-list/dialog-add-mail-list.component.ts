@@ -32,6 +32,8 @@ export class DialogAddMailListComponent implements OnInit {
     this.mService.getApiService().sendRequestGET_MAIL_LIST_OPTION().then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.listUser = data.array;
+        console.log(this.listUser);
+
       }
     })
   }

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -32,7 +32,7 @@ export class EmailListSubReportComponent implements OnInit {
   addSub = 0
 
   page = 1;
-  pageSize = 12;
+  itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
   timeFrom = null;
@@ -146,6 +146,10 @@ export class EmailListSubReportComponent implements OnInit {
   onClickPagination(event) {
     this.checked = false;
     this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+  }
+  onClickSettingItemPerPage(event) {
+    this.itemPerPage = event;
+    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onSearchChange(event) {

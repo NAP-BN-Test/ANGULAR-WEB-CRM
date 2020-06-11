@@ -1,0 +1,121 @@
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { AppModuleService } from 'src/app/services/app-module.service';
+import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
+import { CookieService } from 'ngx-cookie-service';
+
+import * as moment from 'moment';
+
+@Component({
+  selector: 'app-email-list-sub-add',
+  templateUrl: './email-list-sub-add.component.html',
+  styleUrls: ['./email-list-sub-add.component.scss']
+})
+export class EmailListSubAddComponent implements OnInit {
+
+  @Output("closeAddSub") closeAddSub = new EventEmitter();
+
+  @Input("addOut") addOut: number;
+
+  mData: any;
+
+  name = "";
+  email = "";
+
+  btnType = 1;
+
+  listContact = [];
+
+  btnAddExist = true;
+  btnCanClicked = true;
+
+  listGender = LIST_SELECT.LIST_GENDER;
+  listJobTile = LIST_SELECT.LIST_JOB_TILE;
+
+  constructor(
+    public mService: AppModuleService,
+    private cookieService: CookieService
+  ) { }
+
+  ngOnInit() {
+    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
+      this.mData = data.add_sub_detail;
+    });
+  }
+
+  onClickClose() {
+    this.closeAddSub.emit();
+
+    this.name = "";
+    this.email = "";
+  }
+
+  onClickAddExist() {
+    this.btnAddExist = true;
+  }
+
+  onClickAddNew() {
+    this.btnAddExist = false;
+
+  }
+
+  onClickSave() {
+    if (this.name.trim() != "" && this.email.trim() != "") {
+      let listMail = [{
+        name: this.name,
+        email: this.email
+      }]
+
+      this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
+        this.mService.getUser().id,
+        this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1,
+        JSON.stringify(listMail)
+      ).then(data => {
+        if (data.status == STATUS.SUCCESS) {
+          this.closeAddSub.emit({
+            email: this.email,
+            owner: this.mService.getUser().name,
+            createTime: moment().format("YYYY-MM-DD"),
+            contactName: this.name,
+            mailCount: 0
+          });
+
+          this.name = "";
+          this.email = "";
+        }
+      })
+    }
+  }
+
+  onClickStep(index) {
+    this.btnType = index;
+  }
+
+  onSeachContact(event) {
+    let searchKey = event.target.value;
+
+    this.mService.getApiService().sendRequestSEARCH_CONTACT(
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      searchKey
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.listContact = data.array;
+      }
+    })
+  }
+
+  onClickAddContact(item) {
+    this.mService.getApiService().sendRequestADD_CONTACT_BY_ID(
+      this.mService.getUser().username,
+      this.mService.getUser().id,
+      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+      item.id
+    ).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+        this.closeAddSub.emit(data.obj);
+      }
+    })
+  }
+
+
+}

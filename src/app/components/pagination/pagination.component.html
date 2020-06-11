@@ -1,0 +1,17 @@
+<div relative>
+    <!-- <div center padding-top *ngIf="collectionSize">
+        <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
+            [pageSize]="itemPerPage" (pageChange)="onClickPagination($event)">
+        </ngb-pagination>
+    </div>
+
+    <div class="btn-setting">
+        <button mat-raised-button color="default" (click)="onClickSettingItemPerPage()">
+            <i class="font3 fa fa-cog"></i>
+        </button>
+    </div> -->
+
+    <mat-paginator [length]="collectionSize" [pageSize]="itemPerPage" [pageSizeOptions]="pageSizeOptions"
+        (page)="onClickPagination($event)">
+    </mat-paginator>
+</div>

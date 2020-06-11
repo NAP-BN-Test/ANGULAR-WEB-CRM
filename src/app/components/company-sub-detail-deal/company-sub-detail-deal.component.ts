@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { MatDialog } from '@angular/material';
 import { STATUS } from 'src/app/services/constant/app-constant';
 

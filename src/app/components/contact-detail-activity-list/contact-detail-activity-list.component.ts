@@ -5,7 +5,7 @@ import { STATUS, ACTIVITY_TYPE, LIST_SELECT } from 'src/app/services/constant/ap
 
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({

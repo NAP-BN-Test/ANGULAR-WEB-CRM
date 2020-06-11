@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class ActivityListMeetComponent implements OnInit {
   numberOfItemSelected = 0;
 
   page = 1;
-  pageSize = 12;
+  itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
   
@@ -136,6 +136,10 @@ export class ActivityListMeetComponent implements OnInit {
   onClickPagination(event) {
     this.checked = false;
     this.onLoadData(event, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
+  }
+  onClickSettingItemPerPage(event) {
+    this.itemPerPage = event;
+    this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
   }
 
   onClickItem(item, type) {

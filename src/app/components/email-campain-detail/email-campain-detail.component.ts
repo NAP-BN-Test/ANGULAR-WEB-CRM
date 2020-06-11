@@ -3,14 +3,15 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { Location } from '@angular/common';
 
 import * as moment from 'moment';
-import { DialogVerifyEmailComponent } from '../dialog-verify-email/dialog-verify-email.component';
+import { DialogVerifyEmailComponent } from '../../dialogs/dialog-verify-email/dialog-verify-email.component';
 import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file';
 import { HttpClient } from '@angular/common/http';
 import { UploadType } from 'src/app/services/core/upload-image/upload-type';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 @Component({
@@ -28,8 +29,6 @@ export class EmailCampainDetailComponent implements OnInit {
   quillFile: any;
   meQuillRef: any;
 
-  quillContent = "";
-
   listMailList = [];
 
   showToast = false;
@@ -40,36 +39,50 @@ export class EmailCampainDetailComponent implements OnInit {
 
   btnVerify = false;
 
-  editorModules = {
-    toolbar: {
-      container: [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block'],
-
-        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
-
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'font': [] }],
-        [{ 'align': [] }],
-
-        ['clean'],                                         // remove formatting button
-
-        ['link', 'image', 'video']                         // link and image, video
-      ],
-      handlers: {
-        image: () => {
-          this.quillFileSelected()
-        }
-      }
-    },
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '500px',
+    minHeight: '0',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' }
+    ],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'http://163.44.192.123:3302/crm/upload_file',
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: []
   };
+
+  htmlContent: any
 
   constructor(
     public mService: AppModuleService,
@@ -109,31 +122,8 @@ export class EmailCampainDetailComponent implements OnInit {
     UploadFileModule.getInstance().setHttp(this.http);
   }
 
-  quillFileSelected() {
-
-    UploadFileModule.getInstance()._openFileInBrowser(res => {
-      if (res) {
-        UploadFileModule.getInstance()
-          ._onUploadFileInBrowser(
-            res.selectedFile,
-            UploadType.LOGO,
-            "true"
-          )
-          .then((data) => {
-            this.mObj.body = this.mObj.body + `<img src="${data.url}">`;
-            console.log(data);
-
-          })
-          .catch(err => {
-            console.log(err);
-
-          });
-      }
-    });
-  }
 
   onClickSave() {
-
     let obj = {
       id: this.mObj.id,
       name: this.mObj.name,
@@ -228,9 +218,9 @@ export class EmailCampainDetailComponent implements OnInit {
   toNgbDatetime(time: any) {
     let datetime = moment(time);
     return {
-      "year": datetime.years(),
-      "month": datetime.months() + 1,
-      "day": datetime.dates()
+      "year": datetime.year(),
+      "month": datetime.month() + 1,
+      "day": datetime.date()
     }
   }
 

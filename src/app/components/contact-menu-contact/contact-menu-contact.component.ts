@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
-import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
-import { DialogAddMailListComponent } from '../dialog-add-mail-list/dialog-add-mail-list.component';
+import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-company/dialog-assign-company.component';
+import { DialogAddMailListComponent } from '../../dialogs/dialog-add-mail-list/dialog-add-mail-list.component';
 
 @Component({
   selector: 'app-contact-menu-contact',
@@ -17,6 +17,32 @@ import { DialogAddMailListComponent } from '../dialog-add-mail-list/dialog-add-m
 export class ContactMenuContactComponent implements OnInit {
 
   listContact = [];
+  
+  //data for component table
+  listTbData = {
+    clickDetail: CLICK_DETAIL.CONTACT,
+    listColum: [
+      { name: 'Tên', cell: 'name' },
+      { name: 'Email', cell: 'email' },
+      { name: 'Số ĐT', cell: 'phone' },
+      { name: 'Cty Liên kết', cell: 'companyName' },
+      { name: 'Người tạo', cell: 'assignName' },
+      { name: 'Ngày tạo', cell: 'timeCreate' }
+    ],
+    listButton: [
+      { id: BUTTON_TYPE.ADD_LIST_MAIL, name: 'Thêm vào ds mail', color: 'primary' },
+      { id: BUTTON_TYPE.ASSIGN, name: 'Giao việc', color: 'primary' },
+      { id: BUTTON_TYPE.DELETE, name: 'Xóa', color: 'warn' }
+    ]
+  };
+
+  //data for component fillter bar
+  toppingList = [
+    { id: SORT_TYPE.USER, name: 'User' },
+    { id: SORT_TYPE.TIME_START, name: 'Tg bắt đầu' },
+    { id: SORT_TYPE.TIME_END, name: 'Tg kết thúc' },
+    { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
+  ]
 
   mData: any;
 
@@ -28,9 +54,9 @@ export class ContactMenuContactComponent implements OnInit {
   numberAssign = 0;
   numberFollow = 0;
 
-  checked = false;
-  indeterminate = false;
-  disabled = false;
+  // checked = false;
+  // indeterminate = false;
+  // disabled = false;
 
   showToast = false;
 
@@ -41,18 +67,19 @@ export class ContactMenuContactComponent implements OnInit {
   addSub = 0
 
   page = 1;
-  pageSize = 12;
   collectionSize: number;
 
   timeFrom = null;
   timeTo = null;
   userIDFind = null;
+  searchKey = null;
 
   constructor(
     public mService: AppModuleService,
     public router: Router,
     public dialog: MatDialog,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    public activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -63,7 +90,11 @@ export class ContactMenuContactComponent implements OnInit {
     if (this.mService.getUser()) {
       this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.page = params.page;
+        this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+      });
+
     }
     else {
       this.router.navigate(['login']);
@@ -85,6 +116,13 @@ export class ContactMenuContactComponent implements OnInit {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
         this.listContact = data.array;
+
+        setTimeout(() => {
+          this.mService.publishEvent(EVENT_PUSH.TABLE, this.listContact);
+        }, 200);
+        this.router.navigate([], {
+          queryParams: { page: this.page }
+        })
 
         this.numberAll = data.all;
         this.numberUnAssign = data.unassign;
@@ -123,61 +161,61 @@ export class ContactMenuContactComponent implements OnInit {
     this.menuSelected = index;
     this.cookieService.set('contact-menu', index + "");
 
-    this.onLoadData(1, index, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
-
+    this.onLoadData(1, index, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
-  onCheckBoxChange(event) {
-    let checked = event.checked;
-    if (checked) this.numberOfItemSelected += 1;
-    else this.numberOfItemSelected -= 1;
+  // onCheckBoxChange(event) {
+  //   let checked = event.checked;
+  //   if (checked) this.numberOfItemSelected += 1;
+  //   else this.numberOfItemSelected -= 1;
 
-    if (this.numberOfItemSelected == 0) {
-      this.indeterminate = false;
-      this.checked = false;
-    } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
-      this.indeterminate = true;
-      this.checked = false;
-    } else if (this.numberOfItemSelected >= 12) {
-      this.indeterminate = false;
-      this.checked = true;
-    }
-  }
+  //   if (this.numberOfItemSelected == 0) {
+  //     this.indeterminate = false;
+  //     this.checked = false;
+  //   } else if (this.numberOfItemSelected < 12 && this.numberOfItemSelected > 0) {
+  //     this.indeterminate = true;
+  //     this.checked = false;
+  //   } else if (this.numberOfItemSelected >= 12) {
+  //     this.indeterminate = false;
+  //     this.checked = true;
+  //   }
+  // }
 
-  onCheckAllChange() {
-    this.numberOfItemSelected = 0;
+  // onCheckAllChange() {
+  //   this.numberOfItemSelected = 0;
 
-    if (this.checked) {
-      this.listContact.forEach(item => {
-        item.checked = false;
-      })
-    }
-    else {
-      this.listContact.forEach(it => {
-        let obj = this.listContact.find(it1 => {
-          return it1.id == it.id;
-        });
-        obj.checked = true;
-        this.numberOfItemSelected += 1;
-      })
-    }
-  }
+  //   if (this.checked) {
+  //     this.listContact.forEach(item => {
+  //       item.checked = false;
+  //     })
+  //   }
+  //   else {
+  //     this.listContact.forEach(it => {
+  //       let obj = this.listContact.find(it1 => {
+  //         return it1.id == it.id;
+  //       });
+  //       obj.checked = true;
+  //       this.numberOfItemSelected += 1;
+  //     })
+  //   }
+  // }
 
   onClickPagination(event) {
-    this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.page = event;
+    this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onSearchChange(event) {
     this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
-  onClickItem(item, type) {
-    if (type == 1) {
-      this.router.navigate(['contact-detail'], { state: { params: item } });
-    } else if (type == 2) {
-      if (item.companyID > 0) {
-        this.router.navigate(['company-detail'], { state: { params: item } });
+  onClickCell(event) {
+    if (event) {
+      if (event.clickDetail == CLICK_DETAIL.CONTACT) {
+        this.router.navigate(['contact-detail'], { state: { params: event.data } });
+      }
+      else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
+        this.router.navigate(['company-detail'], { state: { params: event.data } });
       }
     }
   }
@@ -188,103 +226,64 @@ export class ContactMenuContactComponent implements OnInit {
 
   onClickCloseAdd(event) {
     if (event) {
-      this.listContact.unshift(event)
+      this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     this.addSub = 0
   }
 
-  onClickAssign(index) {
-    if (index == 0) {
+  onClickBtn(event: any) {
+    if (event.btnType == BUTTON_TYPE.ASSIGN) {
       const dialogRef = this.dialog.open(DialogAssignCompanyComponent, {
         width: '500px'
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
           this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
             this.mService.getUser().username,
             this.mService.getUser().id,
             res,
-            JSON.stringify(listID)
+            event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
-                if (item.checked) {
-                  item.assignName = data.obj ? data.obj.name : "";
-                  item.checked = false;
-                }
-              });
-              this.checked = false;
-              this.indeterminate = false;
+              this.onShowToast(data.message);
+              this.mService.publishEvent(EVENT_PUSH.SELECTION, true);
             }
           })
         }
       });
-    } else if (index == 1) {
+    } else if (event.btnType == BUTTON_TYPE.DELETE) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          let listID = [];
-          this.listContact.forEach(item => {
-            if (item.checked) listID.push(item.id)
-          })
           this.mService.getApiService().sendRequestDELETE_CONTACT(
-
-
             this.mService.getUser().username,
             this.mService.getUser().id,
-            JSON.stringify(listID)
+            event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
-                if (item.checked) {
-                  let index = this.listContact.findIndex(itm => {
-                    return itm.id === item.id;
-                  });
-                  if (index > -1) {
-                    this.listContact.splice(index, 1)
-                  }
-                  this.checked = false;
-                  this.indeterminate = false;
-                }
-              })
+              this.onShowToast(data.message);
+
+              this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
             }
           })
         }
       });
-    } else if (index == 2) {
+    } else if (event.btnType == BUTTON_TYPE.ADD_LIST_MAIL) {
       const dialogRef = this.dialog.open(DialogAddMailListComponent, {
         width: '500px'
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          let listMail = [];
-          this.listContact.forEach(item => {
-            if (item.email.trim() != "" && item.checked)
-              listMail.push(item.email)
-          })
-
-          this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(this.mService.getUser().id, res, JSON.stringify(listMail)).then(data => {
+          this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(this.mService.getUser().id, res, event.data).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.listContact.forEach(item => {
-                item.checked = false;
-                this.checked = false;
-                this.indeterminate = false;
-              });
 
-              this.toasMessage = data.message;
-              this.showToast = true;
-              setTimeout(() => {
-                this.showToast = false;
-              }, 2000);
+              this.mService.publishEvent(EVENT_PUSH.SELECTION, true);
+              this.onShowToast(data.message);
             }
           })
         }
@@ -296,8 +295,17 @@ export class ContactMenuContactComponent implements OnInit {
     this.timeFrom = event.timeFrom;
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
+    this.searchKey = event.searchKey;
 
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-call'), event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, this.menuSelected, event.searchKey, event.timeFrom, event.timeTo, event.userID);
+  }
+
+  onShowToast(message) {
+    this.toasMessage = message;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, 2000);
   }
 
 }

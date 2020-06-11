@@ -14,8 +14,6 @@
                     <app-add-contact [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-contact>
                 </div>
 
-                <app-filter-bar onContact="true" (searchChange)="onSearchChange($event)" (clickAdd)="onClickAdd()"
-                    (sort)="onClickSort($event)"></app-filter-bar>
             </div>
         </div>
 
@@ -34,92 +32,16 @@
                     <div padding-bottom wrap [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
                         {{mData.my_contact_assigned}}({{numberAssign}})</div>
                 </div>
-                <!-- <div padding-top>
-                    <div bold color-primary>{{mData.add_filter}}</div>
-                </div> -->
             </div>
 
             <div width-80>
-                <div class="m-table">
-                    <div flex padding8-vertical [class.background-whitesmoke]="!checked && !indeterminate"
-                        [class.background-secondary]="checked || indeterminate">
-                        <div padding-horizontal center-line>
-                            <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate"
-                                (click)="onCheckAllChange()">
-                            </mat-checkbox>
-                        </div>
 
-                        <div flex [hidden]="!checked&&!indeterminate">
-                            <div padding-start center-line style="font-weight: normal;">{{numberOfItemSelected}}
-                                {{mData.selected}}</div>
-                            <div padding-start></div>
-                            <div *ngFor="let item of mData.contact.list_select; let i = index" padding-start bold
-                                center-line tappable (click)="onClickAssign(i)">
-                                {{item.name}}
-                            </div>
-                        </div>
+                <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
+                </app-filter-bar>
 
-                        <div flex [hidden]="checked||indeterminate">
-                            <div style="width: 200px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.contact.name}}
-                            </div>
-                            <div style="width: 300px;" class="bold center-line margin8-end" (click)="onSort()" tappable>
-                                {{mData.contact.email}}
-                            </div>
-                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.contact.phone}}
-                            </div>
-                            <div style="width: 500px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.contact.company}}
-                            </div>
-                            <div style="width: 120px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.contact.owner}}
-                            </div>
-                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.contact.time_create}}
-                            </div>
-                            <div style="width: 150px;" class="bold center-line" (click)="onSort()" tappable>
-                                {{mData.contact.last_activity}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div wrap flex *ngFor="let item of listContact;let i = index" [class.background-white]="i%2==0">
-                        <div padding-horizontal center-line>
-                            <mat-checkbox [(ngModel)]="item.checked" (change)="onCheckBoxChange(item)">
-                            </mat-checkbox>
-                        </div>
-                        <div padding8-vertical flex [class.background-white]="i%2==0">
-                            <div style="width: 200px;" class="center-line" (click)="onClickItem(item,1)" tappable>
-                                {{item.name}}
-                            </div>
-                            <div style="width: 300px;" class="center-line overflow-hidden margin8-end">
-                                {{item.email}}
-                            </div>
-                            <div style="width: 150px;" class="center-line">
-                                {{item.phone}}
-                            </div>
-                            <div style="width: 500px;" class="center-line" (click)="onClickItem(item,2)" tappable>
-                                {{item.companyName}}
-                            </div>
-                            <div style="width: 120px;" class="center-line">
-                                {{item.assignName}}
-                            </div>
-                            <div style="width: 150px;" class="center-line">
-                                {{item.timeCreate | datetimeDefault}}
-                            </div>
-                            <div style="width: 150px;" class="center-line">
-                                {{item.lastActivity | datetimeDefault}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div center padding-top *ngIf="collectionSize">
-                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
-                        [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
-                    </ngb-pagination>
-                </div>
+                <app-mat-table [page]="page" [collectionSize]="collectionSize" [listData]="listContact"
+                    [listTbData]="listTbData" (clickPagination)="onClickPagination($event)"
+                    (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
             </div>
 
         </div>

@@ -3,6 +3,8 @@ import { HttpClient, HttpRequest, HttpParams, HttpHeaders } from "@angular/commo
 // import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { UploadType } from "./upload-type";
 
+import * as XLSX from 'xlsx';
+
 export class UploadFileModule {
     public static _instance: UploadFileModule = null;
 
@@ -42,7 +44,7 @@ export class UploadFileModule {
                 httpParams = httpParams.append('__command', "upload_image");
                 if (key) httpParams = httpParams.append('__key', key);
 
-                const req = new HttpRequest('POST', "http://192.168.1.130:3002/crm/upload_file", formData, {
+                const req = new HttpRequest('POST', "http://163.44.192.123:3302/crm/upload_file", formData, {
                     reportProgress: true,
                     responseType: 'text',
                     params: httpParams,
@@ -78,6 +80,148 @@ export class UploadFileModule {
             } else {
                 callback();
             }
+        }
+        document.body.appendChild(input);
+        input.click();
+    }
+
+    public openFileImport(callback: any) {
+        let input = document.createElement("input");
+        input.type = "file";
+        input.style.display = "none";
+        input.onchange = (data) => {
+            let file = input.files[0];
+
+            let fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                let arrayBuffer: any = fileReader.result;
+                var workbook = XLSX.read(arrayBuffer, { type: "buffer" });
+                var first_sheet_name = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[first_sheet_name];
+
+                var jsonSheet = XLSX.utils.sheet_to_json(worksheet, { raw: true })
+
+                var output = jsonSheet.map((s: any) => {
+                    var obj = {
+                        name: "",
+                        type: "",
+                        address: "",
+                        country: "",
+                        source: "",
+                        timeWorking: "",
+                        timeActive: "",
+                        note: "",
+                        charge: "",
+                        listMail: [],
+                    };
+
+                    if (s['Name']) obj.name = s['Name'];
+
+                    if (s['Agent/ Company']) obj.type = s['Agent/ Company'];
+
+                    if (s['Contact']) obj.address = s['Contact'];
+
+                    if (s['Country']) obj.country = s['Country'];
+
+                    if (s['Source']) obj.source = s['Source'];
+
+                    if (s['Begin working time']) obj.timeWorking = s['Begin working time'];
+
+                    if (s['Established']) obj.timeActive = s['Established'];
+
+                    if (s['Note']) obj.note = s['Note'];
+
+                    if (s['Schedule of Charge']) obj.charge = s['Schedule of Charge'];
+
+                    let listMail = [];
+                    if (s['Email 1']) {
+                        if (s['contact Person1']) {
+                            listMail.push({
+                                name: s['contact Person1'],
+                                email: s['Email 1']
+                            });
+                        } else {
+                            listMail.push({
+                                name: s['Email 1'],
+                                email: s['Email 1']
+                            });
+                        }
+                    }
+                    if (s['Email 2']) {
+                        if (s['contact Person2']) {
+                            listMail.push({
+                                name: s['contact Person2'],
+                                email: s['Email 2']
+                            });
+                        } else {
+                            listMail.push({
+                                name: s['Email 2'],
+                                email: s['Email 2']
+                            });
+                        }
+                    }
+                    if (s['Email 3']) {
+                        if (s['contact Person3']) {
+                            listMail.push({
+                                name: s['contact Person3'],
+                                email: s['Email 3']
+                            });
+                        } else {
+                            listMail.push({
+                                name: s['Email 3'],
+                                email: s['Email 3']
+                            });
+                        }
+                    }
+
+                    if (s['Other Email']) {
+                        let listMailString = s['Other Email'].split(';')
+                        listMailString.forEach(listMailStringItem => {
+                            listMail.push({
+                                name: listMailStringItem,
+                                email: listMailStringItem
+                            });
+                        })
+                    }
+
+                    obj.listMail = listMail;
+
+                    return obj
+                })
+                callback(output);
+            }
+            fileReader.readAsArrayBuffer(file);
+        }
+        document.body.appendChild(input);
+        input.click();
+    }
+
+    public __openFileInBrowser(callback: any) {
+        let input = document.createElement("input");
+        input.type = "file";
+        input.style.display = "none";
+        input.onchange = (data) => {
+            let file = input.files[0];
+
+            let fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                let arrayBuffer: any = fileReader.result;
+                var workbook = XLSX.read(arrayBuffer, { type: "buffer" });
+                var first_sheet_name = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[first_sheet_name];
+
+                var jsonSheet = XLSX.utils.sheet_to_json(worksheet, { raw: true })
+
+                var output = jsonSheet.map((s: any) => {
+                    return {
+                        name: s['Tên người liên hệ'],
+                        email: s['Địa chỉ Email']
+                    };
+                })
+
+                callback(output);
+            }
+            fileReader.readAsArrayBuffer(file);
         }
         document.body.appendChild(input);
         input.click();

@@ -4,9 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
-import { DialogAssignCompanyComponent } from '../dialog-assign-company/dialog-assign-company.component';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-company/dialog-assign-company.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
+import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file';
 
 @Component({
   selector: 'app-contact-menu-company',
@@ -46,7 +47,7 @@ export class ContactMenuCompanyComponent implements OnInit {
   stageID = null;
   cityID = null;
 
-  pageSize = 12;
+  itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
   constructor(
@@ -187,6 +188,11 @@ export class ContactMenuCompanyComponent implements OnInit {
     })
   }
 
+  onClickSettingItemPerPage(event) {
+    this.itemPerPage = event;
+    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+  }
+
   onClickItem(item) {
     this.router.navigate(['company-detail'], { state: { params: item } });
   }
@@ -285,6 +291,17 @@ export class ContactMenuCompanyComponent implements OnInit {
     this.cityID = event.cityID;
 
     this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key'), event.timeFrom, event.timeTo, event.userID, event.stepID, event.cityID);
+  }
+
+  onClickImport() {
+    UploadFileModule.getInstance().openFileImport(res => {
+      console.log(res);
+      
+      this.mService.getApiService().sendRequestIMPORT_DATA(JSON.stringify(res)).then(data => {
+        console.log(data);
+        
+      })
+    });
   }
 
 }

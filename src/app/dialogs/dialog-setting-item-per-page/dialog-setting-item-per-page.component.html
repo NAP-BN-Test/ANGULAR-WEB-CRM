@@ -1,0 +1,29 @@
+<div *ngIf="mData">
+    <div mat-dialog-content>
+        <p>Tùy chọn hiển thị</p>
+
+        <div padding-start padding-bottom>
+            <div font6 padding8-bottom>Chọn số item hiển thị trên 1 trang</div>
+            <div>
+                <select class="custom-select" width-100 [(ngModel)]="itemPerPage">
+                    <option value="10">10 item trên 1 trang</option>
+                    <option value="25">25 item trên 1 trang</option>
+                    <option value="50">50 item trên 1 trang</option>
+                    <option value="100">100 item trên 1 trang</option>
+                    <option value="200">200 item trên 1 trang</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div flex>
+            <div>
+                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mData.cancel}}</button>
+            </div>
+            <div padding-start>
+                <button type="button" class="btn btn-danger" [mat-dialog-close]="itemPerPage" cdkFocusInitial>Xác
+                    nhận</button>
+            </div>
+        </div>
+    </div>
+</div>

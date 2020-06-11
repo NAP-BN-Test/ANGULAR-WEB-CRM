@@ -102,11 +102,10 @@
                     </div>
                 </div>
 
-                <div center padding-top *ngIf="collectionSize">
-                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="9" [(page)]="page"
-                        [pageSize]="pageSize" (pageChange)="onClickPagination($event)">
-                    </ngb-pagination>
-                </div>
+                <app-pagination [page]="page" [itemPerPage]="itemPerPage" [collectionSize]="collectionSize"
+                    (clickPagination)="onClickPagination($event)"
+                    (clickSettingItemPerPage)="onClickSettingItemPerPage($event)">
+                </app-pagination>
             </div>
 
         </div>

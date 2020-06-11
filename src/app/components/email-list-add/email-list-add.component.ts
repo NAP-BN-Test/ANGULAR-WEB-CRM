@@ -21,15 +21,10 @@ export class EmailListAddComponent implements OnInit {
   name = "";
   phone = "";
 
-  btnType = 1;
-
   listContact = [];
 
   btnAddExist = true;
   btnCanClicked = true;
-
-  listGender = LIST_SELECT.LIST_GENDER;
-  listJobTile = LIST_SELECT.LIST_JOB_TILE;
 
   constructor(
     public mService: AppModuleService,
@@ -79,10 +74,6 @@ export class EmailListAddComponent implements OnInit {
         }
       })
     }
-  }
-
-  onClickStep(index) {
-    this.btnType = index;
   }
 
   onSeachContact(event) {

@@ -1,7 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { ApiService } from './api-service/api-service';
 import { Config } from './core/app/config';
-import { Users } from './classes/user';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 
@@ -17,7 +16,7 @@ export class AppModuleService {
   private mApiService: ApiService;
   private mAppConfig: Config;
 
-  mUser: Users;
+  mUser: any;
   token: string = "";
   serverInfo: string = "";
 

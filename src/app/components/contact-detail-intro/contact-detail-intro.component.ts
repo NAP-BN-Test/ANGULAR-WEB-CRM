@@ -5,7 +5,7 @@ import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, LIST_SELECT } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { MatDialog } from '@angular/material';
 
 @Component({

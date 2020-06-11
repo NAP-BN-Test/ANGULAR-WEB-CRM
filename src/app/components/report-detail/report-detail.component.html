@@ -40,38 +40,34 @@
                     <div class="width-70">{{objSummary.name}}</div>
                 </div>
                 <div class="flex padding8 border-bottom">
-                    <div class="width-30">Danh sách liên hệ</div>
-                    <div class="width-70">{{objSummary.name}}</div>
+                    <div class="width-30">Tổng số liên hệ</div>
+                    <div class="width-70">{{objSummary.contactCount}}</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Lần gửi gần nhất</div>
+                    <div class="width-70">{{objSummary.lastSend | datetimeDefault}}</div>
                 </div>
                 <div class="flex padding8 border-bottom">
                     <div class="width-30">Bắt đầu gửi</div>
                     <div class="width-70">{{objSummary.timeStart | datetimeDefault}}</div>
-                </div>
-                <!-- <div class="flex padding8 border-bottom">
-                    <div class="width-30">Hoàn thành gửi</div>
-                    <div class="width-70">{{objSummary.timeEnd | datetimeDefault}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Thời gian gửi</div>
-                    <div class="width-70">{{objSummary.timeSend}}</div>
-                </div> -->
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Gửi tới</div>
-                    <div class="width-70">{{objSummary.mailSend}}</div>
                 </div>
                 <div class="flex padding8 border-bottom">
                     <div class="width-30">Gửi bởi</div>
                     <div class="width-70">{{objSummary.userSend}}</div>
                 </div>
                 <div class="flex padding8 border-bottom">
+                    <div class="width-30">Gửi tới</div>
+                    <div class="width-70">{{objSummary.mailSend}}</div>
+                </div>
+                <div class="flex padding8 border-bottom">
+                    <div class="width-30">Lượt mở</div>
+                    <div class="width-70">{{objSummary.totalOpen}}</div>
+                </div>
+                <div class="flex padding8 border-bottom">
                     <div class="width-30">Tỉ lệ mở</div>
                     <div class="width-70">{{objSummary.percentOpen}}</div>
                 </div>
                 <!-- <div class="flex padding8 border-bottom">
-                    <div class="width-30">Tỉ lệ click link</div>
-                    <div class="width-70">{{objSummary.percentClickLink}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
                     <div class="width-30">Bị trả lại</div>
                     <div class="width-70">{{objSummary.sendBack}}</div>
                 </div> -->
@@ -123,7 +119,8 @@
                     <div width-60>Tổng số lượt mở các ngày</div>
                 </div>
 
-                <div flex padding-horizontal *ngFor="let item of tbMailOpen; let i = index" [class.background-whitesmoke]="i%2==0">
+                <div flex padding-horizontal *ngFor="let item of tbMailOpen; let i = index"
+                    [class.background-whitesmoke]="i%2==0">
                     <div width-40>{{item.date}}</div>
                     <div width-60>{{item.total}}</div>
                 </div>

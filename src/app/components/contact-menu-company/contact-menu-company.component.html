@@ -10,8 +10,9 @@
                 <div class="box-add" [class.show-div]="addSub==1">
                     <app-add-company [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-company>
                 </div>
-                <app-filter-bar (searchChange)="onSearchChange($event)" (clickAdd)="onClickAdd()"
-                    (sort)="onClickSort($event)"></app-filter-bar>
+
+                <!-- <app-filter-bar type="1" (searchChange)="onSearchChange($event)" (clickAdd)="onClickAdd()"
+                    (sort)="onClickSort($event)" (clickImport)="onClickImport()"></app-filter-bar> -->
             </div>
         </div>
 
@@ -35,7 +36,7 @@
             </div>
 
             <div width-80>
-                <div class="m-table">
+                <!-- <div class="m-table">
                     <div flex padding8-vertical [class.background-whitesmoke]="!checked && !indeterminate"
                         [class.background-secondary]="checked || indeterminate">
                         <div padding-horizontal center-line>
@@ -116,11 +117,18 @@
                     </div>
                 </div>
 
-                <div center padding-top *ngIf="collectionSize">
-                    <ngb-pagination [collectionSize]="collectionSize" [maxSize]="8" [page]="page"
-                        [pageSize]="pageSize" [boundaryLinks]="true" (pageChange)="onClickPagination($event)">
-                    </ngb-pagination>
-                </div>
+                <app-pagination [page]="page" [itemPerPage]="itemPerPage" [collectionSize]="collectionSize"
+                    (clickPagination)="onClickPagination($event)"
+                    (clickSettingItemPerPage)="onClickSettingItemPerPage($event)">
+                </app-pagination> -->
+
+                <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
+                </app-filter-bar>
+
+                <app-mat-table [page]="page" [collectionSize]="collectionSize" [listData]="listContact"
+                    [listTbData]="listTbData" (clickPagination)="onClickPagination($event)"
+                    (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
+
             </div>
 
         </div>

@@ -60,8 +60,7 @@
             <div bold>Nội dung email</div>
 
             <div padding-top>
-                <quill-editor [(ngModel)]="mObj.body" [styles]="{height: '500px'}" [modules]="editorModules">
-                </quill-editor>
+                <angular-editor [(ngModel)]="mObj.body" [config]="editorConfig"></angular-editor>
             </div>
 
             <div flex>

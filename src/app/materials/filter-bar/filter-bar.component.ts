@@ -1,7 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { CookieService } from 'ngx-cookie-service';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, SORT_TYPE } from 'src/app/services/constant/app-constant';
+import { FormControl } from '@angular/forms';
+import { MatInput, MatSelect } from '@angular/material';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-filter-bar',
@@ -9,15 +13,24 @@ import { STATUS } from 'src/app/services/constant/app-constant';
   styleUrls: ['./filter-bar.component.scss']
 })
 export class FilterBarComponent implements OnInit {
+
+  @ViewChild('dateStartInput', { read: MatInput }) dateStartInput: MatInput;
+  @ViewChild('dateEndInput', { read: MatInput }) dateEndInput: MatInput;
+  @ViewChild('searchKeyInput', { read: MatInput }) searchKeyInput: MatInput;
+  @ViewChild('userSelect', { read: MatSelect }) userSelect: MatSelect;
+
   @Input('onContact') onContact = false;
   @Input('listActivity') listActivity = false;
   @Input('noCreate') noCreate = false;
 
   @Input('type') type = -1;
 
+  @Input('toppingList') toppingList = [];
+
 
   @Output('searchChange') searchChange = new EventEmitter();
   @Output('clickAdd') clickAdd = new EventEmitter();
+  @Output('clickImport') clickImport = new EventEmitter();
   @Output('sort') sort = new EventEmitter();
 
   mData: any;
@@ -34,8 +47,15 @@ export class FilterBarComponent implements OnInit {
 
   timeType = 1;
 
-  timeFrom = null;
-  timeTo = null;
+  // timeFrom = null;
+  // timeTo = null;
+
+
+
+  sortUser = false;
+  sortTimeStart = false;
+  sortTimeEnd = false;
+  sortSearch = false;
 
   constructor(
     public mService: AppModuleService,
@@ -82,6 +102,7 @@ export class FilterBarComponent implements OnInit {
         this.listCity.unshift({ id: -1, name: this.mData.all })
       }
     })
+
   }
 
   onSearchChange(event) {
@@ -99,36 +120,76 @@ export class FilterBarComponent implements OnInit {
     this.clickAdd.emit();
   }
 
-  onPickDate(event, type) {
-    if (type == 1) {
-      this.timeFrom = event;
-    } else {
-      this.timeTo = event;
-    }
-  }
+  // onPickDate(event, type) {
+  //   if (type == 1) {
+  //     this.timeFrom = event;
+  //   } else {
+  //     this.timeTo = event;
+  //   }
+  // }
 
   onClickSort() {
     this.sort.emit({
-      userID: this.userID > 0 ? this.userID : null,
-      cityID: this.cityID > 0 ? this.cityID : null,
-      stepID: this.stepID > 0 ? this.stepID : null,
-      timeFrom: this.timeFrom,
-      timeTo: this.timeTo,
-      timeType: this.timeType
+      // userID: this.userID > 0 ? this.userID : null,
+      // cityID: this.cityID > 0 ? this.cityID : null,
+      // stepID: this.stepID > 0 ? this.stepID : null,
+      // timeFrom: this.timeFrom,
+      // timeTo: this.timeTo,
+      // timeType: this.timeType
+      userID: toID(this.userSelect.value),
+      timeFrom: toDate(this.dateStartInput.value),
+      timeTo: toDate(this.dateEndInput.value),
+      searchKey: this.searchKeyInput.value
     })
+
   }
 
   onClickClear() {
-    this.userID = -1;
-    this.stepID = -1;
-    this.cityID = -1;
-    this.timeFrom = null;
-    this.timeTo = null;
-    this.timeType = 1;
+    // this.userID = -1;
+    // this.stepID = -1;
+    // this.cityID = -1;
+    // this.timeFrom = null;
+    // this.timeTo = null;
+    // this.timeType = 1;
+
+    this.dateStartInput.value = '';
+    this.dateEndInput.value = '';
+    this.searchKeyInput.value = '';
+    this.userSelect.value = '';
+
   }
 
   onClickImport() {
-    
+    this.clickImport.emit();
   }
 
+  onSortChange(event) {
+    this.sortUser = event.value.includes(SORT_TYPE.USER);
+    this.sortTimeStart = event.value.includes(SORT_TYPE.TIME_START);
+    this.sortTimeEnd = event.value.includes(SORT_TYPE.TIME_END);
+    this.sortSearch = event.value.includes(SORT_TYPE.SEARCH);
+  }
+
+  onUserChange(event) {
+    if (event)
+      this.userID = Number(event.value)
+  }
+
+  applyFilter(event: Event) {
+    console.log(event);
+  }
+
+}
+
+function toDate(time): string {
+  if (time)
+    return moment(time).format("YYYY-MM-DD")
+  else return null;
+}
+function toID(value): number {
+  if (value) {
+    if (!isNaN(value))
+      return Number(value)
+    else return null;
+  } else return null;
 }

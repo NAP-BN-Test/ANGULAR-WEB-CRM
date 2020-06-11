@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router, NavigationExtras } from '@angular/router';
-import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
+import { DialogLogoutComponent } from '../../dialogs/dialog-logout/dialog-logout.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -51,7 +51,7 @@ export class HeaderMenuComponent implements OnInit {
       this.menuSelected = index
       if (index == 1) {
         if (indexChild == 1) {
-          this.router.navigate(['contact-menu-contact']);
+          this.router.navigate(['contact-menu-contact'], { queryParams: { page: 1 } });
         }
         else if (indexChild == 2) {
           this.router.navigate(['contact-menu-company'], { queryParams: { page: 1 } });

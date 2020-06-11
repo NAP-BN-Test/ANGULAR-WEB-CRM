@@ -65,24 +65,15 @@ export class LoginComponent implements OnInit {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
         this.loginMessage = "";
-
         this.mService.setUser(data.obj);
-
-        if (!localStorage.getItem('server-info')) {
-          let serverInfo = {
-            ip: this.ip,
-            dbName: this.dbName
-          }
-
-          localStorage.setItem('server-info', JSON.stringify(serverInfo));
-        }
 
         let userLogin = {
           username: this.username,
           password: this.password
         }
-        localStorage.setItem('user-login', JSON.stringify(userLogin));
 
+        localStorage.setItem('server-info', JSON.stringify({ ip: this.ip, dbName: this.dbName }));
+        localStorage.setItem('user-login', JSON.stringify(userLogin));
         localStorage.setItem('user-info', JSON.stringify(data.obj));
 
         this.router.navigate(['contact-menu-company'], { queryParams: { page: 1 } });

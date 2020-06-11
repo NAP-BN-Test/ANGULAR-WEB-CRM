@@ -1,7 +1,6 @@
 import { HttpClient } from '../core/http/http-client';
 import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
-import { Headers } from '@angular/http';
 
 export class ApiService extends HttpClient {
     mUrl: string = "http://192.168.1.130:3002/";
@@ -15,6 +14,8 @@ export class ApiService extends HttpClient {
 
     ip = localStorage.getItem('server-info') ? JSON.parse(localStorage.getItem('server-info')).ip : "";
     dbName = localStorage.getItem('server-info') ? JSON.parse(localStorage.getItem('server-info')).dbName : "";
+
+    itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
 
     public static _instance: ApiService = null;
 
@@ -37,6 +38,14 @@ export class ApiService extends HttpClient {
         }
     }
 
+    public setItemPerPage(itemPerPage) {
+        super.setData(itemPerPage);
+        if (itemPerPage) {
+            localStorage.setItem('item-per-page', itemPerPage);
+            this.itemPerPage = itemPerPage;
+        }
+    }
+
     //1
     public sendRequestUSER_LOGIN(ip: string, dbName: string, username: string, password: string): Promise<any> {
         this.ip = ip;
@@ -46,6 +55,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("password", password));
     }
@@ -57,7 +67,9 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
+                .add("userID", userID)
                 .add("userID", userID)
                 .add("companyID", companyID));
     }
@@ -81,9 +93,11 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .addIgnoreNull("searchKey", searchKey)
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)
@@ -101,6 +115,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID));
@@ -112,6 +127,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID));
@@ -123,6 +139,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("companyID", companyID));
     }
@@ -133,6 +150,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("companyID", companyID)
                 .add("activityType", activityType)
@@ -145,6 +163,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("companyID", companyID));
     }
@@ -164,9 +183,11 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .addIgnoreNull("searchKey", searchKey)
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)
@@ -193,6 +214,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("activityID", activity.id)
                 .add("activityType", activity.activityType)
@@ -214,6 +236,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("meetID", meetID));
     }
@@ -224,6 +247,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .addIgnoreNull("all", all));
@@ -235,6 +259,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .addIgnoreNull("companyID", companyID)
@@ -250,6 +275,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("noteID", noteID));
     }
@@ -260,6 +286,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("contactID", contactID)
                 .add("noteID", noteID)
@@ -273,6 +300,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .addIgnoreNull("companyID", companyID)
@@ -290,6 +318,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("userName", userName)
@@ -304,6 +333,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("cmtID", cmtID)
@@ -317,6 +347,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("cmtID", cmtID)
@@ -330,6 +361,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .addIgnoreNull("companyID", companyID)
@@ -347,6 +379,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("meetID", meetID)
@@ -361,6 +394,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .addIgnoreNull("companyID", companyID)
@@ -383,6 +417,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .addIgnoreNull("companyID", companyID)
@@ -403,6 +438,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
@@ -421,6 +457,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
@@ -433,6 +470,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("searchKey", searchKey));
@@ -456,6 +494,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("companyID", companyID)
                 .addIgnoreNull("companyName", companyName)
@@ -475,6 +514,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("callID", callID));
     }
@@ -485,6 +525,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("contactID", contactID)
                 .add("callID", callID)
@@ -497,6 +538,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("emailID", emailID));
     }
@@ -507,6 +549,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("contactID", contactID)
                 .add("emailID", emailID)
@@ -519,6 +562,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("meetID", meetID));
     }
@@ -529,6 +573,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("contactID", contactID)
                 .add("meetID", meetID)
@@ -541,6 +586,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("taskID", taskID));
     }
@@ -551,6 +597,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("contactID", contactID)
                 .add("taskID", taskID)
@@ -563,6 +610,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
@@ -575,6 +623,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
@@ -594,6 +643,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
@@ -606,6 +656,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
@@ -618,6 +669,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID));
     }
@@ -628,6 +680,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .addIgnoreNull("companyID", deal.companyID)
@@ -645,6 +698,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("contactID", contactID));
@@ -656,6 +710,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("contactID", contactID)
                 .add("activityType", activityType)
@@ -668,6 +723,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("contactID", contactID));
     }
@@ -679,6 +735,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("contactID", contactID)
                 .addIgnoreNull("contactName", contactName)
@@ -694,6 +751,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("assignID", assignID)
@@ -706,6 +764,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("assignID", assignID)
@@ -718,6 +777,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("contactIDs", contactIDs));
@@ -729,6 +789,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyID", companyID)
@@ -741,6 +802,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("contactID", contactID)
@@ -753,6 +815,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("companyIDs", companyIDs));
@@ -774,9 +837,11 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
                 .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
@@ -791,6 +856,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("taskIDs", taskIDs)
@@ -803,6 +869,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("contactID", contactID));
@@ -814,6 +881,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("role", role)
@@ -827,6 +895,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("dealID", dealID));
@@ -838,6 +907,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("dealID", dealID)
@@ -860,9 +930,11 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
                 .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
@@ -877,6 +949,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("activityIDs", activityIDs));
@@ -898,9 +971,11 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
                 .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
@@ -915,6 +990,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("activityIDs", activityIDs));
@@ -936,9 +1012,11 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
                 .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
@@ -953,6 +1031,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("activityIDs", activityIDs));
@@ -974,9 +1053,11 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
                 .add("timeType", timeType)
                 .addIgnoreNull("searchKey", searchKey)
@@ -991,6 +1072,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("activityIDs", activityIDs));
@@ -1002,6 +1084,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID));
     }
@@ -1012,6 +1095,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID));
     }
@@ -1022,6 +1106,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("activityIDs", activityIDs));
@@ -1033,6 +1118,7 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
                 .add("username", username)
                 .add("userID", userID)
                 .add("regName", userReg.name)
@@ -1056,7 +1142,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("page", page));
+                .add("page", page)
+                .add("itemPerPage", this.itemPerPage));
     }
 
     //==============================
@@ -1076,7 +1163,8 @@ export class ApiService extends HttpClient {
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
                 .add("mailListID", mailListID)
-                .add("page", page));
+                .add("page", page)
+                .add("itemPerPage", this.itemPerPage));
     }
 
     //==============================
@@ -1094,7 +1182,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("page", page));
+                .add("page", page)
+                .add("itemPerPage", this.itemPerPage));
     }
 
     //==============================
@@ -1113,6 +1202,7 @@ export class ApiService extends HttpClient {
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .addIgnoreNull("userIDFind", userIDFind));
     }
 
@@ -1130,7 +1220,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("page", page));
+                .add("page", page)
+                .add("itemPerPage", this.itemPerPage));
     }
 
     //==============================
@@ -1280,7 +1371,7 @@ export class ApiService extends HttpClient {
 
     //==============================
     public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
-        let body = obj.body.replace(/&/g, '%26');
+        let body = obj.body.replace(/&/g, "%26");
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -1298,6 +1389,7 @@ export class ApiService extends HttpClient {
 
     //==============================
     public sendRequestADD_MAIL_SEND(obj: any, isTestMail?: boolean): Promise<any> {
+        let body = obj.body.replace(/&/g, '%26');
         return this.requestPost(this.mUrl + ApiCmd.ADD_MAIL_SEND,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -1306,7 +1398,7 @@ export class ApiService extends HttpClient {
 
                 .add("campainID", obj.id)
                 .add("subject", obj.subject)
-                .add("body", obj.body)
+                .add("body", body)
                 .add("mailListID", obj.mailListID)
                 .add("myMail", obj.myMail)
                 .addIgnoreNull("isTestMail", isTestMail));
@@ -1352,6 +1444,20 @@ export class ApiService extends HttpClient {
                 .add("secretKey", this.mSecretKey)
 
                 .add("page", page)
+                .add("itemPerPage", this.itemPerPage)
                 .add("email", email));
+    }
+
+    //==============================
+    public sendRequestIMPORT_DATA(dataJson: string): Promise<any> {
+        let dataJ = dataJson.replace(/&/g, "%26");
+
+        return this.requestPost(this.mUrl + ApiCmd.IMPORT_DATA,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("dataJson", dataJ));
     }
 }
