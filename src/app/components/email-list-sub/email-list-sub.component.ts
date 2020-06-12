@@ -155,32 +155,19 @@ export class EmailListSubComponent implements OnInit {
   }
 
   onClickImport() {
-    // UploadFileModule.getInstance().__openFileInBrowser(res => {
-    //   if (res) {
-    //     this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
-    //       this.mService.getUser().id,
-    //       this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1,
-    //       JSON.stringify(res)
-    //     ).then(data => {
-    //       if (data.status == STATUS.SUCCESS) {
-    //         res.forEach(item => {
-    //           let obj = this.listContact.find(emailItem => {
-    //             return emailItem.email == item.email;
-    //           });
-    //           if (obj == undefined) {
-    //             this.listContact.unshift({
-    //               email: item.email,
-    //               owner: this.mService.getUser().name,
-    //               createTime: moment().format("YYYY-MM-DD HH:mm"),
-    //               contactName: item.name,
-    //               mailCount: 0
-    //             });
-    //           }
-    //         })
-    //       }
-    //     })
-    //   }
-    // })
+    UploadFileModule.getInstance().__openFileInBrowser(res => {
+      if (res) {
+        this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
+          this.mService.getUser().id,
+          this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1,
+          JSON.stringify(res)
+        ).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+            this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+          }
+        })
+      }
+    })
   }
 
   onClickCloseAdd(event) {

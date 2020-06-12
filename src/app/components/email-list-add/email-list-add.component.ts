@@ -19,7 +19,6 @@ export class EmailListAddComponent implements OnInit {
   mData: any;
 
   name = "";
-  phone = "";
 
   listContact = [];
 
@@ -41,7 +40,6 @@ export class EmailListAddComponent implements OnInit {
     this.closeAddSub.emit();
 
     this.name = "";
-    this.phone = "";
   }
 
   onClickAddExist() {
@@ -54,10 +52,9 @@ export class EmailListAddComponent implements OnInit {
   }
 
   onClickSave() {
-    if (this.name.trim() != "" && this.phone.trim() != "") {
+    if (this.name.trim() != "") {
       let obj = {
         name: this.name,
-        phone: this.phone,
         owner: this.mService.getUser().name,
         createTime: moment().format("YYYY-MM-DD"),
       }
@@ -70,7 +67,6 @@ export class EmailListAddComponent implements OnInit {
           this.closeAddSub.emit(obj);
 
           this.name = "";
-          this.phone = "";
         }
       })
     }

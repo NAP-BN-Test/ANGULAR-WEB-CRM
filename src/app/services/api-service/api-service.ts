@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.130:3002/";
-    // mUrl: string = "http://163.44.192.123:3302/";
+    // mUrl: string = "http://192.168.1.130:3002/";
+    mUrl: string = "http://163.44.192.123:3302/";
     mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
@@ -1297,7 +1297,6 @@ export class ApiService extends HttpClient {
 
                 .add("userID", userID)
                 .add("name", obj.name)
-                .add("phone", obj.phone)
                 .addIgnoreNull("listMail", listMail));
     }
 
