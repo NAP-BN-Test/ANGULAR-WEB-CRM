@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8 relative">
+<div class="m-container mat-elevation-z8">
     <div class="m-option" [hidden]="selection.selected.length==0" *ngIf="listTbData">
         <div padding-start *ngFor="let item of listTbData.listButton">
             <button mat-flat-button [color]="item.color" (click)="onClickBtn(item)">{{item.name}}</button>
@@ -27,12 +27,13 @@
             <td tappable mat-cell *matCellDef="let row" (click)="onClickCell(row, item.cell)"> {{row[item.cell]}} </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;">
         </tr>
     </table>
 
-    <mat-paginator [length]="collectionSize" [pageSize]="itemPerPage" [pageSizeOptions]="pageSizeOptions"
-        (page)="onClickPagination($event)" [pageIndex]="page -1">
-    </mat-paginator>
+
 </div>
+<mat-paginator [length]="collectionSize" [pageSize]="itemPerPage" [pageSizeOptions]="pageSizeOptions"
+    (page)="onClickPagination($event)" [pageIndex]="page -1">
+</mat-paginator>

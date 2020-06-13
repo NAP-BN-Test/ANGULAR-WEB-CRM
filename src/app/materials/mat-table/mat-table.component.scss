@@ -1,3 +1,10 @@
+.m-container {
+  height: 650px;
+  overflow: auto;
+  position: relative;
+}
+
+
 table {
     width: 100%;
   }
@@ -15,12 +22,12 @@ table {
 }
 
 .m-option {
-  position: absolute;
+  position: fixed;
   box-shadow: 0 3px 6px rgba($color: #000000, $alpha: .2);
   z-index: 999;
   padding: 10px 32px;
   background-color: rgba($color: #ffff, $alpha: .9);
-  right: 0;
+  right: 32px;
   animation: fadeIn 300ms;
   display: flex;
 }

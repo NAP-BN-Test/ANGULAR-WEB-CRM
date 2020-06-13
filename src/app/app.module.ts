@@ -196,7 +196,7 @@ import { MatTableComponent } from './materials/mat-table/mat-table.component';
     EmailListSubAddComponent,
     DialogSettingItemPerPageComponent,
     PaginationComponent,
-    MatTableComponent
+    MatTableComponent,
   ],
   imports: [
     BrowserModule,
