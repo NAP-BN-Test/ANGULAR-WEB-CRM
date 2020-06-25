@@ -14,7 +14,7 @@ export interface DialogData {
 })
 export class DialogComponent implements OnInit {
 
-  mData: any;
+  mTitle: any;
 
   constructor(
     public mService: AppModuleService,
@@ -27,7 +27,7 @@ export class DialogComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.dialog;
+      this.mTitle = data.dialog;
     });
   }
 

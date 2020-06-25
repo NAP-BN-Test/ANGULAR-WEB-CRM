@@ -14,7 +14,7 @@ export class ActivityCommentBoxComponent implements OnInit {
   showCmt = false;
   showQuillCmt = false;
 
-  mData: any;
+  mTitle: any;
 
   cmtDetail = "keyboard_arrow_right";
 
@@ -24,7 +24,7 @@ export class ActivityCommentBoxComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.company_detail;
+      this.mTitle = data.company_detail;
     });
   }
 

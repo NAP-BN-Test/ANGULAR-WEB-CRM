@@ -12,12 +12,12 @@ export class FollowPipe implements PipeTransform {
 
     let data = localStorage.getItem('data-local') != null ? JSON.parse(localStorage.getItem('data-local')) : null;
     if (data) {
-      let mData = data.company_info;
+      let mTitle = data.company_info;
       if (value) {
-        return mData.unfollow
+        return mTitle.unfollow
       }
       else {
-        return mData.follow
+        return mTitle.follow
       }
     }
     else return "";

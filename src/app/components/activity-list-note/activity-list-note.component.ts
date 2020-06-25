@@ -39,7 +39,7 @@ export class ActivityListNoteComponent implements OnInit {
     { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
   ]
 
-  mData: any;
+  mTitle: any;
 
   menuSelected = 0;
 
@@ -69,7 +69,7 @@ export class ActivityListNoteComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.contact;
+      this.mTitle = data.contact;
     });
     if (this.mService.getUser()) {
       this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);

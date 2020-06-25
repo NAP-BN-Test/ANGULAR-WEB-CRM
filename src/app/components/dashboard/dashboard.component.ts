@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  mData: any;
+  mTitle: any;
 
   listActivity = [];
   activitySummary: any;
@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.dashboard;
+      this.mTitle = data.dashboard;
     });
 
     this.mService.getApiService().sendRequestGET_SUMMARY_INFO(

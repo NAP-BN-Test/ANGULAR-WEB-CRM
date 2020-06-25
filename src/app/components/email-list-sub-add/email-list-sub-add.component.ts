@@ -16,7 +16,7 @@ export class EmailListSubAddComponent implements OnInit {
 
   @Input("addOut") addOut: number;
 
-  mData: any;
+  mTitle: any;
 
   name = "";
   email = "";
@@ -38,7 +38,7 @@ export class EmailListSubAddComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.add_sub_detail;
+      this.mTitle = data.add_sub_detail;
     });
   }
 

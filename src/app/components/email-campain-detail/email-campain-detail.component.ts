@@ -21,7 +21,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 })
 export class EmailCampainDetailComponent implements OnInit {
 
-  mData: any;
+  mTitle: any;
   mObj: any;
 
   campainID = -1;
@@ -31,8 +31,7 @@ export class EmailCampainDetailComponent implements OnInit {
 
   listMailList = [];
 
-  showToast = false;
-  toasMessage = "";
+  
 
   timeStart: any;
   timeEnd: any;
@@ -98,7 +97,7 @@ export class EmailCampainDetailComponent implements OnInit {
 
   onLoadData() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.add_sub_detail;
+      this.mTitle = data.add_sub_detail;
     });
 
     this.campainID = this.cookieService.get('campain-id') ? Number(this.cookieService.get('campain-id')) : -1;
@@ -137,11 +136,8 @@ export class EmailCampainDetailComponent implements OnInit {
     this.mService.getApiService().sendRequestUPDATE_MAIL_CAMPAIN(obj).then(data => {
 
       if (data.status == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -157,11 +153,8 @@ export class EmailCampainDetailComponent implements OnInit {
 
     this.mService.getApiService().sendRequestADD_MAIL_SEND(obj).then(data => {
       if (data.status == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -177,11 +170,8 @@ export class EmailCampainDetailComponent implements OnInit {
 
     this.mService.getApiService().sendRequestADD_MAIL_SEND(obj, true).then(data => {
       if (data.status == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -238,11 +228,8 @@ export class EmailCampainDetailComponent implements OnInit {
             user.email = res;
             this.mService.setUser(user);
 
-            this.toasMessage = data.message;
-            this.showToast = true;
-            setTimeout(() => {
-              this.showToast = false;
-            }, 2000);
+            this.mService.showSnackBar(data.message)
+           
           }
         })
       }

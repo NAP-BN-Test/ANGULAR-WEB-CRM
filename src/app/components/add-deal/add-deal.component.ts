@@ -21,7 +21,7 @@ export class AddDealComponent implements OnInit {
 
   @Output("closeAddSub") closeAddSub = new EventEmitter();
 
-  mData: any;
+  mTitle: any;
 
   btnCanClicked = true;
 
@@ -42,7 +42,7 @@ export class AddDealComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.add_sub_detail;
+      this.mTitle = data.add_sub_detail;
     });
   }
 

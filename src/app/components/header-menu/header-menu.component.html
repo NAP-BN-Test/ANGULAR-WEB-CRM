@@ -1,52 +1,36 @@
-<div *ngIf="mData">
+<div>
     <div class="m-header" between>
         <div flex>
             <div padding32-start padding8 style="height: 66px;" (click)="onClickLogo()" tappable>
-                <img height-100 [src]="mData.logo">
+                <img height-100 src="../../assets/img/logo_light.png">
             </div>
 
-            <div padding32-start flex>
-                <div ngbDropdown color-white center-line padding-horizontal *ngFor="let item of mData.list_menu"
-                    [class.selected]="menuSelected==item.index" tappable>
-                    <div class="color-white between width-100 height-100" ngbDropdownToggle>
+            <div padding32-start flex *ngIf="listMenu">
+                <div color-white center-line padding-horizontal *ngFor="let item of listMenu" [class.selected]="menuIndex==item.index" tappable>
+                    <div class="color-white between width-100 height-100" [matMenuTriggerFor]="menu">
                         <div padding-end>{{item.name}}</div>
                     </div>
-                    <div ngbDropdownMenu width-100 background-primary>
-                        <div border-bottom *ngFor="let it1 of item.list;let i = index"
-                            [class.border0]="item.list.length-1==i">
-                            <button color-white ngbDropdownItem
-                                (click)="onClickMenu(item.index, it1.index)">{{it1.name}}</button>
+                    <mat-menu background-primary #menu="matMenu">
+                        <div border-bottom *ngFor="let it1 of item.list;let i = index" [class.border0]="item.list.length-1==i">
+                            <button mat-menu-item (click)="onClickMenu(item.index, it1.index)">{{it1.name}}</button>
                         </div>
-                    </div>
-
+                    </mat-menu>
                 </div>
             </div>
+
+
         </div>
 
         <div padding32-end flex>
 
-            <!-- <div center-line class="fadeIn" [hidden]="!showSearchBar">
-                <input type="search" class="form-control" />
-            </div> -->
-
-            <!-- <div color-white center-line>
-                <button class="btn btn-default color-white center" (click)="onClickSearch()">
-                    <mat-icon color-white>search</mat-icon>
-                </button>
-            </div> -->
-
-            <div>
-                <ng-template #hoverSetting>
-                    <div>
-                        <!-- <button class="btn btn-block center" (click)="onClickLanguage()">{{language}}</button> -->
-                        <button *ngIf="mUser.role==2" class="btn btn-block center" (click)="onClickAddUser()">Thêm
-                            User</button>
-                    </div>
-
-                </ng-template>
-                <button class="btn btn-default color-white center" placement="bottom" [ngbPopover]="hoverSetting">
+            <div *ngIf="mTitle">
+                <button mat-button [matMenuTriggerFor]="menu">
                     <mat-icon color-white>settings</mat-icon>
                 </button>
+                <mat-menu #menu="matMenu">
+                    <!-- <button mat-menu-item (click)="onClickLanguage()">{{language}}</button> -->
+                    <button mat-menu-item *ngIf="mUser.role==2" (click)="onClickAddUser()">{{mTitle.button_title.add_user}}</button>
+                </mat-menu>
             </div>
 
             <div padding32-end>

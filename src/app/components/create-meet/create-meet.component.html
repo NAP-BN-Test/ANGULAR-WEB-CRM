@@ -1,6 +1,6 @@
-<div shadow *ngIf="mData">
+<div shadow *ngIf="mTitle">
     <div padding background-secondary between>
-        <div bold font3>{{mData.meet_tag}}</div>
+        <div bold font3>{{mTitle.meet_tag}}</div>
         <div (click)="onClickClose()" tappable>
             <mat-icon>close</mat-icon>
         </div>
@@ -9,7 +9,7 @@
     <div flex box-border>
         <div class="col-3 padding0">
             <div padding>
-                <div font7>{{mData.attend}}</div>
+                <div font7>{{mTitle.attend}}</div>
                 <div font6 color-primary flex>
                     <app-dropdown-attend-create width-100 (dropdownChange)="onDropChange($event)">
                     </app-dropdown-attend-create>
@@ -18,7 +18,7 @@
         </div>
         <div class="col-3 padding0">
             <div padding-vertical>
-                <div font7>{{mData.duration}}</div>
+                <div font7>{{mTitle.duration}}</div>
                 <div font6 color-primary flex>
                     <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="duration">
                         <option *ngFor="let item of listDuration" [ngValue]="item.value">{{item.name}}</option>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-6 padding0">
             <div padding>
-                <div font7>{{mData.start_time}}</div>
+                <div font7>{{mTitle.start_time}}</div>
                 <div font6 color-primary flex>
                     <app-datetime-pick-date (pickDate)="pickDate($event,1)">
                     </app-datetime-pick-date>
@@ -50,12 +50,12 @@
 
     <div padding8 center-line box-border>
         <div>
-            <button mat-raised-button color="primary" (click)="onClickSave()">{{mData.save}}</button>
+            <button mat-raised-button color="primary" (click)="onClickSave()">{{mTitle.save}}</button>
         </div>
         <div padding-start center-line>
             <input type="checkbox" (change)="onInputChange($event)">
         </div>
-        <div padding8-start>{{mData.follow_up}}</div>
+        <div padding8-start>{{mTitle.follow_up}}</div>
         <div flex padding8-start color-primary [hidden]="!showTimePicker">
             <app-datetime-pick-date (pickDate)="onPickDate($event)"></app-datetime-pick-date>
         </div>

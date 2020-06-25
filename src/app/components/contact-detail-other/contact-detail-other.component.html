@@ -1,17 +1,16 @@
-<div *ngIf="mData" padding>
+<div *ngIf="mTitle" padding>
     <div padding-bottom>
         <div padding-vertical between>
             <div flex bold tappable (click)="onClickDeal()">
                 <mat-icon>{{dealDetail}}</mat-icon>
-                <div>{{mData.deal}}({{listDeal.length}})</div>
+                <div>{{mTitle.deal}}({{listDeal.length}})</div>
             </div>
-            <div color-primary (click)="onClickAddSubDetail(3)" tappable>{{mData.add_deal}}</div>
+            <div color-primary (click)="onClickAddSubDetail(3)" tappable>{{mTitle.add_deal}}</div>
         </div>
 
         <div id="deal-detail" [hidden]="!showDeal">
             <div padding-top *ngFor="let item of listDeal">
-                <app-company-sub-detail-deal [listDealStage]="listDealStage" [mObj]="item"
-                    (deleteFromCompany)="onDeleteDealFromCompany($event)">
+                <app-company-sub-detail-deal [listDealStage]="listDealStage" [mObj]="item" (deleteFromCompany)="onDeleteDealFromCompany($event)">
                 </app-company-sub-detail-deal>
             </div>
         </div>

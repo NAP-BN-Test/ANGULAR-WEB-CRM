@@ -1,4 +1,4 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <!-- <div relative style="height: 100px; margin-bottom: 42px; border-top: 1px solid #cccccc;">
         <quill-editor [modules]="mConfig" [(ngModel)]="quillValue"></quill-editor>
     </div> -->
@@ -9,10 +9,10 @@
     </div>
     <div flex>
         <div padding8-vertical>
-            <button class="btn m-btn-footer btn-sm" (click)="onClickSave()">{{mData.save}}</button>
+            <button class="btn m-btn-footer btn-sm" (click)="onClickSave()">{{mTitle.save}}</button>
         </div>
         <div padding8>
-            <button class="btn m-btn-footer btn-sm" (click)="onClickClose()">{{mData.cancel}}</button>
+            <button class="btn m-btn-footer btn-sm" (click)="onClickClose()">{{mTitle.cancel}}</button>
         </div>
     </div>
 </div>

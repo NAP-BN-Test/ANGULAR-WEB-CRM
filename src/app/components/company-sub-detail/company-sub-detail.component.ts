@@ -14,7 +14,7 @@ export class CompanySubDetailComponent implements OnInit {
 
   @Input("listDealStage") listDealStage = [];
 
-  mData: any;
+  mTitle: any;
 
   listContact = [];
   listCompany = [];
@@ -38,7 +38,7 @@ export class CompanySubDetailComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitles(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.company_sub_detail;
+      this.mTitle = data.company_sub_detail;
     });
 
     this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT(

@@ -23,10 +23,9 @@ export class CompanyDetailActivityComponent implements OnInit {
   listAttend = [];
   listAssociate = [];
 
-  mData: any;
+  mTitle: any;
 
-  showToast = false;
-  toasMessage = "";
+  
 
   listOutcome = LIST_SELECT.LIST_OUTCOME;
 
@@ -49,7 +48,7 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.company_detail;
+      this.mTitle = data.company_detail;
     });
 
     if (this.mObj.activityType == ACTIVITY_TYPE.MEET) {
@@ -147,11 +146,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       null, this.mObj.duration, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -166,11 +162,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj.assignID
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -185,11 +178,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj.taskType
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -211,11 +201,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
-              this.toasMessage = data.message;
-              this.showToast = true;
-              setTimeout(() => {
-                this.showToast = false;
-              }, 2000);
+              this.mService.showSnackBar(data.message)
+              
             }
           })
         } else if (type == ACTIVITY_TYPE.EMAIL) {
@@ -226,11 +213,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
-              this.toasMessage = data.message;
-              this.showToast = true;
-              setTimeout(() => {
-                this.showToast = false;
-              }, 2000);
+              this.mService.showSnackBar(data.message)
+              
             }
           })
         } else if (type == ACTIVITY_TYPE.MEET) {
@@ -241,11 +225,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
-              this.toasMessage = data.message;
-              this.showToast = true;
-              setTimeout(() => {
-                this.showToast = false;
-              }, 2000);
+              this.mService.showSnackBar(data.message)
+              
             }
           })
         } else if (type == ACTIVITY_TYPE.NOTE) {
@@ -256,11 +237,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
-              this.toasMessage = data.message;
-              this.showToast = true;
-              setTimeout(() => {
-                this.showToast = false;
-              }, 2000);
+              this.mService.showSnackBar(data.message)
+              
             }
           })
         } else if (type == ACTIVITY_TYPE.TASK) {
@@ -271,11 +249,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
-              this.toasMessage = data.message;
-              this.showToast = true;
-              setTimeout(() => {
-                this.showToast = false;
-              }, 2000);
+              this.mService.showSnackBar(data.message)
+              
             }
           })
         }
@@ -293,11 +268,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       null, null, null, this.mObj.duration, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -318,11 +290,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj, null, null, timeStart, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -343,11 +312,8 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj, null, null, time, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
@@ -368,22 +334,15 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj, null, null, null, null, null, null, null, null, null, time
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }
 
   dropdownChange(event) {
     if (event) {
-      this.toasMessage = event;
-      this.showToast = true;
-      setTimeout(() => {
-        this.showToast = false;
-      }, 2000);
+      this.mService.showSnackBar(event)
 
     }
   }
@@ -402,11 +361,8 @@ export class CompanyDetailActivityComponent implements OnInit {
         null, null, null, null, null, this.mObj.description
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-          this.toasMessage = data.message;
-          this.showToast = true;
-          setTimeout(() => {
-            this.showToast = false;
-          }, 2000);
+          this.mService.showSnackBar(data.message)
+          
         }
       })
 
@@ -425,11 +381,8 @@ export class CompanyDetailActivityComponent implements OnInit {
         null, null, null, null, null, null, null, null, this.mObj.taskName
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-          this.toasMessage = data.message;
-          this.showToast = true;
-          setTimeout(() => {
-            this.showToast = false;
-          }, 2000);
+          this.mService.showSnackBar(data.message)
+          
         }
       })
 
@@ -438,11 +391,7 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onNoteAssociateChange(event) {
     if (event) {
-      this.toasMessage = event;
-      this.showToast = true;
-      setTimeout(() => {
-        this.showToast = false;
-      }, 2000);
+      this.mService.showSnackBar(event)
 
     }
 

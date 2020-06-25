@@ -1,14 +1,14 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div mat-dialog-content>
         <p>Bạn có chắc muốn đăng xuất?</p>
     </div>
     <div mat-dialog-actions>
         <div flex>
             <div>
-                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mData.no}}</button>
+                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mTitle.no}}</button>
             </div>
             <div padding-start>
-                <button type="button" class="btn btn-danger" [mat-dialog-close]="1" cdkFocusInitial>{{mData.yes}}</button>
+                <button type="button" class="btn btn-danger" [mat-dialog-close]="1" cdkFocusInitial>{{mTitle.yes}}</button>
             </div>
         </div>
     </div>

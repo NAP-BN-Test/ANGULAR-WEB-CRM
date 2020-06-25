@@ -40,7 +40,7 @@ export class EmailListSubComponent implements OnInit {
     { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
   ]
 
-  mData: any;
+  mTitle: any;
 
   mailListID = -1;
 
@@ -79,7 +79,7 @@ export class EmailListSubComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.email;
+      this.mTitle = data.email;
     });
 
     if (this.mService.getUser()) {

@@ -10,7 +10,7 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 })
 export class DialogAssignContactComponent implements OnInit {
   
-  mData: any;
+  mTitle: any;
 
   listUser = [];
 
@@ -27,7 +27,7 @@ export class DialogAssignContactComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.dialog;
+      this.mTitle = data.dialog;
     });
     this.mService.getApiService().sendRequestGET_LIST_USER(
       this.mService.getUser().username,

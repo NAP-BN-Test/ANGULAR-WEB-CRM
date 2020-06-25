@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
+import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -41,7 +41,7 @@ export class ContactMenuContactComponent implements OnInit {
     { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
   ]
 
-  mData: any;
+  mTitle: any;
 
   menuSelected = 1;
 
@@ -55,9 +55,8 @@ export class ContactMenuContactComponent implements OnInit {
   // indeterminate = false;
   // disabled = false;
 
-  showToast = false;
 
-  toasMessage = "";
+
 
   numberOfItemSelected = 0;
 
@@ -80,15 +79,14 @@ export class ContactMenuContactComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.contact;
-    });
+    let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    this.mTitle = JSON.parse(languageData);
 
     if (this.mService.getUser()) {
-      this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
 
       this.activatedRoute.queryParams.subscribe(params => {
         this.page = params.page;
+        this.menuSelected = params.menu;
         this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
       });
 
@@ -137,7 +135,7 @@ export class ContactMenuContactComponent implements OnInit {
           listTbData: this.listTbData
         });
         this.router.navigate([], {
-          queryParams: { page: this.page }
+          queryParams: { page: this.page, menu: this.menuSelected }
         })
       }
     })
@@ -195,7 +193,7 @@ export class ContactMenuContactComponent implements OnInit {
             if (data.status == STATUS.SUCCESS) {
 
               this.mService.publishEvent(EVENT_PUSH.SELECTION, true);
-              this.onShowToast(data.message);
+              this.mService.showSnackBar(data.message);
             }
           })
         }
@@ -213,7 +211,7 @@ export class ContactMenuContactComponent implements OnInit {
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.onShowToast(data.message);
+              this.mService.showSnackBar(data.message);
 
               this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
             }
@@ -231,7 +229,7 @@ export class ContactMenuContactComponent implements OnInit {
             if (data.status == STATUS.SUCCESS) {
 
               this.mService.publishEvent(EVENT_PUSH.SELECTION, true);
-              this.onShowToast(data.message);
+              this.mService.showSnackBar(data.message);
             }
           })
         }
@@ -246,14 +244,6 @@ export class ContactMenuContactComponent implements OnInit {
     this.searchKey = event.searchKey;
 
     this.onLoadData(1, this.menuSelected, event.searchKey, event.timeFrom, event.timeTo, event.userID);
-  }
-
-  onShowToast(message) {
-    this.toasMessage = message;
-    this.showToast = true;
-    setTimeout(() => {
-      this.showToast = false;
-    }, 2000);
   }
 
 }

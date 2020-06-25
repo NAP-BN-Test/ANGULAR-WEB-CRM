@@ -60,25 +60,23 @@
         </mat-select>
     </mat-form-field>
 
-    <button style="animation: fadeIn 300ms;"
-        *ngIf="dateStartInput.value||dateEndInput.value||searchKeyInput.value||userSelect.value||stepSelect.value||citySelect.value||timeTypeSelect.value"
-        mat-mini-fab color="primary" (click)="onClickClear()">
+    <button matTooltip="Làm mới dữ liệu" style="animation: fadeIn 300ms;" *ngIf="dateStartInput.value||dateEndInput.value||searchKeyInput.value||userSelect.value||stepSelect.value||citySelect.value||timeTypeSelect.value" mat-mini-fab color="primary" (click)="onClickClear()">
         <mat-icon>refresh</mat-icon>
     </button>
 
     <div padding-start></div>
-    <button mat-mini-fab color="primary" (click)="onClickSort()">
+    <button matTooltip="Lọc" mat-mini-fab color="primary" (click)="onClickSort()">
         <mat-icon>filter_alt</mat-icon>
     </button>
 
     <div padding-start *ngIf="!noAdd"></div>
-    <button *ngIf="!noAdd" mat-mini-fab color="primary" (click)="onClickAdd()">
+    <button matTooltip="Thêm mới" *ngIf="!noAdd" mat-mini-fab color="primary" (click)="onClickAdd()">
         <mat-icon>add</mat-icon>
     </button>
 
     <div padding-start *ngIf="noImport"></div>
-    <button *ngIf="noImport" mat-mini-fab color="accent" (click)="onClickImport()">
-        <mat-icon>save</mat-icon>
+    <button matTooltip="Import dữ liệu" *ngIf="noImport" mat-mini-fab color="accent" (click)="onClickImport()">
+        <mat-icon>import_export</mat-icon>
     </button>
 
 </div>

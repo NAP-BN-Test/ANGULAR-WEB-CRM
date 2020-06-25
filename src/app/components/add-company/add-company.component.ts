@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { STATUS, LIST_SELECT } from 'src/app/services/constant/app-constant';
+import { STATUS, LIST_SELECT, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -14,7 +14,7 @@ export class AddCompanyComponent implements OnInit {
 
   @Input("addOut") addOut: number;
 
-  mData: any;
+  mTitle: any;
 
   btnType = 1;
   btnCanClicked = true;
@@ -39,9 +39,9 @@ export class AddCompanyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.add_sub_detail;
-    })
+
+    let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    this.mTitle = JSON.parse(languageData);
 
     this.mService.getApiService().sendRequestGET_LIST_CITY(
       this.mService.getUser().username,

@@ -14,7 +14,7 @@ export class CompanyDetailComponent implements OnInit {
   @Input('listUser') listUser = [];
   @Input('oneActivity') oneActivity: any;
 
-  mData: any;
+  mTitle: any;
 
   listActivity = [];
 
@@ -29,7 +29,7 @@ export class CompanyDetailComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.company_detail;
+      this.mTitle = data.company_detail;
     })
     if (this.oneActivity) {
       this.listActivity.push(this.oneActivity);

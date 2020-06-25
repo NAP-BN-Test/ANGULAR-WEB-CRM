@@ -1,6 +1,6 @@
-<div shadow height-100 *ngIf="mData">
+<div shadow height-100 *ngIf="mTitle">
     <div class="m-header" padding between>
-        <div bold font3>{{mData.add_email_campain}}</div>
+        <div bold font3>{{mTitle.add_email_campain}}</div>
         <div (click)="onClickClose()" tappable>
             <mat-icon>close</mat-icon>
         </div>
@@ -23,7 +23,7 @@
                 </div>
 
                 <div padding-start padding-top center-line>
-                    <div class="col-3" font6>{{mData.campain_name}}</div>
+                    <div class="col-3" font6>{{mTitle.campain_name}}</div>
                     <div class="col-9">
                         <input class="form-control" type="text" [(ngModel)]="name">
                     </div>
@@ -41,8 +41,7 @@
                     <div class="col-9">
                         <div class="form-group">
                             <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="endTime"
-                                    ngbDatepicker #d="ngbDatepicker">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="endTime" ngbDatepicker #d="ngbDatepicker">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
                                         <i class="fa fa-calendar"></i>
@@ -63,11 +62,10 @@
     <div padding background-white class="m-footer">
         <div flex>
             <div padding-vertical>
-                <button mat-raised-button color="primary" [disabled]="!btnCanClicked"
-                    (click)="onClickSave()">Tạo mới</button>
+                <button mat-raised-button color="primary" [disabled]="!btnCanClicked" (click)="onClickSave()">Tạo mới</button>
             </div>
             <div padding>
-                <button mat-raised-button color="accent" (click)="onClickClose()">{{mData.cancel}}</button>
+                <button mat-raised-button color="accent" (click)="onClickClose()">{{mTitle.cancel}}</button>
             </div>
         </div>
     </div>

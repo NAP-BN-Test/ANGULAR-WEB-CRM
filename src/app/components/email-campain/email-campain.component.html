@@ -1,6 +1,6 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div class="m-header">
-        <app-header-menu></app-header-menu>
+        <app-header-menu menuIndex="3"></app-header-menu>
     </div>
 
     <div padding32>
@@ -10,7 +10,7 @@
             <div width-20>
 
                 <div padding-bottom between>
-                    <div font2 bold>{{mData.email_campain_title}}</div>
+                    <div font2 bold>{{mTitle.email_campain_title}}</div>
                     <div>
                         <div class="box-add" [class.show-div]="addSub==1">
                             <app-email-campain-add [addOut]="1" (closeAddSub)="onClickCloseAdd($event)">
@@ -21,7 +21,7 @@
 
                 <div>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.manager_campain}}({{numberAll}})</div>
+                        {{mTitle.manager_campain}}({{numberAll}})</div>
                 </div>
             </div>
 
@@ -29,8 +29,7 @@
                 <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
                 </app-filter-bar>
 
-                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)"
-                    (clickCell)="onClickCell($event)"></app-mat-table>
+                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
             </div>
 
         </div>

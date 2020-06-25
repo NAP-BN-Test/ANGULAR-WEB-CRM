@@ -1,4 +1,4 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div mat-dialog-content>
         <p>Email của bạn chưa có trong danh sách gửi! Điền địa chỉ email và xác nhận?</p>
 
@@ -9,11 +9,10 @@
     <div mat-dialog-actions>
         <div flex>
             <div>
-                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mData.no}}</button>
+                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mTitle.no}}</button>
             </div>
             <div padding-start>
-                <button type="button" class="btn btn-danger" [mat-dialog-close]="email"
-                    cdkFocusInitial>{{mData.yes}}</button>
+                <button type="button" class="btn btn-danger" [mat-dialog-close]="email" cdkFocusInitial>{{mTitle.yes}}</button>
             </div>
         </div>
     </div>

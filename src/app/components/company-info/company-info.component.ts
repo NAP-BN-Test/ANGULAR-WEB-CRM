@@ -19,7 +19,7 @@ export class CompanyInfoComponent implements OnInit {
 
   mConpany: any;
 
-  mData: any;
+  mTitle: any;
 
   mObj: any;
 
@@ -28,8 +28,7 @@ export class CompanyInfoComponent implements OnInit {
 
   menuSelected = -1;
 
-  showToast = false;
-  toasMessage = "";
+  
 
   constructor(
     public mService: AppModuleService,
@@ -41,7 +40,7 @@ export class CompanyInfoComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.company_info;
+      this.mTitle = data.company_info;
     });
 
     this.mService.getApiService().sendRequestGET_DETAIL_COMPANY(
@@ -124,11 +123,8 @@ export class CompanyInfoComponent implements OnInit {
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.mObj.follow = Boolean(data.follow);
-        this.toasMessage = data.message;
-        this.showToast = true;
-        setTimeout(() => {
-          this.showToast = false;
-        }, 2000);
+        this.mService.showSnackBar(data.message)
+        
       }
     })
   }

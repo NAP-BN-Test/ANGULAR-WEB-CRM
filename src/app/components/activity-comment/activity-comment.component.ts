@@ -12,7 +12,7 @@ export class ActivityCommentComponent implements OnInit {
   @Output('onDeleteCmtChange') onDeleteCmtChange = new EventEmitter();
   @Input('mObj') mObj: any;
 
-  mData: any;
+  mTitle: any;
 
   showQuillEditCmt = false;
 
@@ -22,7 +22,7 @@ export class ActivityCommentComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.btn;
+      this.mTitle = data.btn;
     });
   }
 

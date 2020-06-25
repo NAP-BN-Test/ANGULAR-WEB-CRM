@@ -1,4 +1,4 @@
-<div shadow padding relative class="m-box" *ngIf="mData">
+<div shadow padding relative class="m-box" *ngIf="mTitle">
     <div>
         <div color-primary>{{mObj.name}}</div>
     </div>
@@ -11,10 +11,10 @@
 
     <div class="btn-detail">
         <div>
-            <button class="m-btn btn btn-sm" (click)="onClickDelete()">{{mData.delete}}</button>
+            <button class="m-btn btn btn-sm" (click)="onClickDelete()">{{mTitle.delete}}</button>
         </div>
         <div padding8-top>
-            <button class="m-btn btn btn-sm" (click)="onClickDetail()">{{mData.detail}}</button>
+            <button class="m-btn btn btn-sm" (click)="onClickDetail()">{{mTitle.detail}}</button>
         </div>
     </div>
 </div>

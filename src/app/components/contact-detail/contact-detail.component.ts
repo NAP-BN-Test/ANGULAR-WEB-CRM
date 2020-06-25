@@ -15,7 +15,7 @@ export class ContactDetailComponent implements OnInit {
   @ViewChild(ContactDetailActivityComponent) contactDetailActivityComponent: ContactDetailActivityComponent;
   @ViewChild(ContactDetailOtherComponent) ContactDetailOtherComponent: ContactDetailOtherComponent;
 
-  mData: any;
+  mTitle: any;
 
   oneActivity: any;
 
@@ -62,7 +62,7 @@ export class ContactDetailComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then(data => {
-      this.mData = data;
+      this.mTitle = data;
     });
 
     if (this.mService.getUser()) {

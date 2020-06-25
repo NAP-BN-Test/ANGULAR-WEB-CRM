@@ -1,6 +1,6 @@
-<div shadow *ngIf="mData">
+<div shadow *ngIf="mTitle">
     <div padding background-secondary between>
-        <div bold font3>{{mData.note_tag}}</div>
+        <div bold font3>{{mTitle.note_tag}}</div>
         <div (click)="onClickClose()" tappable>
             <mat-icon>close</mat-icon>
         </div>
@@ -18,12 +18,12 @@
 
     <div padding8 center-line box-border>
         <div>
-            <button mat-raised-button color="primary" (click)="onClickSave()">{{mData.save}}</button>
+            <button mat-raised-button color="primary" (click)="onClickSave()">{{mTitle.save}}</button>
         </div>
         <div padding-start center-line>
             <input type="checkbox" (change)="onInputChange($event)">
         </div>
-        <div padding8-start>{{mData.follow_up}}</div>
+        <div padding8-start>{{mTitle.follow_up}}</div>
         <div flex padding8-start color-primary [hidden]="!showTimePicker">
             <app-datetime-pick-date (pickDate)="onPickDate($event)"></app-datetime-pick-date>
         </div>

@@ -1,6 +1,6 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div class="m-header">
-        <app-header-menu></app-header-menu>
+        <app-header-menu menuIndex="2"></app-header-menu>
     </div>
 
     <div padding32>
@@ -9,21 +9,19 @@
 
             <div width-10>
                 <div padding-bottom between>
-                    <div font2 bold>{{mData.note_title}}</div>
+                    <div font2 bold>{{mTitle.note_title}}</div>
                 </div>
                 <div padding32-horizontal>
                     <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
-                        {{mData.all}}({{numberAll}})</div>
+                        {{mTitle.all}}({{numberAll}})</div>
                 </div>
             </div>
 
             <div width-90>
-                <app-filter-bar [toppingList]="toppingList" noAdd="true"
-                    (sort)="onClickSort($event)">
+                <app-filter-bar [toppingList]="toppingList" noAdd="true" (sort)="onClickSort($event)">
                 </app-filter-bar>
 
-                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)"
-                    (clickCell)="onClickCell($event)"></app-mat-table>
+                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
             </div>
 
         </div>

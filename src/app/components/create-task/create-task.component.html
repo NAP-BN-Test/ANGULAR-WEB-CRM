@@ -1,6 +1,6 @@
-<div shadow *ngIf="mData">
+<div shadow *ngIf="mTitle">
     <div padding background-secondary between>
-        <div bold font3>{{mData.task_tag}}</div>
+        <div bold font3>{{mTitle.task_tag}}</div>
         <div (click)="onClickClose()" tappable>
             <mat-icon>close</mat-icon>
         </div>
@@ -9,16 +9,15 @@
     <div flex box-border>
         <div class="col-6 padding0">
             <div padding>
-                <div font7>{{mData.mission_name}}</div>
+                <div font7>{{mTitle.mission_name}}</div>
                 <div font6 color-primary>
-                    <input class="form-control" type="text" [placeholder]="mData.placeholder_fill"
-                        [(ngModel)]="taskName">
+                    <input class="form-control" type="text" [placeholder]="mTitle.placeholder_fill" [(ngModel)]="taskName">
                 </div>
             </div>
         </div>
         <div class="col-6 padding0">
             <div padding>
-                <div font7>{{mData.due_date}}</div>
+                <div font7>{{mTitle.due_date}}</div>
                 <div font6 color-primary flex>
                     <app-datetime-pick-date (pickDate)="pickTimeStart($event,1)">
                     </app-datetime-pick-date>
@@ -36,7 +35,7 @@
     <div flex box-border>
         <div class="col-3 padding0">
             <div padding>
-                <div font7>{{mData.assign_to}}</div>
+                <div font7>{{mTitle.assign_to}}</div>
                 <div font6 color-primary flex>
                     <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="assignID">
                         <option *ngFor="let item of listUser" [ngValue]="item.id">{{item.name}}</option>
@@ -46,7 +45,7 @@
         </div>
         <div class="col-3 padding0">
             <div padding-vertical>
-                <div font7>{{mData.type}}</div>
+                <div font7>{{mTitle.type}}</div>
                 <div font6 color-primary flex>
                     <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="taskType">
                         <option *ngFor="let item of listTaskType" [ngValue]="item.id">{{item.name}}</option>
@@ -56,7 +55,7 @@
         </div>
         <div class="col-6 padding0">
             <div padding>
-                <div font7>{{mData.remind}}</div>
+                <div font7>{{mTitle.remind}}</div>
                 <div font6 color-primary flex>
                     <app-datetime-pick-date (pickDate)="pickTimeAssign($event,1)">
                     </app-datetime-pick-date>
@@ -69,12 +68,12 @@
 
     <div padding8 center-line box-border>
         <div>
-            <button mat-raised-button color="primary" (click)="onClickSave()">{{mData.save}}</button>
+            <button mat-raised-button color="primary" (click)="onClickSave()">{{mTitle.save}}</button>
         </div>
         <div padding-start center-line>
             <input type="checkbox" (change)="onInputChange($event)">
         </div>
-        <div padding8-start>{{mData.follow_up}}</div>
+        <div padding8-start>{{mTitle.follow_up}}</div>
         <div flex padding8-start color-primary [hidden]="!showTimePicker">
             <app-datetime-pick-date (pickDate)="pickTimeRemind($event)"></app-datetime-pick-date>
         </div>

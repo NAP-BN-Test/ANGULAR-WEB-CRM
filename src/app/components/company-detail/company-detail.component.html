@@ -1,6 +1,6 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div flex padding-horizontal>
-        <div *ngFor="let item of mData.menu; let i = index" (click)="onClickMenu(i)">
+        <div *ngFor="let item of mTitle.menu; let i = index" (click)="onClickMenu(i)">
             <div class="m-menu height-100" [class.menu-selected]="menuSelected==i" tappable>{{item}}</div>
         </div>
     </div>

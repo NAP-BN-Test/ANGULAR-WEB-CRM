@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import * as md5 from 'md5';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 
 @Component({
   selector: 'app-login',
@@ -21,16 +21,15 @@ export class LoginComponent implements OnInit {
 
   setting = false;
 
-  showToast = false;
-  toasMessage = "";
+  
 
   loginMessage = "";
 
-  mData: any;
+  mTitle: any;
 
   constructor(
     public mService: AppModuleService,
-    public router: Router
+    public router: Router,
   ) {
     if (localStorage.getItem('server-info')) {
       let svInfo = JSON.parse(localStorage.getItem('server-info'));
@@ -43,19 +42,28 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.mService.LoadAppConfig();
+    if (!localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY)) {
+      localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY, "VI");
+    }
 
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.login;
+    if (localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA)) {
+      this.mService.loadVieLanguage().then((data: any) => {
+        this.mTitle = data;
+        localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA, JSON.stringify(data))
+      });
+    } else {
+      let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+      this.mTitle = JSON.parse(languageData);
+    }
 
-      if (localStorage.getItem('data-local') == null) {
-        localStorage.setItem('data-local', JSON.stringify(data));
-      }
-    });
 
     if (localStorage.getItem('user-login')) {
       let userInfo = JSON.parse(localStorage.getItem('user-login'));
       this.username = userInfo.username;
       this.password = userInfo.password;
+
+      this.onClickLogin();
     }
 
   }
@@ -76,7 +84,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user-login', JSON.stringify(userLogin));
         localStorage.setItem('user-info', JSON.stringify(data.obj));
 
-        this.router.navigate(['contact-menu-company'], { queryParams: { page: 1 } });
+        this.router.navigate(['companies'], { queryParams: { page: 1, menu: 1 } });
 
       } else {
         this.loginMessage = data.message;

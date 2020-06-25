@@ -1,4 +1,4 @@
-<div shadow padding relative class="m-box" *ngIf="mData">
+<div shadow padding relative class="m-box" *ngIf="mTitle">
     <div between>
         <div color-primary bold font4>{{mObj.amount}} USD</div>
         <div font6>{{mObj.timeCreate | datetimeFull}}</div>
@@ -12,15 +12,14 @@
 
     <div class="row" padding-top>
         <div class="col-8" flex color-primary>
-            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.stageID"
-                (change)="onChangeStage()">
+            <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.stageID" (change)="onChangeStage()">
                 <option *ngFor="let item of listDealStage" [ngValue]="item.stage">{{item.name}}</option>
             </select>
         </div>
     </div>
 
     <div class="row" padding8-top>
-        <div class="col-4">{{mData.close_date}}</div>
+        <div class="col-4">{{mTitle.close_date}}</div>
         <div class="col-8">
             <div color-primary>{{mObj.timeClose | datetimeDate}}</div>
         </div>
@@ -28,10 +27,10 @@
 
     <div class="btn-detail">
         <div>
-            <button class="m-btn btn btn-sm" (click)="onClickDelete()">{{mData.delete}}</button>
+            <button class="m-btn btn btn-sm" (click)="onClickDelete()">{{mTitle.delete}}</button>
         </div>
         <div padding8-top>
-            <button class="m-btn btn btn-sm">{{mData.detail}}</button>
+            <button class="m-btn btn btn-sm">{{mTitle.detail}}</button>
         </div>
     </div>
 </div>

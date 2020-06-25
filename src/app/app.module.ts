@@ -22,6 +22,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -215,6 +218,9 @@ import { MatTableComponent } from './materials/mat-table/mat-table.component';
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatSnackBarModule,
     HttpClientModule,
     NgbModule,
     FormsModule,

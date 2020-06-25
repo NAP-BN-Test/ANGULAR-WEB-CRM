@@ -11,7 +11,7 @@ import * as md5 from 'md5';
 })
 export class AddUserComponent implements OnInit {
 
-  mData: any;
+  mTitle: any;
 
   name = "";
   username = "";
@@ -31,7 +31,7 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.add_user;
+      this.mTitle = data.add_user;
     });
   }
 
@@ -57,7 +57,7 @@ export class AddUserComponent implements OnInit {
         ).then(data => {
           this.missValue = true;
           if (data.status == STATUS.SUCCESS) {
-            this.notification = this.mData.add_success;
+            this.notification = this.mTitle.add_success;
             this.status = true;
 
             this.name = "";
@@ -74,12 +74,12 @@ export class AddUserComponent implements OnInit {
         })
       }
       else {
-        this.notification = this.mData.password_match;
+        this.notification = this.mTitle.password_match;
         this.missValue = true;
         this.status = false;
       }
     } else {
-      this.notification = this.mData.invalid_value;
+      this.notification = this.mTitle.invalid_value;
       this.missValue = true;
       this.status = false;
     }

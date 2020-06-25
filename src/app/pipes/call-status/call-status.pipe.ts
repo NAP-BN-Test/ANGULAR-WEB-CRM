@@ -7,33 +7,33 @@ import { CALL_STATUS } from 'src/app/services/constant/app-constant';
 })
 export class CallStatusPipe implements PipeTransform {
 
-  mData: any;
+  mTitle: any;
 
   constructor(
     public mService: AppModuleService
   ) {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.call_status;
+      this.mTitle = data.call_status;
     })
   }
   transform(value: any): any {
     if (value == CALL_STATUS.NO_ANSWER) {
-      return this.mData.no_answer
+      return this.mTitle.no_answer
     }
     else if (value == CALL_STATUS.BUSY) {
-      return this.mData.busy
+      return this.mTitle.busy
     }
     else if (value == CALL_STATUS.WRONG_NUMBER) {
-      return this.mData.wrong_number
+      return this.mTitle.wrong_number
     }
     else if (value == CALL_STATUS.LEFT_MESSAGE) {
-      return this.mData.left_message
+      return this.mTitle.left_message
     }
     else if (value == CALL_STATUS.LEFT_VOID) {
-      return this.mData.left_void
+      return this.mTitle.left_void
     }
     else if (value == CALL_STATUS.CONNECTED) {
-      return this.mData.connected
+      return this.mTitle.connected
     }
     else {
       return " "

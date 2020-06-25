@@ -17,7 +17,7 @@ export class CompanySubDetailCompanyComponent implements OnInit {
 
   @Output('deleteFromCompany') deleteFromCompany = new EventEmitter();
 
-  mData: any;
+  mTitle: any;
 
   constructor(
     public mService: AppModuleService,
@@ -28,7 +28,7 @@ export class CompanySubDetailCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.company_sub_detail;
+      this.mTitle = data.company_sub_detail;
     });
 
   }

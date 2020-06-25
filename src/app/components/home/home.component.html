@@ -1,4 +1,4 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
 
     <div class="m-header">
         <app-header-menu></app-header-menu>
@@ -23,13 +23,11 @@
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==3">
-                <app-create-call [listUser]="listUser"
-                    (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
+                <app-create-call [listUser]="listUser" (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==4">
-                <app-create-email [listUser]="listUser"
-                    (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
+                <app-create-email [listUser]="listUser" (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==5">
@@ -58,8 +56,7 @@
         </div>
 
         <div class="box-add" [class.show-div]="addSubDetail==3">
-            <app-add-deal [listContact]="listContact" [listCompany]="listCompany" [listDealStage]="listDealStage"
-                (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
+            <app-add-deal [listContact]="listContact" [listCompany]="listCompany" [listDealStage]="listDealStage" (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
         </div>
     </div>
 </div>

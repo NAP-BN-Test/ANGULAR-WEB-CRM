@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { LANGUAGE_TYPE } from './constant/app-constant';
 import { BehaviorSubject } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,10 @@ export class AppModuleService {
 
   constructor(
     public mAngularHttp: Http,
-    public router: Router
+    public router: Router,
+
+    private _snackBar: MatSnackBar
+
   ) {
     this.mApiService = new ApiService();
     this.mAppConfig = new Config();
@@ -101,41 +105,47 @@ export class AppModuleService {
   public LoadTitle(languageType: any) {
     this.getApiService().createClient(this.mAngularHttp);
     return new Promise((resolve, reject) => {
-      if (this.getAppConfig().hasData()) {
-        return resolve();
-      } else {
-        this.getApiService().getAngularHttp().request("assets/data/title.json").subscribe(
-          response => {
-            let dataObj = response.json();
-            let language;
-            if (languageType == LANGUAGE_TYPE.VIETNAMESE)
-              language = dataObj.VI;
-            else
-              language = dataObj.EN;
+      this.getApiService().getAngularHttp().request("assets/data/title.json").subscribe(
+        response => {
+          let dataObj = response.json();
+          let language;
+          if (languageType == LANGUAGE_TYPE.VIETNAMESE)
+            language = dataObj.VI;
+          else
+            language = dataObj.EN;
 
-            return resolve(language);
-          }, error => {
-            return reject();
-          }
-        );
-      }
+          return resolve(language);
+        }, error => {
+          return reject();
+        }
+      );
     });
   }
 
   public LoadTitles(languageType: any) {
     return new Promise((resolve, reject) => {
       this.mAngularHttp.request("assets/data/title.json").subscribe(data => {
-        let mData = data.json();
+        let mTitle = data.json();
         let language;
         if (languageType == LANGUAGE_TYPE.VIETNAMESE)
-          language = mData.VI;
+          language = mTitle.VI;
         else
-          language = mData.EN;
+          language = mTitle.EN;
 
         resolve(language)
       })
     });
   }
+
+  public loadVieLanguage() {
+    return new Promise((resolve, reject) => {
+      this.mAngularHttp.request("assets/data/language-vie.json").subscribe(data => {
+        let mTitle = data.json();
+        resolve(mTitle)
+      })
+    });
+  }
+
 
   //----------------------------------------------------//
 
@@ -150,14 +160,13 @@ export class AppModuleService {
 
   //----------------------------------------------------//
 
-  toasts: any[] = [];
 
-  show(textOrTpl: string | TemplateRef<any>, options: any = {}) {
-    this.toasts.push({ textOrTpl, ...options });
-  }
-
-  remove(toast) {
-    this.toasts = this.toasts.filter(t => t !== toast);
+  public showSnackBar(message: string, duration?: number, hPosition?: any, vPosition?: any) {
+    this._snackBar.open(message, null, {
+      duration: duration ? duration : 2000,
+      horizontalPosition: hPosition ? hPosition : 'center',
+      verticalPosition: vPosition ? vPosition : 'top',
+    });
   }
 
   //----------------------------------------------------//

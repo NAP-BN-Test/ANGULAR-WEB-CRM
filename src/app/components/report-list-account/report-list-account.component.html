@@ -1,13 +1,13 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div class="m-header">
-        <app-header-menu></app-header-menu>
+        <app-header-menu menuIndex="4"></app-header-menu>
     </div>
 
     <div padding32>
         <div flex no-wrap>
             <div width-20>
                 <div padding-bottom between>
-                    <div font2 bold>{{mData.contact_title}}</div>
+                    <div font2 bold>{{mTitle.contact_title}}</div>
                 </div>
                 <div padding32-horizontal>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">

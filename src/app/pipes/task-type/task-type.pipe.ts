@@ -7,24 +7,24 @@ import { TASK_TYPE } from 'src/app/services/constant/app-constant';
 })
 export class TaskTypePipe implements PipeTransform {
 
-  mData: any;
+  mTitle: any;
 
   constructor(
     public mService: AppModuleService
   ) {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.task_type;
+      this.mTitle = data.task_type;
     })
   }
   transform(value: any): any {
     if (value == TASK_TYPE.CALL) {
-      return this.mData.call
+      return this.mTitle.call
     }
     else if (value == TASK_TYPE.EMAIL) {
-      return this.mData.email
+      return this.mTitle.email
     }
     else if (value == TASK_TYPE.MEET) {
-      return this.mData.meet
+      return this.mTitle.meet
     }
     else {
       return " "

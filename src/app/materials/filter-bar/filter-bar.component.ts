@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { CookieService } from 'ngx-cookie-service';
-import { STATUS, SORT_TYPE } from 'src/app/services/constant/app-constant';
+import { STATUS, SORT_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { MatInput, MatSelect } from '@angular/material';
 
 import * as moment from 'moment';
@@ -32,7 +32,7 @@ export class FilterBarComponent implements OnInit {
   @Output('clickImport') clickImport = new EventEmitter();
   @Output('sort') sort = new EventEmitter();
 
-  mData: any;
+  mTitle: any;
 
   listUser = [];
   listStep = [];
@@ -65,9 +65,8 @@ export class FilterBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.contact;
-    });
+    let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    this.mTitle = JSON.parse(languageData);
 
     this.mService.getApiService().sendRequestGET_LIST_USER(
       this.mService.getUser().username,
@@ -76,7 +75,7 @@ export class FilterBarComponent implements OnInit {
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.listUser = data.array;
-        this.listUser.unshift({ id: -1, name: this.mData.all })
+        this.listUser.unshift({ id: -1, name: this.mTitle.all })
       }
     })
 
@@ -86,7 +85,7 @@ export class FilterBarComponent implements OnInit {
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.listStep = data.array;
-        this.listStep.unshift({ id: -1, name: this.mData.all })
+        this.listStep.unshift({ id: -1, name: this.mTitle.all })
       }
     })
 
@@ -96,7 +95,7 @@ export class FilterBarComponent implements OnInit {
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.listCity = data.array;
-        this.listCity.unshift({ id: -1, name: this.mData.all })
+        this.listCity.unshift({ id: -1, name: this.mTitle.all })
       }
     })
 

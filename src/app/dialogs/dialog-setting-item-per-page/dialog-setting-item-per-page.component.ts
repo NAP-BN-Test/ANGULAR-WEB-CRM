@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./dialog-setting-item-per-page.component.scss']
 })
 export class DialogSettingItemPerPageComponent implements OnInit {
-  mData: any;
+  mTitle: any;
 
   itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
 
@@ -23,7 +23,7 @@ export class DialogSettingItemPerPageComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.dialog;
+      this.mTitle = data.dialog;
     });
   }
 

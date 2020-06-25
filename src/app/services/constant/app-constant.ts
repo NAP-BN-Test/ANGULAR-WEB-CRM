@@ -141,7 +141,11 @@ export const SORT_TYPE = {
     STEP: 5,
     CITY: 6,
     TIME_TYPE: 7,
+}
 
+export const LOCAL_STORAGE_KEY = {
+    LANGUAGE_KEY: "language_key",
+    LANGUAGE_DATA: "language-data",
 }
 
 

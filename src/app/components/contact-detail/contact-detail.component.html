@@ -1,4 +1,4 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
 
     <div class="m-header">
         <app-header-menu></app-header-menu>
@@ -13,25 +13,21 @@
             </app-contact-detail-activity>
 
             <div class="box-create" [class.show-div]="createTabIndex==1">
-                <app-create-note [listContact]="listContact" [createInContact]="true"
-                    (closeCreateAction)="onClickCloseCreateAction($event)">
+                <app-create-note [listContact]="listContact" [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)">
                 </app-create-note>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==2">
-                <app-create-task [createInContact]="true" [listUser]="listUser"
-                    (closeCreateAction)="onClickCloseCreateAction($event)">
+                <app-create-task [createInContact]="true" [listUser]="listUser" (closeCreateAction)="onClickCloseCreateAction($event)">
                 </app-create-task>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==3">
-                <app-create-call [listContact]="listContact" [listUser]="listUser" [createInContact]="true"
-                    (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
+                <app-create-call [listContact]="listContact" [listUser]="listUser" [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==4">
-                <app-create-email [listContact]="listContact" [listUser]="listUser" [createInContact]="true"
-                    (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
+                <app-create-email [listContact]="listContact" [listUser]="listUser" [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
             </div>
 
             <div class="box-create" [class.show-div]="createTabIndex==5">
@@ -53,8 +49,7 @@
 
     <div>
         <div class="box-add" [class.show-div]="addSubDetail==3">
-            <app-add-deal [contactAddDeal]="1" [listDealStage]="listDealStage"
-                (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
+            <app-add-deal [contactAddDeal]="1" [listDealStage]="listDealStage" (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
         </div>
     </div>
 </div>

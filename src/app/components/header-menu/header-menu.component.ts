@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { DialogLogoutComponent } from '../../dialogs/dialog-logout/dialog-logout.component';
 import { MatDialog } from '@angular/material';
+import { LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 
 @Component({
   selector: 'app-header-menu',
@@ -11,14 +12,19 @@ import { MatDialog } from '@angular/material';
 })
 export class HeaderMenuComponent implements OnInit {
 
-  mData: any;
+  @Input('menuIndex') menuIndex = 1;
+
+  mTitle: any;
+
+  listMenu: any;
 
   mUser: any;
 
   showSearchBar = false;
-  menuSelected = -1;
 
   language = "Tiếng Việt";
+
+
 
   constructor(
     public mService: AppModuleService,
@@ -28,15 +34,52 @@ export class HeaderMenuComponent implements OnInit {
 
   ngOnInit() {
 
-    if (localStorage.getItem('language-key') == "VI") {
+    if (localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY) == "EN") {
       this.language = "English";
     } else {
       this.language = "Tiếng Việt";
     }
 
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.header;
-    });
+    this.mService.LoadAppConfig();
+
+    let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    this.mTitle = JSON.parse(languageData);
+    let menuTitle = this.mTitle.menu_title;
+
+    this.listMenu = [{
+      index: 1,
+      name: menuTitle.contact,
+      list: [
+        { index: 1, name: menuTitle.contact },
+        { index: 2, name: menuTitle.company },
+        { index: 3, name: menuTitle.logistic },
+        { index: 4, name: menuTitle.transport }
+      ]
+    }, {
+      index: 2,
+      name: menuTitle.action,
+      list: [
+        { index: 1, name: menuTitle.task },
+        { index: 2, name: menuTitle.call },
+        { index: 3, name: menuTitle.email },
+        { index: 4, name: menuTitle.meet },
+        { index: 5, name: menuTitle.note }
+      ]
+    }, {
+      index: 3,
+      name: menuTitle.email,
+      list: [
+        { index: 1, name: menuTitle.mail_list },
+        { index: 2, name: menuTitle.mail_campain }
+      ]
+    }, {
+      index: 4,
+      name: menuTitle.report,
+      list: [
+        { index: 1, name: menuTitle.report_by_campain },
+        { index: 2, name: menuTitle.report_by_user }
+      ]
+    }]
 
     this.mUser = this.mService.getUser();
 
@@ -48,19 +91,19 @@ export class HeaderMenuComponent implements OnInit {
 
   onClickMenu(index: number, indexChild: number) {
     if (index > 0 && indexChild > 0) {
-      this.menuSelected = index
+
       if (index == 1) {
         if (indexChild == 1) {
-          this.router.navigate(['contact-menu-contact'], { queryParams: { page: 1 } });
+          this.router.navigate(['contacts'], { queryParams: { page: 1, menu: 1 } });
         }
         else if (indexChild == 2) {
-          this.router.navigate(['contact-menu-company'], { queryParams: { page: 1 } });
+          this.router.navigate(['companies'], { queryParams: { page: 1, menu: 1 } });
         }
         else if (indexChild == 3) {
-          this.router.navigate(['logistic_company'], { queryParams: { page: 1 } });
+          this.router.navigate(['logistic_company'], { queryParams: { page: 1, menu: 1 } });
         }
         else if (indexChild == 4) {
-          this.router.navigate(['trasport_company'], { queryParams: { page: 1 } });
+          this.router.navigate(['trasport_company'], { queryParams: { page: 1, menu: 1 } });
         }
       }
       else if (index == 2) {

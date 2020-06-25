@@ -1,20 +1,18 @@
-<ngb-toast class="m-toast" *ngIf="showToast" [autohide]="false">{{toasMessage}}</ngb-toast>
-
-<div *ngIf="mData">
+<div *ngIf="mTitle">
 
     <div style="position: absolute; top: 16px; right: 16px;" tappable (click)="onClickSetting()">
-        <mat-icon>settings_applications</mat-icon>
+        <mat-icon>settings</mat-icon>
     </div>
 
     <div background-whitesmoke>
         <div class="container header">
             <div>
-                <img logo [src]="mData.logo">
+                <img logo src="../../assets/img/logo.png">
             </div>
             <div center-line padding-start>
                 <div>
-                    <h4 bold>{{mData.company_name}}</h4>
-                    <h4>{{mData.company_name1}}</h4>
+                    <h4 bold>NAM AN PHÚ</h4>
+                    <h4>TECHNOLOGIES JSC</h4>
                 </div>
             </div>
         </div>
@@ -23,58 +21,50 @@
     <div style="margin-bottom: 200px;">
         <div center padding-vertical>
             <div padding-top>
-                <img logo1 [src]="mData.logo1">
+                <img logo1 src="../../assets/img/logo1.png">
                 <div padding-vertical>
-                    <h4 bold>{{mData.title}}</h4>
-                    <h4 bold>{{mData.title1}}</h4>
+                    <h4 bold>GIẢI PHÁP PHẦN MỀM QUẢN LÝ</h4>
+                    <h4 bold>DỊCH VỤ LOGISTICS</h4>
                 </div>
 
                 <div padding-vertical>
 
                     <div [hidden]="!setting">
                         <div padding-bottom>
-                            <input type="text" class="form-control" [placeholder]="mData.ip" [(ngModel)]="ip">
+                            <input type="text" class="form-control" [placeholder]="mTitle.placeholder_title.ip" [(ngModel)]="ip">
                         </div>
                         <div padding-bottom>
-                            <input type="text" class="form-control" [placeholder]="mData.db_name" [(ngModel)]="dbName">
+                            <input type="text" class="form-control" [placeholder]="mTitle.placeholder_title.db_name" [(ngModel)]="dbName">
                         </div>
                     </div>
 
                     <div padding-bottom>
-                        <input type="text" class="form-control" [placeholder]="mData.username" [(ngModel)]="username">
+                        <input type="text" class="form-control" [placeholder]="mTitle.placeholder_title.username" [(ngModel)]="username">
                     </div>
                     <div padding-bottom>
-                        <input type="password" class="form-control" [placeholder]="mData.password"
-                            [(ngModel)]="password">
+                        <input type="password" class="form-control" [placeholder]="mTitle.placeholder_title.password" [(ngModel)]="password">
                     </div>
                 </div>
 
 
                 <div padding-bottom>
                     <h6 class="color-danger text-center">{{loginMessage}}</h6>
-                    <button type="button" class="btn background-primary color-white width-100"
-                        (click)="onClickLogin()">{{mData.btn_login}}</button>
+                    <button type="button" class="btn background-primary color-white width-100" (click)="onClickLogin()">{{mTitle.button_title.login}}</button>
                 </div>
 
             </div>
         </div>
 
-        <div padding-vertical center>
-            <div class="text-center">
-                <h6 bold>{{mData.sub}}</h6>
-                <h6>{{mData.sub1}}</h6>
-            </div>
-        </div>
     </div>
 
     <div class="footer background-secondary">
         <div class="container font6">
-            <div bold>{{mData.ft_title}}</div>
-            <div>{{mData.ft_name}}</div>
-            <div>{{mData.ft_address}}</div>
-            <div>{{mData.ft_email}}</div>
-            <div>{{mData.ft_website}}</div>
-            <div>{{mData.ft_phone}}</div>
+            <div bold>THÔNG TIN LIÊN HỆ</div>
+            <div>CÔNG TY CỔ PHẦN CÔNG NGHỆ NAM AN PHÚ</div>
+            <div>Địa chỉ: B1 HUD2 Linh Đàm, Hoàng Mai, Hà Nội, Việt Nam</div>
+            <div>Email: info.namanphu@gmail.com</div>
+            <div>Website: http://www/namanphu.com.vn</div>
+            <div>Điện thoại: 024 35550 1618</div>
         </div>
     </div>
 </div>

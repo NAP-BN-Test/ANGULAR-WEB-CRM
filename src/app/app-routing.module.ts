@@ -42,12 +42,12 @@ const routes: Routes = [
     data: { title: 'Dashboard' }
   },
   {
-    path: 'contact-menu-contact',
+    path: 'contacts',
     component: ContactMenuContactComponent,
     data: { title: 'Contact' }
   },
   {
-    path: 'contact-menu-company',
+    path: 'companies',
     component: ContactMenuCompanyComponent,
     data: { title: 'Company' }
   },
@@ -150,7 +150,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -10,7 +10,7 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 })
 export class DialogAddMailListComponent implements OnInit {
 
-  mData: any;
+  mTitle: any;
 
   listUser = [];
 
@@ -27,7 +27,7 @@ export class DialogAddMailListComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.dialog;
+      this.mTitle = data.dialog;
     });
     this.mService.getApiService().sendRequestGET_MAIL_LIST_OPTION().then(data => {
       if (data.status == STATUS.SUCCESS) {

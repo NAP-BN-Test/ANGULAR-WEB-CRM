@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
+import { LIST_SELECT, STATUS, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -14,7 +14,7 @@ export class AddContactComponent implements OnInit {
 
   @Input("addOut") addOut: number;
 
-  mData: any;
+  mTitle: any;
 
   name = "";
   gender = -1;
@@ -37,9 +37,8 @@ export class AddContactComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.add_sub_detail;
-    });
+    let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    this.mTitle = JSON.parse(languageData);
   }
 
   onClickClose() {

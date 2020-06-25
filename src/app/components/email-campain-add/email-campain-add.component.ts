@@ -17,7 +17,7 @@ export class EmailCampainAddComponent implements OnInit {
 
   sendByTime = false;
 
-  mData: any;
+  mTitle: any;
 
   name = "";
   subject = "";
@@ -42,7 +42,7 @@ export class EmailCampainAddComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.add_sub_detail;
+      this.mTitle = data.add_sub_detail;
     });
 
     this.mService.getApiService().sendRequestGET_MAIL_LIST_OPTION().then(data => {

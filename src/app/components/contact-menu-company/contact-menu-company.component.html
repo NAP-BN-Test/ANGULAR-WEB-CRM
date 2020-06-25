@@ -1,4 +1,4 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div class="m-header">
         <app-header-menu></app-header-menu>
     </div>
@@ -7,7 +7,7 @@
         <div flex no-wrap>
             <div width-20>
                 <div padding-bottom between>
-                    <div font2 bold>{{mData.company_title}}</div>
+                    <div font2 bold>{{mTitle.component_title.company}}</div>
                     <div>
                         <div class="box-add" [class.show-div]="addSub==1">
                             <app-add-company [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-company>
@@ -18,27 +18,25 @@
                 </div>
                 <div padding32-horizontal>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.all_company}}({{numberAll}})</div>
+                        {{mTitle.menu_title.all_company}} ({{numberAll}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
-                        {{mData.unassign_company}}({{numberUnAssign}})</div>
+                        {{mTitle.menu_title.unassign_company}} ({{numberUnAssign}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==5" tappable (click)="onClickMenu(5)">
-                        {{mData.assign_company}}({{numberAssignAll}})</div>
+                        {{mTitle.menu_title.assign_company}} ({{numberAssignAll}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==3" tappable (click)="onClickMenu(3)">
-                        {{mData.follow_company}}({{numberFollow}})</div>
+                        {{mTitle.menu_title.follow_company}} ({{numberFollow}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
-                        {{mData.my_company_assigned}}({{numberAssign}})</div>
+                        {{mTitle.menu_title.my_company_assigned}} ({{numberAssign}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==6" tappable (click)="onClickMenu(6)">
-                        {{mData.my_customer}}({{numberCustomer}})</div>
+                        {{mTitle.menu_title.my_customer}} ({{numberCustomer}})</div>
                 </div>
             </div>
 
             <div width-80>
-                <app-filter-bar [toppingList]="toppingList" noImport="true" (clickAdd)="onClickAdd()"
-                    (sort)="onClickSort($event)" (clickImport)="onClickImport()">
+                <app-filter-bar [toppingList]="toppingList" noImport="true" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)" (clickImport)="onClickImport()">
                 </app-filter-bar>
 
-                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)"
-                    (clickCell)="onClickCell($event)"></app-mat-table>
+                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
 
             </div>
 

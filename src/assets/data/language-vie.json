@@ -1,0 +1,105 @@
+{
+    "button_title": {
+        "save": "Lưu",
+        "delete": "Xóa",
+        "add": "Thêm",
+        "edit": "Sửa",
+        "login": "Đăng nhập",
+        "add_user": "Thêm User",
+        "add_company": "+ Add company",
+        "add_contact": "+ Thêm khách hàng",
+        "cancel": "Hủy"
+    },
+    "nav_button_title": {
+        "add_parent_company": "Thêm công ty mẹ",
+        "add_child_company": "Thêm công ty con",
+        "create_new_comapny": "Thêm mới công ty",
+        "add_exist": "Thêm người liên hệ đã có",
+        "add_new": "Thêm mới người liên hệ"
+    },
+    "menu_title": {
+        "contact": "Liên hệ",
+        "action": "Hoạt động",
+        "email": "Email",
+        "report": "Báo cáo",
+        "company": "Công ty",
+        "logistic": "Logistic",
+        "transport": "Transport",
+        "task": "Giao việc",
+        "call": "Cuộc gọi",
+        "meet": "Gặp mặt",
+        "note": "Ghi chú",
+        "mail_list": "Danh sách maillist",
+        "mail_campain": "Danh sách chiến dịch",
+        "report_by_campain": "Chiến dịch mail",
+        "report_by_user": "Theo cá nhân",
+        "all_contact": "Tất cả Liên hệ",
+        "my_contact": "Liên hệ của tôi ",
+        "unassign_contact": "Liên hệ chưa gán ",
+        "assign_contact": "Liên hệ được gán ",
+        "follow_contact": "Liên hệ đang theo dõi ",
+        "my_contact_assigned": "Liên hệ được gán cho tôi",
+        "my_company_assigned": "Công ty được gán cho tôi",
+        "all_company": "Tất cả công ty ",
+        "unassign_company": "Công ty chưa gán",
+        "assign_company": "Công ty được gán",
+        "follow_company": "Công ty đang theo dõi ",
+        "all_task": "Tất cả công việc ",
+        "my_customer": "Khách hàng"
+    },
+    "table_header_title": {
+        "name": "Tên",
+        "email": "Email",
+        "phone": "Số ĐT",
+        "associate_company": "Cty liên kết",
+        "owner": "Người tạo",
+        "time_create": "Ngày tạo"
+    },
+    "tooltip_title": {
+        "add": "Thêm mới",
+        "sort": "",
+        "refresh": "Làm mới"
+    },
+    "option_title": {
+        "user": "User",
+        "time_start": "Tg bắt đầu",
+        "time_end": "Tg kết thúc",
+        "search": "Tìm kiếm",
+        "step": "Bước",
+        "city": "Tỉnh/TP",
+        "all": "Tất cả"
+    },
+    "input_title": {
+        "name": "Tên",
+        "short_name": "Tên viết tắt",
+        "address": "Địa chỉ",
+        "phone": "Số ĐT",
+        "time_active": "Ngày thành lập/Hoạt động",
+        "email": "Email",
+        "city": "Tỉnh/TP",
+        "step": "Bước",
+        "job_tile": "Chức vụ",
+        "website": "Website"
+    },
+    "placeholder_title": {
+        "username": "Tên đăng nhập",
+        "password": "Mật khẩu",
+        "ip": "Tên server",
+        "db_name": "Tên database",
+        "search": "Tìm kiếm"
+    },
+    "component_title": {
+        "company": "Công ty",
+        "company_logistic": "Công ty Logistic",
+        "company_transport": "Công ty Transport",
+        "contact": "Liên hệ",
+        "add_company": "Thêm công ty",
+        "add_contact": "Thêm liên hệ"
+    },
+    "other_title": {
+        "company_intro": "Theo dõi những liên hệ nào là một phần của công ty này.",
+        "contact_intro": "Keep track of which contacts are part of this company.",
+        "deal_intro": "Track revenue opportunities for your company by associating a deal.",
+        "email_intro": "Thêm danh sách email marketing với các thông tin sau"
+    }
+}

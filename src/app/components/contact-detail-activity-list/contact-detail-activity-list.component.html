@@ -1,22 +1,18 @@
-<ngb-toast class="m-toast" *ngIf="showToast" [autohide]="false">{{toasMessage}}</ngb-toast>
-
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <!-- task -->
     <div class="m-activity" *ngIf="mObj.activityType==5">
         <div between>
             <div bold color-primary flex padding8-top>
-                <mat-icon height-100 [svgIcon]="mData.task.icon_type"></mat-icon>
-                <div padding8-start center-line>{{mData.task.name}}</div>
+                <mat-icon height-100 [svgIcon]="mTitle.task.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mTitle.task.name}}</div>
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
-                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
-                        [activityType]="mObj.activityType" [activityID]="mObj.id"
-                        (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
                     </app-dropdown-associate>
                 </div>
                 <div padding-end center-line>
-                    <div>{{mData.create}}</div>
+                    <div>{{mTitle.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
                 <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
@@ -28,29 +24,26 @@
                 <input type="checkbox" [checked]="mObj.status" (change)="onTaskStatusChange($event)">
             </div>
             <div color-primary padding8-start bold width-100>
-                <input class="form-control border-0" type="text" [value]="mObj.taskName"
-                    (change)="onInputTaskNameChange($event)">
+                <input class="form-control border-0" type="text" [value]="mObj.taskName" (change)="onInputTaskNameChange($event)">
             </div>
         </div>
 
         <div class="row" padding-top>
             <div class="col-5">
-                <div font7>{{mData.task.assign_to}}</div>
+                <div font7>{{mTitle.task.assign_to}}</div>
                 <div font6 color-primary>
-                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.assignID"
-                        (change)="onChangeUser()">
+                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.assignID" (change)="onChangeUser()">
                         <option *ngFor="let item of listUser" [ngValue]="item.id">{{item.name}}</option>
                     </select>
                 </div>
             </div>
             <div class="col-7">
-                <div font7>{{mData.task.due_date}}</div>
+                <div font7>{{mTitle.task.due_date}}</div>
                 <div font6 color-primary>
                     <div flex>
                         <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickTimeStart($event,1)">
                         </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start
-                            (pickTime)="pickTimeStart($event,2)">
+                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start (pickTime)="pickTimeStart($event,2)">
                         </app-datetime-pick-time>
                     </div>
                 </div>
@@ -58,8 +51,7 @@
         </div>
 
         <div padding-top>
-            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description"
-                (click)="onClickEdit()"></textarea>
+            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description" (click)="onClickEdit()"></textarea>
 
             <div [hidden]="!showQuill">
                 <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
@@ -69,30 +61,28 @@
 
         <div padding-top flex tappable (click)="onClickTaskDetail()">
             <mat-icon>{{taskDetail}}</mat-icon>
-            <div font6 center-line>{{mData.task.detail}}</div>
+            <div font6 center-line>{{mTitle.task.detail}}</div>
         </div>
 
         <div id="task-detail" class="row" padding-top [hidden]="!showDetail">
             <div class="col-2">
-                <div font7>{{mData.task.type}}</div>
+                <div font7>{{mTitle.task.type}}</div>
                 <div font6 color-primary flex>
-                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.taskType"
-                        (change)="onTaskTypeChange()">
+                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.taskType" (change)="onTaskTypeChange()">
                         <option *ngFor="let item of listTaskType" [ngValue]="item.id">{{item.name}}</option>
                     </select>
                 </div>
             </div>
             <div class="col-3">
-                <div font7>{{mData.create}}</div>
+                <div font7>{{mTitle.create}}</div>
                 <div font6 color-primary class="task-line">{{mService.mUser.name}}</div>
             </div>
             <div class="col-7">
-                <div font7>{{mData.task.remind}}</div>
+                <div font7>{{mTitle.task.remind}}</div>
                 <div font6 color-primary flex>
                     <app-datetime-pick-date [mDate]="mObj.timeAssign" (pickDate)="pickTimeAssign($event,1)">
                     </app-datetime-pick-date>
-                    <app-datetime-pick-time [mTime]="mObj.timeAssign | datetimeTimeDefault" padding-start
-                        (pickTime)="pickTimeAssign($event,2)">
+                    <app-datetime-pick-time [mTime]="mObj.timeAssign | datetimeTimeDefault" padding-start (pickTime)="pickTimeAssign($event,2)">
                     </app-datetime-pick-time>
                 </div>
             </div>
@@ -103,18 +93,16 @@
     <div class="m-activity" *ngIf="mObj.activityType==1">
         <div between>
             <div bold color-primary flex padding8-top>
-                <mat-icon height-100 [svgIcon]="mData.call.icon_type"></mat-icon>
-                <div padding8-start center-line>{{mData.call.name}}</div>
+                <mat-icon height-100 [svgIcon]="mTitle.call.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mTitle.call.name}}</div>
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
-                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
-                        [activityType]="mObj.activityType" [activityID]="mObj.id"
-                        (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
                     </app-dropdown-associate>
                 </div>
                 <div padding-end center-line>
-                    <div>{{mData.create}}</div>
+                    <div>{{mTitle.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
                 <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
@@ -122,8 +110,7 @@
         </div>
 
         <div padding-top>
-            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description"
-                (click)="onClickEdit()"></textarea>
+            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description" (click)="onClickEdit()"></textarea>
 
             <div [hidden]="!showQuill">
                 <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
@@ -134,29 +121,27 @@
         <div class="row" padding-top>
             <div class="col-6" flex>
                 <div width-60>
-                    <div font7>{{mData.contact}}</div>
+                    <div font7>{{mTitle.contact}}</div>
                     <div font6>
                         <div color-primary style="padding: .375rem 1.75rem .375rem .75rem;">{{contactName}}</div>
                     </div>
                 </div>
                 <div width-40 padding-start>
-                    <div font7>{{mData.out_come}}</div>
+                    <div font7>{{mTitle.out_come}}</div>
                     <div font6 flex>
-                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.state"
-                            (change)="onChangeContact(2)">
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.state" (change)="onChangeContact(2)">
                             <option *ngFor="let item of listOutcome" [ngValue]="item.id">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <div font7>{{mData.date}}</div>
+                <div font7>{{mTitle.date}}</div>
                 <div font6 color-primary>
                     <div flex>
                         <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickDate($event,1)">
                         </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start
-                            (pickTime)="pickDate($event,2)">
+                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start (pickTime)="pickDate($event,2)">
                         </app-datetime-pick-time>
                     </div>
                 </div>
@@ -171,18 +156,16 @@
     <div class="m-activity" *ngIf="mObj.activityType==2">
         <div between>
             <div bold color-primary flex padding8-vertical>
-                <mat-icon height-100 [svgIcon]="mData.email.icon_type"></mat-icon>
-                <div padding8-start center-line>{{mData.email.name}}</div>
+                <mat-icon height-100 [svgIcon]="mTitle.email.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mTitle.email.name}}</div>
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
-                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
-                        [activityType]="mObj.activityType" [activityID]="mObj.id"
-                        (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
                     </app-dropdown-associate>
                 </div>
                 <div padding-end center-line>
-                    <div>{{mData.create}}</div>
+                    <div>{{mTitle.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
                 <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
@@ -190,8 +173,7 @@
         </div>
 
         <div padding-top>
-            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description"
-                (click)="onClickEdit()"></textarea>
+            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description" (click)="onClickEdit()"></textarea>
 
             <div [hidden]="!showQuill">
                 <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
@@ -202,29 +184,27 @@
         <div class="row" padding-top>
             <div class="col-6" flex>
                 <div width-60>
-                    <div font7>{{mData.contact}}</div>
+                    <div font7>{{mTitle.contact}}</div>
                     <div font6 flex color-primary>
                         <div style="padding: .375rem 1.75rem .375rem .75rem;">{{contactName}}</div>
                     </div>
                 </div>
                 <div width-40 padding-start>
-                    <div font7>{{mData.out_come}}</div>
+                    <div font7>{{mTitle.out_come}}</div>
                     <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.state"
-                            (change)="onChangeContact(1)">
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.state" (change)="onChangeContact(1)">
                             <option *ngFor="let item of listOutcome" [ngValue]="item.id">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <div font7>{{mData.date}}</div>
+                <div font7>{{mTitle.date}}</div>
                 <div font6 color-primary>
                     <div flex>
                         <app-datetime-pick-date [mDate]="mObj.timeRemind" (pickDate)="pickDate($event,1)">
                         </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start
-                            (pickTime)="pickDate($event,2)">
+                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start (pickTime)="pickDate($event,2)">
                         </app-datetime-pick-time>
                     </div>
                 </div>
@@ -239,22 +219,19 @@
     <div class="m-activity" *ngIf="mObj.activityType==4">
         <div between>
             <div bold color-primary flex padding8-top>
-                <mat-icon height-100 [svgIcon]="mData.note.icon_type"></mat-icon>
-                <div padding8-start center-line>{{mData.note.name}}</div>
+                <mat-icon height-100 [svgIcon]="mTitle.note.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mTitle.note.name}}</div>
             </div>
             <div font6 class="activity-toolbar">
-                <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
-                    [activityType]="mObj.activityType" [activityID]="mObj.id"
-                    (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
                 </app-dropdown-associate>
                 <div bold padding-start center-line color-red tappable (click)="onClickDeleteNote()">
-                    {{mData.note.delete}}</div>
+                    {{mTitle.note.delete}}</div>
             </div>
         </div>
 
         <div padding-top>
-            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description"
-                (click)="onClickEdit()"></textarea>
+            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description" (click)="onClickEdit()"></textarea>
 
             <div [hidden]="!showQuill">
                 <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
@@ -270,18 +247,16 @@
     <div class="m-activity" *ngIf="mObj.activityType==3">
         <div between>
             <div bold color-primary flex padding8-top>
-                <mat-icon height-100 [svgIcon]="mData.meet.icon_type"></mat-icon>
-                <div padding8-start center-line>{{mData.meet.name}}</div>
+                <mat-icon height-100 [svgIcon]="mTitle.meet.icon_type"></mat-icon>
+                <div padding8-start center-line>{{mTitle.meet.name}}</div>
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
-                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate"
-                        [activityType]="mObj.activityType" [activityID]="mObj.id"
-                        (dropdownChange)="onNoteAssociateChange($event)" tappable>
+                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
                     </app-dropdown-associate>
                 </div>
                 <div padding-end center-line>
-                    <div>{{mData.create}}</div>
+                    <div>{{mTitle.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
                 <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
@@ -289,8 +264,7 @@
         </div>
 
         <div padding-top>
-            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description"
-                (click)="onClickEdit()"></textarea>
+            <textarea [hidden]="showQuill" width-100 rows="4" cols="50" [value]="mObj.description" (click)="onClickEdit()"></textarea>
 
             <div [hidden]="!showQuill">
                 <app-quill-box [quillValue]="mObj.description" (onClickEdit)="onQuillDescriptionChange($event)">
@@ -301,32 +275,28 @@
         <div class="row" padding-top>
             <div class="col-6" flex>
                 <div width-50>
-                    <div font7>{{mData.meet.attend}}</div>
+                    <div font7>{{mTitle.meet.attend}}</div>
                     <div font6 flex color-primary>
-                        <app-dropdown-multi width-100 [listUser]="listUser" [listAttend]="listAttend"
-                            [activityType]="mObj.activityType" [activityID]="mObj.id"
-                            (dropdownChange)="dropdownChange($event)"></app-dropdown-multi>
+                        <app-dropdown-multi width-100 [listUser]="listUser" [listAttend]="listAttend" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="dropdownChange($event)"></app-dropdown-multi>
 
                     </div>
                 </div>
                 <div width-50 padding-start>
-                    <div font7>{{mData.meet.duration}}</div>
+                    <div font7>{{mTitle.meet.duration}}</div>
                     <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.duration"
-                            (change)="onChangeDuration()">
+                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.duration" (change)="onChangeDuration()">
                             <option *ngFor="let item of listDuration" [ngValue]="item.value">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <div font7>{{mData.meet.start_time}}</div>
+                <div font7>{{mTitle.meet.start_time}}</div>
                 <div font6 color-primary>
                     <div flex>
                         <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickDate($event,1)">
                         </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start
-                            (pickTime)="pickDate($event,2)">
+                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start (pickTime)="pickDate($event,2)">
                         </app-datetime-pick-time>
                     </div>
                 </div>

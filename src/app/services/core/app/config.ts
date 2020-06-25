@@ -1,23 +1,23 @@
 export class Config {
 
-    public mData: any = null;
+    public mTitle: any = null;
 
     constructor() { }
 
     public setData(data): void {
         if (data) {
-            this.mData = data;
+            this.mTitle = data;
         }
     }
 
     public hasData(): boolean {
-        return this.mData != null;
+        return this.mTitle != null;
     }
 
     public get(key: string) {
         if (this.hasData()) {
-            if (key in this.mData) {
-                return this.mData[key];
+            if (key in this.mTitle) {
+                return this.mTitle[key];
             }
         }
         return null;

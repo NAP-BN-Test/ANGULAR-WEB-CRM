@@ -1,4 +1,4 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div mat-dialog-content>
         <p>Tùy chọn hiển thị</p>
 
@@ -18,7 +18,7 @@
     <div mat-dialog-actions>
         <div flex>
             <div>
-                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mData.cancel}}</button>
+                <button type="button" class="btn btn-secondary" (click)="onNoClick()">{{mTitle.cancel}}</button>
             </div>
             <div padding-start>
                 <button type="button" class="btn btn-danger" [mat-dialog-close]="itemPerPage" cdkFocusInitial>Xác

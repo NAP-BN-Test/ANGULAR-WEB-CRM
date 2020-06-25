@@ -10,7 +10,7 @@ import { STATUS } from 'src/app/services/constant/app-constant';
 })
 export class DialogAssignCompanyComponent implements OnInit {
 
-  mData: any;
+  mTitle: any;
 
   listUser = [];
 
@@ -27,7 +27,7 @@ export class DialogAssignCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.dialog;
+      this.mTitle = data.dialog;
     });
     this.mService.getApiService().sendRequestGET_LIST_USER(
 
@@ -37,7 +37,7 @@ export class DialogAssignCompanyComponent implements OnInit {
       1
     ).then(data => {
       setTimeout(() => {
-        let rmAssign = this.mData.remove_assign;
+        let rmAssign = this.mTitle.remove_assign;
         if (data.status == STATUS.SUCCESS) {
           this.listUser = data.array;
 

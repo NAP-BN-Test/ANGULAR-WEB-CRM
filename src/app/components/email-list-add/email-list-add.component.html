@@ -1,16 +1,16 @@
-<div shadow height-100 *ngIf="mData">
+<div shadow height-100 *ngIf="mTitle">
     <div class="m-header" padding between>
-        <div bold font3>{{mData.add_email}}</div>
+        <div bold font3>{{mTitle.add_email}}</div>
         <div (click)="onClickClose()" tappable>
             <mat-icon>close</mat-icon>
         </div>
     </div>
 
     <div padding height-90>
-        <div padding-bottom>{{mData.email_intro}}</div>
+        <div padding-bottom>{{mTitle.email_intro}}</div>
         <div padding32-top>
             <div padding-start center-line>
-                <div class="col-3" font6>{{mData.name}}</div>
+                <div class="col-3" font6>{{mTitle.name}}</div>
                 <div class="col-9">
                     <input class="form-control" type="text" [(ngModel)]="name">
                 </div>
@@ -21,11 +21,10 @@
     <div padding class="m-footer">
         <div flex>
             <div padding-vertical>
-                <button mat-raised-button color="primary" [disabled]="!btnCanClicked"
-                    (click)="onClickSave()">{{mData.save}}</button>
+                <button mat-raised-button color="primary" [disabled]="!btnCanClicked" (click)="onClickSave()">{{mTitle.save}}</button>
             </div>
             <div padding>
-                <button mat-raised-button color="accent" (click)="onClickClose()">{{mData.cancel}}</button>
+                <button mat-raised-button color="accent" (click)="onClickClose()">{{mTitle.cancel}}</button>
             </div>
         </div>
     </div>

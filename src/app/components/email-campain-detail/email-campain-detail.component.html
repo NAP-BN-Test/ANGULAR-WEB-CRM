@@ -1,5 +1,3 @@
-<ngb-toast class="m-toast" *ngIf="showToast" [autohide]="false">{{toasMessage}}</ngb-toast>
-
 <div>
     <div class="m-header">
         <app-header-menu></app-header-menu>
@@ -25,8 +23,7 @@
                 <div font7>Ngày bắt đầu</div>
                 <div class="form-group">
                     <div class="input-group" *ngIf="timeStart">
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="timeStart"
-                            ngbDatepicker #d="ngbDatepicker">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="timeStart" ngbDatepicker #d="ngbDatepicker">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
                                 <i class="fa fa-calendar"></i>
@@ -39,8 +36,7 @@
                 <div font7>Ngày kết thúc</div>
                 <div class="form-group">
                     <div class="input-group" *ngIf="timeEnd">
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="timeEnd"
-                            ngbDatepicker #d="ngbDatepicker">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="timeEnd" ngbDatepicker #d="ngbDatepicker">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
                                 <i class="fa fa-calendar"></i>

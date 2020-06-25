@@ -1,4 +1,4 @@
-<div class="m-cmt-box" relative *ngIf="mData">
+<div class="m-cmt-box" relative *ngIf="mTitle">
     <div padding8-top>
         <div class="m-cmt" box-border padding8 [hidden]="showQuillEditCmt">
             <div between>
@@ -17,10 +17,10 @@
     <div class="cmt-btn">
         <div flex>
             <div>
-                <button class="cmt-btn-btn btn btn-sm" type="button" (click)="onClickEditCmt()">{{mData.edit}}</button>
+                <button class="cmt-btn-btn btn btn-sm" type="button" (click)="onClickEditCmt()">{{mTitle.edit}}</button>
             </div>
             <div padding8-start>
-                <button class="cmt-btn-btn btn btn-sm" type="button" (click)="onClickDeleteCmt()">{{mData.delete}}</button>
+                <button class="cmt-btn-btn btn btn-sm" type="button" (click)="onClickDeleteCmt()">{{mTitle.delete}}</button>
             </div>
         </div>
     </div>

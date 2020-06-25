@@ -1,24 +1,22 @@
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div class="m-header">
         <app-header-menu></app-header-menu>
     </div>
 
     <div padding32>
-        <div font2 bold>{{mData.name}}</div>
+        <div font2 bold>{{mTitle.name}}</div>
 
         <div class="row">
             <div class="col-6">
                 <div between padding-top>
-                    <div font3>{{mData.activity}}</div>
-                    <!-- <div font5 bold color-primary>{{mData.action}}</div> -->
+                    <div font3>{{mTitle.activity}}</div>
+                    <!-- <div font5 bold color-primary>{{mTitle.action}}</div> -->
                 </div>
                 <div box-border padding class="activity-list">
-                    <div *ngFor="let item of listActivity" class="padding8 activity-item" border-bottom tappable
-                        (click)="onClickActivity(item)">
+                    <div *ngFor="let item of listActivity" class="padding8 activity-item" border-bottom tappable (click)="onClickActivity(item)">
                         <div flex>
                             <div padding-end bold color-primary>{{item.userName}}</div>
-                            <div padding-end>{{mData.create_type[item.activityType]}}
-                                {{item.type==1?item.companyName: item.contactName}}</div>
+                            <div padding-end>{{mTitle.create_type[item.activityType]}} {{item.type==1?item.companyName: item.contactName}}</div>
                         </div>
                         <div font7>
                             <div>{{item.timeCreate | datetimeFull}}</div>
@@ -28,63 +26,63 @@
             </div>
             <div class="col-3">
                 <div between padding-top>
-                    <div font3>{{mData.sumary}}</div>
-                    <!-- <div font5 bold color-primary>{{mData.action}}</div> -->
+                    <div font3>{{mTitle.sumary}}</div>
+                    <!-- <div font5 bold color-primary>{{mTitle.action}}</div> -->
                 </div>
                 <div box-border padding style="height: 280px;" *ngIf="activitySummary">
                     <div between color-primary bold>
-                        <div>{{mData.tasks}}</div>
+                        <div>{{mTitle.tasks}}</div>
                         <div>{{activitySummary.task}}</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.calls}}</div>
+                        <div>{{mTitle.calls}}</div>
                         <div>{{activitySummary.call}}</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.emails}}</div>
+                        <div>{{mTitle.emails}}</div>
                         <div>{{activitySummary.email}}</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.meets}}</div>
+                        <div>{{mTitle.meets}}</div>
                         <div>{{activitySummary.meet}}</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.notes}}</div>
+                        <div>{{mTitle.notes}}</div>
                         <div>{{activitySummary.note}}</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.notifications}}</div>
+                        <div>{{mTitle.notifications}}</div>
                         <div>0</div>
                     </div>
                 </div>
             </div>
             <!-- <div class="col-3">
                 <div between padding-top>
-                    <div font3>{{mData.life_cycle}}</div>
+                    <div font3>{{mTitle.life_cycle}}</div>
                 </div>
                 <div box-border padding style="height: 280px;">
                     <div between color-primary bold>
-                        <div>{{mData.create}}</div>
+                        <div>{{mTitle.create}}</div>
                         <div>10</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.assign}}</div>
+                        <div>{{mTitle.assign}}</div>
                         <div>5</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.work}}</div>
+                        <div>{{mTitle.work}}</div>
                         <div>4</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.deal_created}}</div>
+                        <div>{{mTitle.deal_created}}</div>
                         <div>7</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.deal_won}}</div>
+                        <div>{{mTitle.deal_won}}</div>
                         <div>4</div>
                     </div>
                     <div between color-primary bold padding-top>
-                        <div>{{mData.create_job}}</div>
+                        <div>{{mTitle.create_job}}</div>
                         <div>23</div>
                     </div>
                 </div>

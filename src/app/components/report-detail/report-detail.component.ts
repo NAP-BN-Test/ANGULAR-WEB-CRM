@@ -17,7 +17,7 @@ export class ReportDetailComponent implements OnInit {
 
   menuIndex = 1;
 
-  mData: any;
+  mTitle: any;
 
   daies = 15;
 
@@ -59,7 +59,7 @@ export class ReportDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.email;
+      this.mTitle = data.email;
     });
 
     this.campainID = this.cookieService.get('campain-id') ? Number(this.cookieService.get('campain-id')) : -1;

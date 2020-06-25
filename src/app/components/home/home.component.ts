@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(CompanyDetailComponent) companyDetailComponent: CompanyDetailComponent;
   @ViewChild(CompanySubDetailComponent) companySubDetailComponent: CompanySubDetailComponent;
 
-  mData: any;
+  mTitle: any;
 
   oneActivity: any;
 
@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then(data => {
-      this.mData = data;
+      this.mTitle = data;
     });
 
     if (this.mService.getUser()) {

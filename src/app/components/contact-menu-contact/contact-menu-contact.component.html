@@ -1,6 +1,4 @@
-<ngb-toast class="m-toast" *ngIf="showToast" [autohide]="false">{{toasMessage}}</ngb-toast>
-
-<div *ngIf="mData">
+<div *ngIf="mTitle">
     <div class="m-header">
         <app-header-menu></app-header-menu>
     </div>
@@ -11,7 +9,7 @@
             <div width-20>
 
                 <div padding-bottom between>
-                    <div font2 bold>{{mData.contact_title}}</div>
+                    <div font2 bold>{{mTitle.component_title.contact}}</div>
                     <div center-line bold color-primary>
 
                         <div class="box-add" [class.show-div]="addSub==1">
@@ -23,15 +21,15 @@
 
                 <div padding32-horizontal>
                     <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mData.all_contact}}({{numberAll}})</div>
+                        {{mTitle.menu_title.all_contact}}({{numberAll}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==2" tappable (click)="onClickMenu(2)">
-                        {{mData.unassign_contact}}({{numberUnAssign}})</div>
+                        {{mTitle.menu_title.unassign_contact}}({{numberUnAssign}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==5" tappable (click)="onClickMenu(5)">
-                        {{mData.assign_contact}}({{numberAssignAll}})</div>
+                        {{mTitle.menu_title.assign_contact}}({{numberAssignAll}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==3" tappable (click)="onClickMenu(3)">
-                        {{mData.follow_contact}}({{numberFollow}})</div>
+                        {{mTitle.menu_title.follow_contact}}({{numberFollow}})</div>
                     <div padding-bottom wrap [class.bold]="menuSelected==4" tappable (click)="onClickMenu(4)">
-                        {{mData.my_contact_assigned}}({{numberAssign}})</div>
+                        {{mTitle.menu_title.my_contact_assigned}}({{numberAssign}})</div>
                 </div>
             </div>
 
@@ -40,8 +38,7 @@
                 <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
                 </app-filter-bar>
 
-                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)"
-                    (clickCell)="onClickCell($event)"></app-mat-table>
+                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
             </div>
 
         </div>

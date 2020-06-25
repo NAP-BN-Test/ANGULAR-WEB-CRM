@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS, CLICK_DETAIL, BUTTON_TYPE, SORT_TYPE, EVENT_PUSH } from 'src/app/services/constant/app-constant';
+import { STATUS, CLICK_DETAIL, BUTTON_TYPE, SORT_TYPE, EVENT_PUSH, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-company/dialog-assign-company.component';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
@@ -44,7 +44,7 @@ export class ContactMenuCompanyComponent implements OnInit {
     { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
   ]
 
-  mData: any;
+  mTitle: any;
 
   menuSelected = 1;
 
@@ -85,14 +85,17 @@ export class ContactMenuCompanyComponent implements OnInit {
 
   ngOnInit() {
 
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.contact;
-    });
+    this.mService.LoadAppConfig();
+
+    let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    this.mTitle = JSON.parse(languageData);
+
     if (this.mService.getUser()) {
-      this.menuSelected = this.cookieService.get('company-menu') ? Number(this.cookieService.get('company-menu')) : 1;
 
       this.activatedRoute.queryParams.subscribe(params => {
         this.page = params.page;
+        this.menuSelected = params.menu;
+
         this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
       });
 
@@ -146,7 +149,7 @@ export class ContactMenuCompanyComponent implements OnInit {
           listTbData: this.listTbData
         });
         this.router.navigate([], {
-          queryParams: { page: this.page }
+          queryParams: { page: this.page, menu: this.menuSelected }
         })
       }
     });

@@ -1,11 +1,11 @@
-<div *ngIf="mData" padding>
+<div *ngIf="mTitle" padding>
     <div border-bottom padding-bottom>
         <div padding-vertical between>
             <div flex bold tappable (click)="onClickContact()">
                 <mat-icon>{{contactDetail}}</mat-icon>
-                <div>{{mData.contact}}({{listContact.length}})</div>
+                <div>{{mTitle.contact}}({{listContact.length}})</div>
             </div>
-            <div color-primary (click)="onClickAddSubDetail(1)" tappable>{{mData.add_contact}}</div>
+            <div color-primary (click)="onClickAddSubDetail(1)" tappable>{{mTitle.add_contact}}</div>
         </div>
 
         <div id="contact-detail" [hidden]="!showContact">
@@ -20,9 +20,9 @@
         <div padding-vertical between>
             <div flex bold tappable (click)="onClickCompany()">
                 <mat-icon>{{companyDetail}}</mat-icon>
-                <div>{{mData.company}}({{listCompany.length}})</div>
+                <div>{{mTitle.company}}({{listCompany.length}})</div>
             </div>
-            <div color-primary (click)="onClickAddSubDetail(2)" tappable>{{mData.add_company}}</div>
+            <div color-primary (click)="onClickAddSubDetail(2)" tappable>{{mTitle.add_company}}</div>
         </div>
 
         <div id="company-detail" [hidden]="!showCompany">
@@ -38,15 +38,14 @@
         <div padding-vertical between>
             <div flex bold tappable (click)="onClickDeal()">
                 <mat-icon>{{dealDetail}}</mat-icon>
-                <div>{{mData.deal}}({{listDeal.length}})</div>
+                <div>{{mTitle.deal}}({{listDeal.length}})</div>
             </div>
-            <div color-primary (click)="onClickAddSubDetail(3)" tappable>{{mData.add_deal}}</div>
+            <div color-primary (click)="onClickAddSubDetail(3)" tappable>{{mTitle.add_deal}}</div>
         </div>
 
         <div id="deal-detail" [hidden]="!showDeal">
             <div padding-top *ngFor="let item of listDeal">
-                <app-company-sub-detail-deal [listDealStage]="listDealStage" [mObj]="item"
-                    (deleteFromCompany)="onDeleteDealFromCompany($event)">
+                <app-company-sub-detail-deal [listDealStage]="listDealStage" [mObj]="item" (deleteFromCompany)="onDeleteDealFromCompany($event)">
                 </app-company-sub-detail-deal>
             </div>
         </div>

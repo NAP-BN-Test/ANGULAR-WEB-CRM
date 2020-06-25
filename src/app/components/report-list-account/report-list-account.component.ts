@@ -33,7 +33,7 @@ export class ReportListAccountComponent implements OnInit {
     { id: SORT_TYPE.SEARCH, name: 'Tìm kiếm' }
   ]
 
-  mData: any;
+  mTitle: any;
 
   menuSelected = 1;
 
@@ -70,7 +70,7 @@ export class ReportListAccountComponent implements OnInit {
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mData = data.report;
+      this.mTitle = data.report;
     });
 
     if (this.mService.getUser()) {

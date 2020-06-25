@@ -1,27 +1,26 @@
-<div shadow height-100 *ngIf="mData">
+<div shadow height-100 *ngIf="mTitle">
     <div class="m-header" padding between>
-        <div bold font3>{{mData.add_contact}}</div>
+        <div bold font3>{{mTitle.component_title.add_contact}}</div>
         <div (click)="onClickClose()" tappable>
             <mat-icon>close</mat-icon>
         </div>
     </div>
 
     <div padding height-90>
-        <div>{{mData.contact_intro}}</div>
+        <div>{{mTitle.other_title.contact_intro}}</div>
 
         <ul bold padding-top ngbNav #nav="ngbNav" class="nav-tabs">
             <li ngbNavItem (click)="onClickAddExist()">
-                <a ngbNavLink>{{mData.add_exist}}</a>
+                <a ngbNavLink>{{mTitle.nav_button_title.add_exist}}</a>
             </li>
             <li ngbNavItem (click)="onClickAddNew()">
-                <a ngbNavLink>{{mData.add_new}}</a>
+                <a ngbNavLink>{{mTitle.nav_button_title.add_new}}</a>
             </li>
         </ul>
 
         <div [hidden]="!btnAddExist" height-80>
             <div padding>
-                <input type="search" [placeholder]="mData.placeholder" class="form-control"
-                    (change)="onSeachContact($event)" />
+                <input type="search" [placeholder]="mTitle.placeholder_title.search" class="form-control" (change)="onSeachContact($event)" />
             </div>
 
             <div padding-horizontal height-90 style="overflow-y: scroll;">
@@ -30,8 +29,7 @@
                         <div bold>{{item.name}}</div>
                         <div>{{item.phone}}</div>
                         <div>
-                            <button class="btn-add btn-sm" type="button"
-                                (click)="onClickAddContact(item)">{{mData.add_contact}}</button>
+                            <button class="btn-add btn-sm" type="button" (click)="onClickAddContact(item)">{{mTitle.button_title.add_contact}}</button>
                         </div>
                     </div>
                 </div>
@@ -40,14 +38,14 @@
 
         <div padding32-top [hidden]="btnAddExist">
             <div padding-start center-line>
-                <div class="col-3" font6>{{mData.name}}</div>
+                <div class="col-3" font6>{{mTitle.input_title.name}}</div>
                 <div class="col-9">
                     <input class="form-control" type="text" [(ngModel)]="name">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.gender}}</div>
+                <div class="col-3" font6>{{mTitle.input_title.gender}}</div>
                 <div class="col-9">
                     <select class="custom-select" width-100 [(ngModel)]="gender">
                         <option *ngFor="let item of listGender" [ngValue]="item.id">{{item.name}}</option>
@@ -56,7 +54,7 @@
             </div>
 
             <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.job_tile}}</div>
+                <div class="col-3" font6>{{mTitle.input_title.job_tile}}</div>
                 <div class="col-9">
                     <select class="custom-select" width-100 [(ngModel)]="jobTile">
                         <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
@@ -65,21 +63,21 @@
             </div>
 
             <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.hand_phone}}</div>
+                <div class="col-3" font6>{{mTitle.input_title.hand_phone}}</div>
                 <div class="col-9">
                     <input class="form-control" type="text" [(ngModel)]="phone">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.email}}</div>
+                <div class="col-3" font6>{{mTitle.input_title.email}}</div>
                 <div class="col-9">
                     <input class="form-control" type="text" [(ngModel)]="email">
                 </div>
             </div>
 
             <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mData.address}}</div>
+                <div class="col-3" font6>{{mTitle.input_title.address}}</div>
                 <div class="col-9">
                     <input class="form-control" type="text" [(ngModel)]="address">
                 </div>
@@ -91,11 +89,10 @@
     <div padding class="m-footer">
         <div flex>
             <div padding-vertical>
-                <button mat-raised-button color="primary" [disabled]="!btnCanClicked"
-                    (click)="onClickSave()">{{mData.save}}</button>
+                <button mat-raised-button color="primary" [disabled]="!btnCanClicked" (click)="onClickSave()">{{mTitle.button_title.save}}</button>
             </div>
             <div padding>
-                <button mat-raised-button color="accent" (click)="onClickClose()">{{mData.cancel}}</button>
+                <button mat-raised-button color="accent" (click)="onClickClose()">{{mTitle.button_title.cancel}}</button>
             </div>
         </div>
     </div>

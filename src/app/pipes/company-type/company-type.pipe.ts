@@ -12,11 +12,11 @@ export class CompanyTypePipe implements PipeTransform {
 
     let data = localStorage.getItem('data-local') != null ? JSON.parse(localStorage.getItem('data-local')) : null;
     if (data) {
-      let mData = data.contact.company;
+      let mTitle = data.contact.company;
       if (value == COMPANY_TYPE.LICENCE)
-        return mData.licence;
+        return mTitle.licence;
       else {
-        return mData.trial;
+        return mTitle.trial;
       }
     }
     else return "";
