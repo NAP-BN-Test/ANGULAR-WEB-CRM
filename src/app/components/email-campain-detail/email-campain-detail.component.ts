@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { Location } from '@angular/common';
@@ -10,8 +9,8 @@ import * as moment from 'moment';
 import { DialogVerifyEmailComponent } from '../../dialogs/dialog-verify-email/dialog-verify-email.component';
 import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file';
 import { HttpClient } from '@angular/common/http';
-import { UploadType } from 'src/app/services/core/upload-image/upload-type';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -31,7 +30,7 @@ export class EmailCampainDetailComponent implements OnInit {
 
   listMailList = [];
 
-  
+
 
   timeStart: any;
   timeEnd: any;
@@ -85,10 +84,10 @@ export class EmailCampainDetailComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    private cookieService: CookieService,
     public dialog: MatDialog,
     private location: Location,
-    public http: HttpClient
+    public http: HttpClient,
+    public activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -100,7 +99,9 @@ export class EmailCampainDetailComponent implements OnInit {
       this.mTitle = data.add_sub_detail;
     });
 
-    this.campainID = this.cookieService.get('campain-id') ? Number(this.cookieService.get('campain-id')) : -1;
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.campainID = Number(params.campainID);
+    });
 
     this.mService.getApiService().sendRequestGET_MAIL_CAMPAIN_DETAIL(this.campainID).then(data => {
       if (data.status == STATUS.SUCCESS) {
@@ -137,7 +138,7 @@ export class EmailCampainDetailComponent implements OnInit {
 
       if (data.status == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
@@ -154,7 +155,7 @@ export class EmailCampainDetailComponent implements OnInit {
     this.mService.getApiService().sendRequestADD_MAIL_SEND(obj).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
@@ -171,7 +172,7 @@ export class EmailCampainDetailComponent implements OnInit {
     this.mService.getApiService().sendRequestADD_MAIL_SEND(obj, true).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
@@ -229,7 +230,7 @@ export class EmailCampainDetailComponent implements OnInit {
             this.mService.setUser(user);
 
             this.mService.showSnackBar(data.message)
-           
+
           }
         })
       }

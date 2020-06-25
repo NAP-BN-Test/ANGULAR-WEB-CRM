@@ -177,4 +177,18 @@ export class AppModuleService {
   publishEvent(name: string, params: any) {
     this.dataObserved.next({ name: name, params: params });
   }
+
+  //----------------------------------------------------//
+
+  handleActivatedRoute(listParams) {
+    let paramsObj = {};
+    for (let field of listParams) {
+      paramsObj[field.key] = field.value
+    }
+    this.router.navigate([], {
+      queryParams: paramsObj
+    })
+
+    return paramsObj;
+  }
 }

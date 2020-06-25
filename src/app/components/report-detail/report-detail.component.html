@@ -1,7 +1,7 @@
 <div>
 
     <div class="m-header">
-        <app-header-menu></app-header-menu>
+        <app-header-menu menuIndex="4"></app-header-menu>
     </div>
 
     <div class="padding bold" *ngIf="objSummary">Thống kê chiến dịch email "{{objSummary.name}}"</div>
@@ -75,8 +75,7 @@
             <div class="col-md-6 padding-horizontal">
                 <div fill-parent>
                     <div class="chart-wrapper">
-                        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
-                            [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
                         </canvas>
                     </div>
                 </div>
@@ -107,8 +106,7 @@
             </div>
             <div class="col-md-8 padding-horizontal">
                 <div class="chart-wrapper">
-                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-                        [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
                     </canvas>
                 </div>
             </div>
@@ -119,8 +117,7 @@
                     <div width-60>Tổng số lượt mở các ngày</div>
                 </div>
 
-                <div flex padding-horizontal *ngFor="let item of tbMailOpen; let i = index"
-                    [class.background-whitesmoke]="i%2==0">
+                <div flex padding-horizontal *ngFor="let item of tbMailOpen; let i = index" [class.background-whitesmoke]="i%2==0">
                     <div width-40>{{item.date}}</div>
                     <div width-60>{{item.total}}</div>
                 </div>

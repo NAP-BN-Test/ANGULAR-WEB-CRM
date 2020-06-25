@@ -53,10 +53,10 @@
         <input #searchKeyInput matInput placeholder="Nhập từ khóa">
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field *ngIf="toppingListSelected">
         <mat-label>Bộ lọc</mat-label>
-        <mat-select multiple (selectionChange)="onSortChange($event)">
-            <mat-option *ngFor="let item of toppingList" [value]="item.id">{{item.name}}</mat-option>
+        <mat-select multiple [(value)]="toppingListSelected" (selectionChange)="onSortChange($event)">
+            <mat-option *ngFor="let item of toppingList" selected="true" [value]="item.id">{{item.name}}</mat-option>
         </mat-select>
     </mat-form-field>
 

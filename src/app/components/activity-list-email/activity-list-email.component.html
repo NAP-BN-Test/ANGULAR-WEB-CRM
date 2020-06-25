@@ -3,27 +3,16 @@
         <app-header-menu menuIndex="2"></app-header-menu>
     </div>
 
-    <div padding32>
+    <div padding>
 
-        <div flex no-wrap>
+        <div width-100>
+            <div font2 bold>{{mTitle.email_title}}</div>
 
-            <div width-10>
-                <div padding-bottom between>
-                    <div font2 bold>{{mTitle.email_title}}</div>
-                </div>
-                <div padding32-horizontal>
-                    <div padding-bottom [class.bold]="menuSelected==0" tappable (click)="onClickMenu(0)">
-                        {{mTitle.all}}({{numberAll}})</div>
-                </div>
-            </div>
+            <app-filter-bar [toppingList]="toppingList" noAdd="true" (sort)="onClickSort($event)">
+            </app-filter-bar>
 
-            <div width-90>
-                <app-filter-bar [toppingList]="toppingList" noAdd="true" (sort)="onClickSort($event)">
-                </app-filter-bar>
-
-                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
-            </div>
-
+            <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
         </div>
+
     </div>
 </div>

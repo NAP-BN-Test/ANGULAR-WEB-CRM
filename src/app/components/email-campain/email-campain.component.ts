@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
-import { CookieService } from 'ngx-cookie-service';
-import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-company/dialog-assign-company.component';
 
 @Component({
   selector: 'app-email-campain',
@@ -39,19 +37,9 @@ export class EmailCampainComponent implements OnInit {
 
   mTitle: any;
 
-  menuSelected = 1;
-
-  numberAll = 0;
-  numberUnAssign = 0;
-  numberAssignAll = 0;
-  numberAssign = 0;
-  numberFollow = 0;
-
   checked = false;
   indeterminate = false;
   disabled = false;
-
-  numberOfItemSelected = 0;
 
   addSub = 0
 
@@ -68,7 +56,7 @@ export class EmailCampainComponent implements OnInit {
     public mService: AppModuleService,
     public router: Router,
     public dialog: MatDialog,
-    private cookieService: CookieService
+    public activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -77,9 +65,11 @@ export class EmailCampainComponent implements OnInit {
     });
 
     if (this.mService.getUser()) {
-      this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.page = params.page;
 
-      this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+        this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+      });
     }
     else {
       this.router.navigate(['login']);
@@ -87,7 +77,7 @@ export class EmailCampainComponent implements OnInit {
 
   }
 
-  onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
+  onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestGET_LIST_MAIL_CAMPAIN(
       this.mService.getUser().username,
       this.mService.getUser().id,
@@ -99,10 +89,8 @@ export class EmailCampainComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.numberAll = data.count;
-        if (this.menuSelected == 1) {
-          this.collectionSize = data.count;
-        }
+        this.collectionSize = data.count;
+
         this.mService.publishEvent(EVENT_PUSH.TABLE, {
           page: this.page,
           collectionSize: this.collectionSize,
@@ -116,25 +104,15 @@ export class EmailCampainComponent implements OnInit {
     })
   }
 
-  onClickMenu(index: number) {
-    this.page = 1;
-    this.menuSelected = index;
-    this.cookieService.set('contact-menu', index + "");
-
-    this.onLoadData(1, index, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
-
-  }
-
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.cookieService.get('search-key-contact'), this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event,this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
-        this.cookieService.set('campain-id', event.data.id);
-        this.router.navigate(['email-campain-detail'], { state: { params: event.data } });
+        this.router.navigate(['email-campain-detail'], { queryParams: { campainID: event.data.id } });
       }
     }
   }
@@ -145,8 +123,7 @@ export class EmailCampainComponent implements OnInit {
 
   onClickCloseAdd(event) {
     if (event) {
-      this.cookieService.set('campain-id', event.id);
-      this.router.navigate(['email-campain-detail'], { state: { params: event } });
+      this.router.navigate(['email-campain-detail'], { queryParams: { campianID: event.id } });
     }
     this.addSub = 0
   }
@@ -161,7 +138,7 @@ export class EmailCampainComponent implements OnInit {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_MAIL_CAMPAIN(event.data).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.onLoadData(1, this.menuSelected, this.searchKey, event.timeFrom, event.timeTo, event.userID);
+              this.onLoadData(1, this.searchKey, event.timeFrom, event.timeTo, event.userID);
             }
           })
         }
@@ -174,7 +151,7 @@ export class EmailCampainComponent implements OnInit {
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
 
-    this.onLoadData(1, this.menuSelected, this.searchKey, event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, this.searchKey, event.timeFrom, event.timeTo, event.userID);
   }
 
 }

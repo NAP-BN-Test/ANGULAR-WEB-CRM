@@ -55,6 +55,7 @@ export class ContactMenuContactComponent implements OnInit {
   // indeterminate = false;
   // disabled = false;
 
+  paramsObj: any;
 
 
 
@@ -79,14 +80,19 @@ export class ContactMenuContactComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.mService.LoadAppConfig();
+
     let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
     this.mTitle = JSON.parse(languageData);
 
     if (this.mService.getUser()) {
 
       this.activatedRoute.queryParams.subscribe(params => {
+
         this.page = params.page;
         this.menuSelected = params.menu;
+        if (params.searchKey) this.searchKey = params.searchKey;
+
         this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
       });
 
@@ -134,9 +140,14 @@ export class ContactMenuContactComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        this.router.navigate([], {
-          queryParams: { page: this.page, menu: this.menuSelected }
-        })
+
+        let listParams = [];
+        if (this.searchKey != "") listParams.push({ key: 'searchKey', value: this.searchKey });
+        listParams.push({ key: 'menu', value: this.menuSelected });
+        listParams.push({ key: 'page', value: this.page });
+
+        this.paramsObj = this.mService.handleActivatedRoute(listParams);
+
       }
     })
   }

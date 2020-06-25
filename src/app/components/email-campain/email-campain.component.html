@@ -3,35 +3,16 @@
         <app-header-menu menuIndex="3"></app-header-menu>
     </div>
 
-    <div padding32>
+    <div padding>
 
-        <div flex no-wrap>
+        <div width-100>
+            <div font2 bold>{{mTitle.email_campain_title}}</div>
 
-            <div width-20>
+            <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
+            </app-filter-bar>
 
-                <div padding-bottom between>
-                    <div font2 bold>{{mTitle.email_campain_title}}</div>
-                    <div>
-                        <div class="box-add" [class.show-div]="addSub==1">
-                            <app-email-campain-add [addOut]="1" (closeAddSub)="onClickCloseAdd($event)">
-                            </app-email-campain-add>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        {{mTitle.manager_campain}}({{numberAll}})</div>
-                </div>
-            </div>
-
-            <div width-80>
-                <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
-                </app-filter-bar>
-
-                <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
-            </div>
-
+            <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>
         </div>
+
     </div>
 </div>

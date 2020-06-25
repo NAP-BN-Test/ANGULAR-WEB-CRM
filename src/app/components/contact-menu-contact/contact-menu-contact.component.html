@@ -35,7 +35,7 @@
 
             <div width-80>
 
-                <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
+                <app-filter-bar [paramsObj]="paramsObj" [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
                 </app-filter-bar>
 
                 <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>

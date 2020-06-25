@@ -35,14 +35,6 @@ export class ReportListAccountComponent implements OnInit {
 
   mTitle: any;
 
-  menuSelected = 1;
-
-  numberAll = 0;
-  numberUnAssign = 0;
-  numberAssignAll = 0;
-  numberAssign = 0;
-  numberFollow = 0;
-
   checked = false;
   indeterminate = false;
   disabled = false;
@@ -74,9 +66,7 @@ export class ReportListAccountComponent implements OnInit {
     });
 
     if (this.mService.getUser()) {
-      this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
-
-      this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
       this.router.navigate(['login']);
@@ -84,7 +74,7 @@ export class ReportListAccountComponent implements OnInit {
 
   }
 
-  onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
+  onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestGET_LIST_REPORT_BY_CAMPAIN(
       this.mService.getUser().username,
       this.mService.getUser().id,
@@ -96,10 +86,8 @@ export class ReportListAccountComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.numberAll = data.count;
-        if (this.menuSelected == 1) {
-          this.collectionSize = data.count;
-        }
+        this.collectionSize = data.count;
+
         this.mService.publishEvent(EVENT_PUSH.TABLE, {
           page: this.page,
           collectionSize: this.collectionSize,
@@ -115,16 +103,15 @@ export class ReportListAccountComponent implements OnInit {
 
   onClickMenu(index: number) {
     this.page = 1;
-    this.menuSelected = index;
     this.cookieService.set('contact-menu', index + "");
 
-    this.onLoadData(1, index, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
 
   }
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickCell(event) {
@@ -141,6 +128,6 @@ export class ReportListAccountComponent implements OnInit {
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
 
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-call'), event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, this.cookieService.get('search-key-call'), event.timeFrom, event.timeTo, event.userID);
   }
 }

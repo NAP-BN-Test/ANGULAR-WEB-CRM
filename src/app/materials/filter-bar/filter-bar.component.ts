@@ -27,6 +27,9 @@ export class FilterBarComponent implements OnInit {
 
   @Input('toppingList') toppingList = [];
 
+  @Input('paramsObj') paramsObj: any;
+
+
   @Output('searchChange') searchChange = new EventEmitter();
   @Output('clickAdd') clickAdd = new EventEmitter();
   @Output('clickImport') clickImport = new EventEmitter();
@@ -99,6 +102,8 @@ export class FilterBarComponent implements OnInit {
       }
     })
 
+    this.handleParams();
+
   }
 
   onClickAdd() {
@@ -141,6 +146,20 @@ export class FilterBarComponent implements OnInit {
     this.sortTimeEnd = event.value.includes(SORT_TYPE.TIME_END);
     this.sortSearch = event.value.includes(SORT_TYPE.SEARCH);
     this.sortTimeType = event.value.includes(SORT_TYPE.TIME_TYPE);
+  }
+
+  toppingListSelected;
+  handleParams() {
+    setTimeout(() => {
+      this.toppingListSelected = [];
+      if (this.paramsObj)
+        if (this.paramsObj.searchKey) {
+          this.searchKeyInput.value = this.paramsObj.searchKey;
+          this.sortSearch = true;
+          this.toppingListSelected.push(SORT_TYPE.SEARCH);
+        }
+    }, 1000);
+
   }
 
 }

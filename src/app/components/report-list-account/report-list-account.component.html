@@ -3,26 +3,17 @@
         <app-header-menu menuIndex="4"></app-header-menu>
     </div>
 
-    <div padding32>
-        <div flex no-wrap>
-            <div width-20>
-                <div padding-bottom between>
-                    <div font2 bold>{{mTitle.contact_title}}</div>
-                </div>
-                <div padding32-horizontal>
-                    <div padding-bottom wrap [class.bold]="menuSelected==1" tappable (click)="onClickMenu(1)">
-                        Danh sách chiến dịch mail({{numberAll}})</div>
-                </div>
-            </div>
+    <div padding>
 
-            <div width-80>
-                <app-filter-bar [toppingList]="toppingList" noAdd="true" (sort)="onClickSort($event)">
-                </app-filter-bar>
+        <div width-100>
+            <div font2 bold>{{mTitle.contact_title}}</div>
 
-                <app-mat-table (clickPagination)="onClickPagination($event)" (clickCell)="onClickCell($event)">
-                </app-mat-table>
-            </div>
+            <app-filter-bar [toppingList]="toppingList" noAdd="true" (sort)="onClickSort($event)">
+            </app-filter-bar>
 
+            <app-mat-table (clickPagination)="onClickPagination($event)" (clickCell)="onClickCell($event)">
+            </app-mat-table>
         </div>
+
     </div>
 </div>

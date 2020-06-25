@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
-import { CookieService } from 'ngx-cookie-service';
 import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file';
-
-import * as moment from 'moment';
 
 
 @Component({
@@ -44,13 +41,6 @@ export class EmailListSubComponent implements OnInit {
 
   mailListID = -1;
 
-  menuSelected = 1;
-
-  numberAll = 0;
-  numberUnAssign = 0;
-  numberAssignAll = 0;
-  numberAssign = 0;
-  numberFollow = 0;
 
   checked = false;
   indeterminate = false;
@@ -74,7 +64,7 @@ export class EmailListSubComponent implements OnInit {
     public mService: AppModuleService,
     public router: Router,
     public dialog: MatDialog,
-    private cookieService: CookieService
+    public activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -83,11 +73,13 @@ export class EmailListSubComponent implements OnInit {
     });
 
     if (this.mService.getUser()) {
-      this.menuSelected = this.cookieService.get('contact-menu') ? Number(this.cookieService.get('contact-menu')) : 1;
 
-      this.mailListID = this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1;
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.page = params.page;
+        this.mailListID = params.mailListID;
 
-      this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+        this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+      });
     }
     else {
       this.router.navigate(['login']);
@@ -95,7 +87,7 @@ export class EmailListSubComponent implements OnInit {
 
   }
 
-  onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
+  onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
 
     this.mService.getApiService().sendRequestGET_MAIL_LIST_DETAIL(
       this.mService.getUser().username,
@@ -110,10 +102,7 @@ export class EmailListSubComponent implements OnInit {
 
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.numberAll = data.count;
-        if (this.menuSelected == 1) {
-          this.collectionSize = data.count;
-        }
+        this.collectionSize = data.count;
 
         this.mService.publishEvent(EVENT_PUSH.TABLE, {
           page: this.page,
@@ -122,32 +111,23 @@ export class EmailListSubComponent implements OnInit {
           listTbData: this.listTbData
         });
         this.router.navigate([], {
-          queryParams: { page: this.page }
+          queryParams: { mailListID: this.mailListID, page: this.page }
         })
       }
     })
   }
 
-  onClickMenu(index: number) {
-    this.page = 1;
-    this.menuSelected = index;
-    this.cookieService.set('contact-menu', index + "");
-
-    this.onLoadData(1, index, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
-
-  }
-
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
   onClickSettingItemPerPage(event) {
     this.itemPerPage = event;
-    this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onSearchChange(event) {
-    this.onLoadData(1, this.menuSelected, event, this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(1, event, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickAdd() {
@@ -159,11 +139,11 @@ export class EmailListSubComponent implements OnInit {
       if (res) {
         this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
           this.mService.getUser().id,
-          this.cookieService.get('mail-list-id') ? Number(this.cookieService.get('mail-list-id')) : -1,
+          this.mailListID,
           JSON.stringify(res)
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {
-            this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+            this.onLoadData(1, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
           }
         })
       }
@@ -172,7 +152,7 @@ export class EmailListSubComponent implements OnInit {
 
   onClickCloseAdd(event) {
     if (event) {
-      this.onLoadData(1, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+      this.onLoadData(1, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     this.addSub = 0
   }
@@ -187,7 +167,7 @@ export class EmailListSubComponent implements OnInit {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_MAIL_LIST_DETAIL(event.data).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+              this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
             }
           })
         }
@@ -198,8 +178,7 @@ export class EmailListSubComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
-        this.cookieService.set('mail-list-detail', event.data.email);
-        this.router.navigate(['email-list-sub-report'], { state: { params: event.data } });
+        this.router.navigate(['email-list-sub-report'], { queryParams: { mailListID: this.mailListID, email: event.data.email, page: 1 } });
       }
     }
   }
@@ -209,7 +188,7 @@ export class EmailListSubComponent implements OnInit {
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
 
-    this.onLoadData(1, this.menuSelected, this.cookieService.get('search-key-call'), event.timeFrom, event.timeTo, event.userID);
+    this.onLoadData(1, this.searchKey, event.timeFrom, event.timeTo, event.userID);
   }
 
 }

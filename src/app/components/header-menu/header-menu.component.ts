@@ -108,33 +108,33 @@ export class HeaderMenuComponent implements OnInit {
       }
       else if (index == 2) {
         if (indexChild == 1) {
-          this.router.navigate(['task']);
+          this.router.navigate(['task'], { queryParams: { page: 1 } });
         }
         else if (indexChild == 2) {
-          this.router.navigate(['call']);
+          this.router.navigate(['call'], { queryParams: { page: 1 } });
         }
         else if (indexChild == 3) {
-          this.router.navigate(['email']);
+          this.router.navigate(['email'], { queryParams: { page: 1 } });
         }
         else if (indexChild == 4) {
-          this.router.navigate(['meet']);
+          this.router.navigate(['meet'], { queryParams: { page: 1 } });
         }
         else if (indexChild == 5) {
-          this.router.navigate(['note']);
+          this.router.navigate(['note'], { queryParams: { page: 1 } });
         }
       }
       else if (index == 3) {
         if (indexChild == 1) {
-          this.router.navigate(['email-list']);
+          this.router.navigate(['email-list'], { queryParams: { page: 1 } });
         } else if (indexChild == 2) {
-          this.router.navigate(['email-campain']);
+          this.router.navigate(['email-campain'], { queryParams: { page: 1 } });
         }
       }
       else if (index == 4) {
         if (indexChild == 1) {
-          this.router.navigate(['report-list']);
+          this.router.navigate(['report-list'], { queryParams: { page: 1 } });
         } else if (indexChild == 2) {
-          this.router.navigate(['report-list-account']);
+          this.router.navigate(['report-list-account'], { queryParams: { page: 1 } });
         }
       }
     }

@@ -4,9 +4,9 @@ import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import { Location } from '@angular/common';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { async } from '@angular/core/testing';
 import { STATUS } from 'src/app/services/constant/app-constant';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-detail',
@@ -50,8 +50,8 @@ export class ReportDetailComponent implements OnInit {
   constructor(
     private location: Location,
     public mService: AppModuleService,
-    private cookieService: CookieService
-
+    public activatedRoute: ActivatedRoute,
+    public router: Router
   ) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
@@ -62,9 +62,16 @@ export class ReportDetailComponent implements OnInit {
       this.mTitle = data.email;
     });
 
-    this.campainID = this.cookieService.get('campain-id') ? Number(this.cookieService.get('campain-id')) : -1;
+    if (this.mService.getUser()) {
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.campainID = params.campainID;
 
-    this.onLoadDataSummary();
+        this.onLoadDataSummary();
+      });
+    }
+    else {
+      this.router.navigate(['login']);
+    }
   }
 
   onLoadDataSummary() {
