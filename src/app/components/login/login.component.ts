@@ -42,28 +42,28 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.mService.LoadAppConfig();
-    // if (!localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY)) {
-    //   localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY, "VI");
-    // }
+    this.mService.LoadAppConfig();
+    if (!localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY)) {
+      localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY, "VI");
+    }
 
-    // if (localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA)) {
-    //   this.mService.loadVieLanguage().then((data: any) => {
-    //     this.mTitle = data;
-    //     localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA, JSON.stringify(data))
-    //   });
-    // } else {
-    //   let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
-    //   this.mTitle = JSON.parse(languageData);
-    // }
+    if (!localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA)) {
+      this.mService.loadVieLanguage().then((data: any) => {
+        this.mTitle = data;
+        localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA, JSON.stringify(data))
+      });
+    } else {
+      let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+      this.mTitle = JSON.parse(languageData);
+    }
 
-    // if (localStorage.getItem('user-login')) {
-    //   let userInfo = JSON.parse(localStorage.getItem('user-login'));
-    //   this.username = userInfo.username;
-    //   this.password = userInfo.password;
+    if (localStorage.getItem('user-login')) {
+      let userInfo = JSON.parse(localStorage.getItem('user-login'));
+      this.username = userInfo.username;
+      this.password = userInfo.password;
 
-    //   // this.onClickLogin();
-    // }
+      this.onClickLogin();
+    }
 
   }
 

@@ -141,7 +141,7 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   onClickLogo() {
-    this.router.navigate(['dashboard']);
+    // this.router.navigate(['dashboard']);
   }
 
   onClickLogout() {
