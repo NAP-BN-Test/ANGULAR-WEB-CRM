@@ -4,130 +4,192 @@
         <app-header-menu menuIndex="4"></app-header-menu>
     </div>
 
-    <div class="padding bold" *ngIf="objSummary">Thống kê chiến dịch email "{{objSummary.name}}"</div>
+    <div *ngIf="objSummary" class="padding bold">Thống kê chiến dịch email "{{objSummary.name}}"</div>
 
 
-    <ul ngbNav #nav="ngbNav" class="nav-tabs">
-        <li ngbNavItem (click)="onClickMenu(1)">
-            <a ngbNavLink>Thống kê tổng quan</a>
-        </li>
-        <li ngbNavItem (click)="onClickMenu(2)">
-            <a ngbNavLink>Lượt mở</a>
-        </li>
-        <!-- <li ngbNavItem (click)="onClickMenu(3)">
-            <a ngbNavLink>Lượt click link</a>
-        </li>
-        <li ngbNavItem (click)="onClickMenu(4)">
-            <a ngbNavLink>Mail bị trả lại</a>
-        </li>
-        <li ngbNavItem (click)="onClickMenu(5)">
-            <a ngbNavLink>Lượt hủy nhận mail</a>
-        </li>
-        <li ngbNavItem (click)="onClickMenu(6)">
-            <a ngbNavLink>Thống kê chuyển tiếp</a>
-        </li> -->
-    </ul>
+    <mat-tab-group mat-align-tabs="start" [selectedIndex]="tabIndex" (selectedIndexChange)="onTabChange($event)">
+        <mat-tab label="Thống kê tổng quan">
+            <div class="row padding" *ngIf="objSummary">
+                <div class="col-md-6 padding-horizontal box-border">
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Tiêu đề email</div>
+                        <div class="width-70">{{objSummary.subject}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Chiến dịch email</div>
+                        <div class="width-70">{{objSummary.name}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Tổng số liên hệ</div>
+                        <div class="width-70">{{objSummary.contactCount}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Lần gửi gần nhất</div>
+                        <div class="width-70">{{objSummary.lastSend | datetimeDefault}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Bắt đầu gửi</div>
+                        <div class="width-70">{{objSummary.timeStart | datetimeDefault}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Gửi bởi</div>
+                        <div class="width-70">{{objSummary.userSend}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Gửi tới</div>
+                        <div class="width-70">{{objSummary.mailSend}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Lượt mở</div>
+                        <div class="width-70">{{objSummary.totalOpen}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Tỉ lệ mở</div>
+                        <div class="width-70">{{objSummary.percentOpen}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Bị trả lại</div>
+                        <div class="width-70">{{objSummary.sendBack}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6 padding-horizontal">
+                    <div fill-parent>
+                        <div class="chart-wrapper">
+                            <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                            </canvas>
+                        </div>
+                    </div>
 
-    <div>
-        <div class="row m-content padding" [hidden]="menuIndex!=1" *ngIf="objSummary">
-            <div class="col-md-6 padding-horizontal box-border">
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Tiêu đề email</div>
-                    <div class="width-70">{{objSummary.subject}}</div>
                 </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Chiến dịch email</div>
-                    <div class="width-70">{{objSummary.name}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Tổng số liên hệ</div>
-                    <div class="width-70">{{objSummary.contactCount}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Lần gửi gần nhất</div>
-                    <div class="width-70">{{objSummary.lastSend | datetimeDefault}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Bắt đầu gửi</div>
-                    <div class="width-70">{{objSummary.timeStart | datetimeDefault}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Gửi bởi</div>
-                    <div class="width-70">{{objSummary.userSend}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Gửi tới</div>
-                    <div class="width-70">{{objSummary.mailSend}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Lượt mở</div>
-                    <div class="width-70">{{objSummary.totalOpen}}</div>
-                </div>
-                <div class="flex padding8 border-bottom">
-                    <div class="width-30">Tỉ lệ mở</div>
-                    <div class="width-70">{{objSummary.percentOpen}}</div>
-                </div>
-                <!-- <div class="flex padding8 border-bottom">
-                    <div class="width-30">Bị trả lại</div>
-                    <div class="width-70">{{objSummary.sendBack}}</div>
-                </div> -->
             </div>
-            <div class="col-md-6 padding-horizontal">
-                <div fill-parent>
+        </mat-tab>
+        <mat-tab label="Lượt mở">
+            <div class="row padding">
+                <div class="col-12 flex">
+                    <div>
+                        <mat-form-field width-100>
+                            <mat-label>Mốc thời gian</mat-label>
+                            <mat-select [(ngModel)]="daies">
+                                <mat-option value="15">15 ngày trước</mat-option>
+                                <mat-option value="30">30 ngày trước</mat-option>
+                                <mat-option value="45">45 ngày trước</mat-option>
+                                <mat-option value="60">60 ngày trước</mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <div center>
+                        <button mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                    </button>
+                    </div>
+                </div>
+
+                <div class="col-md-2 padding-horizontal" *ngIf="objMailOpen">
+                    <div class="padding8 border-bottom bold">Tóm tắt lượt mở</div>
+                    <div class="padding8">Tổng số email: {{objMailOpen.total}}</div>
+                    <div class="padding8">Tổng số lượt mở: {{objMailOpen.totalOpen}}</div>
+                    <div class="padding8">Người mở từ 2 lần: {{objMailOpen.totalOpenTwice}}</div>
+                    <div class="padding8">Trung binh lượt mở: {{objMailOpen.advangeOpen}}</div>
+                    <div class="padding8">Tỉ lệ mở: {{objMailOpen.percentOpen}}</div>
+                </div>
+                <div class="col-md-8 padding-horizontal">
                     <div class="chart-wrapper">
-                        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
                         </canvas>
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        <div class="row m-content padding" [hidden]="menuIndex!=2">
-
-            <div class="col-12">
-                <div width-30>
-                    <select class="custom-select" width-100 [(ngModel)]="daies" (change)="onSelectChange()">
-                        <option value="15">15 ngày trước</option>
-                        <option value="30">30 ngày trước</option>
-                        <option value="40">45 ngày trước</option>
-                        <option value="60">60 ngày trước</option>
-                    </select>
+                <div class="offset-md-2 col-md-8 padding">
+                    <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
                 </div>
             </div>
+        </mat-tab>
+        <mat-tab label="Lượt click link">
 
-            <div class="col-md-2 padding-horizontal" *ngIf="objMailOpen">
-                <div class="padding8 border-bottom bold">Tóm tắt lượt mở</div>
-                <div class="padding8">Tổng số email: {{objMailOpen.total}}</div>
-                <div class="padding8">Tổng số lượt mở: {{objMailOpen.totalOpen}}</div>
-                <div class="padding8">Người mở từ 2 lần: {{objMailOpen.totalOpenTwice}}</div>
-                <div class="padding8">Trung binh lượt mở: {{objMailOpen.advangeOpen}}</div>
-                <div class="padding8">Tỉ lệ mở: {{objMailOpen.percentOpen}}</div>
-            </div>
-            <div class="col-md-8 padding-horizontal">
-                <div class="chart-wrapper">
-                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
-                    </canvas>
-                </div>
-            </div>
+        </mat-tab>
+        <mat-tab label="Mail bị trả lại">
+            <div class="row padding">
+                <div class="col-12 flex">
+                    <div>
+                        <mat-form-field width-100>
+                            <mat-label>Mốc thời gian</mat-label>
+                            <mat-select [(ngModel)]="daies">
+                                <mat-option value="15">15 ngày trước</mat-option>
+                                <mat-option value="30">30 ngày trước</mat-option>
+                                <mat-option value="45">45 ngày trước</mat-option>
+                                <mat-option value="60">60 ngày trước</mat-option>
+                            </mat-select>
 
-            <div class="col-md-12 padding-top">
-                <div flex padding-horizontal bold background-primary color-white>
-                    <div width-40>Ngày</div>
-                    <div width-60>Tổng số lượt mở các ngày</div>
+                        </mat-form-field>
+                    </div>
+                    <div center>
+                        <button mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                    </button>
+                    </div>
                 </div>
 
-                <div flex padding-horizontal *ngFor="let item of tbMailOpen; let i = index" [class.background-whitesmoke]="i%2==0">
-                    <div width-40>{{item.date}}</div>
-                    <div width-60>{{item.total}}</div>
+                <div class="col-md-2 padding-horizontal" *ngIf="objMailInvalid">
+                    <div class="padding8 border-bottom bold">Tóm tắt mail trả lại</div>
+                    <div class="padding8">Tổng số email: {{objMailInvalid.total}}</div>
+                    <div class="padding8">Tổng số lượt trả lại: {{objMailInvalid.totalOpen}}</div>
+                    <div class="padding8">Tỉ lệ trả lại: {{objMailInvalid.percentOpen}}</div>
                 </div>
-                <div flex padding-horizontal background-primary color-white *ngIf="objMailOpen">
-                    <div width-40>Tổng</div>
-                    <div width-60>{{objMailOpen.totalOpen}}</div>
+                <div class="col-md-8 padding-horizontal">
+                    <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="offset-md-2 col-md-8 padding">
+                    <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
                 </div>
             </div>
-        </div>
-    </div>
+        </mat-tab>
+        <mat-tab label="Lượt hủy nhận mail">
+            <div class="row padding">
+                <div class="col-12 flex">
+                    <div>
+                        <mat-form-field width-100>
+                            <mat-label>Mốc thời gian</mat-label>
+                            <mat-select [(ngModel)]="daies">
+                                <mat-option value="15">15 ngày trước</mat-option>
+                                <mat-option value="30">30 ngày trước</mat-option>
+                                <mat-option value="45">45 ngày trước</mat-option>
+                                <mat-option value="60">60 ngày trước</mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <div center>
+                        <button mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                    </button>
+                    </div>
+                </div>
+
+                <div class="col-md-2 padding-horizontal" *ngIf="objMailUnsubscribe">
+                    <div class="padding8 border-bottom bold">Tóm tắt hủy nhận mail</div>
+                    <div class="padding8">Tổng số email: {{objMailUnsubscribe.total}}</div>
+                    <div class="padding8">Tổng số lượt hủy: {{objMailUnsubscribe.totalOpen}}</div>
+                    <div class="padding8">Tỉ lệ hủy: {{objMailUnsubscribe.percentOpen}}</div>
+                </div>
+                <div class="col-md-8 padding-horizontal">
+                    <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="offset-md-2 col-md-8 padding">
+                    <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Thống kê chuyển tiếp">Content 3</mat-tab>
+    </mat-tab-group>
 
 
 </div>

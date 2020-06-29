@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-email-list-sub-report',
@@ -36,6 +36,7 @@ export class EmailListSubReportComponent implements OnInit {
   ]
 
   mTitle: any;
+  paramsObj: any;
 
   email = "";
   mailListID = -1;
@@ -54,9 +55,7 @@ export class EmailListSubReportComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
     public dialog: MatDialog,
-    public activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -66,17 +65,16 @@ export class EmailListSubReportComponent implements OnInit {
 
     if (this.mService.getUser()) {
 
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.page = params.page;
-        this.mailListID = params.mailListID;
-        this.email = params.email;
+      let params: any = this.mService.handleActivatedRoute();
+      this.page = params.page;
+      this.mailListID = params.mailListID;
+      this.email = params.email;
 
-        this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
-      });
+      this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
 
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
 
   }
@@ -102,9 +100,13 @@ export class EmailListSubReportComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        this.router.navigate([], {
-          queryParams: { mailListID: this.mailListID, email: this.email, page: this.page }
-        })
+
+        let listParams = [
+          { key: 'mailListID', value: this.mailListID },
+          { key: 'email', value: this.email },
+          { key: 'page', value: this.page }
+        ];
+        this.paramsObj = this.mService.handleParamsRoute(listParams);
       }
     })
   }

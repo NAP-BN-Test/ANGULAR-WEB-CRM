@@ -1,4 +1,37 @@
-<div shadow height-100 *ngIf="mTitle">
+<h2 mat-dialog-title>Thêm chiến dịch mail</h2>
+<mat-dialog-content class="mat-typography">
+
+    <mat-form-field width-100>
+        <mat-label>Tên chiến dịch</mat-label>
+        <input matInput type="text" [(ngModel)]="mObj.name">
+        <button mat-button *ngIf="mObj.name" matSuffix mat-icon-button aria-label="Clear" (click)="mObj.name=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-form-field width-100>
+        <mat-label>Tiêu đề</mat-label>
+        <input matInput type="text" [(ngModel)]="mObj.subject">
+        <button mat-button *ngIf="mObj.subject" matSuffix mat-icon-button aria-label="Clear" (click)="mObj.subject=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-form-field width-100>
+        <mat-label>Maillist</mat-label>
+        <mat-select [(ngModel)]="mObj.mailListID">
+            <mat-option *ngFor="let item of listMailList" [value]="item.id">
+                {{item.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Hủy</button>
+    <button mat-button [mat-dialog-close]="mObj" cdkFocusInitial>Thêm</button>
+</mat-dialog-actions>
+
+<!-- <div shadow height-100 *ngIf="mTitle">
     <div class="m-header" padding between>
         <div bold font3>{{mTitle.add_email_campain}}</div>
         <div (click)="onClickClose()" tappable>
@@ -71,4 +104,4 @@
     </div>
 
 
-</div>
+</div> -->

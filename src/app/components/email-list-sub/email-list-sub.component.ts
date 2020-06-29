@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file';
+import { EmailListSubAddComponent } from 'src/app/dialogs/email-list-sub-add/email-list-sub-add.component';
+
+import * as moment from 'moment';
 
 
 @Component({
@@ -38,6 +40,7 @@ export class EmailListSubComponent implements OnInit {
   ]
 
   mTitle: any;
+  paramsObj: any;
 
   mailListID = -1;
 
@@ -62,9 +65,7 @@ export class EmailListSubComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
     public dialog: MatDialog,
-    public activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -74,15 +75,14 @@ export class EmailListSubComponent implements OnInit {
 
     if (this.mService.getUser()) {
 
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.page = params.page;
-        this.mailListID = params.mailListID;
+      let params: any = this.mService.handleActivatedRoute();
+      this.mailListID = params.mailListID;
+      this.page = params.page;
 
-        this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
-      });
+      this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
 
   }
@@ -110,9 +110,12 @@ export class EmailListSubComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        this.router.navigate([], {
-          queryParams: { mailListID: this.mailListID, page: this.page }
-        })
+
+        let listParams = [
+          { key: 'mailListID', value: this.mailListID },
+          { key: 'page', value: this.page },
+        ];
+        this.paramsObj = this.mService.handleParamsRoute(listParams);
       }
     })
   }
@@ -131,7 +134,30 @@ export class EmailListSubComponent implements OnInit {
   }
 
   onClickAdd() {
-    this.addSub = 1;
+    const dialogRef = this.dialog.open(EmailListSubAddComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+
+      if (res) {
+        let listMail = [{
+          name: res.name,
+          email: res.email
+        }]
+
+        this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
+          this.mService.getUser().id,
+          this.mailListID,
+          JSON.stringify(listMail)
+        ).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+            this.onLoadData(1, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+          }
+        })
+      }
+      
+    });
   }
 
   onClickImport() {
@@ -178,7 +204,7 @@ export class EmailListSubComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
-        this.router.navigate(['email-list-sub-report'], { queryParams: { mailListID: this.mailListID, email: event.data.email, page: 1 } });
+        this.mService.publishPageRoute('email-list-sub-report', { mailListID: this.mailListID, email: event.data.email, page: 1 });
       }
     }
   }

@@ -4,9 +4,7 @@ import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import { Location } from '@angular/common';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { STATUS } from 'src/app/services/constant/app-constant';
-import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { STATUS, LOCAL_STORAGE_KEY, EVENT_PUSH, CLICK_DETAIL, REPORT_TYPE } from 'src/app/services/constant/app-constant';
 
 @Component({
   selector: 'app-report-detail',
@@ -15,13 +13,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ReportDetailComponent implements OnInit {
 
-  menuIndex = 1;
+  //data for component table
+  listTbData = {
+    clickDetail: CLICK_DETAIL.MAIL_REPORT,
+    listColum: [
+      { name: 'Email', cell: 'email' },
+      { name: 'Ngày gửi', cell: 'date' },
+      { name: 'Số lần gửi', cell: 'value' }
+    ]
+  };
 
   mTitle: any;
 
   daies = 15;
 
   campainID = -1;
+  tabIndex: number = 0;
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -46,37 +53,44 @@ export class ReportDetailComponent implements OnInit {
 
   objSummary: any;
   objMailOpen: any;
+  objMailInvalid: any;
+  objMailUnsubscribe: any;
 
   constructor(
     private location: Location,
     public mService: AppModuleService,
-    public activatedRoute: ActivatedRoute,
-    public router: Router
   ) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
 
   ngOnInit(): void {
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mTitle = data.email;
-    });
+    this.mService.LoadAppConfig();
+
+    let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    this.mTitle = JSON.parse(languageData);
 
     if (this.mService.getUser()) {
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.campainID = params.campainID;
+      let params: any = this.mService.handleActivatedRoute();
+      this.campainID = params.campainID;
+      this.tabIndex = params.tabIndex;
 
-        this.onLoadDataSummary();
-      });
+      this.onLoadData();
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
   }
 
+  onLoadData() {
+    if (this.tabIndex == 0) this.onLoadDataSummary();
+    else if (this.tabIndex == 1) this.onLoadMailOpen();
+    else if (this.tabIndex == 3) this.onLoadMailInvalid();
+    else if (this.tabIndex == 4) this.onLoadMailUnsubscribe();
+  }
+
   onLoadDataSummary() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY(this.campainID).then(async data => {
-      
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY(this.campainID).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objSummary = data.obj;
@@ -90,9 +104,8 @@ export class ReportDetailComponent implements OnInit {
     })
   }
 
-  tbMailOpen = [];
   onLoadMailOpen() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(this.campainID, this.daies).then(async data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(this.campainID, this.daies).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailOpen = data.obj;
@@ -100,40 +113,95 @@ export class ReportDetailComponent implements OnInit {
         let labels = [];
         let datas = [];
 
-        this.tbMailOpen = [];
         data.array.forEach(item => {
           labels.push(item.date);
           datas.push(item.value);
-
-          if (item.value > 0) {
-            this.tbMailOpen.push({
-              date: item.date,
-              total: item.value
-            })
-          }
         });
         this.barChartLabels = labels;
         this.barChartData[0].data = datas;
+
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: 1,
+          collectionSize: data.arrayTableSort.length,
+          listData: data.arrayTableSort,
+          listTbData: this.listTbData
+        });
       }
     })
   }
 
-  onClickMenu(index) {
-    this.menuIndex = index;
+  onLoadMailInvalid() {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_INVALID_MAIL(this.campainID, this.daies).then(data => {
+      if (data.status == STATUS.SUCCESS) {
 
-    if (index == 1) {
-      this.onLoadDataSummary();
-    }
-    else if (index == 2) {
-      this.onLoadMailOpen();
-    }
-    else if (index == 2) {
-    }
-    else if (index == 2) {
-    }
-    else if (index == 2) {
-    }
-    else if (index == 2) {
+        console.log(data);
+
+        this.objMailInvalid = data.obj;
+
+        let labels = [];
+        let datas = [];
+
+        data.array.forEach(item => {
+          labels.push(item.date);
+          datas.push(item.value);
+        });
+        this.barChartLabels = labels;
+        this.barChartData[0].data = datas;
+
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: 1,
+          collectionSize: data.arrayTableSort.length,
+          listData: data.arrayTableSort,
+          listTbData: this.listTbData
+        });
+      }
+    })
+  }
+
+  onLoadMailUnsubscribe() {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_UNSUBSCRIBE_MAIL(this.campainID, this.daies).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+
+        console.log(data);
+
+        this.objMailUnsubscribe = data.obj;
+
+        let labels = [];
+        let datas = [];
+
+        data.array.forEach(item => {
+          labels.push(item.date);
+          datas.push(item.value);
+        });
+        this.barChartLabels = labels;
+        this.barChartData[0].data = datas;
+
+        this.listTbData.listColum.push({ name: 'Lý do', cell: 'reason' })
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          listData: data.arrayTableSort,
+          listTbData: this.listTbData
+        });
+      }
+    })
+  }
+
+  onTabChange(event) {
+    if (event) this.tabIndex = event;
+
+    let listParams = [
+      { key: 'campainID', value: this.campainID },
+      { key: 'tabIndex', value: this.tabIndex }
+    ];
+    this.mService.handleParamsRoute(listParams);
+  }
+
+  onClickCell(event) {
+    console.log(event);
+
+    if (event) {
+      if (event.clickDetail == CLICK_DETAIL.MAIL_REPORT) {
+        this.mService.publishPageRoute('email-list-sub-report', { mailListID: event.data.mailListID, email: event.data.email, page: 1 });
+      }
     }
   }
 

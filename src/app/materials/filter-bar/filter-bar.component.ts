@@ -158,7 +158,7 @@ export class FilterBarComponent implements OnInit {
           this.sortSearch = true;
           this.toppingListSelected.push(SORT_TYPE.SEARCH);
         }
-    }, 1000);
+    }, 500);
 
   }
 

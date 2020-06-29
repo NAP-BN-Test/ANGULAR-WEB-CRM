@@ -2,7 +2,7 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { ApiService } from './api-service/api-service';
 import { Config } from './core/app/config';
 import { Http } from '@angular/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import * as moment from 'moment';
 import { LANGUAGE_TYPE } from './constant/app-constant';
@@ -26,6 +26,7 @@ export class AppModuleService {
   constructor(
     public mAngularHttp: Http,
     public router: Router,
+    public activatedRoute: ActivatedRoute,
 
     private _snackBar: MatSnackBar
 
@@ -180,7 +181,7 @@ export class AppModuleService {
 
   //----------------------------------------------------//
 
-  handleActivatedRoute(listParams) {
+  handleParamsRoute(listParams) {
     let paramsObj = {};
     for (let field of listParams) {
       paramsObj[field.key] = field.value
@@ -189,6 +190,30 @@ export class AppModuleService {
       queryParams: paramsObj
     })
 
+    return paramsObj;
+  }
+
+  publishPageRoute(component: string, params?: any) {
+    this.router.navigate([component], { queryParams: params ? params : {} });
+  }
+
+  handleActivatedRoute() {
+    let array = [];
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.mailListID) array.push({ key: 'mailListID', value: params.mailListID })
+      if (params.email) array.push({ key: 'email', value: params.email })
+      if (params.campainID) array.push({ key: 'campainID', value: params.campainID })
+      if (params.tabIndex) array.push({ key: 'tabIndex', value: params.tabIndex })
+      if (params.page) array.push({ key: 'page', value: params.page })
+    });
+
+    let paramsObj = {};
+    for (let field of array) {
+      paramsObj[field.key] = field.value
+    }
+    this.router.navigate([], {
+      queryParams: paramsObj
+    })
     return paramsObj;
   }
 }

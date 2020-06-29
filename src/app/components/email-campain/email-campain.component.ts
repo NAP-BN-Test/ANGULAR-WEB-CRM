@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
+import { EmailCampainAddComponent } from 'src/app/dialogs/email-campain-add/email-campain-add.component';
 
 @Component({
   selector: 'app-email-campain',
@@ -36,6 +36,7 @@ export class EmailCampainComponent implements OnInit {
   ]
 
   mTitle: any;
+  paramsObj: any;
 
   checked = false;
   indeterminate = false;
@@ -54,9 +55,7 @@ export class EmailCampainComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
     public dialog: MatDialog,
-    public activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -65,14 +64,13 @@ export class EmailCampainComponent implements OnInit {
     });
 
     if (this.mService.getUser()) {
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.page = params.page;
+      let params: any = this.mService.handleActivatedRoute();
+      this.page = params.page;
 
-        this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
-      });
+      this.onLoadData(this.page, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
 
   }
@@ -97,36 +95,55 @@ export class EmailCampainComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        this.router.navigate([], {
-          queryParams: { page: this.page }
-        })
+
+        let listParams = [{ key: 'page', value: this.page }];
+        this.paramsObj = this.mService.handleParamsRoute(listParams);
+
       }
     })
   }
 
   onClickPagination(event) {
     this.checked = false;
-    this.onLoadData(event,this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+    this.onLoadData(event, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
   }
 
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
-        this.router.navigate(['email-campain-detail'], { queryParams: { campainID: event.data.id } });
+        this.mService.publishPageRoute('email-campain-detail', { campainID: event.data.id })
       }
     }
   }
 
   onClickAdd() {
-    this.addSub = 1;
+    const dialogRef = this.dialog.open(EmailCampainAddComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        let obj = {
+          name: res.name,
+          mailListID: res.mailListID,
+          subject: res.subject,
+        }
+        this.mService.getApiService().sendRequestADD_MAIL_CAMPAIN(
+          this.mService.getUser().id,
+          obj
+        ).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+            this.onLoadData(1, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
+            setTimeout(() => {
+              this.mService.publishPageRoute('email-campain-detail', { campainID: data.id })              
+            }, 500);
+          }
+        })
+      }
+
+    });
   }
 
-  onClickCloseAdd(event) {
-    if (event) {
-      this.router.navigate(['email-campain-detail'], { queryParams: { campianID: event.id } });
-    }
-    this.addSub = 0
-  }
 
   onClickBtn(event) {
     if (event.btnType == BUTTON_TYPE.DELETE) {

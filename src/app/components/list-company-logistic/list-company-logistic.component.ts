@@ -44,6 +44,7 @@ export class ListCompanyLogisticComponent implements OnInit {
   ]
 
   mTitle: any;
+  paramsObj: any;
 
   menuSelected = 1;
 
@@ -147,9 +148,12 @@ export class ListCompanyLogisticComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        this.router.navigate([], {
-          queryParams: { page: this.page, menu: this.menuSelected }
-        })
+        
+        let listParams = [ 
+          { key: 'page', value: this.page },
+          { key: 'menu', value: this.menuSelected }
+        ];
+        this.paramsObj = this.mService.handleParamsRoute(listParams);
       }
     });
   }

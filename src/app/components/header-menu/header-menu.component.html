@@ -24,7 +24,7 @@
         <div padding32-end flex>
 
             <div *ngIf="mTitle">
-                <button mat-button [matMenuTriggerFor]="menu">
+                <button matTooltip="Cài đặt" mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon color-white>settings</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
@@ -47,7 +47,7 @@
                     </div>
 
                 </ng-template>
-                <button class="btn btn-default color-white center" placement="bottom" [ngbPopover]="hoverImgTemp">
+                <button matTooltip="Thông tin cá nhân" mat-icon-button placement="bottom" [ngbPopover]="hoverImgTemp">
                     <mat-icon color-white>account_circle</mat-icon>
                 </button>
             </div>

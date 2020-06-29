@@ -146,7 +146,7 @@ export class ContactMenuContactComponent implements OnInit {
         listParams.push({ key: 'menu', value: this.menuSelected });
         listParams.push({ key: 'page', value: this.page });
 
-        this.paramsObj = this.mService.handleActivatedRoute(listParams);
+        this.paramsObj = this.mService.handleParamsRoute(listParams);
 
       }
     })

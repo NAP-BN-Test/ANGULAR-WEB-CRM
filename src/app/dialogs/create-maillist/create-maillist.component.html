@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Thêm mail list</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-form-field width-100>
+        <mat-label>Tên mail list</mat-label>
+        <input matInput type="text" [(ngModel)]="mailListName">
+        <button mat-button *ngIf="mailListName" matSuffix mat-icon-button aria-label="Clear" (click)="mailListName=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Hủy</button>
+    <button mat-button [mat-dialog-close]="mailListName" cdkFocusInitial>Thêm</button>
+</mat-dialog-actions>

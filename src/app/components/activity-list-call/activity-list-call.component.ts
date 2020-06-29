@@ -41,6 +41,7 @@ export class ActivityListCallComponent implements OnInit {
   ]
 
   mTitle: any;
+  paramsObj: any;
 
   menuSelected = 0;
 
@@ -103,9 +104,10 @@ export class ActivityListCallComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        this.router.navigate([], {
-          queryParams: { page: this.page }
-        })
+
+        let listParams = [ { key: 'page', value: this.page }];
+        this.paramsObj = this.mService.handleParamsRoute(listParams);
+        
       }
     })
   }

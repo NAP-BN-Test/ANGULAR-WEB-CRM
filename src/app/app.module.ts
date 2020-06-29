@@ -25,6 +25,8 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatTabsModule} from '@angular/material/tabs';
+
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -95,9 +97,7 @@ import { MailStatusPipe } from './pipes/mail-status/mail-status.pipe';
 import { ToHourPipe } from './pipes/to-hour/to-hour.pipe';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { EmailListComponent } from './components/email-list/email-list.component';
-import { EmailListAddComponent } from './components/email-list-add/email-list-add.component';
 import { EmailCampainComponent } from './components/email-campain/email-campain.component';
-import { EmailCampainAddComponent } from './components/email-campain-add/email-campain-add.component';
 import { ReportListComponent } from './components/report-list/report-list.component';
 import { ReportDetailComponent } from './components/report-detail/report-detail.component';
 
@@ -110,10 +110,13 @@ import { DialogAddMailListComponent } from './dialogs/dialog-add-mail-list/dialo
 import { EmailCampainDetailComponent } from './components/email-campain-detail/email-campain-detail.component';
 import { EmailListSubReportComponent } from './components/email-list-sub-report/email-list-sub-report.component';
 import { DialogVerifyEmailComponent } from './dialogs/dialog-verify-email/dialog-verify-email.component';
-import { EmailListSubAddComponent } from './components/email-list-sub-add/email-list-sub-add.component';
 import { DialogSettingItemPerPageComponent } from './dialogs/dialog-setting-item-per-page/dialog-setting-item-per-page.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { MatTableComponent } from './materials/mat-table/mat-table.component';
+import { CreateMaillistComponent } from './dialogs/create-maillist/create-maillist.component';
+import { EmailListSubAddComponent } from './dialogs/email-list-sub-add/email-list-sub-add.component';
+import { EmailCampainAddComponent } from './dialogs/email-campain-add/email-campain-add.component';
+import { TableFullDataComponent } from './materials/table-full-data/table-full-data.component';
 
 @NgModule({
   declarations: [
@@ -183,7 +186,6 @@ import { MatTableComponent } from './materials/mat-table/mat-table.component';
     ToHourPipe,
     AddUserComponent,
     EmailListComponent,
-    EmailListAddComponent,
     EmailCampainComponent,
     EmailCampainAddComponent,
     ReportListComponent,
@@ -196,10 +198,12 @@ import { MatTableComponent } from './materials/mat-table/mat-table.component';
     EmailCampainDetailComponent,
     EmailListSubReportComponent,
     DialogVerifyEmailComponent,
-    EmailListSubAddComponent,
     DialogSettingItemPerPageComponent,
     PaginationComponent,
     MatTableComponent,
+    CreateMaillistComponent,
+    EmailListSubAddComponent,
+    TableFullDataComponent,
   ],
   imports: [
     BrowserModule,
@@ -220,13 +224,14 @@ import { MatTableComponent } from './materials/mat-table/mat-table.component';
     MatNativeDateModule,
     MatTooltipModule,
     MatMenuModule,
+    MatTabsModule,
     MatSnackBarModule,
     HttpClientModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
     ChartsModule,
-    AngularEditorModule
+    AngularEditorModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
@@ -243,7 +248,10 @@ import { MatTableComponent } from './materials/mat-table/mat-table.component';
     DialogLogoutComponent,
     DialogAddMailListComponent,
     DialogVerifyEmailComponent,
-    DialogSettingItemPerPageComponent
+    DialogSettingItemPerPageComponent,
+    CreateMaillistComponent,
+    EmailListSubAddComponent,
+    EmailCampainAddComponent,
   ]
 })
 export class AppModule { }

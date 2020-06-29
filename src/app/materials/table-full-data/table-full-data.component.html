@@ -1,0 +1,17 @@
+<div class="m-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Name Column -->
+        <ng-container *ngFor="let item of displayedColumnsAll; let i = index" [matColumnDef]="item.cell" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{item.name}} </th>
+            <td tappable mat-cell *matCellDef="let row" (click)="onClickCell(row, item.cell)"> {{row[item.cell]}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+    </table>
+
+
+</div>
+<mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>

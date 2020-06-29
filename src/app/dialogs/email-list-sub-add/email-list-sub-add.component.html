@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Thêm email vào danh sách</h2>
+<mat-dialog-content class="mat-typography">
+
+    <mat-form-field width-100>
+        <mat-label>Tên liên hệ</mat-label>
+        <input matInput type="text" [(ngModel)]="mObj.name">
+        <button mat-button *ngIf="mObj.name" matSuffix mat-icon-button aria-label="Clear" (click)="mObj.name=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-form-field width-100>
+        <mat-label>Email</mat-label>
+        <input matInput type="text" [(ngModel)]="mObj.email">
+        <button mat-button *ngIf="mObj.email" matSuffix mat-icon-button aria-label="Clear" (click)="mObj.email=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Hủy</button>
+    <button mat-button [mat-dialog-close]="mObj" cdkFocusInitial>Thêm</button>
+</mat-dialog-actions>

@@ -3,9 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.130:3002/";
+    // mUrl: string = "http://192.168.1.4:3002/";
     mUrl: string = "http://163.44.192.123:3302/";
-    mClientKey: string = "8c24516c23b611420defccf253598412";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
     mUserID: string = "";
@@ -30,8 +29,6 @@ export class ApiService extends HttpClient {
                 let http = data['http'];
 
                 this.mUrl = http[http["api_server"]].host;
-
-                this.mClientKey = http["client_key"];
 
                 this.setDebugEnable(http['debug']);
             }
@@ -69,7 +66,6 @@ export class ApiService extends HttpClient {
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
                 .add("username", username)
-                .add("userID", userID)
                 .add("userID", userID)
                 .add("companyID", companyID));
     }
@@ -1246,6 +1242,28 @@ export class ApiService extends HttpClient {
     }
 
     //==============================
+    public sendRequestGET_REPORT_BY_CAMPAIN_INVALID_MAIL(campainID: number, daies): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_INVALID_MAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("campainID", campainID)
+                .add("daies", daies));
+    }
+
+    //==============================
+    public sendRequestGET_REPORT_BY_CAMPAIN_UNSUBSCRIBE_MAIL(campainID: number, daies): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_UNSUBSCRIBE_MAIL,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("campainID", campainID)
+                .add("daies", daies));
+    }
+
+    //==============================
     public sendRequestGET_REPORT_BY_USER_SUMMARY(): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_USER_SUMMARY,
             ParamBuilder.builder()
@@ -1283,7 +1301,6 @@ export class ApiService extends HttpClient {
                 .add("userID", userID)
                 .add("name", obj.name)
                 .add("subject", obj.subject)
-                .add("endTime", obj.endTime)
                 .add("mailListID", obj.mailListID));
     }
 
@@ -1371,6 +1388,9 @@ export class ApiService extends HttpClient {
     //==============================
     public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
         let body = obj.body.replace(/&/g, "%26");
+
+        console.log(this.mUrl);
+
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -1379,8 +1399,8 @@ export class ApiService extends HttpClient {
 
                 .add("campainID", obj.id)
                 .add("subject", obj.subject)
-                .add("startTime", obj.startTime)
-                .add("endTime", obj.endTime)
+                // .add("startTime", obj.startTime)
+                // .add("endTime", obj.endTime)
                 .add("body", body)
                 .add("mailListID", obj.mailListID)
                 .add("name", obj.name));

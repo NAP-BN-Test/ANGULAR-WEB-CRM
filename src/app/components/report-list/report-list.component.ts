@@ -33,6 +33,7 @@ export class ReportListComponent implements OnInit {
   ]
 
   mTitle: any;
+  paramsObj: any;
 
   checked = false;
   indeterminate = false;
@@ -97,9 +98,10 @@ export class ReportListComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        this.router.navigate([], {
-          queryParams: { page: this.page }
-        })
+
+        let listParams = [{ key: 'page', value: this.page }];
+        this.paramsObj = this.mService.handleParamsRoute(listParams);
+
       }
     })
   }
@@ -112,7 +114,7 @@ export class ReportListComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
-        this.router.navigate(['report-detail'], { queryParams: { campainID: event.data.id } });
+        this.router.navigate(['report-detail'], { queryParams: { campainID: event.data.id, tabIndex: 0 } });
       }
     }
   }

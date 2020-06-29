@@ -121,6 +121,12 @@ export const BUTTON_TYPE = {
     PRINT: 4
 }
 
+export const REPORT_TYPE = {
+    MAIL_OPEN: 1,
+    MAIL_INVALID: 3,
+    MAIL_UNSUBSCRIBE: 4,
+}
+
 export const EVENT_PUSH = {
     TABLE: 'table-event',
     SELECTION: 'table-selection',
@@ -130,7 +136,8 @@ export const CLICK_DETAIL = {
     COMPANY: 1,
     CONTACT: 2,
     ACTIVITY: 3,
-    MAIL_LIST: 4
+    MAIL_LIST: 4,
+    MAIL_REPORT: 5
 }
 
 export const SORT_TYPE = {

@@ -117,6 +117,9 @@ export class EmailCampainDetailComponent implements OnInit {
         this.listMailList = data.array;
     })
 
+    console.log(this.mService.getUser().email);
+    
+
     this.checkEmailVerify(this.mService.getUser().email);
 
     UploadFileModule.getInstance().setHttp(this.http);
