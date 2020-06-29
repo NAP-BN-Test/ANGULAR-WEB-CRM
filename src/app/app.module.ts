@@ -117,6 +117,7 @@ import { CreateMaillistComponent } from './dialogs/create-maillist/create-mailli
 import { EmailListSubAddComponent } from './dialogs/email-list-sub-add/email-list-sub-add.component';
 import { EmailCampainAddComponent } from './dialogs/email-campain-add/email-campain-add.component';
 import { TableFullDataComponent } from './materials/table-full-data/table-full-data.component';
+import { ConfirmSendEmailComponent } from './dialogs/confirm-send-email/confirm-send-email.component';
 
 @NgModule({
   declarations: [
@@ -204,6 +205,7 @@ import { TableFullDataComponent } from './materials/table-full-data/table-full-d
     CreateMaillistComponent,
     EmailListSubAddComponent,
     TableFullDataComponent,
+    ConfirmSendEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -252,6 +254,7 @@ import { TableFullDataComponent } from './materials/table-full-data/table-full-d
     CreateMaillistComponent,
     EmailListSubAddComponent,
     EmailCampainAddComponent,
+    ConfirmSendEmailComponent
   ]
 })
 export class AppModule { }

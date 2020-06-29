@@ -11,6 +11,7 @@ import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file
 import { HttpClient } from '@angular/common/http';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmSendEmailComponent } from 'src/app/dialogs/confirm-send-email/confirm-send-email.component';
 
 
 @Component({
@@ -117,9 +118,6 @@ export class EmailCampainDetailComponent implements OnInit {
         this.listMailList = data.array;
     })
 
-    console.log(this.mService.getUser().email);
-    
-
     this.checkEmailVerify(this.mService.getUser().email);
 
     UploadFileModule.getInstance().setHttp(this.http);
@@ -147,20 +145,27 @@ export class EmailCampainDetailComponent implements OnInit {
   }
 
   onClickSend() {
-    let obj = {
-      id: this.mObj.id,
-      subject: this.mObj.subject,
-      body: this.mObj.body,
-      mailListID: this.mObj.mailListID,
-      myMail: this.mService.getUser().email
-    };
 
-    this.mService.getApiService().sendRequestADD_MAIL_SEND(obj).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.mService.showSnackBar(data.message)
+    const dialogRef = this.dialog.open(ConfirmSendEmailComponent, { data: { campainName: this.mObj.name, mailListName: this.mObj.mailListName } });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        let obj = {
+          id: this.mObj.id,
+          subject: this.mObj.subject,
+          body: this.mObj.body,
+          mailListID: this.mObj.mailListID,
+          myMail: this.mService.getUser().email
+        };
 
+        this.mService.getApiService().sendRequestADD_MAIL_SEND(obj).then(data => {
+          if (data.status == STATUS.SUCCESS) {
+            this.mService.showSnackBar(data.message)
+
+          }
+        })
       }
-    })
+    });
+
   }
 
   onClickSendTest() {

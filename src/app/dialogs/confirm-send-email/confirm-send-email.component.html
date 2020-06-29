@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Xác nhận gửi chiến dịch mail</h2>
+<mat-dialog-content class="mat-typography">
+
+    <div>
+        <mat-label>Tên chiến dịch <span bold>{{mData.campainName}}</span></mat-label>
+    </div>
+    <div padding-bottom>
+        <mat-label>Tên mail list <span bold>{{mData.mailListName}}</span></mat-label>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Hủy</button>
+    <button mat-button mat-dialog-close="true" cdkFocusInitial>Xác nhận</button>
+</mat-dialog-actions>
