@@ -38,10 +38,9 @@ export class TableFullDataComponent implements OnInit {
     this.mService.currentEvent.subscribe(sData => {
       // event update data trong bảng
       if (sData.name == EVENT_PUSH.TABLE) {
+
         //thông tin data trong bảng
         this.dataSource = new MatTableDataSource(sData.params.listData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
 
         //thông tin setup bảng
         this.displayedColumns = [];
@@ -60,6 +59,10 @@ export class TableFullDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
 
   /** Click vào ô và bắt event */

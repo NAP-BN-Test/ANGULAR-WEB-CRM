@@ -1,0 +1,21 @@
+<mat-form-field>
+    <mat-label>Thời gian</mat-label>
+    <mat-select #timeSelect (selectionChange)="onSelectTimeChange($event)">
+        <mat-option *ngFor="let item of listTimeOption" [value]="item.value">{{item.name}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field margin8-start [hidden]="!isTimeSelect">
+    <mat-label>Tg bắt đầu</mat-label>
+    <input #dateStartInput matInput [matDatepicker]="picker1">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field>
+<mat-form-field margin8-start [hidden]="!isTimeSelect">
+    <mat-label>Tg kết thúc</mat-label>
+    <input #dateEndInput matInput [matDatepicker]="picker2">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+</mat-form-field>
+
+<button margin-start mat-stroked-button (click)="onClickGo()">Go</button>

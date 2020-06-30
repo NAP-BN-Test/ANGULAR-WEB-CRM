@@ -356,6 +356,22 @@
     margin-right: 8px !important;
 }
 
+[margin8-start] {
+    margin-left: 8px !important;
+}
+
+.margin8-start {
+    margin-left: 8px !important;
+}
+
+[margin-start] {
+    margin-left: 16px !important;
+}
+
+.margin-start {
+    margin-left: 16px !important;
+}
+
 
 /*Text*/
 

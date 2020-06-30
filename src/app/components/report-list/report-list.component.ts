@@ -114,7 +114,7 @@ export class ReportListComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
-        this.router.navigate(['report-detail'], { queryParams: { campainID: event.data.id, tabIndex: 0 } });
+        this.router.navigate(['report-detail'], { queryParams: { campainID: event.data.id, tabIndex: 0, campainName: event.data.name } });
       }
     }
   }

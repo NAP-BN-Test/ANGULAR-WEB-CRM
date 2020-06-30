@@ -1231,36 +1231,17 @@ export class ApiService extends HttpClient {
     }
 
     //==============================
-    public sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(campainID: number, daies): Promise<any> {
-        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_OPEN_MAIL,
+    public sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(campainID: number, mailType, timeType: number, timeFrom?: string, timeTo?: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_MAIL_TYPE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
                 .add("campainID", campainID)
-                .add("daies", daies));
-    }
-
-    //==============================
-    public sendRequestGET_REPORT_BY_CAMPAIN_INVALID_MAIL(campainID: number, daies): Promise<any> {
-        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_INVALID_MAIL,
-            ParamBuilder.builder()
-                .add("ip", this.ip)
-                .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey)
-                .add("campainID", campainID)
-                .add("daies", daies));
-    }
-
-    //==============================
-    public sendRequestGET_REPORT_BY_CAMPAIN_UNSUBSCRIBE_MAIL(campainID: number, daies): Promise<any> {
-        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_CAMPAIN_UNSUBSCRIBE_MAIL,
-            ParamBuilder.builder()
-                .add("ip", this.ip)
-                .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey)
-                .add("campainID", campainID)
-                .add("daies", daies));
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .add("timeType", timeType)
+                .add("mailType", mailType));
     }
 
     //==============================

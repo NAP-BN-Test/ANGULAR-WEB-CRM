@@ -8,6 +8,7 @@ import { DialogAssignCompanyComponent } from '../../dialogs/dialog-assign-compan
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { CookieService } from 'ngx-cookie-service';
 import { UploadFileModule } from 'src/app/services/core/upload-image/upload-file';
+import { DialogAddMailListComponent } from 'src/app/dialogs/dialog-add-mail-list/dialog-add-mail-list.component';
 
 @Component({
   selector: 'app-contact-menu-company',
@@ -29,6 +30,7 @@ export class ContactMenuCompanyComponent implements OnInit {
       { name: 'Agent/Company', cell: 'companyType' },
     ],
     listButton: [
+      { id: BUTTON_TYPE.ADD_LIST_MAIL, name: 'Thêm vào ds mail', color: 'primary' },
       { id: BUTTON_TYPE.ASSIGN, name: 'Giao việc', color: 'primary' },
       { id: BUTTON_TYPE.DELETE, name: 'Xóa', color: 'warn' }
     ]
@@ -149,10 +151,10 @@ export class ContactMenuCompanyComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        
-        let listParams = [ 
+
+        let listParams = [
           { key: 'page', value: this.page },
-          { key: 'menu', value: this.menuSelected}
+          { key: 'menu', value: this.menuSelected }
         ];
         this.paramsObj = this.mService.handleParamsRoute(listParams);
 
@@ -207,6 +209,22 @@ export class ContactMenuCompanyComponent implements OnInit {
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onLoadData(event, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
+            }
+          })
+        }
+      });
+    } else if (event.btnType == BUTTON_TYPE.ADD_LIST_MAIL) {
+      const dialogRef = this.dialog.open(DialogAddMailListComponent, {
+        width: '500px'
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(this.mService.getUser().id, res, event.data).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+
+              this.mService.publishEvent(EVENT_PUSH.SELECTION, true);
+              this.mService.showSnackBar(data.message);
             }
           })
         }

@@ -147,7 +147,6 @@ export class AppModuleService {
     });
   }
 
-
   //----------------------------------------------------//
 
   public parseTime(time: string): string {
@@ -166,7 +165,7 @@ export class AppModuleService {
     this._snackBar.open(message, null, {
       duration: duration ? duration : 2000,
       horizontalPosition: hPosition ? hPosition : 'center',
-      verticalPosition: vPosition ? vPosition : 'top',
+      verticalPosition: vPosition ? vPosition : 'bottom',
     });
   }
 
@@ -204,6 +203,7 @@ export class AppModuleService {
       if (params.email) array.push({ key: 'email', value: params.email })
       if (params.campainID) array.push({ key: 'campainID', value: params.campainID })
       if (params.tabIndex) array.push({ key: 'tabIndex', value: params.tabIndex })
+      if (params.campainName) array.push({ key: 'campainName', value: params.campainName })
       if (params.page) array.push({ key: 'page', value: params.page })
     });
 

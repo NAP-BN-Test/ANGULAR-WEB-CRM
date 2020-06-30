@@ -4,7 +4,10 @@ import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import { Location } from '@angular/common';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { STATUS, LOCAL_STORAGE_KEY, EVENT_PUSH, CLICK_DETAIL, REPORT_TYPE } from 'src/app/services/constant/app-constant';
+import { STATUS, LOCAL_STORAGE_KEY, EVENT_PUSH, CLICK_DETAIL, MAIL_RESPONSE_TYPE, TIME_TYPE } from 'src/app/services/constant/app-constant';
+
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-report-detail',
@@ -18,16 +21,21 @@ export class ReportDetailComponent implements OnInit {
     clickDetail: CLICK_DETAIL.MAIL_REPORT,
     listColum: [
       { name: 'Email', cell: 'email' },
-      { name: 'Ngày gửi', cell: 'date' },
+      { name: 'Ngày gửi', cell: 'time' },
       { name: 'Số lần gửi', cell: 'value' }
     ]
   };
+
+  timeFrom = moment().add(-30, 'days').format('YYYY-MM-DD');
+  timeTo = moment().format('YYYY-MM-DD HH:mm:ss');
+  timeType = TIME_TYPE.DATE;
 
   mTitle: any;
 
   daies = 15;
 
   campainID = -1;
+  campainName = "";
   tabIndex: number = 0;
 
   public pieChartOptions: ChartOptions = {
@@ -48,11 +56,13 @@ export class ReportDetailComponent implements OnInit {
   barChartType: ChartType = 'bar';
 
   barChartData: ChartDataSets[] = [
-    { data: [], label: 'Tổng số lượt mở' }
+    { data: [], label: 'Tổng số' }
   ];
 
   objSummary: any;
+  objMailSend: any;
   objMailOpen: any;
+  objMailClickLink: any;
   objMailInvalid: any;
   objMailUnsubscribe: any;
 
@@ -74,19 +84,23 @@ export class ReportDetailComponent implements OnInit {
       let params: any = this.mService.handleActivatedRoute();
       this.campainID = params.campainID;
       this.tabIndex = params.tabIndex;
+      this.campainName = params.campainName;
 
       this.onLoadData();
     }
     else {
       this.mService.publishPageRoute('login');
     }
+
   }
 
   onLoadData() {
     if (this.tabIndex == 0) this.onLoadDataSummary();
-    else if (this.tabIndex == 1) this.onLoadMailOpen();
-    else if (this.tabIndex == 3) this.onLoadMailInvalid();
-    else if (this.tabIndex == 4) this.onLoadMailUnsubscribe();
+    else if (this.tabIndex == 1) this.onLoadMailSend();
+    else if (this.tabIndex == 2) this.onLoadMailOpen();
+    else if (this.tabIndex == 3) this.onLoadMailClickLink();
+    else if (this.tabIndex == 4) this.onLoadMailInvalid();
+    else if (this.tabIndex == 5) this.onLoadMailUnsubscribe();
   }
 
   onLoadDataSummary() {
@@ -94,8 +108,7 @@ export class ReportDetailComponent implements OnInit {
       if (data.status == STATUS.SUCCESS) {
 
         this.objSummary = data.obj;
-
-        let percentOpen = Number(data.obj.percentOpen.replace('%', ''));
+        let percentOpen = Number(data.obj.percentType.replace('%', ''));
 
         this.pieChartData = [];
         this.pieChartData.push(percentOpen);
@@ -104,8 +117,34 @@ export class ReportDetailComponent implements OnInit {
     })
   }
 
+  onLoadMailSend() {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.SEND, this.timeType, this.timeFrom, this.timeTo).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+
+        this.objMailSend = data.obj;
+
+        let labels = [];
+        let datas = [];
+
+        data.array.forEach(item => {
+          labels.push(item.time);
+          datas.push(item.value);
+        });
+        this.barChartLabels = labels;
+        this.barChartData[0].data = datas;
+
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: 1,
+          collectionSize: data.arrayTableSort.length,
+          listData: data.arrayTableSort,
+          listTbData: this.listTbData
+        });
+      }
+    })
+  }
+
   onLoadMailOpen() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_OPEN_MAIL(this.campainID, this.daies).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.OPEN, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailOpen = data.obj;
@@ -114,12 +153,42 @@ export class ReportDetailComponent implements OnInit {
         let datas = [];
 
         data.array.forEach(item => {
-          labels.push(item.date);
+          labels.push(item.time);
           datas.push(item.value);
         });
         this.barChartLabels = labels;
         this.barChartData[0].data = datas;
 
+        this.listTbData.listColum[1].name = "Ngày mở";
+        this.listTbData.listColum[2].name = "Số lần mở";
+        this.mService.publishEvent(EVENT_PUSH.TABLE, {
+          page: 1,
+          collectionSize: data.arrayTableSort.length,
+          listData: data.arrayTableSort,
+          listTbData: this.listTbData
+        });
+      }
+    })
+  }
+
+  onLoadMailClickLink() {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.CLICK_LINK, this.timeType, this.timeFrom, this.timeTo).then(data => {
+      if (data.status == STATUS.SUCCESS) {
+
+        this.objMailClickLink = data.obj;
+
+        let labels = [];
+        let datas = [];
+
+        data.array.forEach(item => {
+          labels.push(item.time);
+          datas.push(item.value);
+        });
+        this.barChartLabels = labels;
+        this.barChartData[0].data = datas;
+
+        this.listTbData.listColum[1].name = "Ngày click";
+        this.listTbData.listColum[2].name = "Số lần click";
         this.mService.publishEvent(EVENT_PUSH.TABLE, {
           page: 1,
           collectionSize: data.arrayTableSort.length,
@@ -131,10 +200,8 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onLoadMailInvalid() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_INVALID_MAIL(this.campainID, this.daies).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.INVALID, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
-
-        console.log(data);
 
         this.objMailInvalid = data.obj;
 
@@ -142,12 +209,14 @@ export class ReportDetailComponent implements OnInit {
         let datas = [];
 
         data.array.forEach(item => {
-          labels.push(item.date);
+          labels.push(item.time);
           datas.push(item.value);
         });
         this.barChartLabels = labels;
         this.barChartData[0].data = datas;
 
+        this.listTbData.listColum[1].name = "Ngày trả lại";
+        this.listTbData.listColum.splice(2, 1);
         this.mService.publishEvent(EVENT_PUSH.TABLE, {
           page: 1,
           collectionSize: data.arrayTableSort.length,
@@ -159,10 +228,8 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onLoadMailUnsubscribe() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_UNSUBSCRIBE_MAIL(this.campainID, this.daies).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.UNSUBSCRIBE, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
-
-        console.log(data);
 
         this.objMailUnsubscribe = data.obj;
 
@@ -170,12 +237,14 @@ export class ReportDetailComponent implements OnInit {
         let datas = [];
 
         data.array.forEach(item => {
-          labels.push(item.date);
+          labels.push(item.time);
           datas.push(item.value);
         });
         this.barChartLabels = labels;
         this.barChartData[0].data = datas;
 
+        this.listTbData.listColum[1].name = "Ngày hủy";
+        this.listTbData.listColum.splice(2, 1);
         this.listTbData.listColum.push({ name: 'Lý do', cell: 'reason' })
         this.mService.publishEvent(EVENT_PUSH.TABLE, {
           listData: data.arrayTableSort,
@@ -186,7 +255,11 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onTabChange(event) {
-    if (event) this.tabIndex = event;
+
+    if (event != undefined) {
+      this.tabIndex = event;
+      this.onLoadData();
+    }
 
     let listParams = [
       { key: 'campainID', value: this.campainID },
@@ -196,8 +269,6 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onClickCell(event) {
-    console.log(event);
-
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAIL_REPORT) {
         this.mService.publishPageRoute('email-list-sub-report', { mailListID: event.data.mailListID, email: event.data.email, page: 1 });
@@ -211,6 +282,21 @@ export class ReportDetailComponent implements OnInit {
 
   onSelectChange() {
     this.onLoadMailOpen();
+  }
+
+  onSelectTime(event) {
+    if (event) {
+      this.timeFrom = event.timeFrom;
+      this.timeTo = event.timeTo;
+      this.timeType = event.timeType;
+    }
+    else {
+      this.timeFrom = null;
+      this.timeTo = null;
+      this.timeType = TIME_TYPE.MONTH;
+    }
+
+    this.onLoadData();
   }
 
 }

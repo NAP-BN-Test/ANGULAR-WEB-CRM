@@ -104,7 +104,9 @@ export class MatTableComponent implements OnInit {
       let listMail = [];
 
       this.selection.selected.forEach(selectionItem => {
-        if (selectionItem.email.trim())
+        console.log(selectionItem);
+        
+        if (selectionItem.email)
           listMail.push({ email: selectionItem.email, name: selectionItem.name })
       })
 

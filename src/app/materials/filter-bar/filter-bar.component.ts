@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { CookieService } from 'ngx-cookie-service';
 import { STATUS, SORT_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { MatInput, MatSelect } from '@angular/material';
 
@@ -64,7 +63,6 @@ export class FilterBarComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    private cookieService: CookieService
   ) { }
 
   ngOnInit() {

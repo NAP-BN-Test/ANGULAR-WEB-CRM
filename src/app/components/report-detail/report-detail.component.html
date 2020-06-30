@@ -4,7 +4,7 @@
         <app-header-menu menuIndex="4"></app-header-menu>
     </div>
 
-    <div *ngIf="objSummary" class="padding bold">Thống kê chiến dịch email "{{objSummary.name}}"</div>
+    <div *ngIf="campainName" class="padding bold">Thống kê chiến dịch email "{{campainName}}"</div>
 
 
     <mat-tab-group mat-align-tabs="start" [selectedIndex]="tabIndex" (selectedIndexChange)="onTabChange($event)">
@@ -20,36 +20,44 @@
                         <div class="width-70">{{objSummary.name}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
-                        <div class="width-30">Tổng số liên hệ</div>
-                        <div class="width-70">{{objSummary.contactCount}}</div>
+                        <div class="width-30">Tổng số email</div>
+                        <div class="width-70">{{objSummary.totalEmail}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
                         <div class="width-30">Lần gửi gần nhất</div>
-                        <div class="width-70">{{objSummary.lastSend | datetimeDefault}}</div>
+                        <div class="width-70">{{objSummary.nearestSend | datetimeDefault}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
                         <div class="width-30">Bắt đầu gửi</div>
-                        <div class="width-70">{{objSummary.timeStart | datetimeDefault}}</div>
+                        <div class="width-70">{{objSummary.startSend | datetimeDefault}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
                         <div class="width-30">Gửi bởi</div>
                         <div class="width-70">{{objSummary.userSend}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
-                        <div class="width-30">Gửi tới</div>
-                        <div class="width-70">{{objSummary.mailSend}}</div>
+                        <div class="width-30">Lượt gửi</div>
+                        <div class="width-70">{{objSummary.totalSend}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
                         <div class="width-30">Lượt mở</div>
                         <div class="width-70">{{objSummary.totalOpen}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
-                        <div class="width-30">Tỉ lệ mở</div>
-                        <div class="width-70">{{objSummary.percentOpen}}</div>
+                        <div class="width-30">Lượt click link</div>
+                        <div class="width-70">{{objSummary.totalClickLink}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
-                        <div class="width-30">Bị trả lại</div>
-                        <div class="width-70">{{objSummary.sendBack}}</div>
+                        <div class="width-30">Số mail bị trả lại</div>
+                        <div class="width-70">{{objSummary.totalInvalid}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Số mail subscribe</div>
+                        <div class="width-70">{{objSummary.totalUnsubscribe}}</div>
+                    </div>
+                    <div class="flex padding8 border-bottom">
+                        <div class="width-30">Tỉ lệ mở</div>
+                        <div class="width-70">{{objSummary.percentType}}</div>
                     </div>
                 </div>
                 <div class="col-md-6 padding-horizontal">
@@ -63,8 +71,50 @@
                 </div>
             </div>
         </mat-tab>
+        <mat-tab label="Lượt gửi">
+            <div class="row padding" *ngIf="objMailSend&&tabIndex==1">
+                <div class="col-12 flex">
+                    <div>
+                        <!-- <mat-form-field width-100>
+                            <mat-label>Mốc thời gian</mat-label>
+                            <mat-select [(ngModel)]="daies">
+                                <mat-option value="15">15 ngày trước</mat-option>
+                                <mat-option value="30">30 ngày trước</mat-option>
+                                <mat-option value="45">45 ngày trước</mat-option>
+                                <mat-option value="60">60 ngày trước</mat-option>
+                            </mat-select>
+
+                        </mat-form-field> -->
+                        <app-time-selected (selectTime)="onSelectTime($event)"></app-time-selected>
+                    </div>
+                    <!-- <div center>
+                        <button mat-icon-button>
+                            <mat-icon>filter_alt</mat-icon>
+                    </button>
+                    </div> -->
+                </div>
+
+                <div class="col-md-2 padding-horizontal" *ngIf="objMailSend">
+                    <div class="padding8 border-bottom bold">Tóm tắt lượt gửi</div>
+                    <div class="padding8">Tổng số email: {{objMailSend.totalEmail}}</div>
+                    <div class="padding8">Tổng số lượt gửi: {{objMailSend.totalType}}</div>
+                    <div class="padding8">Email gửi từ 2 lần: {{objMailSend.totalTypeTwice}}</div>
+                    <div class="padding8">Lần gửi gần nhất: {{objMailSend.nearestSend | datetimeDefault}}</div>
+                </div>
+                <div class="col-md-8 padding-horizontal">
+                    <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="offset-md-2 col-md-8 padding">
+                    <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
+                </div>
+            </div>
+        </mat-tab>
         <mat-tab label="Lượt mở">
-            <div class="row padding">
+            <div class="row padding" *ngIf="objMailOpen&&tabIndex==2">
                 <div class="col-12 flex">
                     <div>
                         <mat-form-field width-100>
@@ -85,13 +135,12 @@
                     </div>
                 </div>
 
-                <div class="col-md-2 padding-horizontal" *ngIf="objMailOpen">
+                <div class="col-md-2 padding-horizontal">
                     <div class="padding8 border-bottom bold">Tóm tắt lượt mở</div>
-                    <div class="padding8">Tổng số email: {{objMailOpen.total}}</div>
-                    <div class="padding8">Tổng số lượt mở: {{objMailOpen.totalOpen}}</div>
-                    <div class="padding8">Người mở từ 2 lần: {{objMailOpen.totalOpenTwice}}</div>
-                    <div class="padding8">Trung binh lượt mở: {{objMailOpen.advangeOpen}}</div>
-                    <div class="padding8">Tỉ lệ mở: {{objMailOpen.percentOpen}}</div>
+                    <div class="padding8">Tổng số email: {{objMailOpen.totalEmail}}</div>
+                    <div class="padding8">Tổng số lượt mở: {{objMailOpen.totalType}}</div>
+                    <div class="padding8">Người mở từ 2 lần: {{objMailOpen.totalTypeTwice}}</div>
+                    <div class="padding8">Tỉ lệ mở: {{objMailOpen.advangeType}}</div>
                 </div>
                 <div class="col-md-8 padding-horizontal">
                     <div class="chart-wrapper">
@@ -100,16 +149,13 @@
                     </div>
                 </div>
 
-                <div class="offset-md-2 col-md-8 padding">
+                <div class="offset-md-2 col-md-8 padding" *ngIf="objMailOpen.totalType>0">
                     <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="Lượt click link">
-
-        </mat-tab>
-        <mat-tab label="Mail bị trả lại">
-            <div class="row padding">
+            <div class="row padding" *ngIf="objMailClickLink&&tabIndex==3">
                 <div class="col-12 flex">
                     <div>
                         <mat-form-field width-100>
@@ -130,11 +176,12 @@
                     </div>
                 </div>
 
-                <div class="col-md-2 padding-horizontal" *ngIf="objMailInvalid">
-                    <div class="padding8 border-bottom bold">Tóm tắt mail trả lại</div>
-                    <div class="padding8">Tổng số email: {{objMailInvalid.total}}</div>
-                    <div class="padding8">Tổng số lượt trả lại: {{objMailInvalid.totalOpen}}</div>
-                    <div class="padding8">Tỉ lệ trả lại: {{objMailInvalid.percentOpen}}</div>
+                <div class="col-md-2 padding-horizontal">
+                    <div class="padding8 border-bottom bold">Tóm tắt click link</div>
+                    <div class="padding8">Tổng số email: {{objMailClickLink.totalEmail}}</div>
+                    <div class="padding8">Tổng số lượt click: {{objMailClickLink.totalType}}</div>
+                    <div class="padding8">Người click từ 2 lần: {{objMailClickLink.totalTypeTwice}}</div>
+                    <div class="padding8">Tỉ lệ click: {{objMailClickLink.advangeType}}</div>
                 </div>
                 <div class="col-md-8 padding-horizontal">
                     <div class="chart-wrapper">
@@ -143,13 +190,53 @@
                     </div>
                 </div>
 
-                <div class="offset-md-2 col-md-8 padding">
+                <div class="offset-md-2 col-md-8 padding" *ngIf="objMailClickLink.totalType>0">
+                    <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Mail bị trả lại">
+            <div class="row padding" *ngIf="objMailInvalid&&tabIndex==4">
+                <div class="col-12 flex">
+                    <div>
+                        <mat-form-field width-100>
+                            <mat-label>Mốc thời gian</mat-label>
+                            <mat-select [(ngModel)]="daies">
+                                <mat-option value="15">15 ngày trước</mat-option>
+                                <mat-option value="30">30 ngày trước</mat-option>
+                                <mat-option value="45">45 ngày trước</mat-option>
+                                <mat-option value="60">60 ngày trước</mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <div center>
+                        <button mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                    </button>
+                    </div>
+                </div>
+
+                <div class="col-md-2 padding-horizontal">
+                    <div class="padding8 border-bottom bold">Tóm tắt mail trả lại</div>
+                    <div class="padding8">Tổng số email: {{objMailInvalid.totalEmail}}</div>
+                    <div class="padding8">Tổng số email trả lại: {{objMailInvalid.totalType}}</div>
+                    <div class="padding8">Tỉ lệ trả lại: {{objMailInvalid.advangeType}}</div>
+                </div>
+                <div class="col-md-8 padding-horizontal">
+                    <div class="chart-wrapper">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="offset-md-2 col-md-8 padding" *ngIf="objMailInvalid.totalType>0">
                     <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="Lượt hủy nhận mail">
-            <div class="row padding">
+            <div class="row padding" *ngIf="objMailUnsubscribe&&tabIndex==5">
                 <div class="col-12 flex">
                     <div>
                         <mat-form-field width-100>
@@ -170,11 +257,11 @@
                     </div>
                 </div>
 
-                <div class="col-md-2 padding-horizontal" *ngIf="objMailUnsubscribe">
+                <div class="col-md-2 padding-horizontal">
                     <div class="padding8 border-bottom bold">Tóm tắt hủy nhận mail</div>
-                    <div class="padding8">Tổng số email: {{objMailUnsubscribe.total}}</div>
-                    <div class="padding8">Tổng số lượt hủy: {{objMailUnsubscribe.totalOpen}}</div>
-                    <div class="padding8">Tỉ lệ hủy: {{objMailUnsubscribe.percentOpen}}</div>
+                    <div class="padding8">Tổng số email: {{objMailUnsubscribe.totalEmail}}</div>
+                    <div class="padding8">Tổng số lượt hủy: {{objMailUnsubscribe.totalType}}</div>
+                    <div class="padding8">Tỉ lệ hủy: {{objMailUnsubscribe.advangeType}}</div>
                 </div>
                 <div class="col-md-8 padding-horizontal">
                     <div class="chart-wrapper">
@@ -183,12 +270,11 @@
                     </div>
                 </div>
 
-                <div class="offset-md-2 col-md-8 padding">
+                <div class="offset-md-2 col-md-8 padding" *ngIf="objMailUnsubscribe.totalType>0">
                     <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="Thống kê chuyển tiếp">Content 3</mat-tab>
     </mat-tab-group>
 
 
