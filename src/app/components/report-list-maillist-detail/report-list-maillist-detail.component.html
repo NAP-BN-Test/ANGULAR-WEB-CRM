@@ -4,7 +4,7 @@
         <app-header-menu menuIndex="4"></app-header-menu>
     </div>
 
-    <div class="padding bold">Thống kê tài khoản người dùng</div>
+    <div *ngIf="mailListName" class="padding bold">Thống kê danh sách email "{{mailListName}}"</div>
 
 
     <mat-tab-group mat-align-tabs="start" [selectedIndex]="tabIndex" (selectedIndexChange)="onTabChange($event)">
@@ -12,28 +12,16 @@
             <div class="row padding" *ngIf="objSummary">
                 <div class="col-md-6 padding-horizontal box-border">
                     <div class="flex padding8 border-bottom">
-                        <div class="width-30">Thời gian tạo</div>
-                        <div class="width-70">{{objSummary.timeCreate | datetimeDefault}}</div>
+                        <div class="width-30">Tên maillist</div>
+                        <div class="width-70">{{objSummary.name}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
-                        <div class="width-30">Lần đăng nhập gần nhất</div>
-                        <div class="width-70">{{objSummary.timeLogin | datetimeDefault}}</div>
+                        <div class="width-30">Tổng số email</div>
+                        <div class="width-70">{{objSummary.totalEmail}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
-                        <div class="width-30">Lần gửi email gần nhất</div>
-                        <div class="width-70">{{objSummary.nearestSend | datetimeDefault}}</div>
-                    </div>
-                    <div class="flex padding8 border-bottom">
-                        <div class="width-30">Tổng số danh sách email đã tạo</div>
-                        <div class="width-70">{{objSummary.totalMailList}}</div>
-                    </div>
-                    <div class="flex padding8 border-bottom">
-                        <div class="width-30">Tổng số chiến dịch mail đã tạo</div>
-                        <div class="width-70">{{objSummary.totalMailCampain}}</div>
-                    </div>
-                    <div class="flex padding8 border-bottom">
-                        <div class="width-30">Tổng số chiến dịch mail đã gửi</div>
-                        <div class="width-70">{{objSummary.totalMailCampainSend}}</div>
+                        <div class="width-30">Người tạo</div>
+                        <div class="width-70">{{objSummary.userSend}}</div>
                     </div>
                     <div class="flex padding8 border-bottom">
                         <div class="width-30">Lượt gửi</div>

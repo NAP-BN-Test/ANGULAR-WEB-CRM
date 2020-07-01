@@ -3,8 +3,8 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.4:3002/";
-    mUrl: string = "http://163.44.192.123:3302/";
+    mUrl: string = "http://192.168.1.4:3002/";
+    // mUrl: string = "http://163.44.192.123:3302/";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
     mUserID: string = "";
@@ -1202,22 +1202,24 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("userIDFind", userIDFind));
     }
 
-    public sendRequestGET_LIST_REPORT_BY_USER(
+    //==============================
+    public sendRequestGET_LIST_REPORT_BY_MAILLIST(
         username: string,
         userID: number,
         page: number,
         searchKey: string,
         timeFrom: string,
         timeTo: string,
-        userIDFind: number
+        userIDFind?: number
     ): Promise<any> {
-        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_REPORT_BY_USER,
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_REPORT_BY_MAILLIST,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
                 .add("page", page)
-                .add("itemPerPage", this.itemPerPage));
+                .add("itemPerPage", this.itemPerPage)
+                .addIgnoreNull("userIDFind", userIDFind));
     }
 
     //==============================
@@ -1228,6 +1230,16 @@ export class ApiService extends HttpClient {
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
                 .add("campainID", campainID));
+    }
+
+    //==============================
+    public sendRequestGET_REPORT_BY_MAILLIST_SUMMARY(mailListID: number): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_MAILLIST_SUMMARY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("mailListID", mailListID));
     }
 
     //==============================
@@ -1245,21 +1257,41 @@ export class ApiService extends HttpClient {
     }
 
     //==============================
-    public sendRequestGET_REPORT_BY_USER_SUMMARY(): Promise<any> {
+    public sendRequestGET_REPORT_BY_MAILLIST_TYPE(mailListID: number, mailType, timeType: number, timeFrom?: string, timeTo?: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_MAILLIST_TYPE,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("mailListID", mailListID)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .add("timeType", timeType)
+                .add("mailType", mailType));
+    }
+
+    //==============================
+    public sendRequestGET_REPORT_BY_USER_SUMMARY(userID): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_USER_SUMMARY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("userID", userID));
     }
 
     //==============================
-    public sendRequestGET_REPORT_BY_USER_MAIL_SEND(): Promise<any> {
-        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_USER_MAIL_SEND,
+    public sendRequestGET_REPORT_BY_USER_MAIL_TYPE(userID: number, mailType, timeType: number, timeFrom?: string, timeTo?: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_USER_MAIL_TYPE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("userID", userID)
+                .addIgnoreNull("timeFrom", timeFrom)
+                .addIgnoreNull("timeTo", timeTo)
+                .add("timeType", timeType)
+                .add("mailType", mailType));
     }
 
     //==============================

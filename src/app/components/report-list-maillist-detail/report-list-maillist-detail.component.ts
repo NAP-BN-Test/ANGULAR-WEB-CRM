@@ -8,13 +8,12 @@ import { STATUS, LOCAL_STORAGE_KEY, EVENT_PUSH, CLICK_DETAIL, MAIL_RESPONSE_TYPE
 
 import * as moment from 'moment';
 
-
 @Component({
-  selector: 'app-report-detail',
-  templateUrl: './report-detail.component.html',
-  styleUrls: ['./report-detail.component.scss']
+  selector: 'app-report-list-maillist-detail',
+  templateUrl: './report-list-maillist-detail.component.html',
+  styleUrls: ['./report-list-maillist-detail.component.scss']
 })
-export class ReportDetailComponent implements OnInit {
+export class ReportListMaillistDetailComponent implements OnInit {
 
   //data for component table
   listTbData = {
@@ -44,8 +43,8 @@ export class ReportDetailComponent implements OnInit {
 
   mTitle: any;
 
-  campainID = -1;
-  campainName = "";
+  mailListID = -1;
+  mailListName = "";
   tabIndex: number = 0;
 
   public pieChartOptions: ChartOptions = {
@@ -92,9 +91,9 @@ export class ReportDetailComponent implements OnInit {
 
     if (this.mService.getUser()) {
       let params: any = this.mService.handleActivatedRoute();
-      this.campainID = params.campainID;
+      this.mailListID = params.mailListID;
       this.tabIndex = params.tabIndex;
-      this.campainName = params.campainName;
+      this.mailListName = params.mailListName;
 
       this.onLoadData();
     }
@@ -114,7 +113,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onLoadDataSummary() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_SUMMARY(this.campainID).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_MAILLIST_SUMMARY(this.mailListID).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objSummary = data.obj;
@@ -128,7 +127,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onLoadMailSend() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.SEND, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_MAILLIST_TYPE(this.mailListID, MAIL_RESPONSE_TYPE.SEND, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailSend = data.obj;
@@ -153,7 +152,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onLoadMailOpen() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.OPEN, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_MAILLIST_TYPE(this.mailListID, MAIL_RESPONSE_TYPE.OPEN, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailOpen = data.obj;
@@ -178,7 +177,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onLoadMailClickLink() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.CLICK_LINK, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_MAILLIST_TYPE(this.mailListID, MAIL_RESPONSE_TYPE.CLICK_LINK, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailClickLink = data.obj;
@@ -203,7 +202,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onLoadMailInvalid() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.INVALID, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_MAILLIST_TYPE(this.mailListID, MAIL_RESPONSE_TYPE.INVALID, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailInvalid = data.obj;
@@ -228,7 +227,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onLoadMailUnsubscribe() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_CAMPAIN_MAIL_TYPE(this.campainID, MAIL_RESPONSE_TYPE.UNSUBSCRIBE, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_MAILLIST_TYPE(this.mailListID, MAIL_RESPONSE_TYPE.UNSUBSCRIBE, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailUnsubscribe = data.obj;
@@ -260,9 +259,9 @@ export class ReportDetailComponent implements OnInit {
     }
 
     let listParams = [
-      { key: 'campainID', value: this.campainID },
+      { key: 'mailListID', value: this.mailListID },
       { key: 'tabIndex', value: this.tabIndex },
-      { key: 'campainName', value: this.campainName }
+      { key: 'mailListName', value: this.mailListName }
     ];
     this.mService.handleParamsRoute(listParams);
   }

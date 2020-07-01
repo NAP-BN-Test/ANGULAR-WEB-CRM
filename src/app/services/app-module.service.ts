@@ -171,7 +171,7 @@ export class AppModuleService {
 
   //----------------------------------------------------//
 
-  private dataObserved = new BehaviorSubject<any>('');
+  public dataObserved = new BehaviorSubject<any>('');
   currentEvent = this.dataObserved.asObservable();
 
   publishEvent(name: string, params: any) {
@@ -204,6 +204,7 @@ export class AppModuleService {
       if (params.campainID) array.push({ key: 'campainID', value: params.campainID })
       if (params.tabIndex) array.push({ key: 'tabIndex', value: params.tabIndex })
       if (params.campainName) array.push({ key: 'campainName', value: params.campainName })
+      if (params.mailListName) array.push({ key: 'mailListName', value: params.mailListName })
       if (params.page) array.push({ key: 'page', value: params.page })
     });
 

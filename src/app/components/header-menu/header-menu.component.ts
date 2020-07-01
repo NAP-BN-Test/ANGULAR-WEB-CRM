@@ -77,7 +77,8 @@ export class HeaderMenuComponent implements OnInit {
       name: menuTitle.report,
       list: [
         { index: 1, name: menuTitle.report_by_campain },
-        { index: 2, name: menuTitle.report_by_user }
+        { index: 2, name: menuTitle.report_by_maillist },
+        { index: 3, name: menuTitle.report_by_user }
       ]
     }]
 
@@ -134,7 +135,9 @@ export class HeaderMenuComponent implements OnInit {
         if (indexChild == 1) {
           this.router.navigate(['report-list'], { queryParams: { page: 1 } });
         } else if (indexChild == 2) {
-          this.router.navigate(['report-list-account'], { queryParams: { page: 1 } });
+          this.router.navigate(['report-list-maillist'], { queryParams: { page: 1 } });
+        } else if (indexChild == 3) {
+          this.router.navigate(['report-list-account'], { queryParams: { tabIndex: 0 } });
         }
       }
     }

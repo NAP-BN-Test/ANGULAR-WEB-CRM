@@ -31,38 +31,44 @@ export class TableFullDataComponent implements OnInit {
   selection = new SelectionModel<any>(true, []);
 
 
+  dataSubscribe: any;
+
   constructor(
     public mService: AppModuleService,
-  ) {
+  ) { }
+
+  ngOnInit() {
     // Bắt event thay đổi list
-    this.mService.currentEvent.subscribe(sData => {
+    this.dataSubscribe = this.mService.currentEvent.subscribe(sData => {
+
       // event update data trong bảng
       if (sData.name == EVENT_PUSH.TABLE) {
 
         //thông tin data trong bảng
         this.dataSource = new MatTableDataSource(sData.params.listData);
-
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         //thông tin setup bảng
         this.displayedColumns = [];
         this.displayedColumnsAll = [];
 
         this.listTbData = sData.params.listTbData;
 
-        this.listTbData.listColum.forEach(item => {
-          this.displayedColumns.push(item.cell);
-        });
-        this.displayedColumnsAll = this.listTbData.listColum;
+        setTimeout(() => {
+          this.listTbData.listColum.forEach(item => {
+            if (item.type == -1 || item.type == sData.params.mailResponseType) {
+              this.displayedColumns.push(item.cell);
+              this.displayedColumnsAll.push(item)
+            }
+          });  
+        }, 200);
+        
       }
-
-    })
-
+    });
   }
 
-  ngOnInit(): void {
-    if (this.dataSource) {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
+  ngOnDestroy() {
+    this.dataSubscribe.unsubscribe();
   }
 
   /** Click vào ô và bắt event */

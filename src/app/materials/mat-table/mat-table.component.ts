@@ -32,11 +32,16 @@ export class MatTableComponent implements OnInit {
   selection = new SelectionModel<any>(true, []);
 
 
+  dataSubscribe: any
+
+
   constructor(
     public mService: AppModuleService,
-  ) {
+  ) { }
+
+  ngOnInit() {
     // Bắt event thay đổi list
-    this.mService.currentEvent.subscribe(sData => {
+    this.dataSubscribe = this.mService.currentEvent.subscribe(sData => {
       // event update data trong bảng
       if (sData.name == EVENT_PUSH.TABLE) {
         //thông tin pagination
@@ -50,20 +55,23 @@ export class MatTableComponent implements OnInit {
         this.displayedColumns = ['id'];
         this.displayedColumnsAll = [];
         this.listTbData = sData.params.listTbData;
-        this.listTbData.listColum.forEach(item => {
-          this.displayedColumns.push(item.cell);
-        })
-        this.displayedColumnsAll = this.listTbData.listColum;
+
+        setTimeout(() => {
+          this.listTbData.listColum.forEach(item => {
+            this.displayedColumns.push(item.cell);
+          })
+          this.displayedColumnsAll = this.listTbData.listColum;
+        }, 200);
       }
       //event xóa nút check khi đã thao tác xong
       if (sData.name == EVENT_PUSH.SELECTION) {
         this.selection.clear();
       }
     })
-
   }
 
-  ngOnInit(): void {
+  ngOnDestroy() {
+    this.dataSubscribe.unsubscribe();
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -105,7 +113,7 @@ export class MatTableComponent implements OnInit {
 
       this.selection.selected.forEach(selectionItem => {
         console.log(selectionItem);
-        
+
         if (selectionItem.email)
           listMail.push({ email: selectionItem.email, name: selectionItem.name })
       })

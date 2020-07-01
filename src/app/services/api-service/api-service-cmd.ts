@@ -170,15 +170,21 @@ export class ApiCmd {
 
     public static GET_LIST_REPORT_BY_CAMPAIN: string = "crm/get_list_report_by_campain";
 
+    public static GET_LIST_REPORT_BY_MAILLIST: string = "crm/get_list_report_by_maillist";
+
     public static GET_LIST_REPORT_BY_USER: string = "crm/get_list_report_by_user";
 
     public static GET_REPORT_BY_CAMPAIN_SUMMARY: string = "crm/get_report_by_campain_summary";
 
+    public static GET_REPORT_BY_MAILLIST_SUMMARY: string = "crm/get_report_by_maillist_summary";
+
     public static GET_REPORT_BY_CAMPAIN_MAIL_TYPE: string = "crm/get_report_by_campain_mail_type";
+
+    public static GET_REPORT_BY_MAILLIST_TYPE: string = "crm/get_report_by_maillist_type";
 
     public static GET_REPORT_BY_USER_SUMMARY: string = "crm/get_report_by_user_summary";
 
-    public static GET_REPORT_BY_USER_MAIL_SEND: string = "crm/get_report_by_user_mail_send";
+    public static GET_REPORT_BY_USER_MAIL_TYPE: string = "crm/get_report_by_user_mail_type";
 
 
     public static CHECK_VERIFY_EMAIL: string = "aws/check_verify_email";

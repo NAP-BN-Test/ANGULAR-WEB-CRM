@@ -62,10 +62,27 @@ export class TimeSelectedComponent implements OnInit {
       } else if (moment(this.dateEndInput.value).valueOf() <= moment(this.dateStartInput.value).valueOf()) {
         this.mService.showSnackBar("Thời gian kết thúc không được nhỏ hơn thời gian bắt đầu!");
       } else {
-        let timeFrom = toDate(this.dateStartInput.value);
-        let timeTo = toDate(this.dateEndInput.value, true);
+        let timeFromMoment = moment(this.dateStartInput.value);
+        let timeToMoment = moment(this.dateEndInput.value);
 
-        this.selectTime.emit({ timeFrom, timeTo })
+        let timeType;
+        let timeSpan = timeToMoment.valueOf() - timeFromMoment.valueOf();
+        if (timeSpan <= 86400000)
+          timeType = TIME_TYPE.HOUR;
+        else if (timeSpan > 86400000 && timeSpan <= 604800000)
+          timeType = TIME_TYPE.DAY;
+        else if (timeSpan > 604800000 && timeSpan <= 2592000000)
+          timeType = TIME_TYPE.DATE;
+        else
+          timeType = TIME_TYPE.MONTH;
+
+
+
+        this.selectTime.emit({
+          timeFrom: timeFromMoment.format("YYYY-MM-DD"),
+          timeTo: timeToMoment.format("YYYY-MM-DD") + " 23:59:59",
+          timeType
+        })
       }
     } else {
       let now = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -120,15 +137,4 @@ export class TimeSelectedComponent implements OnInit {
       }
     }
   }
-}
-
-function toDate(time, end?: boolean): string {
-  if (time) {
-    if (end) {
-      return moment(time).format("YYYY-MM-DD") + " 23:59:59";
-    } else {
-      return moment(time).format("YYYY-MM-DD");
-    }
-  }
-  else return null;
 }

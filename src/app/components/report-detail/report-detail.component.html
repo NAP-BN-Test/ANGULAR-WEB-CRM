@@ -73,28 +73,11 @@
         </mat-tab>
         <mat-tab label="Lượt gửi">
             <div class="row padding" *ngIf="objMailSend&&tabIndex==1">
-                <div class="col-12 flex">
-                    <div>
-                        <!-- <mat-form-field width-100>
-                            <mat-label>Mốc thời gian</mat-label>
-                            <mat-select [(ngModel)]="daies">
-                                <mat-option value="15">15 ngày trước</mat-option>
-                                <mat-option value="30">30 ngày trước</mat-option>
-                                <mat-option value="45">45 ngày trước</mat-option>
-                                <mat-option value="60">60 ngày trước</mat-option>
-                            </mat-select>
-
-                        </mat-form-field> -->
-                        <app-time-selected (selectTime)="onSelectTime($event)"></app-time-selected>
-                    </div>
-                    <!-- <div center>
-                        <button mat-icon-button>
-                            <mat-icon>filter_alt</mat-icon>
-                    </button>
-                    </div> -->
+                <div class="col-12">
+                    <app-time-selected (selectTime)="onSelectTime($event)"></app-time-selected>
                 </div>
 
-                <div class="col-md-2 padding-horizontal" *ngIf="objMailSend">
+                <div class="col-md-2 padding-horizontal">
                     <div class="padding8 border-bottom bold">Tóm tắt lượt gửi</div>
                     <div class="padding8">Tổng số email: {{objMailSend.totalEmail}}</div>
                     <div class="padding8">Tổng số lượt gửi: {{objMailSend.totalType}}</div>
@@ -108,31 +91,15 @@
                     </div>
                 </div>
 
-                <div class="offset-md-2 col-md-8 padding">
+                <div class="offset-md-2 col-md-8 padding" *ngIf="objMailSend.totalType>0&&tabIndex==1">
                     <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="Lượt mở">
             <div class="row padding" *ngIf="objMailOpen&&tabIndex==2">
-                <div class="col-12 flex">
-                    <div>
-                        <mat-form-field width-100>
-                            <mat-label>Mốc thời gian</mat-label>
-                            <mat-select [(ngModel)]="daies">
-                                <mat-option value="15">15 ngày trước</mat-option>
-                                <mat-option value="30">30 ngày trước</mat-option>
-                                <mat-option value="45">45 ngày trước</mat-option>
-                                <mat-option value="60">60 ngày trước</mat-option>
-                            </mat-select>
-
-                        </mat-form-field>
-                    </div>
-                    <div center>
-                        <button mat-icon-button>
-                            <mat-icon>search</mat-icon>
-                    </button>
-                    </div>
+                <div class="col-12">
+                    <app-time-selected (selectTime)="onSelectTime($event)"></app-time-selected>
                 </div>
 
                 <div class="col-md-2 padding-horizontal">
@@ -149,31 +116,15 @@
                     </div>
                 </div>
 
-                <div class="offset-md-2 col-md-8 padding" *ngIf="objMailOpen.totalType>0">
+                <div class="offset-md-2 col-md-8 padding" *ngIf="objMailOpen.totalType>0&&tabIndex==2">
                     <app-table-full-data (clickCell)="onClickCell($event)"></app-table-full-data>
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="Lượt click link">
             <div class="row padding" *ngIf="objMailClickLink&&tabIndex==3">
-                <div class="col-12 flex">
-                    <div>
-                        <mat-form-field width-100>
-                            <mat-label>Mốc thời gian</mat-label>
-                            <mat-select [(ngModel)]="daies">
-                                <mat-option value="15">15 ngày trước</mat-option>
-                                <mat-option value="30">30 ngày trước</mat-option>
-                                <mat-option value="45">45 ngày trước</mat-option>
-                                <mat-option value="60">60 ngày trước</mat-option>
-                            </mat-select>
-
-                        </mat-form-field>
-                    </div>
-                    <div center>
-                        <button mat-icon-button>
-                            <mat-icon>search</mat-icon>
-                    </button>
-                    </div>
+                <div class="col-12">
+                    <app-time-selected (selectTime)="onSelectTime($event)"></app-time-selected>
                 </div>
 
                 <div class="col-md-2 padding-horizontal">
@@ -197,24 +148,8 @@
         </mat-tab>
         <mat-tab label="Mail bị trả lại">
             <div class="row padding" *ngIf="objMailInvalid&&tabIndex==4">
-                <div class="col-12 flex">
-                    <div>
-                        <mat-form-field width-100>
-                            <mat-label>Mốc thời gian</mat-label>
-                            <mat-select [(ngModel)]="daies">
-                                <mat-option value="15">15 ngày trước</mat-option>
-                                <mat-option value="30">30 ngày trước</mat-option>
-                                <mat-option value="45">45 ngày trước</mat-option>
-                                <mat-option value="60">60 ngày trước</mat-option>
-                            </mat-select>
-
-                        </mat-form-field>
-                    </div>
-                    <div center>
-                        <button mat-icon-button>
-                            <mat-icon>search</mat-icon>
-                    </button>
-                    </div>
+                <div class="col-12">
+                    <app-time-selected (selectTime)="onSelectTime($event)"></app-time-selected>
                 </div>
 
                 <div class="col-md-2 padding-horizontal">
@@ -237,30 +172,15 @@
         </mat-tab>
         <mat-tab label="Lượt hủy nhận mail">
             <div class="row padding" *ngIf="objMailUnsubscribe&&tabIndex==5">
-                <div class="col-12 flex">
-                    <div>
-                        <mat-form-field width-100>
-                            <mat-label>Mốc thời gian</mat-label>
-                            <mat-select [(ngModel)]="daies">
-                                <mat-option value="15">15 ngày trước</mat-option>
-                                <mat-option value="30">30 ngày trước</mat-option>
-                                <mat-option value="45">45 ngày trước</mat-option>
-                                <mat-option value="60">60 ngày trước</mat-option>
-                            </mat-select>
-
-                        </mat-form-field>
-                    </div>
-                    <div center>
-                        <button mat-icon-button>
-                            <mat-icon>search</mat-icon>
-                    </button>
-                    </div>
+                <div class="col-12">
+                    <app-time-selected (selectTime)="onSelectTime($event)"></app-time-selected>
                 </div>
 
                 <div class="col-md-2 padding-horizontal">
                     <div class="padding8 border-bottom bold">Tóm tắt hủy nhận mail</div>
                     <div class="padding8">Tổng số email: {{objMailUnsubscribe.totalEmail}}</div>
                     <div class="padding8">Tổng số lượt hủy: {{objMailUnsubscribe.totalType}}</div>
+                    <div class="padding8">Lý do chủ yếu: {{objMailUnsubscribe.mainReason}}</div>
                     <div class="padding8">Tỉ lệ hủy: {{objMailUnsubscribe.advangeType}}</div>
                 </div>
                 <div class="col-md-8 padding-horizontal">

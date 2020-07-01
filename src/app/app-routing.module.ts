@@ -23,6 +23,8 @@ import { ListCompanyLogisticComponent } from './components/list-company-logistic
 import { ListCompanyTransportComponent } from './components/list-company-transport/list-company-transport.component';
 import { EmailCampainDetailComponent } from './components/email-campain-detail/email-campain-detail.component';
 import { EmailListSubReportComponent } from './components/email-list-sub-report/email-list-sub-report.component';
+import { ReportListMaillistComponent } from './components/report-list-maillist/report-list-maillist.component';
+import { ReportListMaillistDetailComponent } from './components/report-list-maillist-detail/report-list-maillist-detail.component';
 
 
 const routes: Routes = [
@@ -140,6 +142,16 @@ const routes: Routes = [
     path: 'email-list-sub-report',
     component: EmailListSubReportComponent,
     data: { title: 'mailListSubReport' }
+  },
+  {
+    path: 'report-list-maillist',
+    component: ReportListMaillistComponent,
+    data: { title: 'reportListMaillist' }
+  },
+  {
+    path: 'report-list-maillist-detail',
+    component: ReportListMaillistDetailComponent,
+    data: { title: 'reportListMaillistDetail' }
   },
   {
     path: '',

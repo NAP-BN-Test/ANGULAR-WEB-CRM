@@ -119,6 +119,8 @@ import { EmailCampainAddComponent } from './dialogs/email-campain-add/email-camp
 import { TableFullDataComponent } from './materials/table-full-data/table-full-data.component';
 import { ConfirmSendEmailComponent } from './dialogs/confirm-send-email/confirm-send-email.component';
 import { TimeSelectedComponent } from './components/time-selected/time-selected.component';
+import { ReportListMaillistComponent } from './components/report-list-maillist/report-list-maillist.component';
+import { ReportListMaillistDetailComponent } from './components/report-list-maillist-detail/report-list-maillist-detail.component';
 
 @NgModule({
   declarations: [
@@ -208,6 +210,8 @@ import { TimeSelectedComponent } from './components/time-selected/time-selected.
     TableFullDataComponent,
     ConfirmSendEmailComponent,
     TimeSelectedComponent,
+    ReportListMaillistComponent,
+    ReportListMaillistDetailComponent,
   ],
   imports: [
     BrowserModule,

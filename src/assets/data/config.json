@@ -7,7 +7,7 @@
     },
     "http": {
         "debug": true,
-        "api_server": "api_primary",
+        "api_server": "api_test",
         "api_primary": {
             "host": "http://163.44.192.123:3302/"
         },

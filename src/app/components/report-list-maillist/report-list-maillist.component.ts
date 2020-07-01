@@ -2,22 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
+import { STATUS, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 
 @Component({
-  selector: 'app-report-list',
-  templateUrl: './report-list.component.html',
-  styleUrls: ['./report-list.component.scss']
+  selector: 'app-report-list-maillist',
+  templateUrl: './report-list-maillist.component.html',
+  styleUrls: ['./report-list-maillist.component.scss']
 })
-export class ReportListComponent implements OnInit {
+export class ReportListMaillistComponent implements OnInit {
+
   //data for component table
   listTbData = {
     clickDetail: CLICK_DETAIL.MAIL_LIST,
     listColum: [
-      { name: 'Tên chiến dịch', cell: 'name' },
-      { name: 'Email list', cell: 'email' },
-      { name: 'Thời gian tạo', cell: 'createTime' }
+      { name: 'Tên maillist', cell: 'name' },
+      { name: 'Thời gian tạo', cell: 'createTime' },
+      { name: 'Số lượng email', cell: 'totalEmail' },
     ],
     listButton: []
   };
@@ -59,9 +60,10 @@ export class ReportListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
-      this.mTitle = data.report;
-    });
+    this.mService.LoadAppConfig();
+
+    let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    this.mTitle = JSON.parse(languageData);
 
     if (this.mService.getUser()) {
       this.activatedRoute.queryParams.subscribe(params => {
@@ -77,7 +79,7 @@ export class ReportListComponent implements OnInit {
   }
 
   onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
-    this.mService.getApiService().sendRequestGET_LIST_REPORT_BY_CAMPAIN(
+    this.mService.getApiService().sendRequestGET_LIST_REPORT_BY_MAILLIST(
       this.mService.getUser().username,
       this.mService.getUser().id,
       page,
@@ -112,7 +114,7 @@ export class ReportListComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAIL_LIST) {
-        this.router.navigate(['report-detail'], { queryParams: { campainID: event.data.id, tabIndex: 0, campainName: event.data.name } });
+        this.router.navigate(['report-list-maillist-detail'], { queryParams: { mailListID: event.data.id, tabIndex: 0, mailListName: event.data.name } });
       }
     }
   }

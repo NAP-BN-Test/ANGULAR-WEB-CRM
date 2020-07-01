@@ -1,0 +1,19 @@
+<div *ngIf="mTitle">
+    <div class="m-header">
+        <app-header-menu menuIndex="4"></app-header-menu>
+    </div>
+
+    <div padding>
+
+        <div width-100>
+            <div font2 bold>{{mTitle.menu_title.report_by_maillist}}</div>
+
+            <app-filter-bar [toppingList]="toppingList" noAdd="true" (sort)="onClickSort($event)">
+            </app-filter-bar>
+
+            <app-mat-table (clickPagination)="onClickPagination($event)" (clickCell)="onClickCell($event)">
+            </app-mat-table>
+        </div>
+
+    </div>
+</div>
