@@ -61,7 +61,7 @@ export class TableFullDataComponent implements OnInit {
               this.displayedColumnsAll.push(item)
             }
           });  
-        }, 200);
+        });
         
       }
     });

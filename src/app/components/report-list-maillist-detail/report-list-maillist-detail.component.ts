@@ -89,6 +89,12 @@ export class ReportListMaillistDetailComponent implements OnInit {
     let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
     this.mTitle = JSON.parse(languageData);
 
+    let reportTimeSelectJson = localStorage.getItem(LOCAL_STORAGE_KEY.REPORT_TIME_SELECT);
+    let reportTimeSelect = JSON.parse(reportTimeSelectJson);
+    this.timeFrom = reportTimeSelect.timeFrom;
+    this.timeTo = reportTimeSelect.timeTo;
+    this.timeType = reportTimeSelect.timeType;
+
     if (this.mService.getUser()) {
       let params: any = this.mService.handleActivatedRoute();
       this.mailListID = params.mailListID;

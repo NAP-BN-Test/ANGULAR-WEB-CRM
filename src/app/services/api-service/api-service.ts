@@ -2,9 +2,11 @@ import { HttpClient } from '../core/http/http-client';
 import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
+import * as md5 from 'md5';
+
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.4:3002/";
-    // mUrl: string = "http://163.44.192.123:3302/";
+    // mUrl: string = "http://192.168.1.4:3002/";
+    mUrl: string = "http://163.44.192.123:3302/";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
     mUserID: string = "";
@@ -1121,7 +1123,7 @@ export class ApiService extends HttpClient {
                 .add("regUsername", userReg.username)
                 .add("regPhone", userReg.phone)
                 .add("regEmail", userReg.email)
-                .add("regPassword", userReg.password));
+                .add("regPassword", md5(userReg.password)));
     }
 
     //==============================

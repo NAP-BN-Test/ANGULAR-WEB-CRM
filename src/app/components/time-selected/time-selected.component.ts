@@ -3,7 +3,7 @@ import { MatSelect, MatInput } from '@angular/material';
 
 import * as moment from 'moment';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { TIME_SELECT, TIME_TYPE } from 'src/app/services/constant/app-constant';
+import { TIME_SELECT, TIME_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 
 
 @Component({
@@ -42,18 +42,40 @@ export class TimeSelectedComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.timeSelect.value = TIME_SELECT.LAST_7DAY;
+
+      let reportTimeSelectJson = localStorage.getItem(LOCAL_STORAGE_KEY.REPORT_TIME_SELECT);
+      let reportTimeSelect;
+      if (reportTimeSelectJson) reportTimeSelect = JSON.parse(reportTimeSelectJson);
+      else
+        reportTimeSelect = {
+          timeFrom: moment().add(-7, 'days').format("YYYY-MM-DD"),
+          timeTo: moment().format("YYYY-MM-DD HH:mm:ss"),
+          timeType: TIME_TYPE.DAY,
+          timeSelect: TIME_SELECT.LAST_7DAY
+        }
+
+      this.timeSelect.value = reportTimeSelect.timeSelect;
+      this.selectTimeIndex = reportTimeSelect.timeSelect;
+      this.isTimeSelect = this.selectTimeIndex == TIME_SELECT.SELECT;
+
+      if (reportTimeSelect.timeSelect == TIME_SELECT.SELECT) {
+        this.dateStartInput.value = reportTimeSelect.timeFrom;
+        this.dateEndInput.value = moment(reportTimeSelect.timeTo).format("YYYY-MM-DD");
+      }
+
     }, 200);
   }
 
   onSelectTimeChange(event) {
     if (event) {
       this.selectTimeIndex = event.value
-      this.isTimeSelect = event.value == 9;
+      this.isTimeSelect = event.value == TIME_SELECT.SELECT;
     }
   }
 
   onClickGo() {
+    let handle;
+
     if (this.isTimeSelect) {
       if (!this.dateStartInput.value) {
         this.mService.showSnackBar("Chưa chọn thời gian bắt đầu!");
@@ -76,65 +98,18 @@ export class TimeSelectedComponent implements OnInit {
         else
           timeType = TIME_TYPE.MONTH;
 
-
-
-        this.selectTime.emit({
+        handle = {
           timeFrom: timeFromMoment.format("YYYY-MM-DD"),
           timeTo: timeToMoment.format("YYYY-MM-DD") + " 23:59:59",
-          timeType
-        })
+          timeType,
+          timeSelect: TIME_SELECT.SELECT
+        }
+        this.selectTime.emit(handle);
       }
     } else {
-      let now = moment().format("YYYY-MM-DD HH:mm:ss");
-      if (this.selectTimeIndex == TIME_SELECT.TODAY) {
-        this.selectTime.emit({
-          timeFrom: moment().format("YYYY-MM-DD"),
-          timeTo: now,
-          timeType: TIME_TYPE.HOUR
-        })
-      } else if (this.selectTimeIndex == TIME_SELECT.YESTERDAY) {
-        let yesterday = moment().add(-1, 'days').format("YYYY-MM-DD");
-        this.selectTime.emit({
-          timeFrom: yesterday,
-          timeTo: yesterday + " 23:59:59",
-          timeType: TIME_TYPE.HOUR
-        })
-      } else if (this.selectTimeIndex == TIME_SELECT.LAST_24H) {
-        this.selectTime.emit({
-          timeFrom: moment().add(-24, 'hours').format("YYYY-MM-DD HH:mm:ss"),
-          timeTo: now,
-          timeType: TIME_TYPE.HOUR
-        })
-      } else if (this.selectTimeIndex == TIME_SELECT.LAST_7DAY) {
-        this.selectTime.emit({
-          timeFrom: moment().add(-7, 'days').format("YYYY-MM-DD"),
-          timeTo: now,
-          timeType: TIME_TYPE.DAY
-        })
-      } else if (this.selectTimeIndex == TIME_SELECT.LAST_30DAY) {
-        this.selectTime.emit({
-          timeFrom: moment().add(-30, 'days').format("YYYY-MM-DD"),
-          timeTo: now,
-          timeType: TIME_TYPE.DATE
-        })
-      } else if (this.selectTimeIndex == TIME_SELECT.THIS_MONTH) {
-        let thisMonth = moment().format("YYYY-MM");
-        this.selectTime.emit({
-          timeFrom: thisMonth + "-01",
-          timeTo: now,
-          timeType: TIME_TYPE.DATE
-        })
-      } else if (this.selectTimeIndex == TIME_SELECT.LAST_MONTH) {
-        let lastMonth = moment().add(-1, 'months').format("YYYY-MM");
-        let dayInMonth = moment().add(-1, 'months').daysInMonth();
-        this.selectTime.emit({
-          timeFrom: lastMonth + "-01",
-          timeTo: lastMonth + "-" + dayInMonth + " 23:59:59",
-          timeType: TIME_TYPE.DATE
-        })
-      } else {
-        this.selectTime.emit();
-      }
+      handle = this.mService.handleReportTimeSelect(this.isTimeSelect, this.selectTimeIndex);
+      this.selectTime.emit(handle);
     }
+    localStorage.setItem(LOCAL_STORAGE_KEY.REPORT_TIME_SELECT, JSON.stringify(handle));
   }
 }

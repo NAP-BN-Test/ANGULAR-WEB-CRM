@@ -95,7 +95,6 @@ import { FilterBarComponent } from './materials/filter-bar/filter-bar.component'
 import { DatetimeDefaultPipe } from './pipes/datetime-default/datetime-default.pipe';
 import { MailStatusPipe } from './pipes/mail-status/mail-status.pipe';
 import { ToHourPipe } from './pipes/to-hour/to-hour.pipe';
-import { AddUserComponent } from './components/add-user/add-user.component';
 import { EmailListComponent } from './components/email-list/email-list.component';
 import { EmailCampainComponent } from './components/email-campain/email-campain.component';
 import { ReportListComponent } from './components/report-list/report-list.component';
@@ -121,6 +120,7 @@ import { ConfirmSendEmailComponent } from './dialogs/confirm-send-email/confirm-
 import { TimeSelectedComponent } from './components/time-selected/time-selected.component';
 import { ReportListMaillistComponent } from './components/report-list-maillist/report-list-maillist.component';
 import { ReportListMaillistDetailComponent } from './components/report-list-maillist-detail/report-list-maillist-detail.component';
+import { AddUserComponent } from './dialogs/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -260,7 +260,8 @@ import { ReportListMaillistDetailComponent } from './components/report-list-mail
     CreateMaillistComponent,
     EmailListSubAddComponent,
     EmailCampainAddComponent,
-    ConfirmSendEmailComponent
+    ConfirmSendEmailComponent,
+    AddUserComponent
   ]
 })
 export class AppModule { }

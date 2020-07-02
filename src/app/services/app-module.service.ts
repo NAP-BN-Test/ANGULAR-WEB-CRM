@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import * as moment from 'moment';
-import { LANGUAGE_TYPE } from './constant/app-constant';
+import { LANGUAGE_TYPE, TIME_SELECT, TIME_TYPE, LOCAL_STORAGE_KEY } from './constant/app-constant';
 import { BehaviorSubject } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 
@@ -216,5 +216,80 @@ export class AppModuleService {
       queryParams: paramsObj
     })
     return paramsObj;
+  }
+
+  handleReportTimeSelect(isTimeSelect: boolean, selectTimeIndex: number) {
+    if (isTimeSelect) {
+      let timePickerJson = localStorage.getItem(LOCAL_STORAGE_KEY.REPORT_TIME_SELECT_TIME_PICKER);
+      let timePicker = JSON.parse(timePickerJson);
+
+      return {
+        timeFrom: timePicker.timeFrom,
+        timeTo: timePicker.timeTo,
+        timeType: timePicker.timeType,
+        timeSelect: TIME_SELECT.SELECT
+      }
+    } else {
+      let now = moment().format("YYYY-MM-DD HH:mm:ss");
+      if (selectTimeIndex == TIME_SELECT.TODAY) {
+        return {
+          timeFrom: moment().format("YYYY-MM-DD"),
+          timeTo: now,
+          timeType: TIME_TYPE.HOUR,
+          timeSelect: TIME_SELECT.TODAY
+        }
+      } else if (selectTimeIndex == TIME_SELECT.YESTERDAY) {
+        let yesterday = moment().add(-1, 'days').format("YYYY-MM-DD");
+        return {
+          timeFrom: yesterday,
+          timeTo: yesterday + " 23:59:59",
+          timeType: TIME_TYPE.HOUR,
+          timeSelect: TIME_SELECT.YESTERDAY
+        }
+      } else if (selectTimeIndex == TIME_SELECT.LAST_24H) {
+        return {
+          timeFrom: moment().add(-24, 'hours').format("YYYY-MM-DD HH:mm:ss"),
+          timeTo: now,
+          timeType: TIME_TYPE.HOUR,
+          timeSelect: TIME_SELECT.LAST_24H
+        }
+      } else if (selectTimeIndex == TIME_SELECT.LAST_7DAY) {
+        return {
+          timeFrom: moment().add(-7, 'days').format("YYYY-MM-DD"),
+          timeTo: now,
+          timeType: TIME_TYPE.DAY,
+          timeSelect: TIME_SELECT.LAST_7DAY
+        }
+      } else if (selectTimeIndex == TIME_SELECT.LAST_30DAY) {
+        return {
+          timeFrom: moment().add(-30, 'days').format("YYYY-MM-DD"),
+          timeTo: now,
+          timeType: TIME_TYPE.DATE,
+          timeSelect: TIME_SELECT.LAST_30DAY
+        }
+      } else if (selectTimeIndex == TIME_SELECT.THIS_MONTH) {
+        let thisMonth = moment().format("YYYY-MM");
+        return {
+          timeFrom: thisMonth + "-01",
+          timeTo: now,
+          timeType: TIME_TYPE.DATE,
+          timeSelect: TIME_SELECT.THIS_MONTH
+        }
+      } else if (selectTimeIndex == TIME_SELECT.LAST_MONTH) {
+        let lastMonth = moment().add(-1, 'months').format("YYYY-MM");
+        let dayInMonth = moment().add(-1, 'months').daysInMonth();
+        return {
+          timeFrom: lastMonth + "-01",
+          timeTo: lastMonth + "-" + dayInMonth + " 23:59:59",
+          timeType: TIME_TYPE.DATE,
+          timeSelect: TIME_SELECT.LAST_MONTH
+        }
+      } else {
+        return {
+          timeType: TIME_TYPE.MONTH,
+          timeSelect: TIME_SELECT.ALL_TIME
+        };
+      }
+    }
   }
 }

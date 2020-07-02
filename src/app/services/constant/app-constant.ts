@@ -161,6 +161,8 @@ export const MAIL_RESPONSE_TYPE = {
 export const LOCAL_STORAGE_KEY = {
     LANGUAGE_KEY: "language_key",
     LANGUAGE_DATA: "language-data",
+    REPORT_TIME_SELECT: 'report_time_select',
+    REPORT_TIME_SELECT_TIME_PICKER: 'report_time_select_time_picker',
 }
 
 export const TIME_SELECT = {

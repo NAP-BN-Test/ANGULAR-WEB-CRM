@@ -61,7 +61,7 @@ export class MatTableComponent implements OnInit {
             this.displayedColumns.push(item.cell);
           })
           this.displayedColumnsAll = this.listTbData.listColum;
-        }, 200);
+        });
       }
       //event xóa nút check khi đã thao tác xong
       if (sData.name == EVENT_PUSH.SELECTION) {
@@ -112,8 +112,6 @@ export class MatTableComponent implements OnInit {
       let listMail = [];
 
       this.selection.selected.forEach(selectionItem => {
-        console.log(selectionItem);
-
         if (selectionItem.email)
           listMail.push({ email: selectionItem.email, name: selectionItem.name })
       })

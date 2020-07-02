@@ -3,7 +3,8 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router } from '@angular/router';
 import { DialogLogoutComponent } from '../../dialogs/dialog-logout/dialog-logout.component';
 import { MatDialog } from '@angular/material';
-import { LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
+import { LOCAL_STORAGE_KEY, STATUS } from 'src/app/services/constant/app-constant';
+import { AddUserComponent } from 'src/app/dialogs/add-user/add-user.component';
 
 @Component({
   selector: 'app-header-menu',
@@ -186,7 +187,21 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   onClickAddUser() {
-    this.router.navigate(['add-user']);
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.mService.getApiService().sendRequestADD_USER(
+          this.mService.getUser().username,
+          this.mService.getUser().id,
+          res
+        ).then(data => {
+          this.mService.showSnackBar(data.message)
+        })
+      }
+    });
   }
 
 }
