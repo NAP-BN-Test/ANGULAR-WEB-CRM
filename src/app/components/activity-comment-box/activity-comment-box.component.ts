@@ -35,8 +35,8 @@ export class ActivityCommentBoxComponent implements OnInit {
       this.mService.getApiService().sendRequestADD_COMMENT(
         
         
-        this.mService.getUser().username,
-        this.mService.getUser().id,
+        
+        
         this.mService.getUser().name,
         this.mObj,
         event).then(data => {
@@ -50,8 +50,8 @@ export class ActivityCommentBoxComponent implements OnInit {
 
   onDeleteCmtChange(item, index) {
     this.mService.getApiService().sendRequestDELETE_COMMENT(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       this.mObj,
       item.id,
     ).then(data => {
@@ -68,8 +68,8 @@ export class ActivityCommentBoxComponent implements OnInit {
       this.mService.getApiService().sendRequestEDIT_COMMENT(
         
         
-        this.mService.getUser().username,
-        this.mService.getUser().id,
+        
+        
         this.mObj,
         item.id,
         item.content

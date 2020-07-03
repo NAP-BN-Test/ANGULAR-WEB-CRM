@@ -77,8 +77,8 @@ export class EmailCampainComponent implements OnInit {
 
   onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestGET_LIST_MAIL_CAMPAIN(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       page,
       searchKey,
       timeFrom,
@@ -129,7 +129,7 @@ export class EmailCampainComponent implements OnInit {
           subject: res.subject,
         }
         this.mService.getApiService().sendRequestADD_MAIL_CAMPAIN(
-          this.mService.getUser().id,
+          
           obj
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {

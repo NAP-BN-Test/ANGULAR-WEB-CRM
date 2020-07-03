@@ -43,8 +43,8 @@ export class CompanySubDetailCompanyComponent implements OnInit {
         this.mService.getApiService().sendRequestDELETE_COMPANY_FROM_COMPANY(
           
           
-          this.mService.getUser().username,
-          this.mService.getUser().id,
+          
+          
           this.mObj.role,
           this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
           this.mObj.id

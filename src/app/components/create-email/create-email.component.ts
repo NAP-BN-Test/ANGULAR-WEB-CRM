@@ -81,8 +81,8 @@ export class CreateEmailComponent implements OnInit {
     this.mService.getApiService().sendRequestCREATE_EMAIL(
 
 
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       !this.createInContact ? this.cookieService.get('company-id') : null,
       this.createInContact ? Number(this.cookieService.get('contact-id')) : this.contactID,
       this.outcomeType,

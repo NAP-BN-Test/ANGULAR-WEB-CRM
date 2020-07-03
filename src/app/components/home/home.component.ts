@@ -69,8 +69,8 @@ export class HomeComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(
 
 
-        this.mService.getUser().username,
-        this.mService.getUser().id,
+        
+        
         this.mID + ""
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_LIST_CONTACT(
 
 
-        this.mService.getUser().username,
+        
         this.mID
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
@@ -95,8 +95,8 @@ export class HomeComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_LIST_USER(
 
 
-        this.mService.getUser().username,
-        this.mService.getUser().id
+        
+        
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.listUser = data.array;
@@ -106,8 +106,8 @@ export class HomeComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_DEAL_STAGE(
 
 
-        this.mService.getUser().username,
-        this.mService.getUser().id
+        
+        
       ).then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.listDealStage = data.array;

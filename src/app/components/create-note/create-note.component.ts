@@ -53,8 +53,8 @@ export class CreateNoteComponent implements OnInit {
 
   onClickSave() {
     this.mService.getApiService().sendRequestCREATE_NOTE(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       !this.createInContact ? this.cookieService.get('company-id') : null,
       this.createInContact ? this.cookieService.get('contact-id') : null,
       this.quillValue,

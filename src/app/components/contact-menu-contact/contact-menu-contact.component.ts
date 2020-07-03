@@ -105,8 +105,8 @@ export class ContactMenuContactComponent implements OnInit {
 
   onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       page,
       contactType,
       searchKey,
@@ -196,8 +196,8 @@ export class ContactMenuContactComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             res,
             event.data
           ).then(data => {
@@ -217,8 +217,8 @@ export class ContactMenuContactComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_CONTACT(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
@@ -236,7 +236,7 @@ export class ContactMenuContactComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(this.mService.getUser().id, res, event.data).then(data => {
+          this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(res, event.data).then(data => {
             if (data.status == STATUS.SUCCESS) {
 
               this.mService.publishEvent(EVENT_PUSH.SELECTION, true);

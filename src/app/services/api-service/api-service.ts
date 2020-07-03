@@ -3,18 +3,18 @@ import { ParamBuilder } from '../core/http/param-builder';
 import { ApiCmd } from './api-service-cmd';
 
 import * as md5 from 'md5';
+import { LOCAL_STORAGE_KEY } from '../constant/app-constant';
 
 export class ApiService extends HttpClient {
     // mUrl: string = "http://192.168.1.4:3002/";
     mUrl: string = "http://163.44.192.123:3302/";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
-    mUserID: string = "";
+    userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)).id : -1;
+    username = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)).username : "";
 
-    mDevices: string = "Android Samsung GT|123456";
-
-    ip = localStorage.getItem('server-info') ? JSON.parse(localStorage.getItem('server-info')).ip : "";
-    dbName = localStorage.getItem('server-info') ? JSON.parse(localStorage.getItem('server-info')).dbName : "";
+    ip = localStorage.getItem(LOCAL_STORAGE_KEY.SERVER_INFO) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.SERVER_INFO)).ip : "";
+    dbName = localStorage.getItem(LOCAL_STORAGE_KEY.SERVER_INFO) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.SERVER_INFO)).dbName : "";
 
     itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
 
@@ -45,6 +45,25 @@ export class ApiService extends HttpClient {
         }
     }
 
+    public setUserInfo(userInfo) {
+        super.setData(userInfo);
+        if (userInfo) {
+            localStorage.setItem(LOCAL_STORAGE_KEY.USER_INFO, JSON.stringify(userInfo));
+            this.userID = userInfo.id;
+            this.username = userInfo.username;
+        }
+    }
+
+    public setServerInfo(serverInfo) {
+        super.setData(serverInfo);
+        if (serverInfo) {
+            localStorage.setItem(LOCAL_STORAGE_KEY.SERVER_INFO, JSON.stringify(serverInfo));
+            this.ip = serverInfo.ip;
+            this.dbName = serverInfo.dbName;
+        }
+    }
+
+
     //1
     public sendRequestUSER_LOGIN(ip: string, dbName: string, username: string, password: string): Promise<any> {
         this.ip = ip;
@@ -61,21 +80,21 @@ export class ApiService extends HttpClient {
 
 
     //2
-    public sendRequestGET_LIST_QUICK_CONTACT(username: string, userID: number, companyID: string): Promise<any> {
+    public sendRequestGET_LIST_QUICK_CONTACT(companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID));
     }
 
     //3
     public sendRequestGET_LIST_COMPANY(
-        username: string,
-        userID: number,
+
+
         page: number,
         companyType: number,
         searchKey: string,
@@ -92,8 +111,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .addIgnoreNull("searchKey", searchKey)
@@ -108,68 +127,68 @@ export class ApiService extends HttpClient {
     }
 
     //4
-    public sendRequestGET_DETAIL_COMPANY(username: string, userID: number, companyID: string): Promise<any> {
+    public sendRequestGET_DETAIL_COMPANY(companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_DETAIL_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID));
     }
 
     //5
-    public sendRequestGET_LIST_QUICK_COMPANY(username: string, userID: number, companyID: string): Promise<any> {
+    public sendRequestGET_LIST_QUICK_COMPANY(companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID));
     }
 
     //6
-    public sendRequestGET_LIST_QUICK_DEAL(username: string, companyID: string): Promise<any> {
+    public sendRequestGET_LIST_QUICK_DEAL(companyID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_DEAL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("companyID", companyID));
     }
 
     //7
-    public sendRequestGET_LIST_ACTIVITY(username: string, companyID: string, activityType: number, attendID?: number): Promise<any> {
+    public sendRequestGET_LIST_ACTIVITY(companyID: string, activityType: number, attendID?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_ACTIVITY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("companyID", companyID)
                 .add("activityType", activityType)
                 .add("attendID", attendID ? attendID : -1));
     }
 
     //8
-    public sendRequestGET_LIST_CONTACT(username: string, companyID: number): Promise<any> {
+    public sendRequestGET_LIST_CONTACT(companyID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("companyID", companyID));
     }
 
     //9
     public sendRequestGET_LIST_CONTACT_FULL(
-        username: string,
-        userID: number,
+
+
         page: number,
         contactType: number,
         searchKey: string,
@@ -182,8 +201,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .addIgnoreNull("searchKey", searchKey)
@@ -195,7 +214,7 @@ export class ApiService extends HttpClient {
 
     //10
     public sendRequestUPDATE_ACTIVITY(
-        username: string,
+
         activity: any,
         contactID?: number,
         activityState?: number,
@@ -213,7 +232,7 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("activityID", activity.id)
                 .add("activityType", activity.activityType)
                 .addIgnoreNull("activityState", activityState)
@@ -229,37 +248,37 @@ export class ApiService extends HttpClient {
     }
 
     //11
-    public sendRequestGET_LIST_MEET_ATTEND(username: string, meetID: number): Promise<any> {
+    public sendRequestGET_LIST_MEET_ATTEND(meetID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_MEET_ATTEND,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("meetID", meetID));
     }
 
     //12
-    public sendRequestGET_LIST_USER(username: string, userID: number, all?: number): Promise<any> {
+    public sendRequestGET_LIST_USER(all?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_USER,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .addIgnoreNull("all", all));
     }
 
     //13
-    public sendRequestCREATE_NOTE(username: string, userID: number, companyID: string, contactID: string, description: string, listAssociate: any, timeRemind: string): Promise<any> {
+    public sendRequestCREATE_NOTE(companyID: string, contactID: string, description: string, listAssociate: any, timeRemind: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_NOTE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .addIgnoreNull("companyID", companyID)
                 .addIgnoreNull("contactID", contactID)
                 .add("description", description)
@@ -268,39 +287,39 @@ export class ApiService extends HttpClient {
     }
 
     //14
-    public sendRequestGET_NOTE_ASSOCIATE(username: string, noteID: number): Promise<any> {
+    public sendRequestGET_NOTE_ASSOCIATE(noteID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_NOTE_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("noteID", noteID));
     }
 
     //15
-    public sendRequestUPDATE_NOTE_ASSOCIATE(username: string, contactID: number, noteID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_NOTE_ASSOCIATE(contactID: number, noteID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_NOTE_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("contactID", contactID)
                 .add("noteID", noteID)
                 .add("state", state));
     }
 
     //17
-    public sendRequestCREATE_CALL(username: string, userID: number,
+    public sendRequestCREATE_CALL(
         companyID: string, contactID: number, outcomeType: number, timeStart: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_CALL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .addIgnoreNull("companyID", companyID)
                 .addIgnoreNull("contactID", contactID)
                 .add("outcomeType", outcomeType)
@@ -311,14 +330,14 @@ export class ApiService extends HttpClient {
     }
 
     //18
-    public sendRequestADD_COMMENT(username: string, userID: number, userName: string, activity: any, content: string): Promise<any> {
+    public sendRequestADD_COMMENT(userName: string, activity: any, content: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_COMMENT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("userName", userName)
                 .add("content", content)
                 .add("activityID", activity.id)
@@ -326,42 +345,42 @@ export class ApiService extends HttpClient {
     }
 
     //19
-    public sendRequestEDIT_COMMENT(username: string, userID: number, activity: any, cmtID: number, content: string): Promise<any> {
+    public sendRequestEDIT_COMMENT(activity: any, cmtID: number, content: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.EDIT_COMMENT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("cmtID", cmtID)
                 .add("content", content)
                 .add("activityType", activity.activityType));
     }
 
     //20
-    public sendRequestDELETE_COMMENT(username: string, userID: number, activity: any, cmtID: number): Promise<any> {
+    public sendRequestDELETE_COMMENT(activity: any, cmtID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_COMMENT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("cmtID", cmtID)
                 .add("activityType", activity.activityType));
     }
 
     //21
-    public sendRequestCREATE_EMAIL(username: string, userID: number,
+    public sendRequestCREATE_EMAIL(
         companyID: string, contactID: number, outcomeType: number, timeStart: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_EMAIL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .addIgnoreNull("companyID", companyID)
                 .addIgnoreNull("contactID", contactID)
                 .add("outcomeType", outcomeType)
@@ -372,20 +391,20 @@ export class ApiService extends HttpClient {
     }
 
     //22
-    public sendRequestUPDATE_MEET_ATTEND(username: string, userID: number, meetID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_MEET_ATTEND(meetID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_MEET_ATTEND,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("meetID", meetID)
                 .add("state", state));
     }
 
     //23
-    public sendRequestCREATE_MEET(username: string, userID: number,
+    public sendRequestCREATE_MEET(
         companyID: string, contactID: string,
         listAttendID: any, duration: number, timeStart: string, timeRemind: string, description: string, listAssociate: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.CREATE_MEET,
@@ -393,8 +412,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .addIgnoreNull("companyID", companyID)
                 .addIgnoreNull("contactID", contactID)
                 .add("listAttendID", JSON.stringify(listAttendID))
@@ -406,7 +425,7 @@ export class ApiService extends HttpClient {
     }
 
     //24
-    public sendRequestCREATE_TASK(username: string, userID: number,
+    public sendRequestCREATE_TASK(
         companyID: string, contactID: string,
         assignID: number, taskType: number, taskName: string,
         timeStart: string, timeAssign: string, timeRemind: string,
@@ -416,8 +435,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .addIgnoreNull("companyID", companyID)
                 .addIgnoreNull("contactID", contactID)
                 .add("assignID", assignID)
@@ -431,14 +450,14 @@ export class ApiService extends HttpClient {
     }
 
     //25
-    public sendRequestADD_CONTACT(username: string, userID: number, companyID: string, contact: any, addOut: number): Promise<any> {
+    public sendRequestADD_CONTACT(companyID: string, contact: any, addOut: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID)
                 .add("name", contact.name)
                 .add("gender", contact.gender)
@@ -450,33 +469,33 @@ export class ApiService extends HttpClient {
     }
 
     //26
-    public sendRequestADD_CONTACT_BY_ID(username: string, userID: number, companyID: string, contactID: number): Promise<any> {
+    public sendRequestADD_CONTACT_BY_ID(companyID: string, contactID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_CONTACT_BY_ID,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID)
                 .add("contactID", contactID));
     }
 
     //27
-    public sendRequestSEARCH_CONTACT(username: string, userID: number, searchKey: string): Promise<any> {
+    public sendRequestSEARCH_CONTACT(searchKey: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.SEARCH_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("searchKey", searchKey));
     }
 
     //28
     public sendRequestUPDATE_COMPANY(
-        username: string,
+
         companyID: string,
         companyName?: string,
         companyShortName?: string,
@@ -493,7 +512,7 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("companyID", companyID)
                 .addIgnoreNull("companyName", companyName)
                 .addIgnoreNull("companyShortName", companyShortName)
@@ -507,123 +526,123 @@ export class ApiService extends HttpClient {
     }
 
     //29
-    public sendRequestGET_CALL_ASSOCIATE(username: string, callID: number): Promise<any> {
+    public sendRequestGET_CALL_ASSOCIATE(callID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_CALL_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("callID", callID));
     }
 
     //30
-    public sendRequestUPDATE_CALL_ASSOCIATE(username: string, contactID: number, callID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_CALL_ASSOCIATE(contactID: number, callID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_CALL_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("contactID", contactID)
                 .add("callID", callID)
                 .add("state", state));
     }
 
     //31
-    public sendRequestGET_EMAIL_ASSOCIATE(username: string, emailID: number): Promise<any> {
+    public sendRequestGET_EMAIL_ASSOCIATE(emailID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_EMAIL_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("emailID", emailID));
     }
 
     //32
-    public sendRequestUPDATE_EMAIL_ASSOCIATE(username: string, contactID: number, emailID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_EMAIL_ASSOCIATE(contactID: number, emailID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_EMAIL_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("contactID", contactID)
                 .add("emailID", emailID)
                 .add("state", state));
     }
 
     //33
-    public sendRequestGET_MEET_ASSOCIATE(username: string, meetID: number): Promise<any> {
+    public sendRequestGET_MEET_ASSOCIATE(meetID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_MEET_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("meetID", meetID));
     }
 
     //34
-    public sendRequestUPDATE_MEET_ASSOCIATE(username: string, contactID: number, meetID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_MEET_ASSOCIATE(contactID: number, meetID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_MEET_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("contactID", contactID)
                 .add("meetID", meetID)
                 .add("state", state));
     }
 
     //35
-    public sendRequestGET_TASK_ASSOCIATE(username: string, taskID: number): Promise<any> {
+    public sendRequestGET_TASK_ASSOCIATE(taskID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_TASK_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("taskID", taskID));
     }
 
     //36
-    public sendRequestUPDATE_TASK_ASSOCIATE(username: string, contactID: number, taskID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_TASK_ASSOCIATE(contactID: number, taskID: number, state: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_TASK_ASSOCIATE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("contactID", contactID)
                 .add("taskID", taskID)
                 .add("state", state));
     }
 
     //37
-    public sendRequestSEARCH_COMPANY(username: string, userID: number, companyID: string, searchKey: string): Promise<any> {
+    public sendRequestSEARCH_COMPANY(companyID: string, searchKey: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.SEARCH_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID)
                 .add("searchKey", searchKey));
     }
 
     //38
-    public sendRequestADD_COMPANY(username: string, userID: number, companyID: string, company: any): Promise<any> {
+    public sendRequestADD_COMPANY(companyID: string, company: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID)
                 .add("name", company.name)
                 .add("shortName", company.shortName)
@@ -636,51 +655,51 @@ export class ApiService extends HttpClient {
     }
 
     //39
-    public sendRequestADD_PARENT_COMPANY_BY_ID(username: string, userID: number, companyID: string, companyAddID: number): Promise<any> {
+    public sendRequestADD_PARENT_COMPANY_BY_ID(companyID: string, companyAddID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_PARENT_COMPANY_BY_ID,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID)
                 .add("companyAddID", companyAddID));
     }
 
     //40
-    public sendRequestADD_CHILD_COMPANY_BY_ID(username: string, userID: number, companyID: string, companyAddID: number): Promise<any> {
+    public sendRequestADD_CHILD_COMPANY_BY_ID(companyID: string, companyAddID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_CHILD_COMPANY_BY_ID,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID)
                 .add("companyAddID", companyAddID));
     }
 
     //41
-    public sendRequestGET_DEAL_STAGE(username: string, userID: number): Promise<any> {
+    public sendRequestGET_DEAL_STAGE(): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_DEAL_STAGE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID));
+                .add("username", this.username)
+                .add("userID", this.userID));
     }
 
     //41
-    public sendRequestADD_DEAL(username: string, userID: number, deal: any): Promise<any> {
+    public sendRequestADD_DEAL(deal: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_DEAL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .addIgnoreNull("companyID", deal.companyID)
                 .add("contactID", deal.contactID)
                 .add("name", deal.name)
@@ -691,50 +710,50 @@ export class ApiService extends HttpClient {
     }
 
     //42
-    public sendRequestGET_DETAIL_CONTACT(username: string, userID: string, contactID: string): Promise<any> {
+    public sendRequestGET_DETAIL_CONTACT(contactID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_DETAIL_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("contactID", contactID));
     }
 
     //43
-    public sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(username: string, contactID: string, activityType: number, attendID?: number): Promise<any> {
+    public sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(contactID: string, activityType: number, attendID?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_ACTIVITY_FOR_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("contactID", contactID)
                 .add("activityType", activityType)
                 .add("attendID", attendID ? attendID : -1));
     }
 
     //44
-    public sendRequestGET_LIST_QUICK_DEAL_FOR_CONTACT(username: string, contactID: string): Promise<any> {
+    public sendRequestGET_LIST_QUICK_DEAL_FOR_CONTACT(contactID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_QUICK_DEAL_FOR_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("contactID", contactID));
     }
 
     //45
-    public sendRequestUPDATE_CONTACT(username: string, contactID: string,
+    public sendRequestUPDATE_CONTACT(contactID: string,
         contactName?: string, contactAddress?: string, contactPhone?: string, contactEmail?: string, contactJobTile?: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
+                .add("username", this.username)
                 .add("contactID", contactID)
                 .addIgnoreNull("contactName", contactName)
                 .addIgnoreNull("contactAddress", contactAddress)
@@ -744,85 +763,85 @@ export class ApiService extends HttpClient {
     }
 
     //46
-    public sendRequestASSIGN_COMPANY_OWNER(username: string, userID: number, assignID: number, companyIDs: string): Promise<any> {
+    public sendRequestASSIGN_COMPANY_OWNER(assignID: number, companyIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ASSIGN_COMPANY_OWNER,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("assignID", assignID)
                 .add("companyIDs", companyIDs));
     }
 
     //47
-    public sendRequestASSIGN_CONTACT_OWNER(username: string, userID: number, assignID: number, contactIDs: string): Promise<any> {
+    public sendRequestASSIGN_CONTACT_OWNER(assignID: number, contactIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ASSIGN_CONTACT_OWNER,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("assignID", assignID)
                 .add("contactIDs", contactIDs));
     }
 
     //47
-    public sendRequestDELETE_CONTACT(username: string, userID: number, contactIDs: string): Promise<any> {
+    public sendRequestDELETE_CONTACT(contactIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("contactIDs", contactIDs));
     }
 
     //48
-    public sendRequestFOLLOW_COMPANY(username: string, userID: number, companyID: string, follow: boolean): Promise<any> {
+    public sendRequestFOLLOW_COMPANY(companyID: string, follow: boolean): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.FOLLOW_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyID", companyID)
                 .addIgnoreNull("follow", follow));
     }
 
     //49
-    public sendRequestFOLLOW_CONTACT(username: string, userID: number, contactID: string, follow: boolean): Promise<any> {
+    public sendRequestFOLLOW_CONTACT(contactID: string, follow: boolean): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.FOLLOW_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("contactID", contactID)
                 .addIgnoreNull("follow", follow));
     }
 
     //50
-    public sendRequestDELETE_COMPANY(username: string, userID: number, companyIDs: string): Promise<any> {
+    public sendRequestDELETE_COMPANY(companyIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("companyIDs", companyIDs));
     }
 
     //51
     public sendRequestGET_LIST_TASK(
-        username: string,
-        userID: number,
+
+
         page: number,
         menuType: number,
         searchKey: string,
@@ -836,8 +855,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
@@ -849,73 +868,73 @@ export class ApiService extends HttpClient {
     }
 
     //52
-    public sendRequestUPDATE_TASK(username: string, userID: number, taskIDs: string, status: boolean): Promise<any> {
+    public sendRequestUPDATE_TASK(taskIDs: string, status: boolean): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_TASK,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("taskIDs", taskIDs)
                 .addIgnoreNull("status", status));
     }
 
     //53
-    public sendRequestDELETE_CONTACT_FROM_COMPANY(username: string, userID: number, contactID): Promise<any> {
+    public sendRequestDELETE_CONTACT_FROM_COMPANY(contactID): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_CONTACT_FROM_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("contactID", contactID));
     }
 
     //54
-    public sendRequestDELETE_COMPANY_FROM_COMPANY(username: string, userID: number, role: number, companyID: string, companyIDRemove: string): Promise<any> {
+    public sendRequestDELETE_COMPANY_FROM_COMPANY(role: number, companyID: string, companyIDRemove: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_COMPANY_FROM_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("role", role)
                 .add("companyID", companyID)
                 .add("companyIDRemove", companyIDRemove));
     }
 
     //55
-    public sendRequestDELETE_DEAL_FROM_COMPANY(username: string, userID: number, dealID: number): Promise<any> {
+    public sendRequestDELETE_DEAL_FROM_COMPANY(dealID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_DEAL_FROM_COMPANY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("dealID", dealID));
     }
 
     //56
-    public sendRequestUPDATE_DEAL(username: string, userID: number, dealID: number, stageID: number): Promise<any> {
+    public sendRequestUPDATE_DEAL(dealID: number, stageID: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_DEAL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("dealID", dealID)
                 .addIgnoreNull("stageID", stageID));
     }
 
     //57
     public sendRequestGET_LIST_CALL(
-        username: string,
-        userID: number,
+
+
         page: number,
         menuType: number,
         searchKey: string,
@@ -929,8 +948,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
@@ -942,21 +961,21 @@ export class ApiService extends HttpClient {
     }
 
     //58
-    public sendRequestDELETE_CALL(username: string, userID: number, activityIDs: string): Promise<any> {
+    public sendRequestDELETE_CALL(activityIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_CALL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("activityIDs", activityIDs));
     }
 
     //59
     public sendRequestGET_LIST_EMAIL(
-        username: string,
-        userID: number,
+
+
         page: number,
         menuType: number,
         searchKey: string,
@@ -970,8 +989,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
@@ -983,21 +1002,21 @@ export class ApiService extends HttpClient {
     }
 
     //60
-    public sendRequestDELETE_EMAIL(username: string, userID: number, activityIDs: string): Promise<any> {
+    public sendRequestDELETE_EMAIL(activityIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_EMAIL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("activityIDs", activityIDs));
     }
 
     //61
     public sendRequestGET_LIST_MEET(
-        username: string,
-        userID: number,
+
+
         page: number,
         menuType: number,
         searchKey: string,
@@ -1011,8 +1030,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
@@ -1024,21 +1043,21 @@ export class ApiService extends HttpClient {
     }
 
     //62
-    public sendRequestDELETE_MEET(username: string, userID: number, activityIDs: string): Promise<any> {
+    public sendRequestDELETE_MEET(activityIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_MEET,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("activityIDs", activityIDs));
     }
 
     //63
     public sendRequestGET_LIST_NOTE(
-        username: string,
-        userID: number,
+
+
         page: number,
         menuType: number,
         searchKey: string,
@@ -1052,8 +1071,8 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .add("menuType", menuType)
@@ -1065,60 +1084,60 @@ export class ApiService extends HttpClient {
     }
 
     //16
-    public sendRequestDELETE_NOTE(username: string, userID: number, activityIDs: string): Promise<any> {
+    public sendRequestDELETE_NOTE(activityIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_NOTE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("activityIDs", activityIDs));
     }
 
     //64
-    public sendRequestGET_SUMMARY_INFO(username: string, userID: number): Promise<any> {
+    public sendRequestGET_SUMMARY_INFO(): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_SUMMARY_INFO,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID));
+                .add("username", this.username)
+                .add("userID", this.userID));
     }
 
     //65
-    public sendRequestGET_LIST_CITY(username: string, userID: number): Promise<any> {
+    public sendRequestGET_LIST_CITY(): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_CITY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID));
+                .add("username", this.username)
+                .add("userID", this.userID));
     }
 
     //66
-    public sendRequestDELETE_TASK(username: string, userID: number, activityIDs: string): Promise<any> {
+    public sendRequestDELETE_TASK(activityIDs: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.DELETE_TASK,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("activityIDs", activityIDs));
     }
 
     //==============================
-    public sendRequestADD_USER(username: string, userID: number, userReg: any): Promise<any> {
+    public sendRequestADD_USER(userReg: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_USER,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("username", username)
-                .add("userID", userID)
+                .add("username", this.username)
+                .add("userID", this.userID)
                 .add("regName", userReg.name)
                 .add("regUsername", userReg.username)
                 .add("regPhone", userReg.phone)
@@ -1128,8 +1147,8 @@ export class ApiService extends HttpClient {
 
     //==============================
     public sendRequestGET_MAIL_LIST(
-        username: string,
-        userID: number,
+
+
         page: number,
         searchKey: string,
         timeFrom: string,
@@ -1140,14 +1159,15 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage));
     }
 
     //==============================
     public sendRequestGET_MAIL_LIST_DETAIL(
-        username: string,
-        userID: number,
+
+
         mailListID: number,
         page: number,
         searchKey: string,
@@ -1160,6 +1180,7 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
                 .add("mailListID", mailListID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage));
@@ -1167,8 +1188,8 @@ export class ApiService extends HttpClient {
 
     //==============================
     public sendRequestGET_LIST_MAIL_CAMPAIN(
-        username: string,
-        userID: number,
+
+
         page: number,
         searchKey: string,
         timeFrom: string,
@@ -1180,14 +1201,15 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage));
     }
 
     //==============================
     public sendRequestGET_LIST_REPORT_BY_CAMPAIN(
-        username: string,
-        userID: number,
+
+
         page: number,
         searchKey: string,
         timeFrom: string,
@@ -1199,6 +1221,7 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .addIgnoreNull("userIDFind", userIDFind));
@@ -1206,8 +1229,8 @@ export class ApiService extends HttpClient {
 
     //==============================
     public sendRequestGET_LIST_REPORT_BY_MAILLIST(
-        username: string,
-        userID: number,
+
+
         page: number,
         searchKey: string,
         timeFrom: string,
@@ -1219,6 +1242,7 @@ export class ApiService extends HttpClient {
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
                 .add("page", page)
                 .add("itemPerPage", this.itemPerPage)
                 .addIgnoreNull("userIDFind", userIDFind));
@@ -1273,23 +1297,23 @@ export class ApiService extends HttpClient {
     }
 
     //==============================
-    public sendRequestGET_REPORT_BY_USER_SUMMARY(userID): Promise<any> {
+    public sendRequestGET_REPORT_BY_USER_SUMMARY(): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_USER_SUMMARY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("userID", userID));
+                .add("userID", this.userID));
     }
 
     //==============================
-    public sendRequestGET_REPORT_BY_USER_MAIL_TYPE(userID: number, mailType, timeType: number, timeFrom?: string, timeTo?: string): Promise<any> {
+    public sendRequestGET_REPORT_BY_USER_MAIL_TYPE(mailType, timeType: number, timeFrom?: string, timeTo?: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_REPORT_BY_USER_MAIL_TYPE,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("userID", userID)
+                .add("userID", this.userID)
                 .addIgnoreNull("timeFrom", timeFrom)
                 .addIgnoreNull("timeTo", timeTo)
                 .add("timeType", timeType)
@@ -1302,32 +1326,33 @@ export class ApiService extends HttpClient {
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
-                .add("secretKey", this.mSecretKey));
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID));
     }
 
     //==============================
-    public sendRequestADD_MAIL_CAMPAIN(userID: number, obj: any): Promise<any> {
+    public sendRequestADD_MAIL_CAMPAIN(obj: any): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_MAIL_CAMPAIN,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
 
-                .add("userID", userID)
+                .add("userID", this.userID)
                 .add("name", obj.name)
                 .add("subject", obj.subject)
                 .add("mailListID", obj.mailListID));
     }
 
     //==============================
-    public sendRequestADD_MAIL_LIST(userID: number, obj: any, listMail?: string): Promise<any> {
+    public sendRequestADD_MAIL_LIST(obj: any, listMail?: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_MAIL_LIST,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
 
-                .add("userID", userID)
+                .add("userID", this.userID)
                 .add("name", obj.name)
                 .addIgnoreNull("listMail", listMail));
     }
@@ -1355,14 +1380,14 @@ export class ApiService extends HttpClient {
     }
 
     //==============================
-    public sendRequestADD_MAIL_LIST_DETAIL(userID: number, mailListID: number, listMail: string): Promise<any> {
+    public sendRequestADD_MAIL_LIST_DETAIL(mailListID: number, listMail: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.ADD_MAIL_LIST_DETAIL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
 
-                .add("userID", userID)
+                .add("userID", this.userID)
                 .add("mailListID", mailListID)
                 .add("listMail", listMail));
     }
@@ -1403,9 +1428,6 @@ export class ApiService extends HttpClient {
     //==============================
     public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
         let body = obj.body.replace(/&/g, "%26");
-
-        console.log(this.mUrl);
-
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -1450,20 +1472,20 @@ export class ApiService extends HttpClient {
     }
 
     //==============================
-    public sendRequestVERIFY_EMAIL(userID: number, email: string): Promise<any> {
+    public sendRequestVERIFY_EMAIL(email: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.VERIFY_EMAIL,
             ParamBuilder.builder()
                 .add("ip", this.ip)
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
-                .add("userID", userID)
+                .add("userID", this.userID)
 
                 .add("email", email));
     }
 
     //==============================
     public sendRequestREPORT_MAIL_DETAIL(
-        userID: number,
+
         page: number,
         searchKey: string,
         timeFrom: string,

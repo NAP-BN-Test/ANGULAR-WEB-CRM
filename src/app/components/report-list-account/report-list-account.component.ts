@@ -42,7 +42,6 @@ export class ReportListAccountComponent implements OnInit {
 
   mTitle: any;
 
-  userID = -1;
   tabIndex: number = 0;
 
   public pieChartOptions: ChartOptions = {
@@ -88,14 +87,15 @@ export class ReportListAccountComponent implements OnInit {
     this.mTitle = JSON.parse(languageData);
 
     let reportTimeSelectJson = localStorage.getItem(LOCAL_STORAGE_KEY.REPORT_TIME_SELECT);
-    let reportTimeSelect = JSON.parse(reportTimeSelectJson);
-    this.timeFrom = reportTimeSelect.timeFrom;
-    this.timeTo = reportTimeSelect.timeTo;
-    this.timeType = reportTimeSelect.timeType;
+    if (reportTimeSelectJson) {
+      let reportTimeSelect = JSON.parse(reportTimeSelectJson);
+      this.timeFrom = reportTimeSelect.timeFrom;
+      this.timeTo = reportTimeSelect.timeTo;
+      this.timeType = reportTimeSelect.timeType;
+    }
 
     if (this.mService.getUser()) {
       let params: any = this.mService.handleActivatedRoute();
-      this.userID = this.mService.getUser().id;
       this.tabIndex = params.tabIndex;
 
       this.onLoadData();
@@ -116,7 +116,7 @@ export class ReportListAccountComponent implements OnInit {
   }
 
   onLoadDataSummary() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_SUMMARY(this.userID).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_SUMMARY().then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objSummary = data.obj;
@@ -130,7 +130,7 @@ export class ReportListAccountComponent implements OnInit {
   }
 
   onLoadMailSend() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(this.userID, MAIL_RESPONSE_TYPE.SEND, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(MAIL_RESPONSE_TYPE.SEND, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailSend = data.obj;
@@ -155,7 +155,7 @@ export class ReportListAccountComponent implements OnInit {
   }
 
   onLoadMailOpen() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(this.userID, MAIL_RESPONSE_TYPE.OPEN, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(MAIL_RESPONSE_TYPE.OPEN, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailOpen = data.obj;
@@ -180,7 +180,7 @@ export class ReportListAccountComponent implements OnInit {
   }
 
   onLoadMailClickLink() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(this.userID, MAIL_RESPONSE_TYPE.CLICK_LINK, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(MAIL_RESPONSE_TYPE.CLICK_LINK, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailClickLink = data.obj;
@@ -205,7 +205,7 @@ export class ReportListAccountComponent implements OnInit {
   }
 
   onLoadMailInvalid() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(this.userID, MAIL_RESPONSE_TYPE.INVALID, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(MAIL_RESPONSE_TYPE.INVALID, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailInvalid = data.obj;
@@ -230,7 +230,7 @@ export class ReportListAccountComponent implements OnInit {
   }
 
   onLoadMailUnsubscribe() {
-    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(this.userID, MAIL_RESPONSE_TYPE.UNSUBSCRIBE, this.timeType, this.timeFrom, this.timeTo).then(data => {
+    this.mService.getApiService().sendRequestGET_REPORT_BY_USER_MAIL_TYPE(MAIL_RESPONSE_TYPE.UNSUBSCRIBE, this.timeType, this.timeFrom, this.timeTo).then(data => {
       if (data.status == STATUS.SUCCESS) {
 
         this.objMailUnsubscribe = data.obj;

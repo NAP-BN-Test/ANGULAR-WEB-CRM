@@ -44,8 +44,7 @@ export class AddCompanyComponent implements OnInit {
     this.mTitle = JSON.parse(languageData);
 
     this.mService.getApiService().sendRequestGET_LIST_CITY(
-      this.mService.getUser().username,
-      this.mService.getUser().id
+      
     ).then(data => {
       this.listCity = data.array;
     })
@@ -84,8 +83,8 @@ export class AddCompanyComponent implements OnInit {
       }
 
       this.mService.getApiService().sendRequestADD_COMPANY(
-        this.mService.getUser().username,
-        this.mService.getUser().id,
+        
+        
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         obj
       ).then(data => {
@@ -111,8 +110,8 @@ export class AddCompanyComponent implements OnInit {
 
     if (searchKey.trim() != "") {
       this.mService.getApiService().sendRequestSEARCH_COMPANY(
-        this.mService.getUser().username,
-        this.mService.getUser().id,
+        
+        
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         searchKey
       ).then(data => {
@@ -130,8 +129,8 @@ export class AddCompanyComponent implements OnInit {
       this.mService.getApiService().sendRequestADD_PARENT_COMPANY_BY_ID(
         
         
-        this.mService.getUser().username,
-        this.mService.getUser().id,
+        
+        
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         item.id
       ).then(data => {
@@ -144,8 +143,8 @@ export class AddCompanyComponent implements OnInit {
       this.mService.getApiService().sendRequestADD_CHILD_COMPANY_BY_ID(
         
         
-        this.mService.getUser().username,
-        this.mService.getUser().id,
+        
+        
         this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
         item.id
       ).then(data => {

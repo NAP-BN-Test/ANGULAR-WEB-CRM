@@ -70,8 +70,8 @@ export class FilterBarComponent implements OnInit {
     this.mTitle = JSON.parse(languageData);
 
     this.mService.getApiService().sendRequestGET_LIST_USER(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       1
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
@@ -81,8 +81,8 @@ export class FilterBarComponent implements OnInit {
     })
 
     this.mService.getApiService().sendRequestGET_DEAL_STAGE(
-      this.mService.getUser().username,
-      this.mService.getUser().id
+      
+      
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.listStep = data.array;
@@ -91,8 +91,8 @@ export class FilterBarComponent implements OnInit {
     })
 
     this.mService.getApiService().sendRequestGET_LIST_CITY(
-      this.mService.getUser().username,
-      this.mService.getUser().id
+      
+      
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.listCity = data.array;

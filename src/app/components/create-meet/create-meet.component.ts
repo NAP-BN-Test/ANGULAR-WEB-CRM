@@ -83,8 +83,8 @@ export class CreateMeetComponent implements OnInit {
     this.mService.getApiService().sendRequestCREATE_MEET(
 
 
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       !this.createInContact ? this.cookieService.get('company-id') : null,
       this.createInContact ? this.cookieService.get('contact-id') : null,
       this.listAttendID,

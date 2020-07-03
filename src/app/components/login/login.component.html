@@ -42,7 +42,7 @@
                         <input type="text" class="form-control" [placeholder]="mTitle.placeholder_title.username" [(ngModel)]="username">
                     </div>
                     <div padding-bottom>
-                        <input type="password" class="form-control" [placeholder]="mTitle.placeholder_title.password" [(ngModel)]="password">
+                        <input type="password" class="form-control" [placeholder]="mTitle.placeholder_title.password" [(ngModel)]="password" (keyup.enter)="onClickLogin()">
                     </div>
                 </div>
 

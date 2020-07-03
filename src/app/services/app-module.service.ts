@@ -49,14 +49,14 @@ export class AppModuleService {
   //----------------------------------------------------//
 
   public getUser(): any {
-    if (localStorage.getItem('user-info')) {
-      this.mUser = JSON.parse(localStorage.getItem('user-info'));
+    if (localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)) {
+      this.mUser = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO));
     }
     return this.mUser;
   }
 
   public setUser(user: any) {
-    localStorage.setItem('user-info', user)
+    localStorage.setItem(LOCAL_STORAGE_KEY.USER_INFO, user)
     this.mUser = user;
   }
 
@@ -69,8 +69,8 @@ export class AppModuleService {
   }
 
   public getServer(): any {
-    if (localStorage.getItem('server-info')) {
-      this.serverInfo = JSON.parse(localStorage.getItem('server-info'));
+    if (localStorage.getItem(LOCAL_STORAGE_KEY.SERVER_INFO)) {
+      this.serverInfo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.SERVER_INFO));
     }
     return this.serverInfo;
   }

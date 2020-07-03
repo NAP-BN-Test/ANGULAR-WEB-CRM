@@ -108,8 +108,8 @@ export class ListCompanyTransportComponent implements OnInit {
 
   onLoadData(page: number, companyType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, stepID: number, cityID: number) {
     this.mService.getApiService().sendRequestGET_LIST_COMPANY(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       page,
       companyType,
       searchKey,
@@ -182,8 +182,8 @@ export class ListCompanyTransportComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             res,
             event.data
           ).then(data => {
@@ -201,8 +201,8 @@ export class ListCompanyTransportComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_COMPANY(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {

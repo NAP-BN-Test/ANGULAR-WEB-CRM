@@ -30,8 +30,8 @@ export class DialogAssignContactComponent implements OnInit {
       this.mTitle = data.dialog;
     });
     this.mService.getApiService().sendRequestGET_LIST_USER(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       1
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {

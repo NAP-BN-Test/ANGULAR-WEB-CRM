@@ -80,8 +80,8 @@ export class ReportListMaillistComponent implements OnInit {
 
   onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestGET_LIST_REPORT_BY_MAILLIST(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       page,
       searchKey,
       timeFrom,

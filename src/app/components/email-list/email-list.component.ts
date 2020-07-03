@@ -81,8 +81,8 @@ export class EmailListComponent implements OnInit {
 
   onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestGET_MAIL_LIST(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       page,
       searchKey,
       timeFrom,
@@ -145,7 +145,7 @@ export class EmailListComponent implements OnInit {
         }
 
         this.mService.getApiService().sendRequestADD_MAIL_LIST(
-          this.mService.getUser().id,
+          
           obj
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {

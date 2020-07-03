@@ -159,6 +159,10 @@ export const MAIL_RESPONSE_TYPE = {
 }
 
 export const LOCAL_STORAGE_KEY = {
+    SERVER_INFO: "server-info",
+    USER_LOGIN: "user-login",
+    USER_INFO: "user-info",
+    SEND_EMAIL: "send_email",
     LANGUAGE_KEY: "language_key",
     LANGUAGE_DATA: "language-data",
     REPORT_TIME_SELECT: 'report_time_select',

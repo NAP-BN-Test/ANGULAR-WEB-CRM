@@ -69,8 +69,8 @@ export class AddDealComponent implements OnInit {
       amount: this.amount,
     }
     this.mService.getApiService().sendRequestADD_DEAL(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       obj
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {

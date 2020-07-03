@@ -90,8 +90,8 @@ export class EmailListSubComponent implements OnInit {
   onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
 
     this.mService.getApiService().sendRequestGET_MAIL_LIST_DETAIL(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       this.mailListID,
       page,
       searchKey,
@@ -147,7 +147,7 @@ export class EmailListSubComponent implements OnInit {
         }]
 
         this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
-          this.mService.getUser().id,
+          
           this.mailListID,
           JSON.stringify(listMail)
         ).then(data => {
@@ -164,7 +164,7 @@ export class EmailListSubComponent implements OnInit {
     UploadFileModule.getInstance().__openFileInBrowser(res => {
       if (res) {
         this.mService.getApiService().sendRequestADD_MAIL_LIST_DETAIL(
-          this.mService.getUser().id,
+          
           this.mailListID,
           JSON.stringify(res)
         ).then(data => {

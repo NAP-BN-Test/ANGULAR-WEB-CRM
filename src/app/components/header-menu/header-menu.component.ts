@@ -194,8 +194,8 @@ export class HeaderMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.mService.getApiService().sendRequestADD_USER(
-          this.mService.getUser().username,
-          this.mService.getUser().id,
+          
+          
           res
         ).then(data => {
           this.mService.showSnackBar(data.message)

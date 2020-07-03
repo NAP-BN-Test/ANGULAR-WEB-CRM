@@ -86,8 +86,8 @@ export class ActivityListTaskComponent implements OnInit {
 
   onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, timeType: number) {
     this.mService.getApiService().sendRequestGET_LIST_TASK(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       page,
       menuType,
       searchKey,
@@ -159,8 +159,8 @@ export class ActivityListTaskComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_TASK(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {

@@ -32,8 +32,8 @@ export class DialogAssignCompanyComponent implements OnInit {
     this.mService.getApiService().sendRequestGET_LIST_USER(
 
 
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       1
     ).then(data => {
       setTimeout(() => {

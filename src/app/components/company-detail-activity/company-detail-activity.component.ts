@@ -55,7 +55,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -67,7 +67,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_MEET_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -81,7 +81,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_NOTE_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -96,7 +96,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_CALL_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -110,7 +110,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_EMAIL_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -122,7 +122,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.TASK) {
       this.mService.getApiService().sendRequestGET_TASK_ASSOCIATE(
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -139,7 +139,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-      this.mService.getUser().username,
+      
       this.mObj,
       type == 1 ? this.mObj.contactID : null,
       type == 2 ? this.mObj.state : null,
@@ -156,7 +156,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-      this.mService.getUser().username,
+      
       this.mObj,
       null, null, null, null, null, null,
       this.mObj.assignID
@@ -172,7 +172,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-      this.mService.getUser().username,
+      
       this.mObj,
       null, null, null, null, null, null, null,
       this.mObj.taskType
@@ -195,8 +195,8 @@ export class CompanyDetailActivityComponent implements OnInit {
         listID.push(Number(this.mObj.id));
         if (type == ACTIVITY_TYPE.CALL) {
           this.mService.getApiService().sendRequestDELETE_CALL(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
@@ -207,8 +207,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           })
         } else if (type == ACTIVITY_TYPE.EMAIL) {
           this.mService.getApiService().sendRequestDELETE_EMAIL(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
@@ -219,8 +219,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           })
         } else if (type == ACTIVITY_TYPE.MEET) {
           this.mService.getApiService().sendRequestDELETE_MEET(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
@@ -231,8 +231,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           })
         } else if (type == ACTIVITY_TYPE.NOTE) {
           this.mService.getApiService().sendRequestDELETE_NOTE(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
@@ -243,8 +243,8 @@ export class CompanyDetailActivityComponent implements OnInit {
           })
         } else if (type == ACTIVITY_TYPE.TASK) {
           this.mService.getApiService().sendRequestDELETE_TASK(
-            this.mService.getUser().username,
-            this.mService.getUser().id,
+            
+            
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
@@ -263,7 +263,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-      this.mService.getUser().username,
+      
       this.mObj,
       null, null, null, this.mObj.duration, null
     ).then(data => {
@@ -286,7 +286,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-      this.mService.getUser().username,
+      
       this.mObj, null, null, timeStart, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -308,7 +308,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-      this.mService.getUser().username,
+      
       this.mObj, null, null, time, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -330,7 +330,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-      this.mService.getUser().username,
+      
       this.mObj, null, null, null, null, null, null, null, null, null, time
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -356,7 +356,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-        this.mService.getUser().username,
+        
         this.mObj,
         null, null, null, null, null, this.mObj.description
       ).then(data => {
@@ -376,7 +376,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-        this.mService.getUser().username,
+        
         this.mObj,
         null, null, null, null, null, null, null, null, this.mObj.taskName
       ).then(data => {
@@ -429,8 +429,8 @@ export class CompanyDetailActivityComponent implements OnInit {
     let listID = [this.mObj.id];
 
     this.mService.getApiService().sendRequestUPDATE_TASK(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       JSON.stringify(listID),
       checked ? checked : null
     ).then(data => {

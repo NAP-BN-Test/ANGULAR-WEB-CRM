@@ -58,7 +58,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -70,7 +70,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_MEET_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -84,7 +84,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_NOTE_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -98,7 +98,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_CALL_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -112,7 +112,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_EMAIL_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -126,7 +126,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       this.mService.getApiService().sendRequestGET_TASK_ASSOCIATE(
 
 
-        this.mService.getUser().username,
+        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -141,7 +141,7 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onChangeContact(type) { //type is contactID:1 or state of activity:2
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      this.mService.getUser().username,
+      
       this.mObj,
       type == 1 ? this.mObj.contactID : null,
       type == 2 ? this.mObj.state : null,
@@ -156,7 +156,7 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onChangeUser() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      this.mService.getUser().username,
+      
       this.mObj,
       null, null, null, null, null, null,
       this.mObj.assignID
@@ -170,7 +170,7 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onTaskTypeChange() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      this.mService.getUser().username,
+      
       this.mObj,
       null, null, null, null, null, null, null,
       this.mObj.taskType
@@ -195,8 +195,8 @@ export class ContactDetailActivityListComponent implements OnInit {
         this.mService.getApiService().sendRequestDELETE_NOTE(
 
 
-          this.mService.getUser().username,
-          this.mService.getUser().id,
+          
+          
           JSON.stringify(listID)
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {
@@ -214,7 +214,7 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onChangeDuration() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      this.mService.getUser().username,
+      
       this.mObj,
       null, null, null, this.mObj.duration, null
     ).then(data => {
@@ -235,7 +235,7 @@ export class ContactDetailActivityListComponent implements OnInit {
     this.mObj.timeStart = timeStart;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      this.mService.getUser().username,
+      
       this.mObj, null, null, timeStart, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -255,7 +255,7 @@ export class ContactDetailActivityListComponent implements OnInit {
     this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      this.mService.getUser().username,
+      
       this.mObj, null, null, time, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -275,7 +275,7 @@ export class ContactDetailActivityListComponent implements OnInit {
     this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-      this.mService.getUser().username,
+      
       this.mObj, null, null, null, null, null, null, null, null, null, time
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -300,7 +300,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-        this.mService.getUser().username,
+        
         this.mObj,
         null, null, null, null, null, this.mObj.description
       ).then(data => {
@@ -320,7 +320,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
 
-        this.mService.getUser().username,
+        
         this.mObj,
         null, null, null, null, null, null, null, null, this.mObj.taskName
       ).then(data => {
@@ -372,8 +372,8 @@ export class ContactDetailActivityListComponent implements OnInit {
     let listID = [this.mObj.id];
 
     this.mService.getApiService().sendRequestUPDATE_TASK(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       JSON.stringify(listID),
       checked ? checked : null
     ).then(data => {

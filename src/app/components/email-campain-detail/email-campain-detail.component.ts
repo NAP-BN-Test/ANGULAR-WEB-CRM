@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
@@ -20,7 +20,6 @@ import { ConfirmSendEmailComponent } from 'src/app/dialogs/confirm-send-email/co
   styleUrls: ['./email-campain-detail.component.scss']
 })
 export class EmailCampainDetailComponent implements OnInit {
-
   mTitle: any;
   mObj: any;
 
@@ -31,7 +30,7 @@ export class EmailCampainDetailComponent implements OnInit {
 
   listMailList = [];
 
-
+  disableBtnSendMail = false;
 
   timeStart: any;
   timeEnd: any;
@@ -102,6 +101,8 @@ export class EmailCampainDetailComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(params => {
       this.campainID = Number(params.campainID);
+
+      this.handleSendMailBtn();
     });
 
     this.mService.getApiService().sendRequestGET_MAIL_CAMPAIN_DETAIL(this.campainID).then(data => {
@@ -123,6 +124,33 @@ export class EmailCampainDetailComponent implements OnInit {
     UploadFileModule.getInstance().setHttp(this.http);
   }
 
+  handleSendMailBtn() {
+    let now = new Date().getTime();
+    let timeSendBefore = localStorage.getItem(LOCAL_STORAGE_KEY.SEND_EMAIL + this.campainID) ? Number(localStorage.getItem(LOCAL_STORAGE_KEY.SEND_EMAIL + this.campainID)) : new Date().getTime() - 1800000;
+
+    let timeSpan = now - timeSendBefore;
+
+    this.disableBtnSendMail = timeSpan >= 1800000;
+    // this.disableBtnSendMail = timeSpan >= 5000;
+    
+    if (!this.disableBtnSendMail)
+      setTimeout(() => {
+        let timeRemain = document.getElementById('timeRemain');
+
+        let timeSpanSecond = 1800 - Math.floor(timeSpan / 1000);
+
+        let intervalTimeRemain = setInterval(() => {
+          timeSpanSecond = timeSpanSecond -= 1;
+
+          let minute = Math.floor(timeSpanSecond / 60) > 9 ? Math.floor(timeSpanSecond / 60) : "0" + Math.floor(timeSpanSecond / 60);
+          let second = timeSpanSecond % 60 > 9 ? timeSpanSecond % 60 : "0" + timeSpanSecond % 60
+
+          timeRemain.textContent = minute + ":" + second;
+          if (timeSpanSecond <= 0) clearInterval(intervalTimeRemain)
+        }, 1000)
+      }, 1000);
+
+  }
 
   onClickSave() {
     let obj = {
@@ -159,6 +187,10 @@ export class EmailCampainDetailComponent implements OnInit {
 
         this.mService.getApiService().sendRequestADD_MAIL_SEND(obj).then(data => {
           if (data.status == STATUS.SUCCESS) {
+
+            localStorage.setItem(LOCAL_STORAGE_KEY.SEND_EMAIL + this.campainID, new Date().getTime() + "");
+            this.handleSendMailBtn();
+
             this.mService.showSnackBar(data.message)
 
           }
@@ -230,7 +262,7 @@ export class EmailCampainDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        this.mService.getApiService().sendRequestVERIFY_EMAIL(this.mService.getUser().id, res).then(data => {
+        this.mService.getApiService().sendRequestVERIFY_EMAIL(res).then(data => {
           if (data.status == STATUS.SUCCESS) {
 
             let user = this.mService.getUser();

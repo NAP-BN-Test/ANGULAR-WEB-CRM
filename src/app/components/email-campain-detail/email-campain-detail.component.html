@@ -64,8 +64,9 @@
                     <button mat-raised-button color="primary" (click)="onClickSave()">Lưu</button>
                 </div>
                 <div padding>
-                    <button [disabled]="!btnVerify" mat-raised-button color="primary" (click)="onClickSend()">Gửi chiến
+                    <button [disabled]="!btnVerify||!disableBtnSendMail" mat-raised-button color="primary" (click)="onClickSend()">Gửi chiến
                         dịch</button>
+                    <div id="timeRemain" *ngIf="!disableBtnSendMail" class="font6 text-center"></div>
                 </div>
                 <div padding>
                     <button [disabled]="!btnVerify" mat-raised-button color="accent" (click)="onClickSendTest()">Gửi

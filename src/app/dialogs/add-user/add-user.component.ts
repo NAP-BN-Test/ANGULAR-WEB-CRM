@@ -86,8 +86,8 @@ export class AddUserComponent {
     //       }
 
     //       this.mService.getApiService().sendRequestADD_USER(
-    //         this.mService.getUser().username,
-    //         this.mService.getUser().id,
+    //         
+    //         
     //         user
     //       ).then(data => {
     //         this.missValue = true;

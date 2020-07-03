@@ -43,8 +43,8 @@ export class CompanySubDetailDealComponent implements OnInit {
 
   onChangeStage() {
     this.mService.getApiService().sendRequestUPDATE_DEAL(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       this.mObj.id,
       this.mObj.stageID
     ).then(data => {
@@ -74,8 +74,8 @@ export class CompanySubDetailDealComponent implements OnInit {
         this.mService.getApiService().sendRequestDELETE_DEAL_FROM_COMPANY(
           
           
-          this.mService.getUser().username,
-          this.mService.getUser().id,
+          
+          
           this.mObj.id
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {

@@ -81,7 +81,7 @@ export class EmailListSubReportComponent implements OnInit {
 
   onLoadData(page: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestREPORT_MAIL_DETAIL(
-      this.mService.getUser().id,
+      
       page,
       searchKey,
       timeFrom,

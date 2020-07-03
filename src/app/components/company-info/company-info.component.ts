@@ -44,8 +44,8 @@ export class CompanyInfoComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_DETAIL_COMPANY(
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -54,15 +54,15 @@ export class CompanyInfoComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_LIST_CITY(
-      this.mService.getUser().username,
-      this.mService.getUser().id
+      
+      
     ).then(data => {
       this.listCity = data.array;
     })
 
     this.mService.getApiService().sendRequestGET_DEAL_STAGE(
-      this.mService.getUser().username,
-      this.mService.getUser().id
+      
+      
     ).then(data => {
       this.listStep = data.array;
     })
@@ -95,7 +95,7 @@ export class CompanyInfoComponent implements OnInit {
     else if (type == 9) timeActive = event;
     
     this.mService.getApiService().sendRequestUPDATE_COMPANY(
-      this.mService.getUser().username,
+      
       this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
       companyName,
       companyShortName,
@@ -117,8 +117,8 @@ export class CompanyInfoComponent implements OnInit {
     this.mService.getApiService().sendRequestFOLLOW_COMPANY(
 
 
-      this.mService.getUser().username,
-      this.mService.getUser().id,
+      
+      
       this.mObj.id, !this.mObj.follow ? true : null
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
@@ -142,8 +142,8 @@ export class CompanyInfoComponent implements OnInit {
         this.mService.getApiService().sendRequestDELETE_COMPANY(
 
 
-          this.mService.getUser().username,
-          this.mService.getUser().id,
+          
+          
           JSON.stringify(listID)
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {

@@ -34,18 +34,4 @@ export class PaginationComponent implements OnInit {
     }
   }
 
-  // onClickSettingItemPerPage() {
-  //   const dialogRef = this.dialog.open(DialogSettingItemPerPageComponent, {
-  //     width: '500px'
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(res => {
-  //     if (res) {
-  //       this.mService.getApiService().setItemPerPage(res);
-
-  //       this.clickSettingItemPerPage.emit(res);
-  //     }
-  //   });
-  // }
-
 }

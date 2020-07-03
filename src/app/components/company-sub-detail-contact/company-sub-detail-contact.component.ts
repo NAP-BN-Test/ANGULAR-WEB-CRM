@@ -41,8 +41,8 @@ export class CompanySubDetailContactComponent implements OnInit {
         this.mService.getApiService().sendRequestDELETE_CONTACT_FROM_COMPANY(
           
           
-          this.mService.getUser().username,
-          this.mService.getUser().id,
+          
+          
           this.mObj.id
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {
