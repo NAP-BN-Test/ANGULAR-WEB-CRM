@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { STATUS, SORT_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
-import { MatInput, MatSelect } from '@angular/material';
+import { MatInput, MatSelect, MatDialog } from '@angular/material';
 
 import * as moment from 'moment';
+import { AddHistoryComponent } from 'src/app/dialogs/add-history/add-history.component';
 
 @Component({
   selector: 'app-filter-bar',
@@ -34,6 +35,8 @@ export class FilterBarComponent implements OnInit {
   @Output('clickImport') clickImport = new EventEmitter();
   @Output('sort') sort = new EventEmitter();
 
+  hasSort = false;
+
   mTitle: any;
 
   listUser = [];
@@ -63,6 +66,7 @@ export class FilterBarComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -70,8 +74,8 @@ export class FilterBarComponent implements OnInit {
     this.mTitle = JSON.parse(languageData);
 
     this.mService.getApiService().sendRequestGET_LIST_USER(
-      
-      
+
+
       1
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
@@ -81,8 +85,8 @@ export class FilterBarComponent implements OnInit {
     })
 
     this.mService.getApiService().sendRequestGET_DEAL_STAGE(
-      
-      
+
+
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.listStep = data.array;
@@ -91,8 +95,8 @@ export class FilterBarComponent implements OnInit {
     })
 
     this.mService.getApiService().sendRequestGET_LIST_CITY(
-      
-      
+
+
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.listCity = data.array;
@@ -113,6 +117,14 @@ export class FilterBarComponent implements OnInit {
   }
 
   onClickSort() {
+    if (this.userSelect.value ||
+      this.stepSelect.value ||
+      this.citySelect.value ||
+      this.dateStartInput.value ||
+      this.dateEndInput.value ||
+      this.searchKeyInput.value != '') this.hasSort = true;
+    else this.hasSort = false;
+
     this.sort.emit({
       userID: toID(this.userSelect.value),
       stepID: toID(this.stepSelect.value),
@@ -125,6 +137,27 @@ export class FilterBarComponent implements OnInit {
 
   }
 
+  onClickHistory() {
+    this.mService.publishPageRoute('history');
+  }
+
+  onClickSave() {
+    const dialogRef = this.dialog.open(AddHistoryComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        let params: any = this.mService.handleActivatedRoute();
+
+        this.mService.getApiService().sendRequestADD_HISTORY(res.name, this.mService.getRouterUrl(), JSON.stringify(params)).then(data => {
+          this.mService.showSnackBar(data.message);
+        })
+      }
+
+    });
+  }
+
   onClickClear() {
     this.dateStartInput.value = '';
     this.dateEndInput.value = '';
@@ -133,6 +166,8 @@ export class FilterBarComponent implements OnInit {
     this.stepSelect.value = '';
     this.citySelect.value = '';
     this.timeTypeSelect.value = '';
+
+    this.hasSort = false;
 
   }
 
@@ -150,12 +185,39 @@ export class FilterBarComponent implements OnInit {
   handleParams() {
     setTimeout(() => {
       this.toppingListSelected = [];
-      if (this.paramsObj)
+      if (this.paramsObj) {
+
+        if (this.paramsObj.stepID) {
+          this.stepSelect.value = this.paramsObj.stepID;
+          this.sortStep = true;
+          this.toppingListSelected.push(SORT_TYPE.STEP);
+        }
+        if (this.paramsObj.cityID) {
+          this.citySelect.value = this.paramsObj.cityID;
+          this.sortCity = true;
+          this.toppingListSelected.push(SORT_TYPE.CITY);
+        }
+        if (this.paramsObj.timeFrom) {
+          this.dateStartInput.value = this.paramsObj.timeFrom;
+          this.sortTimeStart = true;
+          this.toppingListSelected.push(SORT_TYPE.TIME_START);
+        }
+        if (this.paramsObj.timeTo) {
+          this.dateEndInput.value = this.paramsObj.timeTo;
+          this.sortTimeEnd = true;
+          this.toppingListSelected.push(SORT_TYPE.TIME_END);
+        }
+        if (this.paramsObj.userIDFind) {
+          this.userSelect.value = this.paramsObj.userIDFind;
+          this.sortUser = true;
+          this.toppingListSelected.push(SORT_TYPE.USER);
+        }
         if (this.paramsObj.searchKey) {
           this.searchKeyInput.value = this.paramsObj.searchKey;
           this.sortSearch = true;
           this.toppingListSelected.push(SORT_TYPE.SEARCH);
         }
+      }
     }, 500);
 
   }

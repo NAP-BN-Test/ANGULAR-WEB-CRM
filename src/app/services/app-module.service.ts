@@ -192,8 +192,11 @@ export class AppModuleService {
     return paramsObj;
   }
 
-  publishPageRoute(component: string, params?: any) {
-    this.router.navigate([component], { queryParams: params ? params : {} });
+  publishPageRoute(component: string, params?: any, state?: any) {
+    this.router.navigate([component], {
+      queryParams: params ? params : {},
+      state: { params: state ? state : {} }
+    });
   }
 
   handleActivatedRoute() {
@@ -205,6 +208,15 @@ export class AppModuleService {
       if (params.tabIndex) array.push({ key: 'tabIndex', value: params.tabIndex })
       if (params.campainName) array.push({ key: 'campainName', value: params.campainName })
       if (params.mailListName) array.push({ key: 'mailListName', value: params.mailListName })
+
+      if (params.stepID) array.push({ key: 'stepID', value: params.stepID })
+      if (params.cityID) array.push({ key: 'cityID', value: params.cityID })
+      if (params.timeFrom) array.push({ key: 'timeFrom', value: params.timeFrom })
+      if (params.timeTo) array.push({ key: 'timeTo', value: params.timeTo })
+      if (params.userIDFind) array.push({ key: 'userIDFind', value: params.userIDFind })
+      if (params.searchKey) array.push({ key: 'searchKey', value: params.searchKey })
+
+      if (params.menu) array.push({ key: 'menu', value: params.menu })
       if (params.page) array.push({ key: 'page', value: params.page })
     });
 
@@ -291,5 +303,13 @@ export class AppModuleService {
         };
       }
     }
+  }
+
+  getRouterUrl() {
+    let urlFull = this.router.url;
+    let urlSplit = urlFull.split("?");
+    let url = urlSplit[0].replace("/", "");
+
+    return url;
   }
 }

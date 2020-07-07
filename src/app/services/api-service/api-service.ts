@@ -6,8 +6,8 @@ import * as md5 from 'md5';
 import { LOCAL_STORAGE_KEY } from '../constant/app-constant';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.4:3002/";
-    mUrl: string = "http://163.44.192.123:3302/";
+    mUrl: string = "http://192.168.1.4:3002/";
+    // mUrl: string = "http://163.44.192.123:3302/";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
     userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)).id : -1;
@@ -1515,5 +1515,224 @@ export class ApiService extends HttpClient {
                 .add("secretKey", this.mSecretKey)
 
                 .add("dataJson", dataJ));
+    }
+
+    //==============================
+    public sendRequestGET_CATEGORY_CITY(page: number, searchKey: string): Promise<any> {
+        let mSearchKey = searchKey != "" ? searchKey : null;
+
+        return this.requestPost(this.mUrl + ApiCmd.GET_CATEGORY_CITY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("page", page)
+                .addIgnoreNull("searchKey", mSearchKey)
+                .add("itemPerPage", this.itemPerPage));
+    }
+
+    //==============================
+    public sendRequestADD_CATEGORY_CITY(obj: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CATEGORY_CITY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name)
+                .add("countryID", obj.countryID)
+                .add("code", obj.code));
+    }
+
+    //==============================
+    public sendRequestUPDATE_CATEGORY_CITY(obj: any, cityID): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_CATEGORY_CITY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("cityID", cityID)
+                .add("name", obj.name)
+                .add("countryID", obj.countryID)
+                .add("code", obj.code));
+    }
+
+    //==============================
+    public sendRequestDELETE_CATEGORY_CITY(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CATEGORY_CITY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
+    }
+
+    //==============================
+    public sendRequestGET_ALL_CATEGORY_COUNTRY(): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_ALL_CATEGORY_COUNTRY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID));
+    }
+
+    //==============================
+    public sendRequestGET_CATEGORY_COUNTRY(page: number, searchKey: string): Promise<any> {
+        let mSearchKey = searchKey != "" ? searchKey : null;
+
+        return this.requestPost(this.mUrl + ApiCmd.GET_CATEGORY_COUNTRY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("page", page)
+                .addIgnoreNull("searchKey", mSearchKey)
+                .add("itemPerPage", this.itemPerPage));
+    }
+
+    //==============================
+    public sendRequestADD_CATEGORY_COUNTRY(obj: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CATEGORY_COUNTRY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name)
+                .add("code", obj.code));
+    }
+
+    //==============================
+    public sendRequestUPDATE_CATEGORY_COUNTRY(obj: any, countryID): Promise<any> {
+
+        console.log(countryID);
+
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_CATEGORY_COUNTRY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("countryID", countryID)
+                .add("name", obj.name)
+                .add("code", obj.code));
+    }
+
+    //==============================
+    public sendRequestDELETE_CATEGORY_COUNTRY(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CATEGORY_COUNTRY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
+    }
+
+
+    //==============================
+    public sendRequestGET_CATEGORY_STEP(page: number, searchKey: string): Promise<any> {
+        let mSearchKey = searchKey != "" ? searchKey : null;
+
+        return this.requestPost(this.mUrl + ApiCmd.GET_CATEGORY_STEP,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("page", page)
+                .addIgnoreNull("searchKey", mSearchKey)
+                .add("itemPerPage", this.itemPerPage));
+    }
+
+    //==============================
+    public sendRequestADD_CATEGORY_STEP(obj: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CATEGORY_STEP,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name)
+                .add("process", obj.process)
+                .add("stage", obj.stage));
+    }
+
+    //==============================
+    public sendRequestUPDATE_CATEGORY_STEP(obj: any, stepID): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_CATEGORY_STEP,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("stepID", stepID)
+                .add("name", obj.name)
+                .add("process", obj.process)
+                .add("stage", obj.stage));
+    }
+
+    //==============================
+    public sendRequestDELETE_CATEGORY_STEP(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CATEGORY_STEP,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
+    }
+
+    //==============================
+    public sendRequestADD_HISTORY(name: string, router: string, param: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_HISTORY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", name)
+                .add("router", router)
+                .add("param", param));
+    }
+
+    //==============================
+    public sendRequestGET_HISTORY(searchKey: string, timeSelect): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_HISTORY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("searchKey", searchKey)
+                .add("timeSelect", timeSelect));
+    }
+
+    //==============================
+    public sendRequestDELETE_HISTORY(historyID): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_HISTORY,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+                
+                .add("historyID", historyID));
     }
 }

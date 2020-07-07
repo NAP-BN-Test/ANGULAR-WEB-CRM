@@ -64,9 +64,19 @@
         <mat-icon>refresh</mat-icon>
     </button>
 
+    <div padding-start *ngIf="hasSort"></div>
+    <button matTooltip="Lưu kết quả tìm kiếm" style="animation: fadeIn 300ms;" *ngIf="hasSort" mat-mini-fab color="accent" (click)="onClickSave()">
+        <mat-icon>save</mat-icon>
+    </button>
+
     <div padding-start></div>
     <button matTooltip="Lọc" mat-mini-fab color="primary" (click)="onClickSort()">
         <mat-icon>filter_alt</mat-icon>
+    </button>
+
+    <div padding-start></div>
+    <button matTooltip="Lịch sử" mat-mini-fab color="accent" (click)="onClickHistory()">
+        <mat-icon>history</mat-icon>
     </button>
 
     <div padding-start *ngIf="!noAdd"></div>

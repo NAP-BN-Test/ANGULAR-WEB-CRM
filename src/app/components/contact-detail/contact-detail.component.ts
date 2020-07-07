@@ -100,7 +100,7 @@ export class ContactDetailComponent implements OnInit {
       })
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
   }
 

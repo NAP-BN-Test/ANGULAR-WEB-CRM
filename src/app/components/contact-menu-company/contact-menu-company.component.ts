@@ -27,7 +27,7 @@ export class ContactMenuCompanyComponent implements OnInit {
       { name: 'Tỉnh/TP', cell: 'city' },
       { name: 'HĐ gần đây', cell: 'lastActivity' },
       { name: 'Ngày tạo', cell: 'timeCreate' },
-      { name: 'Agent/Company', cell: 'companyType' },
+      { name: 'Đăng ký', cell: 'companyType' },
     ],
     listButton: [
       { id: BUTTON_TYPE.ADD_LIST_MAIL, name: 'Thêm vào ds mail', color: 'primary' },
@@ -75,13 +75,10 @@ export class ContactMenuCompanyComponent implements OnInit {
   stageID = null;
   cityID = null;
 
-  itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   collectionSize: number;
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
-    public activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private cookieService: CookieService
   ) { }
@@ -95,24 +92,29 @@ export class ContactMenuCompanyComponent implements OnInit {
 
     if (this.mService.getUser()) {
 
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.page = params.page;
-        this.menuSelected = params.menu;
+      let params: any = this.mService.handleActivatedRoute();
+      
+      this.page = params.page;
+      this.menuSelected = params.menu;
+      if (params.stepID) this.stageID = params.stepID;
+      if (params.cityID) this.cityID = params.cityID;
+      if (params.timeFrom) this.timeFrom = params.timeFrom;
+      if (params.timeTo) this.timeTo = params.timeTo;
+      if (params.userIDFind) this.userIDFind = params.userIDFind;
+      if (params.searchKey) this.searchKey = params.searchKey;
 
-        this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
-      });
-
+      this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
   }
 
 
   onLoadData(page: number, companyType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, stepID: number, cityID: number) {
     this.mService.getApiService().sendRequestGET_LIST_COMPANY(
-      
-      
+
+
       page,
       companyType,
       searchKey,
@@ -152,12 +154,18 @@ export class ContactMenuCompanyComponent implements OnInit {
           listTbData: this.listTbData
         });
 
-        let listParams = [
-          { key: 'page', value: this.page },
-          { key: 'menu', value: this.menuSelected }
-        ];
-        this.paramsObj = this.mService.handleParamsRoute(listParams);
+        let listParams = [];
+        if (this.stageID != "") listParams.push({ key: 'stepID', value: this.stageID });
+        if (this.cityID != "") listParams.push({ key: 'cityID', value: this.cityID });
+        if (this.timeFrom != "") listParams.push({ key: 'timeFrom', value: this.timeFrom });
+        if (this.timeTo != "") listParams.push({ key: 'timeTo', value: this.timeTo });
+        if (this.userIDFind != "") listParams.push({ key: 'userIDFind', value: this.userIDFind });
+        if (this.searchKey != "") listParams.push({ key: 'searchKey', value: this.searchKey });
 
+        listParams.push({ key: 'menu', value: this.menuSelected });
+        listParams.push({ key: 'page', value: this.page });
+
+        this.paramsObj = this.mService.handleParamsRoute(listParams);
       }
     });
   }
@@ -184,8 +192,8 @@ export class ContactMenuCompanyComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
-            
-            
+
+
             res,
             event.data
           ).then(data => {
@@ -203,8 +211,8 @@ export class ContactMenuCompanyComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_COMPANY(
-            
-            
+
+
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
@@ -267,10 +275,10 @@ export class ContactMenuCompanyComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.CONTACT) {
-        this.router.navigate(['contact-detail'], { state: { params: event.data } });
+        this.mService.publishPageRoute('contact-detail', null, event.data);
       }
       else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
-        this.router.navigate(['company-detail'], { state: { params: event.data } });
+        this.mService.publishPageRoute('company-detail', null, event.data);
       }
     }
   }

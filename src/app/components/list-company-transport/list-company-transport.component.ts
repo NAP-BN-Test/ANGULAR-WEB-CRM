@@ -25,7 +25,7 @@ export class ListCompanyTransportComponent implements OnInit {
       { name: 'Tỉnh/TP', cell: 'city' },
       { name: 'HĐ gần đây', cell: 'lastActivity' },
       { name: 'Ngày tạo', cell: 'timeCreate' },
-      { name: 'Agent/Company', cell: 'companyType' },
+      { name: 'Đăng ký', cell: 'companyType' },
     ],
     listButton: [
       { id: BUTTON_TYPE.ASSIGN, name: 'Giao việc', color: 'primary' },
@@ -101,7 +101,7 @@ export class ListCompanyTransportComponent implements OnInit {
 
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
   }
 

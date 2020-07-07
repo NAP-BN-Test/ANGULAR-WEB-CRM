@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL } from 'src/app/services/constant/app-constant';
+import { BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, MENU_INDEX } from 'src/app/services/constant/app-constant';
 
 
 @Component({
@@ -17,6 +17,7 @@ export class MatTableComponent implements OnInit {
   @Output('clickPagination') clickPagination = new EventEmitter();
   @Output('clickBtn') clickBtn = new EventEmitter();
   @Output('clickCell') clickCell = new EventEmitter();
+  @Output('clickEdit') clickEdit = new EventEmitter();
 
   page;
   collectionSize;
@@ -25,8 +26,9 @@ export class MatTableComponent implements OnInit {
   itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
   pageSizeOptions: number[] = [10, 25, 50, 100, 200];
 
-  displayedColumns: string[] = ['id'];
-  displayedColumnsAll: any[];
+  displayedColumns: string[] = [];
+  displayedColumnsAll: any[] = [];
+  displayedColumnsAction: any[] = [];
 
   dataSource: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);
@@ -57,6 +59,9 @@ export class MatTableComponent implements OnInit {
         this.listTbData = sData.params.listTbData;
 
         setTimeout(() => {
+          if (sData.params.listTbData.menuIndex == MENU_INDEX.REPORT) {
+            this.displayedColumns = [];
+          }
           this.listTbData.listColum.forEach(item => {
             this.displayedColumns.push(item.cell);
           })
@@ -177,7 +182,6 @@ export class MatTableComponent implements OnInit {
           });
       }
       else if (cell.includes('taskName')) {
-        console.log(row);
         if (row.type == 1) {
           this.clickCell.emit({
             clickDetail: CLICK_DETAIL.COMPANY,
@@ -199,6 +203,12 @@ export class MatTableComponent implements OnInit {
         data: row
       });
     }
+  }
+
+  onClickEdit(row) {
+    this.clickEdit.emit({
+      data: row
+    })
   }
 
 }

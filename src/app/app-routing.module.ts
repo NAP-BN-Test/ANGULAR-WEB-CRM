@@ -24,6 +24,10 @@ import { EmailCampainDetailComponent } from './components/email-campain-detail/e
 import { EmailListSubReportComponent } from './components/email-list-sub-report/email-list-sub-report.component';
 import { ReportListMaillistComponent } from './components/report-list-maillist/report-list-maillist.component';
 import { ReportListMaillistDetailComponent } from './components/report-list-maillist-detail/report-list-maillist-detail.component';
+import { CategoryCityComponent } from './components/category-city/category-city.component';
+import { CategoryStepComponent } from './components/category-step/category-step.component';
+import { CategoryCountryComponent } from './components/category-country/category-country.component';
+import { ListHistoryComponent } from './components/list-history/list-history.component';
 
 
 const routes: Routes = [
@@ -146,6 +150,26 @@ const routes: Routes = [
     path: 'report-list-maillist-detail',
     component: ReportListMaillistDetailComponent,
     data: { title: 'reportListMaillistDetail' }
+  },
+  {
+    path: 'category-city',
+    component: CategoryCityComponent,
+    data: { title: 'CategoryCity' }
+  },
+  {
+    path: 'category-step',
+    component: CategoryStepComponent,
+    data: { title: 'CategoryStep' }
+  },
+  {
+    path: 'category-country',
+    component: CategoryCountryComponent,
+    data: { title: 'CategoryCountry' }
+  },
+  {
+    path: 'history',
+    component: ListHistoryComponent,
+    data: { title: 'History' }
   },
   {
     path: '',

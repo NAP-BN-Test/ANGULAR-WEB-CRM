@@ -25,7 +25,7 @@ export class ListCompanyLogisticComponent implements OnInit {
       { name: 'Tỉnh/TP', cell: 'city' },
       { name: 'HĐ gần đây', cell: 'lastActivity' },
       { name: 'Ngày tạo', cell: 'timeCreate' },
-      { name: 'Agent/Company', cell: 'companyType' },
+      { name: 'Đăng ký', cell: 'companyType' },
     ],
     listButton: [
       { id: BUTTON_TYPE.ASSIGN, name: 'Giao việc', color: 'primary' },
@@ -92,23 +92,29 @@ export class ListCompanyLogisticComponent implements OnInit {
 
     if (this.mService.getUser()) {
 
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.page = params.page;
-        this.menuSelected = params.menu
-        this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
-      });
+      let params: any = this.mService.handleActivatedRoute();
 
+      this.page = params.page;
+      this.menuSelected = params.menu;
+      if (params.stepID) this.stageID = params.stepID;
+      if (params.cityID) this.cityID = params.cityID;
+      if (params.timeFrom) this.timeFrom = params.timeFrom;
+      if (params.timeTo) this.timeTo = params.timeTo;
+      if (params.userIDFind) this.userIDFind = params.userIDFind;
+      if (params.searchKey) this.searchKey = params.searchKey;
+
+      this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind, this.stageID, this.cityID);
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
   }
 
 
   onLoadData(page: number, companyType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, stepID: number, cityID: number) {
     this.mService.getApiService().sendRequestGET_LIST_COMPANY(
-      
-      
+
+
       page,
       companyType,
       searchKey,
@@ -148,11 +154,18 @@ export class ListCompanyLogisticComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        
-        let listParams = [ 
-          { key: 'page', value: this.page },
-          { key: 'menu', value: this.menuSelected }
-        ];
+
+        let listParams = [];
+        if (this.stageID != "") listParams.push({ key: 'stepID', value: this.stageID });
+        if (this.cityID != "") listParams.push({ key: 'cityID', value: this.cityID });
+        if (this.timeFrom != "") listParams.push({ key: 'timeFrom', value: this.timeFrom });
+        if (this.timeTo != "") listParams.push({ key: 'timeTo', value: this.timeTo });
+        if (this.userIDFind != "") listParams.push({ key: 'userIDFind', value: this.userIDFind });
+        if (this.searchKey != "") listParams.push({ key: 'searchKey', value: this.searchKey });
+
+        listParams.push({ key: 'menu', value: this.menuSelected });
+        listParams.push({ key: 'page', value: this.page });
+
         this.paramsObj = this.mService.handleParamsRoute(listParams);
       }
     });
@@ -180,8 +193,8 @@ export class ListCompanyLogisticComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestASSIGN_COMPANY_OWNER(
-            
-            
+
+
             res,
             event.data
           ).then(data => {
@@ -199,8 +212,8 @@ export class ListCompanyLogisticComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_COMPANY(
-            
-            
+
+
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {

@@ -73,10 +73,8 @@ export class ContactMenuContactComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
     public dialog: MatDialog,
     private cookieService: CookieService,
-    public activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -87,26 +85,27 @@ export class ContactMenuContactComponent implements OnInit {
 
     if (this.mService.getUser()) {
 
-      this.activatedRoute.queryParams.subscribe(params => {
+      let params: any = this.mService.handleActivatedRoute();
 
-        this.page = params.page;
-        this.menuSelected = params.menu;
-        if (params.searchKey) this.searchKey = params.searchKey;
+      this.page = params.page;
+      this.menuSelected = params.menu;
+      if (params.timeFrom) this.timeFrom = params.timeFrom;
+      if (params.timeTo) this.timeTo = params.timeTo;
+      if (params.userIDFind) this.userIDFind = params.userIDFind;
+      if (params.searchKey) this.searchKey = params.searchKey;
 
-        this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
-      });
-
+      this.onLoadData(this.page, this.menuSelected, this.searchKey, this.timeFrom, this.timeTo, this.userIDFind);
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
 
   }
 
   onLoadData(page: number, contactType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number) {
     this.mService.getApiService().sendRequestGET_LIST_CONTACT_FULL(
-      
-      
+
+
       page,
       contactType,
       searchKey,
@@ -142,7 +141,11 @@ export class ContactMenuContactComponent implements OnInit {
         });
 
         let listParams = [];
+        if (this.timeFrom != "") listParams.push({ key: 'timeFrom', value: this.timeFrom });
+        if (this.timeTo != "") listParams.push({ key: 'timeTo', value: this.timeTo });
+        if (this.userIDFind != "") listParams.push({ key: 'userIDFind', value: this.userIDFind });
         if (this.searchKey != "") listParams.push({ key: 'searchKey', value: this.searchKey });
+
         listParams.push({ key: 'menu', value: this.menuSelected });
         listParams.push({ key: 'page', value: this.page });
 
@@ -168,10 +171,10 @@ export class ContactMenuContactComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.CONTACT) {
-        this.router.navigate(['contact-detail'], { state: { params: event.data } });
+        this.mService.publishPageRoute('contact-detail', null, event.data);
       }
       else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
-        this.router.navigate(['company-detail'], { state: { params: event.data } });
+        this.mService.publishPageRoute('company-detail', null, event.data);
       }
     }
   }
@@ -196,8 +199,8 @@ export class ContactMenuContactComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestASSIGN_CONTACT_OWNER(
-            
-            
+
+
             res,
             event.data
           ).then(data => {
@@ -217,8 +220,8 @@ export class ContactMenuContactComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_CONTACT(
-            
-            
+
+
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {

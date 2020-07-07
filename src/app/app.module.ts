@@ -25,7 +25,8 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -121,6 +122,14 @@ import { TimeSelectedComponent } from './components/time-selected/time-selected.
 import { ReportListMaillistComponent } from './components/report-list-maillist/report-list-maillist.component';
 import { ReportListMaillistDetailComponent } from './components/report-list-maillist-detail/report-list-maillist-detail.component';
 import { AddUserComponent } from './dialogs/add-user/add-user.component';
+import { CategoryCityComponent } from './components/category-city/category-city.component';
+import { CategoryStepComponent } from './components/category-step/category-step.component';
+import { CategoryCountryComponent } from './components/category-country/category-country.component';
+import { AddCategoryCountryComponent } from './dialogs/add-category-country/add-category-country.component';
+import { AddCategoryCityComponent } from './dialogs/add-category-city/add-category-city.component';
+import { AddCategoryStepComponent } from './dialogs/add-category-step/add-category-step.component';
+import { AddHistoryComponent } from './dialogs/add-history/add-history.component';
+import { ListHistoryComponent } from './components/list-history/list-history.component';
 
 @NgModule({
   declarations: [
@@ -212,6 +221,14 @@ import { AddUserComponent } from './dialogs/add-user/add-user.component';
     TimeSelectedComponent,
     ReportListMaillistComponent,
     ReportListMaillistDetailComponent,
+    CategoryCityComponent,
+    CategoryStepComponent,
+    CategoryCountryComponent,
+    AddCategoryCountryComponent,
+    AddCategoryCityComponent,
+    AddCategoryStepComponent,
+    AddHistoryComponent,
+    ListHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -233,6 +250,7 @@ import { AddUserComponent } from './dialogs/add-user/add-user.component';
     MatTooltipModule,
     MatMenuModule,
     MatTabsModule,
+    MatAutocompleteModule,
     MatSnackBarModule,
     HttpClientModule,
     NgbModule,
@@ -261,7 +279,11 @@ import { AddUserComponent } from './dialogs/add-user/add-user.component';
     EmailListSubAddComponent,
     EmailCampainAddComponent,
     ConfirmSendEmailComponent,
-    AddUserComponent
+    AddUserComponent,
+    AddCategoryCityComponent,
+    AddCategoryCountryComponent,
+    AddCategoryStepComponent,
+    AddHistoryComponent
   ]
 })
 export class AppModule { }

@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Lưu kết quả tìm kiếm</h2>
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="myForm">
+
+        <mat-form-field width-100>
+            <mat-label>Tên</mat-label>
+            <input matInput type="text" formControlName="name" required>
+            <mat-error *ngIf="myForm.hasError('required')">
+                Chưa nhập <strong>tên</strong>
+            </mat-error>
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Hủy</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="myForm.value" [disabled]="!myForm.valid" cdkFocusInitial>Lưu</button>
+</mat-dialog-actions>

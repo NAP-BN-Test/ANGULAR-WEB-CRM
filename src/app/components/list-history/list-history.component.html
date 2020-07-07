@@ -1,0 +1,33 @@
+<div class="padding32 row">
+    <div class="col-md-3">
+        <div font3 bold padding-bottom>Tìm kiếm</div>
+
+        <mat-form-field width-100>
+            <mat-label>Tìm kiếm</mat-label>
+            <input matInput type="text" [(ngModel)]="searchKey" (change)="onSearchChange()">
+            <button mat-button *ngIf="searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="searchKey=''">
+              <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <div *ngFor="let item of listMenu" class="menu-item" [class.background-whitesmoke]="menuSelected==item.id" (click)="onClickMenu(item.id)">
+            <mat-icon>{{item.icon}}</mat-icon>
+            <div>{{item.name}}</div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div font3 bold>Kết quả</div>
+
+        <div *ngFor="let item of listData" padding-top>
+            <div class="m-item between">
+                <div width-50 (click)="onClickItem(item)" tappable>{{item.name}}</div>
+                <div center>
+                    <div padding-end>{{item.timeCreate | datetimeDefault}}</div>
+                    <div padding-start center tappable (click)="onClickDelete(item)">
+                        <mat-icon>close</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

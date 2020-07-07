@@ -198,4 +198,25 @@ export class ApiCmd {
     public static IMPORT_DATA: string = "import/import_tx";
 
 
+    public static GET_CATEGORY_STEP: string = "crm/get_category_step";
+    public static ADD_CATEGORY_STEP: string = "crm/add_category_step";
+    public static UPDATE_CATEGORY_STEP: string = "crm/update_category_step";
+    public static DELETE_CATEGORY_STEP: string = "crm/delete_category_step";
+
+    public static GET_ALL_CATEGORY_COUNTRY: string = "crm/get_all_category_country";
+    public static GET_CATEGORY_COUNTRY: string = "crm/get_category_country";
+    public static ADD_CATEGORY_COUNTRY: string = "crm/add_category_country";
+    public static UPDATE_CATEGORY_COUNTRY: string = "crm/update_category_country";
+    public static DELETE_CATEGORY_COUNTRY: string = "crm/delete_category_country";
+
+    public static GET_CATEGORY_CITY: string = "crm/get_category_city";
+    public static ADD_CATEGORY_CITY: string = "crm/add_category_city";
+    public static UPDATE_CATEGORY_CITY: string = "crm/update_category_city";
+    public static DELETE_CATEGORY_CITY: string = "crm/delete_category_city";
+
+
+    public static ADD_HISTORY: string = "crm/add_history";
+    public static GET_HISTORY: string = "crm/get_history";
+    public static DELETE_HISTORY: string = "crm/delete_history";
+
 }

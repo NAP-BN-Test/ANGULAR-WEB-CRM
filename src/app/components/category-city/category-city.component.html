@@ -1,0 +1,18 @@
+<div *ngIf="mTitle">
+    <div class="m-header">
+        <app-header-menu menuIndex="5"></app-header-menu>
+    </div>
+
+    <div class="padding m-content">
+
+        <div width-100>
+            <div font2 bold>{{mTitle.component_title.category_city}}</div>
+
+            <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
+            </app-filter-bar>
+
+            <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickEdit)="onClickEdit($event)"></app-mat-table>
+        </div>
+
+    </div>
+</div>

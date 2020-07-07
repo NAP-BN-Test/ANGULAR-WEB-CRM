@@ -33,7 +33,7 @@
             </div>
 
             <div width-80>
-                <app-filter-bar [toppingList]="toppingList" noImport="true" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)" (clickImport)="onClickImport()">
+                <app-filter-bar [paramsObj]="paramsObj" [toppingList]="toppingList" noImport="true" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)" (clickImport)="onClickImport()">
                 </app-filter-bar>
 
                 <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickCell)="onClickCell($event)"></app-mat-table>

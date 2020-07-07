@@ -23,12 +23,16 @@
         "email": "Email",
         "report": "Báo cáo",
         "company": "Công ty",
+        "category": "Danh mục",
         "logistic": "Logistic",
         "transport": "Transport",
         "task": "Giao việc",
         "call": "Cuộc gọi",
         "meet": "Gặp mặt",
         "note": "Ghi chú",
+        "city": "Tỉnh/TP",
+        "step": "Bước",
+        "country": "Nước",
         "mail_list": "Danh sách maillist",
         "mail_campain": "Danh sách chiến dịch",
         "report_by_campain": "Chiến dịch mail",
@@ -95,7 +99,10 @@
         "company_transport": "Công ty Transport",
         "contact": "Liên hệ",
         "add_company": "Thêm công ty",
-        "add_contact": "Thêm liên hệ"
+        "add_contact": "Thêm liên hệ",
+        "category_city": "Danh mục tỉnh/tp",
+        "category_step": "Danh mục các bước",
+        "category_country": "Danh mục các nước"
     },
     "other_title": {
         "company_intro": "Theo dõi những liên hệ nào là một phần của công ty này.",

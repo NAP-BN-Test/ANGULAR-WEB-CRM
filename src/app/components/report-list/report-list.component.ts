@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE } from 'src/app/services/constant/app-constant';
+import { STATUS, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE, MENU_INDEX } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -19,7 +19,8 @@ export class ReportListComponent implements OnInit {
       { name: 'Email list', cell: 'email' },
       { name: 'Thời gian tạo', cell: 'createTime' }
     ],
-    listButton: []
+    listButton: [],
+    menuIndex: MENU_INDEX.REPORT
   };
 
   //data for component fillter bar
@@ -71,7 +72,7 @@ export class ReportListComponent implements OnInit {
       });
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
 
   }

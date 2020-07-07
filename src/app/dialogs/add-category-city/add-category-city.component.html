@@ -1,0 +1,42 @@
+<h2 mat-dialog-title *ngIf="!mData">Thêm tỉnh/tp</h2>
+<h2 mat-dialog-title *ngIf="mData">Sửa tỉnh/tp</h2>
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="myForm">
+
+        <mat-form-field width-100>
+            <mat-label>Tên tỉnh/tp</mat-label>
+            <input matInput type="text" formControlName="name" required>
+            <mat-error *ngIf="myForm.hasError('required')">
+                Chưa nhập <strong>tên nước</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field width-100>
+            <mat-label>Mã tỉnh/tp</mat-label>
+            <input matInput type="text" formControlName="code" required>
+            <mat-error *ngIf="myForm.hasError('required')">
+                Chưa nhập <strong>mã nước</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field width-100>
+            <mat-label>Tên nước</mat-label>
+            <input matInput type="text" formControlName="country" [matAutocomplete]="auto" required>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let item of filterListCountry | async" [value]="item.name">
+                    {{item.name}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="myForm.hasError('required')">
+                Chưa chọn <strong>nước</strong>
+            </mat-error>
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Hủy</button>
+    <button mat-raised-button color="primary" (click)="onClickOk()" [disabled]="!myForm.valid" cdkFocusInitial>{{mData?'Lưu':'Thêm'}}</button>
+</mat-dialog-actions>

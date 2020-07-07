@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   setting = false;
 
-  
+
 
   loginMessage = "";
 
@@ -47,6 +47,11 @@ export class LoginComponent implements OnInit {
       localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY, "VI");
     }
 
+    // this.mService.loadVieLanguage().then((data: any) => {
+    //   this.mTitle = data;
+    //   localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA, JSON.stringify(data))
+    // });
+
     if (!localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA)) {
       this.mService.loadVieLanguage().then((data: any) => {
         this.mTitle = data;
@@ -69,7 +74,7 @@ export class LoginComponent implements OnInit {
 
   onClickLogin() {
     this.mService.getApiService().sendRequestUSER_LOGIN(this.ip, this.dbName, this.username, md5(this.password)).then(data => {
-      
+
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
         this.loginMessage = "";

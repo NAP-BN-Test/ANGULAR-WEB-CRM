@@ -81,6 +81,14 @@ export class HeaderMenuComponent implements OnInit {
         { index: 2, name: menuTitle.report_by_maillist },
         { index: 3, name: menuTitle.report_by_user }
       ]
+    }, {
+      index: 5,
+      name: menuTitle.category,
+      list: [
+        { index: 1, name: menuTitle.city },
+        { index: 2, name: menuTitle.step },
+        { index: 3, name: menuTitle.country }
+      ]
     }]
 
     this.mUser = this.mService.getUser();
@@ -96,16 +104,16 @@ export class HeaderMenuComponent implements OnInit {
 
       if (index == 1) {
         if (indexChild == 1) {
-          this.router.navigate(['contacts'], { queryParams: { page: 1, menu: 1 } });
+          this.router.navigate(['contacts'], { queryParams: { menu: 1, page: 1 } });
         }
         else if (indexChild == 2) {
-          this.router.navigate(['companies'], { queryParams: { page: 1, menu: 1 } });
+          this.router.navigate(['companies'], { queryParams: { menu: 1, page: 1 } });
         }
         else if (indexChild == 3) {
-          this.router.navigate(['logistic_company'], { queryParams: { page: 1, menu: 1 } });
+          this.router.navigate(['logistic_company'], { queryParams: { menu: 1, page: 1 } });
         }
         else if (indexChild == 4) {
-          this.router.navigate(['trasport_company'], { queryParams: { page: 1, menu: 1 } });
+          this.router.navigate(['trasport_company'], { queryParams: { menu: 1, page: 1 } });
         }
       }
       else if (index == 2) {
@@ -141,6 +149,15 @@ export class HeaderMenuComponent implements OnInit {
           this.router.navigate(['report-list-account'], { queryParams: { tabIndex: 0 } });
         }
       }
+      else if (index == 5) {
+        if (indexChild == 1) {
+          this.router.navigate(['category-city'], { queryParams: { page: 1 } });
+        } else if (indexChild == 2) {
+          this.router.navigate(['category-step'], { queryParams: { page: 1 } });
+        } else if (indexChild == 3) {
+          this.router.navigate(['category-country'], { queryParams: { page: 1 } });
+        }
+      }
     }
   }
 
@@ -156,7 +173,7 @@ export class HeaderMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         localStorage.removeItem('user-login');
-        this.router.navigate(['login']);
+        this.mService.publishPageRoute('login');
       }
     });
   }
@@ -194,8 +211,8 @@ export class HeaderMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.mService.getApiService().sendRequestADD_USER(
-          
-          
+
+
           res
         ).then(data => {
           this.mService.showSnackBar(data.message)

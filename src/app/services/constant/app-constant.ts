@@ -188,4 +188,12 @@ export const TIME_TYPE = {
     MONTH: 4   //Tháng trong năm
 }
 
+export const MENU_INDEX = {
+    CONTACT: 1,
+    ACTIVITY: 2,
+    EMAILING_LIST: 3,
+    REPORT: 4,
+    CATEGORY: 5
+}
+
 

@@ -76,7 +76,7 @@ export class ActivityListNoteComponent implements OnInit {
       this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
     }
     else {
-      this.router.navigate(['login']);
+      this.mService.publishPageRoute('login');
     }
   }
 

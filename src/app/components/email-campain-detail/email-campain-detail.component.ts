@@ -130,8 +130,8 @@ export class EmailCampainDetailComponent implements OnInit {
 
     let timeSpan = now - timeSendBefore;
 
-    this.disableBtnSendMail = timeSpan >= 1800000;
-    // this.disableBtnSendMail = timeSpan >= 5000;
+    // this.disableBtnSendMail = timeSpan >= 1800000;
+    this.disableBtnSendMail = timeSpan >= 5000;
     
     if (!this.disableBtnSendMail)
       setTimeout(() => {

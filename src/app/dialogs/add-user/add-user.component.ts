@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AppModuleService } from 'src/app/services/app-module.service';
-import { STATUS } from 'src/app/services/constant/app-constant';
-
-import * as md5 from 'md5';
+import { Component } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -66,58 +62,4 @@ export class AddUserComponent {
 
     return result;
   }
-
-  onClickAdd() {
-
-    console.log(this.myForm);
-
-    //   if (this.name.trim() != "" &&
-    //     this.username.trim() != "" &&
-    //     this.password.trim() != "" &&
-    //     this.rePassword.trim() != "") {
-    //     if (this.password.trim() == this.rePassword.trim()) {
-
-    //       let user = {
-    //         name: this.name,
-    //         username: this.username,
-    //         phone: this.phone,
-    //         email: this.email,
-    //         password: md5(this.password)
-    //       }
-
-    //       this.mService.getApiService().sendRequestADD_USER(
-    //         
-    //         
-    //         user
-    //       ).then(data => {
-    //         this.missValue = true;
-    //         if (data.status == STATUS.SUCCESS) {
-    //           this.notification = this.mTitle.add_success;
-    //           this.status = true;
-
-    //           this.name = "";
-    //           this.username = "";
-    //           this.phone = "";
-    //           this.email = "";
-    //           this.password = "";
-    //           this.rePassword = "";
-
-    //         } else {
-    //           this.notification = data.message;
-    //           this.status = false;
-    //         }
-    //       })
-    //     }
-    //     else {
-    //       this.notification = this.mTitle.password_match;
-    //       this.missValue = true;
-    //       this.status = false;
-    //     }
-    //   } else {
-    //     this.notification = this.mTitle.invalid_value;
-    //     this.missValue = true;
-    //     this.status = false;
-    //   }
-  }
-
 }
