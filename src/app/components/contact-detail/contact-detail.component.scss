@@ -1,14 +1,13 @@
-.box-create {
-    display: none;
-    width: 60%;
-    position: fixed;
-    bottom: 0;
-    right: 16px;
-    background-color: white;
-    z-index: 999;
-    animation: slideInUp 500ms;
-}
-
+// .box-create {
+//     display: none;
+//     width: 60%;
+//     position: fixed;
+//     bottom: 0;
+//     right: 16px;
+//     background-color: white;
+//     z-index: 999;
+//     animation: slideInUp 500ms;
+// }
 .box-add {
     display: none;
     position: fixed;
@@ -35,4 +34,9 @@
 
 .fade-in {
     animation: fadeIn 500ms 1;
+}
+
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }

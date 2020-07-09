@@ -1,9 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, LIST_SELECT } from 'src/app/services/constant/app-constant';
-import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { MatDialog } from '@angular/material';
@@ -17,6 +15,8 @@ export class ContactDetailIntroComponent implements OnInit {
   @Output('createAction') createAction = new EventEmitter();
   @Output('updateCompany') updateCompany = new EventEmitter();
 
+  @Input('mID') mID;
+
   mConpany: any;
 
   mTitle: any;
@@ -25,14 +25,12 @@ export class ContactDetailIntroComponent implements OnInit {
 
   listJobTile = LIST_SELECT.LIST_JOB_TILE;
 
-  
+
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
-    private cookieService: CookieService,
+    public dialog: MatDialog,
     private location: Location,
-    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -40,11 +38,7 @@ export class ContactDetailIntroComponent implements OnInit {
       this.mTitle = data.company_info;
     });
 
-    this.mService.getApiService().sendRequestGET_DETAIL_CONTACT(
-      
-      
-      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
-    ).then(data => {
+    this.mService.getApiService().sendRequestGET_DETAIL_CONTACT(this.mID).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mObj = data.obj;
       }
@@ -56,7 +50,12 @@ export class ContactDetailIntroComponent implements OnInit {
   }
 
   onInputChange(event, type) {
-    let value = event.target.value;
+
+    let value;
+    if (type != 6)
+      value = event.target.value;
+    else
+      value = event.value;
 
     let contactName: string;
     let contactAddress: string;
@@ -71,30 +70,22 @@ export class ContactDetailIntroComponent implements OnInit {
     else if (type == 6) contactJobTile = value;
 
     this.mService.getApiService().sendRequestUPDATE_CONTACT(
-      
-      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
+      this.mID,
       contactName,
       contactAddress,
       contactPhone,
       contactEmail,
       contactJobTile
-    )
-  }
-
-  onClickBack() {
-    this.location.back();
+    ).then(data => {
+      this.mService.showSnackBar(data.message);
+    })
   }
 
   onClickFollow() {
-    this.mService.getApiService().sendRequestFOLLOW_CONTACT(
-      
-      
-      this.mObj.id, !this.mObj.follow ? true : null
-    ).then(data => {
+    this.mService.getApiService().sendRequestFOLLOW_CONTACT(this.mObj.id, !this.mObj.follow ? true : null).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.mObj.follow = Boolean(data.follow);
         this.mService.showSnackBar(data.message)
-        
       }
     })
   }
@@ -109,13 +100,7 @@ export class ContactDetailIntroComponent implements OnInit {
         let listID = [];
         listID.push(this.mObj.id);
 
-        this.mService.getApiService().sendRequestDELETE_CONTACT(
-          
-          
-          
-          
-          JSON.stringify(listID)
-        ).then(data => {
+        this.mService.getApiService().sendRequestDELETE_CONTACT(JSON.stringify(listID)).then(data => {
           if (data.status == STATUS.SUCCESS) {
             this.location.back();
           }

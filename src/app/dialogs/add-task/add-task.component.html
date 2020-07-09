@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Thêm cuộc hẹn</h2>
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="myForm">
+
+        <mat-form-field width-100>
+            <mat-label>Tên nhiệm vụ</mat-label>
+            <input matInput type="text" formControlName="name" required>
+        </mat-form-field>
+
+        <mat-form-field width-100>
+            <mat-label>Phân công</mat-label>
+            <mat-select formControlName="assignID" required>
+                <mat-option *ngFor="let item of listUser" selected="true" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field width-100>
+            <mat-label>Loại</mat-label>
+            <mat-select formControlName="taskType" required>
+                <mat-option *ngFor="let item of listTaskType" selected="true" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field width-100>
+            <mat-label>Ngày cảnh báo</mat-label>
+            <input formControlName="dateStart" matInput [matDatepicker]="picker2" required>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field width-100>
+            <mat-label>Giờ cảnh báo</mat-label>
+            <mat-select formControlName="hourStart" required>
+                <mat-option *ngFor="let item of listTime" [value]="item.value">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field width-100>
+            <mat-label>Nội dung</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="4" cdkAutosizeMaxRows="10" formControlName="description" required></textarea>
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Hủy</button>
+    <button mat-raised-button color="primary" (click)="onClickOk()" [disabled]="!myForm.valid">Lưu</button>
+</mat-dialog-actions>

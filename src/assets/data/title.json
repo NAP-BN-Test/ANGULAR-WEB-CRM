@@ -30,13 +30,11 @@
         },
         "header": {
             "logo": "../../assets/img/logo_light.png",
-            "list_menu": [
-                {
+            "list_menu": [{
                     "name": "Liên hệ",
                     "icon": "keyboard_arrow_down",
                     "index": 1,
-                    "list": [
-                        {
+                    "list": [{
                             "name": "Liên hệ",
                             "index": 1
                         },
@@ -58,8 +56,7 @@
                     "name": "Hoạt động",
                     "icon": "keyboard_arrow_down",
                     "index": 2,
-                    "list": [
-                        {
+                    "list": [{
                             "name": "Giao việc",
                             "index": 1
                         },
@@ -85,8 +82,7 @@
                     "name": "Email",
                     "icon": "keyboard_arrow_down",
                     "index": 3,
-                    "list": [
-                        {
+                    "list": [{
                             "name": "Email List",
                             "index": 1
                         },
@@ -100,8 +96,7 @@
                     "name": "Báo cáo",
                     "icon": "keyboard_arrow_down",
                     "index": 4,
-                    "list": [
-                        {
+                    "list": [{
                             "name": "Tất cả chiến dịch",
                             "index": 1
                         },
@@ -126,31 +121,30 @@
             "follow": "Theo dõi",
             "unfollow": "Bỏ theo dõi",
             "delete": "Xóa",
-            "list_icon": [
-                {
+            "list_icon": [{
                     "icon": "note_circle",
                     "name": "Ghi chú",
-                    "index": 1
+                    "index": 4
                 },
                 {
                     "icon": "task_circle",
                     "name": "Giao việc",
-                    "index": 2
+                    "index": 5
                 },
                 {
                     "icon": "call_circle",
                     "name": "Cuộc gọi",
-                    "index": 3
+                    "index": 1
                 },
                 {
                     "icon": "email_circle",
                     "name": "Email",
-                    "index": 4
+                    "index": 2
                 },
                 {
                     "icon": "meet_circle",
                     "name": "Gặp mặt",
-                    "index": 5
+                    "index": 3
                 }
             ],
             "info": {
@@ -316,8 +310,7 @@
             "campain_email_receive": "Email nhận",
             "campain_send_all": "Gửi chiến dịch tới tất cả Email trong danh sách",
             "campain_send_by_time": "Gửi chiến dịch tới các Email đã mở các chiến dịch trước trong khoảng thời gian",
-            "campain_list_time": [
-                {
+            "campain_list_time": [{
                     "value": 1,
                     "name": "1 tháng"
                 },
@@ -427,8 +420,7 @@
                 "company": "CÔNG TY LIÊN KẾT",
                 "time_create": "NGÀY TẠO",
                 "last_activity": "HĐ GẦN ĐÂY",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "Giao việc",
                         "index": 1
                     },
@@ -452,8 +444,7 @@
                 "col7": "ĐĂNG KÝ",
                 "col8": "LOẠI",
                 "col9": "HĐ GẦN ĐÂY",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "Giao việc",
                         "index": 1
                     },
@@ -479,8 +470,7 @@
                 "create_date": "NGÀY TẠO",
                 "due_date": "NGÀY HẾT HẠN",
                 "associate": "NGƯỜI LIÊN QUAN",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "Hoàn thành hết",
                         "index": 1
                     },
@@ -503,12 +493,10 @@
                 "company": "CÔNG TY",
                 "contact": "NGƯỜI LIÊN HỆ",
                 "comment": "BÌNH LUẬN",
-                "list_select": [
-                    {
-                        "name": "Xóa",
-                        "index": 1
-                    }
-                ]
+                "list_select": [{
+                    "name": "Xóa",
+                    "index": 1
+                }]
             }
         },
         "email": {
@@ -524,24 +512,20 @@
                 "col2": "NGƯỜI TẠO",
                 "col3": "NGÀY TẠO",
                 "col4": "LIÊN HỆ",
-                "list_select": [
-                    {
-                        "name": "Xóa",
-                        "index": 1
-                    }
-                ]
+                "list_select": [{
+                    "name": "Xóa",
+                    "index": 1
+                }]
             },
             "emai_sub": {
                 "col1": "EMAIL",
                 "col2": "NGƯỜI TẠO",
                 "col3": "THỜI GIAN THÊM",
                 "col4": "SỐ MAIL ĐÃ GỬI",
-                "list_select": [
-                    {
-                        "name": "Xóa khỏi danh sách",
-                        "index": 1
-                    }
-                ]
+                "list_select": [{
+                    "name": "Xóa khỏi danh sách",
+                    "index": 1
+                }]
             },
             "campaign": {
                 "col1": "TÊN CHIẾN DỊCH",
@@ -550,12 +534,10 @@
                 "col4": "LẦN GỬI GẦN NHẤT",
                 "col5": "NGƯỜI TẠO",
                 "col6": "HOẠT ĐỘNG",
-                "list_select": [
-                    {
-                        "name": "Xóa",
-                        "index": 1
-                    }
-                ]
+                "list_select": [{
+                    "name": "Xóa",
+                    "index": 1
+                }]
             }
         },
         "report": {
@@ -572,8 +554,7 @@
                 "col6": "HỦY NHẬN",
                 "col7": "TRẢ LẠI",
                 "col8": "HĐ GẦN ĐÂY",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "In",
                         "index": 1
                     },
@@ -660,13 +641,11 @@
         },
         "header": {
             "logo": "../../assets/img/logo_light.png",
-            "list_menu": [
-                {
+            "list_menu": [{
                     "name": "Contacts",
                     "icon": "keyboard_arrow_down",
                     "index": 1,
-                    "list": [
-                        {
+                    "list": [{
                             "name": "Contacts",
                             "index": 1
                         },
@@ -680,8 +659,7 @@
                     "name": "Activitys",
                     "icon": "keyboard_arrow_down",
                     "index": 2,
-                    "list": [
-                        {
+                    "list": [{
                             "name": "Tasks",
                             "index": 1
                         },
@@ -707,8 +685,7 @@
                     "name": "Email",
                     "icon": "keyboard_arrow_down",
                     "index": 3,
-                    "list": [
-                        {
+                    "list": [{
                             "name": "Email List",
                             "index": 1
                         },
@@ -738,8 +715,7 @@
             "follow": "Follow",
             "unfollow": "Unfollow",
             "delete": "Delete",
-            "list_icon": [
-                {
+            "list_icon": [{
                     "icon": "note_circle",
                     "name": "Note",
                     "index": 1
@@ -1011,8 +987,7 @@
                 "company": "ASSOCIATED COMPANY",
                 "time_create": "CREATE DATE",
                 "last_activity": "LAST ACTIVITY",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "Assign",
                         "index": 1
                     },
@@ -1032,8 +1007,7 @@
                 "col7": "REGISTER",
                 "col8": "TYPE",
                 "col9": "LAST ACTIVITY",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "Assign",
                         "index": 1
                     },
@@ -1055,8 +1029,7 @@
                 "create_date": "NGÀY TẠO",
                 "due_date": "NGÀY HẾT HẠN",
                 "associate": "NGƯỜI LIÊN QUAN",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "Mark as complete",
                         "index": 1
                     },
@@ -1079,12 +1052,10 @@
                 "company": "CÔNG TY",
                 "contact": "NGƯỜI LIÊN HỆ",
                 "comment": "BÌNH LUẬN",
-                "list_select": [
-                    {
-                        "name": "Delete",
-                        "index": 1
-                    }
-                ]
+                "list_select": [{
+                    "name": "Delete",
+                    "index": 1
+                }]
             }
         },
         "email": {
@@ -1100,8 +1071,7 @@
                 "owner": "NGƯỜI TẠO",
                 "time_create": "NGÀY TẠO",
                 "last_activity": "HĐ GẦN ĐÂY",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "Giao việc",
                         "index": 1
                     },
@@ -1118,8 +1088,7 @@
                 "col4": "LẦN GỬI GẦN NHẤT",
                 "col5": "NGƯỜI TẠO",
                 "col6": "HOẠT ĐỘNG",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "Sửa",
                         "index": 1
                     },
@@ -1143,8 +1112,7 @@
                 "col6": "HỦY NHẬN",
                 "col7": "TRẢ LẠI",
                 "col8": "HĐ GẦN ĐÂY",
-                "list_select": [
-                    {
+                "list_select": [{
                         "name": "In",
                         "index": 1
                     },

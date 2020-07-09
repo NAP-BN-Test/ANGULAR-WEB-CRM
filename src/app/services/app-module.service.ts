@@ -218,6 +218,9 @@ export class AppModuleService {
 
       if (params.menu) array.push({ key: 'menu', value: params.menu })
       if (params.page) array.push({ key: 'page', value: params.page })
+
+      if (params.contactID) array.push({ key: 'contactID', value: params.contactID })
+      if (params.companyID) array.push({ key: 'companyID', value: params.companyID })
     });
 
     let paramsObj = {};

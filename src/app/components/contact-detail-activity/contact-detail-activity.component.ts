@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
-import { CookieService } from 'ngx-cookie-service';
+import { STATUS, EVENT_PUSH } from 'src/app/services/constant/app-constant';
 
 @Component({
   selector: 'app-contact-detail-activity',
@@ -14,6 +13,7 @@ export class ContactDetailActivityComponent implements OnInit {
   @Input('listUser') listUser = [];
   @Input('oneActivity') oneActivity: any;
 
+  @Input('mID') mID;
 
   mTitle: any;
 
@@ -23,9 +23,11 @@ export class ContactDetailActivityComponent implements OnInit {
   showSearchBar = false;
   menuSelected = 0;
 
+  dataSubscribe: any
+
+
   constructor(
-    public mService: AppModuleService,
-    private cookieService: CookieService
+    public mService: AppModuleService
   ) { }
 
   ngOnInit() {
@@ -38,12 +40,21 @@ export class ContactDetailActivityComponent implements OnInit {
     } else {
       this.onLoadActivity(0)
     }
+
+    this.dataSubscribe = this.mService.currentEvent.subscribe(sData => {
+      if (sData.name == EVENT_PUSH.ACTIVITY) {
+        this.onLoadActivity(0);
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.dataSubscribe.unsubscribe();
   }
 
   onLoadActivity(activityType: number) {
     this.mService.getApiService().sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(
-      
-      this.cookieService.get('contact-id') ? this.cookieService.get('contact-id') : null,
+      this.mID,
       activityType
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {

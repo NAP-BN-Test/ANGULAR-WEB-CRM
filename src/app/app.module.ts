@@ -130,6 +130,11 @@ import { AddCategoryCityComponent } from './dialogs/add-category-city/add-catego
 import { AddCategoryStepComponent } from './dialogs/add-category-step/add-category-step.component';
 import { AddHistoryComponent } from './dialogs/add-history/add-history.component';
 import { ListHistoryComponent } from './components/list-history/list-history.component';
+import { AddNoteComponent } from './dialogs/add-note/add-note.component';
+import { AddCallComponent } from './dialogs/add-call/add-call.component';
+import { AddEmailComponent } from './dialogs/add-email/add-email.component';
+import { AddMeetComponent } from './dialogs/add-meet/add-meet.component';
+import { AddTaskComponent } from './dialogs/add-task/add-task.component';
 
 @NgModule({
   declarations: [
@@ -229,6 +234,11 @@ import { ListHistoryComponent } from './components/list-history/list-history.com
     AddCategoryStepComponent,
     AddHistoryComponent,
     ListHistoryComponent,
+    AddNoteComponent,
+    AddCallComponent,
+    AddEmailComponent,
+    AddMeetComponent,
+    AddTaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -283,7 +293,12 @@ import { ListHistoryComponent } from './components/list-history/list-history.com
     AddCategoryCityComponent,
     AddCategoryCountryComponent,
     AddCategoryStepComponent,
-    AddHistoryComponent
+    AddHistoryComponent,
+    AddCallComponent,
+    AddEmailComponent,
+    AddNoteComponent,
+    AddMeetComponent,
+    AddTaskComponent
   ]
 })
 export class AppModule { }

@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Thêm ghi chú</h2>
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="myForm">
+
+        <mat-form-field width-100>
+            <mat-label>Nội dung</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="4" cdkAutosizeMaxRows="10" formControlName="description" required></textarea>
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Hủy</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="myForm.value" [disabled]="!myForm.valid">Lưu</button>
+</mat-dialog-actions>
