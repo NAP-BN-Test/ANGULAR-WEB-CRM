@@ -6,12 +6,12 @@
     <div class="padding m-content">
 
         <div width-100>
-            <div font2 bold>{{mTitle.component_title.category_city}}</div>
+            <div font2 bold>{{mTitle.component_title.category_job_tile}}</div>
 
             <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
             </app-filter-bar>
 
-            <app-table-category (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickEdit)="onClickEdit($event)"></app-table-category>
+            <app-table-category (clickBtn)="onClickBtn($event)" (clickEdit)="onClickEdit($event)"></app-table-category>
         </div>
 
     </div>

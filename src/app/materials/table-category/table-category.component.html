@@ -22,7 +22,10 @@
         <ng-container *ngFor="let item of displayedColumnsAll; let i = index" [matColumnDef]="item.cell" sticky>
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{item.name}} </th>
             <td tappable mat-cell *matCellDef="let row">
-                <div (click)="onClickCell(row, item.cell)">{{row[item.cell]}}</div>
+                <div *ngIf="item.cell">{{row[item.cell]}}</div>
+                <div *ngIf="!item.cell" (click)="onClickEdit(row)">
+                    <button mat-raised-button color="accent">Sửa</button>
+                </div>
             </td>
         </ng-container>
 
@@ -33,5 +36,4 @@
 
 
 </div>
-<mat-paginator [length]="collectionSize" [pageSize]="itemPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onClickPagination($event)" [pageIndex]="page -1">
-</mat-paginator>
+<mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>

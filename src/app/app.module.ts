@@ -135,6 +135,14 @@ import { AddCallComponent } from './dialogs/add-call/add-call.component';
 import { AddEmailComponent } from './dialogs/add-email/add-email.component';
 import { AddMeetComponent } from './dialogs/add-meet/add-meet.component';
 import { AddTaskComponent } from './dialogs/add-task/add-task.component';
+import { CategoryJobTileComponent } from './components/category-job-tile/category-job-tile.component';
+import { CategoryMailOutcomeComponent } from './components/category-mail-outcome/category-mail-outcome.component';
+import { CategoryCallOutcomeComponent } from './components/category-call-outcome/category-call-outcome.component';
+import { AddCategoryJobTileComponent } from './dialogs/add-category-job-tile/add-category-job-tile.component';
+import { AddCategoryMailOutcomeComponent } from './dialogs/add-category-mail-outcome/add-category-mail-outcome.component';
+import { AddCategoryCallOutcomeComponent } from './dialogs/add-category-call-outcome/add-category-call-outcome.component';
+import { TableCategoryComponent } from './materials/table-category/table-category.component';
+import { CategoryUserComponent } from './components/category-user/category-user.component';
 
 @NgModule({
   declarations: [
@@ -239,6 +247,14 @@ import { AddTaskComponent } from './dialogs/add-task/add-task.component';
     AddEmailComponent,
     AddMeetComponent,
     AddTaskComponent,
+    CategoryJobTileComponent,
+    CategoryMailOutcomeComponent,
+    CategoryCallOutcomeComponent,
+    AddCategoryJobTileComponent,
+    AddCategoryMailOutcomeComponent,
+    AddCategoryCallOutcomeComponent,
+    TableCategoryComponent,
+    CategoryUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -298,7 +314,10 @@ import { AddTaskComponent } from './dialogs/add-task/add-task.component';
     AddEmailComponent,
     AddNoteComponent,
     AddMeetComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    AddCategoryMailOutcomeComponent,
+    AddCategoryCallOutcomeComponent,
+    AddCategoryJobTileComponent
   ]
 })
 export class AppModule { }

@@ -16,7 +16,6 @@ export class CategoryCountryComponent implements OnInit {
 
   //data for component table
   listTbData = {
-    clickDetail: CLICK_DETAIL.MAIL_LIST,
     listColum: [
       { name: 'Tên nước', cell: 'name' },
       { name: 'Mã nước', cell: 'code' },

@@ -137,6 +137,8 @@ export class ApiCmd {
     public static DELETE_TASK: string = "crm/delete_task";
 
     public static ADD_USER: string = "crm/add_user";
+    public static GET_CATEGORY_LIST_USER: string = "crm/get_category_list_user";
+    public static DELETE_USER: string = "crm/delete_user";
 
 
     public static GET_MAIL_LIST: string = "crm/get_mail_list";
@@ -213,6 +215,21 @@ export class ApiCmd {
     public static ADD_CATEGORY_CITY: string = "crm/add_category_city";
     public static UPDATE_CATEGORY_CITY: string = "crm/update_category_city";
     public static DELETE_CATEGORY_CITY: string = "crm/delete_category_city";
+
+    public static GET_CATEGORY_JOB_TILE: string = "crm/get_category_job_tile";
+    public static ADD_CATEGORY_JOB_TILE: string = "crm/add_category_job_tile";
+    public static UPDATE_CATEGORY_JOB_TILE: string = "crm/update_category_job_tile";
+    public static DELETE_CATEGORY_JOB_TILE: string = "crm/delete_category_job_tile";
+
+    public static GET_CATEGORY_MAIL_OUTCOME: string = "crm/get_category_mail_outcome";
+    public static ADD_CATEGORY_MAIL_OUTCOME: string = "crm/add_category_mail_outcome";
+    public static UPDATE_CATEGORY_MAIL_OUTCOME: string = "crm/update_category_mail_outcome";
+    public static DELETE_CATEGORY_MAIL_OUTCOME: string = "crm/delete_category_mail_outcome";
+
+    public static GET_CATEGORY_CALL_OUTCOME: string = "crm/get_category_call_outcome";
+    public static ADD_CATEGORY_CALL_OUTCOME: string = "crm/add_category_call_outcome";
+    public static UPDATE_CATEGORY_CALL_OUTCOME: string = "crm/update_category_call_outcome";
+    public static DELETE_CATEGORY_CALL_OUTCOME: string = "crm/delete_category_call_outcome";
 
 
     public static ADD_HISTORY: string = "crm/add_history";

@@ -4,9 +4,6 @@
     top: 0;
     z-index: 999;
 }
-.m-content {
-    margin-top: 71px;
-}
 
 .box-create {
     display: none;
@@ -42,6 +39,7 @@
 .slide-animation {
     transition: ease-in-out 500ms;
 }
+
 .fade-in {
     animation: fadeIn 500ms 1;
 }

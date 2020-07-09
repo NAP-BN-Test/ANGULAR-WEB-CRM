@@ -28,6 +28,10 @@ import { CategoryCityComponent } from './components/category-city/category-city.
 import { CategoryStepComponent } from './components/category-step/category-step.component';
 import { CategoryCountryComponent } from './components/category-country/category-country.component';
 import { ListHistoryComponent } from './components/list-history/list-history.component';
+import { CategoryJobTileComponent } from './components/category-job-tile/category-job-tile.component';
+import { CategoryCallOutcomeComponent } from './components/category-call-outcome/category-call-outcome.component';
+import { CategoryMailOutcomeComponent } from './components/category-mail-outcome/category-mail-outcome.component';
+import { CategoryUserComponent } from './components/category-user/category-user.component';
 
 
 const routes: Routes = [
@@ -165,6 +169,26 @@ const routes: Routes = [
     path: 'category-country',
     component: CategoryCountryComponent,
     data: { title: 'CategoryCountry' }
+  },
+  {
+    path: 'job-tile',
+    component: CategoryJobTileComponent,
+    data: { title: 'CategoryJobTile' }
+  },
+  {
+    path: 'call-outcome',
+    component: CategoryCallOutcomeComponent,
+    data: { title: 'CategoryCallOutcome' }
+  },
+  {
+    path: 'mail-outcome',
+    component: CategoryMailOutcomeComponent,
+    data: { title: 'CategoryMailOutcome' }
+  },
+  {
+    path: 'list-user',
+    component: CategoryUserComponent,
+    data: { title: 'CategoryUser' }
   },
   {
     path: 'history',

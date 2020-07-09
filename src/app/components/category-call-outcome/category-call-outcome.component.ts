@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS, BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, SORT_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
+import { STATUS, BUTTON_TYPE, EVENT_PUSH, SORT_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 
-import { AddCategoryStepComponent } from 'src/app/dialogs/add-category-step/add-category-step.component';
+import { AddCategoryCallOutcomeComponent } from 'src/app/dialogs/add-category-call-outcome/add-category-call-outcome.component';
 
 @Component({
-  selector: 'app-category-step',
-  templateUrl: './category-step.component.html',
-  styleUrls: ['./category-step.component.scss']
+  selector: 'app-category-call-outcome',
+  templateUrl: './category-call-outcome.component.html',
+  styleUrls: ['./category-call-outcome.component.scss']
 })
-export class CategoryStepComponent implements OnInit {
+export class CategoryCallOutcomeComponent implements OnInit {
 
   //data for component table
   listTbData = {
     listColum: [
-      { name: 'Tên bước', cell: 'name' },
-      { name: 'Tiến trình', cell: 'process' },
-      { name: 'Thứ tự', cell: 'stage' },
+      { name: 'Tên', cell: 'name' },
       { name: 'Thao tác', cell: undefined }
     ],
     listButton: [
@@ -35,10 +33,9 @@ export class CategoryStepComponent implements OnInit {
   mTitle: any;
   paramsObj: any;
 
-  searchKey = null;
+  searchKey: any = "";
 
   page = 1;
-  collectionSize: number;
 
   constructor(
     public mService: AppModuleService,
@@ -55,7 +52,7 @@ export class CategoryStepComponent implements OnInit {
       let params: any = this.mService.handleActivatedRoute();
       this.page = params.page;
 
-      this.onLoadData(this.page, this.searchKey);
+      this.onLoadData();
     }
     else {
       this.mService.publishPageRoute('login')
@@ -63,25 +60,20 @@ export class CategoryStepComponent implements OnInit {
 
   }
 
-  onLoadData(page: number, searchKey: string) {
-    this.mService.getApiService().sendRequestGET_CATEGORY_STEP(
-      page,
-      searchKey
-    ).then(data => {
+  onLoadData() {
+    this.mService.getApiService().sendRequestGET_CATEGORY_CALL_OUTCOME(this.searchKey).then(data => {
 
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
 
-        this.collectionSize = data.count;
-
         this.mService.publishEvent(EVENT_PUSH.TABLE, {
           page: this.page,
-          collectionSize: this.collectionSize,
+          collectionSize: data.array.length,
           listData: data.array,
           listTbData: this.listTbData
         });
 
         let listParams = [{ key: 'page', value: this.page }];
-        if(this.searchKey != "") listParams.push({key: 'searchKey', value: this.searchKey});
+        if (this.searchKey != "") listParams.push({ key: 'searchKey', value: this.searchKey });
 
         this.paramsObj = this.mService.handleParamsRoute(listParams);
 
@@ -90,11 +82,12 @@ export class CategoryStepComponent implements OnInit {
   }
 
   onClickPagination(event) {
-    this.onLoadData(event, this.searchKey);
+    this.page = event;
+    this.onLoadData();
   }
 
   onClickAdd() {
-    const dialogRef = this.dialog.open(AddCategoryStepComponent, {
+    const dialogRef = this.dialog.open(AddCategoryCallOutcomeComponent, {
       width: '500px'
     });
 
@@ -102,14 +95,12 @@ export class CategoryStepComponent implements OnInit {
       if (res) {
         let obj = {
           name: res.name,
-          process: res.process,
-          stage: res.stage
         }
 
-        this.mService.getApiService().sendRequestADD_CATEGORY_STEP(obj).then(data => {
+        this.mService.getApiService().sendRequestADD_CATEGORY_CALL_OUTCOME(obj).then(data => {
           this.mService.showSnackBar(data.message)
           if (data.status == STATUS.SUCCESS) {
-            this.onLoadData(1, this.searchKey);
+            this.onLoadData();
           }
         })
       }
@@ -125,9 +116,9 @@ export class CategoryStepComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          this.mService.getApiService().sendRequestDELETE_CATEGORY_STEP(event.data).then(data => {
+          this.mService.getApiService().sendRequestDELETE_CATEGORY_CALL_OUTCOME(event.data).then(data => {
             if (data.status == STATUS.SUCCESS) {
-              this.onLoadData(this.page, this.searchKey);
+              this.onLoadData();
             }
           })
         }
@@ -137,30 +128,28 @@ export class CategoryStepComponent implements OnInit {
 
   onClickSort(event) {
     this.searchKey = event.searchKey;
-    this.onLoadData(1, this.searchKey);
+    this.onLoadData();
   }
 
   onClickEdit(event) {
-
-    const dialogRef = this.dialog.open(AddCategoryStepComponent, {
+    const dialogRef = this.dialog.open(AddCategoryCallOutcomeComponent, {
       width: '500px',
-      data: { name: event.data.name, process: event.data.process, stage: event.data.stage }
+      data: { name: event.data.name }
     });
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         let obj = {
-          name: res.name,
-          process: res.process,
-          stage: res.stage
+          name: res.name
         }
-        this.mService.getApiService().sendRequestUPDATE_CATEGORY_STEP(obj, event.data.id).then(data => {
+        this.mService.getApiService().sendRequestUPDATE_CATEGORY_CALL_OUTCOME(obj, event.data.id).then(data => {
           this.mService.showSnackBar(data.message)
           if (data.status == STATUS.SUCCESS) {
-            this.onLoadData(1, this.searchKey);
+            this.onLoadData();
           }
         })
       }
     });
   }
+
 }

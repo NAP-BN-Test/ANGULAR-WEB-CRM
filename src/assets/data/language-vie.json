@@ -6,6 +6,7 @@
         "edit": "Sửa",
         "login": "Đăng nhập",
         "add_user": "Thêm User",
+        "list_user": "DS User",
         "add_company": "+ Add company",
         "add_contact": "+ Thêm khách hàng",
         "cancel": "Hủy"
@@ -33,6 +34,9 @@
         "city": "Tỉnh/TP",
         "step": "Bước",
         "country": "Nước",
+        "job_tile": "Chức vụ",
+        "mail_outcome": "Trạng thái gửi mail",
+        "call_outcome": "Trạng thái cuộc gọi",
         "mail_list": "Danh sách maillist",
         "mail_campain": "Danh sách chiến dịch",
         "report_by_campain": "Chiến dịch mail",
@@ -102,7 +106,11 @@
         "add_contact": "Thêm liên hệ",
         "category_city": "Danh mục tỉnh/tp",
         "category_step": "Danh mục các bước",
-        "category_country": "Danh mục các nước"
+        "category_job_tile": "Danh mục chức vụ",
+        "category_call_outcome": "Danh mục trạng thái cuộc gọi",
+        "category_mail_outcome": "Danh mục trạng thái email",
+        "category_country": "Danh mục các nước",
+        "category_user": "Danh sách user"
     },
     "other_title": {
         "company_intro": "Theo dõi những liên hệ nào là một phần của công ty này.",

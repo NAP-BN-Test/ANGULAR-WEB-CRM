@@ -4,22 +4,21 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { BUTTON_TYPE, EVENT_PUSH, CLICK_DETAIL, MENU_INDEX } from 'src/app/services/constant/app-constant';
+import { MatPaginator } from '@angular/material';
 
 
 @Component({
-  selector: 'app-mat-table',
-  templateUrl: './mat-table.component.html',
-  styleUrls: ['./mat-table.component.scss']
+  selector: 'app-table-category',
+  templateUrl: './table-category.component.html',
+  styleUrls: ['./table-category.component.scss']
 })
-export class MatTableComponent implements OnInit {
+export class TableCategoryComponent implements OnInit {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Output('clickPagination') clickPagination = new EventEmitter();
   @Output('clickBtn') clickBtn = new EventEmitter();
-  @Output('clickCell') clickCell = new EventEmitter();
-
-  page;
-  collectionSize;
+  @Output('clickEdit') clickEdit = new EventEmitter();
 
   listTbData: any;
   itemPerPage = localStorage.getItem('item-per-page') ? JSON.parse(localStorage.getItem('item-per-page')) : 10;
@@ -31,7 +30,6 @@ export class MatTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);
-
 
   dataSubscribe: any
 
@@ -45,11 +43,9 @@ export class MatTableComponent implements OnInit {
     this.dataSubscribe = this.mService.currentEvent.subscribe(sData => {
       // event update data trong bảng
       if (sData.name == EVENT_PUSH.TABLE) {
-        //thông tin pagination
-        this.page = sData.params.page;
-        this.collectionSize = sData.params.collectionSize;
         //thông tin data trong bảng
         this.dataSource = new MatTableDataSource(sData.params.listData);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.selection.clear();
         //thông tin setup bảng
@@ -58,9 +54,6 @@ export class MatTableComponent implements OnInit {
         this.listTbData = sData.params.listTbData;
 
         setTimeout(() => {
-          if (sData.params.listTbData.menuIndex == MENU_INDEX.REPORT) {
-            this.displayedColumns = [];
-          }
           this.listTbData.listColum.forEach(item => {
             this.displayedColumns.push(item.cell);
           })
@@ -138,70 +131,10 @@ export class MatTableComponent implements OnInit {
     this.clickBtn.emit(ev)
   }
 
-  /** Click vào ô và bắt event */
-  onClickCell(row, cell) {
-
-    if (this.listTbData.clickDetail == CLICK_DETAIL.CONTACT) {
-      if (cell == 'name') {
-        this.clickCell.emit({
-          clickDetail: CLICK_DETAIL.CONTACT,
-          data: row
-        });
-      } else if (cell.includes('company')) {
-        if (row.companyID != null)
-          this.clickCell.emit({
-            clickDetail: CLICK_DETAIL.COMPANY,
-            data: row
-          });
-      }
-    }
-
-    else if (this.listTbData.clickDetail == CLICK_DETAIL.COMPANY) {
-      if (cell == 'name') {
-        this.clickCell.emit({
-          clickDetail: CLICK_DETAIL.COMPANY,
-          data: row
-        });
-      }
-    }
-
-    else if (this.listTbData.clickDetail == CLICK_DETAIL.ACTIVITY) {
-      if (cell.includes('contact')) {
-        if (row.companyID != null)
-          this.clickCell.emit({
-            clickDetail: CLICK_DETAIL.CONTACT,
-            data: row
-          });
-      }
-      else if (cell.includes('company')) {
-        if (row.companyID != null)
-          this.clickCell.emit({
-            clickDetail: CLICK_DETAIL.COMPANY,
-            data: row
-          });
-      }
-      else if (cell.includes('taskName')) {
-        if (row.type == 1) {
-          this.clickCell.emit({
-            clickDetail: CLICK_DETAIL.COMPANY,
-            data: row
-          });
-        }
-        else if (row.type == 2) {
-          this.clickCell.emit({
-            clickDetail: CLICK_DETAIL.CONTACT,
-            data: row
-          });
-        }
-      }
-    }
-
-    else if (this.listTbData.clickDetail == CLICK_DETAIL.MAIL_LIST) {
-      this.clickCell.emit({
-        clickDetail: CLICK_DETAIL.MAIL_LIST,
-        data: row
-      });
-    }
+  onClickEdit(row) {
+    this.clickEdit.emit({
+      data: row
+    })
   }
 
 }

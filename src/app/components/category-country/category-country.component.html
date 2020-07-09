@@ -11,7 +11,7 @@
             <app-filter-bar [toppingList]="toppingList" (clickAdd)="onClickAdd()" (sort)="onClickSort($event)">
             </app-filter-bar>
 
-            <app-mat-table (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickEdit)="onClickEdit($event)"></app-mat-table>
+            <app-table-category (clickPagination)="onClickPagination($event)" (clickBtn)="onClickBtn($event)" (clickEdit)="onClickEdit($event)"></app-table-category>
         </div>
 
     </div>

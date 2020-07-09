@@ -1,22 +1,14 @@
-<h2 mat-dialog-title *ngIf="!mData">Thêm quốc gia</h2>
-<h2 mat-dialog-title *ngIf="mData">Sửa quốc gia</h2>
+<h2 mat-dialog-title *ngIf="!mData">Thêm trạng thái cuộc gọi</h2>
+<h2 mat-dialog-title *ngIf="mData">Sửa trạng thái cuộc gọi</h2>
 
 <mat-dialog-content class="mat-typography">
     <form [formGroup]="myForm">
 
         <mat-form-field width-100>
-            <mat-label>Tên nước</mat-label>
+            <mat-label>Tên</mat-label>
             <input matInput type="text" formControlName="name" required>
             <mat-error *ngIf="myForm.hasError('required')">
-                Chưa nhập <strong>tên nước</strong>
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field width-100>
-            <mat-label>Mã nước</mat-label>
-            <input matInput type="text" formControlName="code" required>
-            <mat-error *ngIf="myForm.hasError('required')">
-                Chưa nhập <strong>mã nước</strong>
+                Chưa nhập <strong>tên</strong>
             </mat-error>
         </mat-form-field>
 

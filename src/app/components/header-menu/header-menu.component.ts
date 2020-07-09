@@ -87,7 +87,10 @@ export class HeaderMenuComponent implements OnInit {
       list: [
         { index: 1, name: menuTitle.city },
         { index: 2, name: menuTitle.step },
-        { index: 3, name: menuTitle.country }
+        { index: 3, name: menuTitle.country },
+        { index: 4, name: menuTitle.job_tile },
+        { index: 5, name: menuTitle.call_outcome },
+        { index: 6, name: menuTitle.mail_outcome }
       ]
     }]
 
@@ -151,11 +154,17 @@ export class HeaderMenuComponent implements OnInit {
       }
       else if (index == 5) {
         if (indexChild == 1) {
-          this.router.navigate(['category-city'], { queryParams: { page: 1 } });
+          this.router.navigate(['category-city']);
         } else if (indexChild == 2) {
-          this.router.navigate(['category-step'], { queryParams: { page: 1 } });
+          this.router.navigate(['category-step']);
         } else if (indexChild == 3) {
-          this.router.navigate(['category-country'], { queryParams: { page: 1 } });
+          this.router.navigate(['category-country']);
+        } else if (indexChild == 4) {
+          this.router.navigate(['job-tile']);
+        } else if (indexChild == 5) {
+          this.router.navigate(['call-outcome']);
+        } else if (indexChild == 6) {
+          this.router.navigate(['mail-outcome']);
         }
       }
     }
@@ -210,15 +219,15 @@ export class HeaderMenuComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        this.mService.getApiService().sendRequestADD_USER(
-
-
-          res
-        ).then(data => {
+        this.mService.getApiService().sendRequestADD_USER(res).then(data => {
           this.mService.showSnackBar(data.message)
         })
       }
     });
+  }
+
+  onClickListUser() {
+    this.router.navigate(['list-user']);
   }
 
 }

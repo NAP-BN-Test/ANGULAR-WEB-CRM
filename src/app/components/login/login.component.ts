@@ -47,20 +47,20 @@ export class LoginComponent implements OnInit {
       localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_KEY, "VI");
     }
 
-    // this.mService.loadVieLanguage().then((data: any) => {
-    //   this.mTitle = data;
-    //   localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA, JSON.stringify(data))
-    // });
+    this.mService.loadVieLanguage().then((data: any) => {
+      this.mTitle = data;
+      localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA, JSON.stringify(data))
+    });
 
-    if (!localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA)) {
-      this.mService.loadVieLanguage().then((data: any) => {
-        this.mTitle = data;
-        localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA, JSON.stringify(data))
-      });
-    } else {
-      let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
-      this.mTitle = JSON.parse(languageData);
-    }
+    // if (!localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA)) {
+    //   this.mService.loadVieLanguage().then((data: any) => {
+    //     this.mTitle = data;
+    //     localStorage.setItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA, JSON.stringify(data))
+    //   });
+    // } else {
+    //   let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
+    //   this.mTitle = JSON.parse(languageData);
+    // }
 
     if (localStorage.getItem(LOCAL_STORAGE_KEY.USER_LOGIN)) {
       let userInfo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_LOGIN));

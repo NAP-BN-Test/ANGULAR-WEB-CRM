@@ -1146,6 +1146,29 @@ export class ApiService extends HttpClient {
     }
 
     //==============================
+    public sendRequestGET_CATEGORY_LIST_USER(searchKey: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_CATEGORY_LIST_USER,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("searchKey", searchKey));
+    }
+
+    //==============================
+    public sendRequestDELETE_USER(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_USER,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
+    }
+
+    //==============================
     public sendRequestGET_MAIL_LIST(
 
 
@@ -1732,7 +1755,154 @@ export class ApiService extends HttpClient {
                 .add("dbName", this.dbName)
                 .add("secretKey", this.mSecretKey)
                 .add("userID", this.userID)
-                
+
                 .add("historyID", historyID));
+    }
+
+
+    //==============================
+    public sendRequestGET_CATEGORY_JOB_TILE(searchKey: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_CATEGORY_JOB_TILE,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("searchKey", searchKey));
+    }
+
+    //==============================
+    public sendRequestADD_CATEGORY_JOB_TILE(obj: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CATEGORY_JOB_TILE,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name));
+    }
+
+    //==============================
+    public sendRequestUPDATE_CATEGORY_JOB_TILE(obj: any, categoryID): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_CATEGORY_JOB_TILE,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name)
+                .add("categoryID", categoryID));
+    }
+
+    //==============================
+    public sendRequestDELETE_CATEGORY_JOB_TILE(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CATEGORY_JOB_TILE,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
+    }
+
+
+    //==============================
+    public sendRequestGET_CATEGORY_MAIL_OUTCOME(searchKey: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_CATEGORY_MAIL_OUTCOME,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("searchKey", searchKey));
+    }
+
+    //==============================
+    public sendRequestADD_CATEGORY_MAIL_OUTCOME(obj: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CATEGORY_MAIL_OUTCOME,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name));
+    }
+
+    //==============================
+    public sendRequestUPDATE_CATEGORY_MAIL_OUTCOME(obj: any, categoryID): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_CATEGORY_MAIL_OUTCOME,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name)
+                .add("categoryID", categoryID));
+    }
+
+    //==============================
+    public sendRequestDELETE_CATEGORY_MAIL_OUTCOME(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CATEGORY_MAIL_OUTCOME,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
+    }
+
+
+    //==============================
+    public sendRequestGET_CATEGORY_CALL_OUTCOME(searchKey: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.GET_CATEGORY_CALL_OUTCOME,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("searchKey", searchKey));
+    }
+
+    //==============================
+    public sendRequestADD_CATEGORY_CALL_OUTCOME(obj: any): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.ADD_CATEGORY_CALL_OUTCOME,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name));
+    }
+
+    //==============================
+    public sendRequestUPDATE_CATEGORY_CALL_OUTCOME(obj: any, categoryID): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.UPDATE_CATEGORY_CALL_OUTCOME,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("name", obj.name)
+                .add("categoryID", categoryID));
+    }
+
+    //==============================
+    public sendRequestDELETE_CATEGORY_CALL_OUTCOME(listID: string): Promise<any> {
+        return this.requestPost(this.mUrl + ApiCmd.DELETE_CATEGORY_CALL_OUTCOME,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+
+                .add("listID", listID));
     }
 }

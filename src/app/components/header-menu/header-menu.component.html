@@ -30,6 +30,7 @@
                 <mat-menu #menu="matMenu">
                     <!-- <button mat-menu-item (click)="onClickLanguage()">{{language}}</button> -->
                     <button mat-menu-item *ngIf="mUser.role==2" (click)="onClickAddUser()">{{mTitle.button_title.add_user}}</button>
+                    <button mat-menu-item *ngIf="mUser.role==2" (click)="onClickListUser()">{{mTitle.button_title.list_user}}</button>
                 </mat-menu>
             </div>
 
