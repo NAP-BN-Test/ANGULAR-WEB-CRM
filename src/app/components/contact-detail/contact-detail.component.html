@@ -11,30 +11,6 @@
         <div [class]="colDetail" padding-top relative background-whitesmoke>
             <app-contact-detail-activity [mID]="mID" [listContact]="listContact" [listUser]="listUser" [oneActivity]="oneActivity">
             </app-contact-detail-activity>
-
-            <!-- <div class="box-create" [class.show-div]="createTabIndex==1">
-                <app-create-note [listContact]="listContact" [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)">
-                </app-create-note>
-            </div>
-
-            <div class="box-create" [class.show-div]="createTabIndex==2">
-                <app-create-task [createInContact]="true" [listUser]="listUser" (closeCreateAction)="onClickCloseCreateAction($event)">
-                </app-create-task>
-            </div>
-
-            <div class="box-create" [class.show-div]="createTabIndex==3">
-                <app-create-call [listContact]="listContact" [listUser]="listUser" [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-call>
-            </div>
-
-            <div class="box-create" [class.show-div]="createTabIndex==4">
-                <app-create-email [listContact]="listContact" [listUser]="listUser" [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)"></app-create-email>
-            </div>
-
-            <div class="box-create" [class.show-div]="createTabIndex==5">
-                <app-create-meet [createInContact]="true" (closeCreateAction)="onClickCloseCreateAction($event)">
-                </app-create-meet>
-            </div> -->
-
         </div>
         <div [class]="colSubDetail">
             <div border-bottom padding-top tappable (click)="onClickShowSubDetail()">

@@ -9,12 +9,13 @@
         <div color-primary>{{mObj.email | na}}</div>
     </div>
 
-    <div class="btn-detail">
-        <div>
-            <button class="m-btn btn btn-sm" (click)="onClickDelete()">{{mTitle.delete}}</button>
-        </div>
-        <div padding8-top>
-            <button class="m-btn btn btn-sm" (click)="onClickDetail()">{{mTitle.detail}}</button>
-        </div>
+    <div style="justify-content: flex-end; display: flex;">
+        <button matTooltip="Xóa liên hệ" mat-icon-button color="warn" (click)="onClickDelete()">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button matTooltip="Xem chi tiết" mat-icon-button color="primary" (click)="onClickDetail()">
+            <mat-icon>visibility</mat-icon>
+        </button>
     </div>
+
 </div>

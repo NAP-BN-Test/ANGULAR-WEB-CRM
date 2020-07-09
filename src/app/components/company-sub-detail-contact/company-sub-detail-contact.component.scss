@@ -1,23 +1,8 @@
 .m-box {
     border-radius: 5px;
-}
-
-.m-box:hover .btn-detail {
-    display: inline-block;
-}
-
-.btn-detail {
-    display: none;
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    .m-btn {
-        background-color: #F0E9F4;
-        border: .5px solid #702C90;
-        padding: 0px 10px;
-    }
+    padding: 0 16px 16px 16px;
 }
 
 #editor-container {
     height: 375px;
-  }
+}

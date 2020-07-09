@@ -1,5 +1,5 @@
 <div shadow height-100 *ngIf="mTitle">
-    <div class="m-header" padding between>
+    <div class="mm-header" padding between>
         <div bold font3>{{mTitle.component_title.add_contact}}</div>
         <div (click)="onClickClose()" tappable>
             <mat-icon>close</mat-icon>
@@ -7,94 +7,93 @@
     </div>
 
     <div padding height-90>
-        <div>{{mTitle.other_title.contact_intro}}</div>
 
-        <ul bold padding-top ngbNav #nav="ngbNav" class="nav-tabs">
-            <li ngbNavItem (click)="onClickAddExist()">
-                <a ngbNavLink>{{mTitle.nav_button_title.add_exist}}</a>
-            </li>
-            <li ngbNavItem (click)="onClickAddNew()">
-                <a ngbNavLink>{{mTitle.nav_button_title.add_new}}</a>
-            </li>
-        </ul>
+        <mat-tab-group focusIndex="0">
+            <mat-tab [label]="mTitle.nav_button_title.add_exist">
+                <div padding>
+                    <input type="search" [placeholder]="mTitle.placeholder_title.search" class="form-control" (change)="onSeachContact($event)" />
+                </div>
 
-        <div [hidden]="!btnAddExist" height-80>
-            <div padding>
-                <input type="search" [placeholder]="mTitle.placeholder_title.search" class="form-control" (change)="onSeachContact($event)" />
-            </div>
-
-            <div padding-horizontal height-90 style="overflow-y: scroll;">
-                <div padding-top *ngFor="let item of listContact">
-                    <div padding8 class="m-contact">
-                        <div bold>{{item.name}}</div>
-                        <div>{{item.phone}}</div>
-                        <div>
-                            <button class="btn-add btn-sm" type="button" (click)="onClickAddContact(item)">{{mTitle.button_title.add_contact}}</button>
+                <div *ngIf="listContact.length>0" padding-horizontal style="overflow-y: scroll; max-height: 700px;">
+                    <div padding-top *ngFor="let item of listContact">
+                        <div padding8 between border-bottom>
+                            <div>
+                                <div bold>{{item.name}}</div>
+                                <div>{{item.phone}}</div>
+                            </div>
+                            <div>
+                                <button matTooltip="Thêm liên hệ" mat-icon-button color="primary" (click)="onClickAddContact(item)">
+                                    <mat-icon>queue</mat-icon>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </mat-tab>
+            <mat-tab [label]="mTitle.nav_button_title.add_new">
+                <div padding32-vertical>
 
-        <div padding32-top [hidden]="btnAddExist">
-            <div padding-start center-line>
-                <div class="col-3" font6>{{mTitle.input_title.name}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="name">
+                    <form [formGroup]="myForm">
+                        <div padding-start center-line>
+                            <mat-form-field width-100>
+                                <mat-label>Tên</mat-label>
+                                <input matInput type="text" formControlName="name" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Giới tính</mat-label>
+                                <mat-select formControlName="gender" required>
+                                    <mat-option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Chức vụ</mat-label>
+                                <mat-select formControlName="jobTile" required>
+                                    <mat-option *ngFor="let item of listJobTile" [value]="item.id">{{item.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Điện thoại</mat-label>
+                                <input matInput type="text" formControlName="phone" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Email</mat-label>
+                                <input matInput type="text" formControlName="email" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Địa chỉ</mat-label>
+                                <input matInput type="text" formControlName="address" required>
+                            </mat-form-field>
+                        </div>
+                    </form>
+
                 </div>
-            </div>
 
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.gender}}</div>
-                <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="gender">
-                        <option *ngFor="let item of listGender" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
+                <div padding>
+                    <div style="justify-content: flex-end; display: flex;">
+
+                        <button mat-raised-button color="warn" (click)="onClickClose()">Hủy</button>
+                        <div padding-start></div>
+                        <button mat-raised-button color="primary" (click)="onClickSave()" [disabled]="!myForm.valid">Lưu</button>
+
+                    </div>
                 </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.job_tile}}</div>
-                <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="jobTile">
-                        <option *ngFor="let item of listJobTile" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.hand_phone}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="phone">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.email}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="email">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.address}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="address">
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div padding class="m-footer">
-        <div flex>
-            <div padding-vertical>
-                <button mat-raised-button color="primary" [disabled]="!btnCanClicked" (click)="onClickSave()">{{mTitle.button_title.save}}</button>
-            </div>
-            <div padding>
-                <button mat-raised-button color="accent" (click)="onClickClose()">{{mTitle.button_title.cancel}}</button>
-            </div>
-        </div>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 
 </div>

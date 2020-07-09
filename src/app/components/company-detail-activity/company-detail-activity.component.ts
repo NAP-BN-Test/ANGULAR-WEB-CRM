@@ -53,9 +53,6 @@ export class CompanyDetailActivityComponent implements OnInit {
 
     if (this.mObj.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
-
-
-        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -65,9 +62,6 @@ export class CompanyDetailActivityComponent implements OnInit {
         }
       });
       this.mService.getApiService().sendRequestGET_MEET_ASSOCIATE(
-
-
-        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -79,9 +73,6 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.NOTE) {
       this.mService.getApiService().sendRequestGET_NOTE_ASSOCIATE(
-
-
-        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -94,9 +85,6 @@ export class CompanyDetailActivityComponent implements OnInit {
     else if (this.mObj.activityType == ACTIVITY_TYPE.CALL) {
 
       this.mService.getApiService().sendRequestGET_CALL_ASSOCIATE(
-
-
-        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -108,9 +96,6 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.EMAIL) {
       this.mService.getApiService().sendRequestGET_EMAIL_ASSOCIATE(
-
-
-        
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -137,9 +122,6 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onChangeContact(type) { //type is contactID:1 or state of activity:2
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-      
       this.mObj,
       type == 1 ? this.mObj.contactID : null,
       type == 2 ? this.mObj.state : null,
@@ -154,9 +136,6 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onChangeUser() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-      
       this.mObj,
       null, null, null, null, null, null,
       this.mObj.assignID
@@ -170,9 +149,6 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onTaskTypeChange() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-      
       this.mObj,
       null, null, null, null, null, null, null,
       this.mObj.taskType
@@ -306,9 +282,6 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-      
       this.mObj, null, null, time, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -354,9 +327,6 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj.description = event;
 
       this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-        
         this.mObj,
         null, null, null, null, null, this.mObj.description
       ).then(data => {
@@ -374,9 +344,6 @@ export class CompanyDetailActivityComponent implements OnInit {
       this.mObj.taskName = event.target.value;
 
       this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-        
         this.mObj,
         null, null, null, null, null, null, null, null, this.mObj.taskName
       ).then(data => {
@@ -429,8 +396,6 @@ export class CompanyDetailActivityComponent implements OnInit {
     let listID = [this.mObj.id];
 
     this.mService.getApiService().sendRequestUPDATE_TASK(
-      
-      
       JSON.stringify(listID),
       checked ? checked : null
     ).then(data => {

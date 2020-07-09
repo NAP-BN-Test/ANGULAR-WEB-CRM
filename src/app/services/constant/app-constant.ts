@@ -108,8 +108,8 @@ export const LIST_SELECT = {
         { id: 3, name: "Nhân viên" }
     ],
     LIST_COMPANY_ROLE: [
-        { id: 1, name: "Parent" },
-        { id: 2, name: "Child" }
+        { id: 1, name: "Công ty cha" },
+        { id: 2, name: "Công ty con" }
     ],
     LIST_TIME: [
         { name: "05:00 AM", value: "05:00" },

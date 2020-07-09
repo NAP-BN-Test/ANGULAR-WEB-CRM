@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-company-sub-detail',
@@ -15,6 +14,8 @@ export class CompanySubDetailComponent implements OnInit {
   @Input("listDealStage") listDealStage = [];
 
   mTitle: any;
+
+  mID = -1;
 
   listContact = [];
   listCompany = [];
@@ -30,8 +31,7 @@ export class CompanySubDetailComponent implements OnInit {
   showDeal = false;
 
   constructor(
-    public mService: AppModuleService,
-    private cookieService: CookieService
+    public mService: AppModuleService
   ) {
 
   }
@@ -41,34 +41,26 @@ export class CompanySubDetailComponent implements OnInit {
       this.mTitle = data.company_sub_detail;
     });
 
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT(
-      
-      
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-    ).then(data => {
+    let params: any = this.mService.handleActivatedRoute();
+    this.mID = params.companyID;
+
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT(this.mID + "").then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listContact = data.array;
       }
     })
 
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(
-      
-      
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-    ).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(this.mID + "").then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listCompany = data.array;
       }
     })
 
-    this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL(
-      
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-    ).then(data => {
-      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-        this.listDeal = data.array;
-      }
-    })
+    // this.mService.getApiService().sendRequestGET_LIST_QUICK_DEAL(this.mID + "").then(data => {
+    //   if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+    //     this.listDeal = data.array;
+    //   }
+    // })
 
   }
 

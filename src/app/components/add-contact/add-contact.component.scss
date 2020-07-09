@@ -1,17 +1,12 @@
 a {
     color: #495057;
 }
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
     color: var(--color-primary);
 }
 
-.m-header {
+.mm-header {
     background-color: #F0E9F4;
-}
-
-.m-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    border-top: 1px solid #cccccc;
 }

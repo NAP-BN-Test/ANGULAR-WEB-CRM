@@ -10,7 +10,7 @@
                     <div font2 bold>{{mTitle.component_title.company_logistic}}</div>
                     <div>
                         <div class="box-add" [class.show-div]="addSub==1">
-                            <app-add-company [addOut]="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-company>
+                            <app-add-company addOut="1" (closeAddSub)="onClickCloseAdd($event)"></app-add-company>
                         </div>
                     </div>
                 </div>

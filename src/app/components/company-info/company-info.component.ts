@@ -1,12 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-company-info',
@@ -16,6 +16,8 @@ import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 export class CompanyInfoComponent implements OnInit {
   @Output('createAction') createAction = new EventEmitter();
   @Output('updateCompany') updateCompany = new EventEmitter();
+
+  mID = -1;
 
   mConpany: any;
 
@@ -28,12 +30,10 @@ export class CompanyInfoComponent implements OnInit {
 
   menuSelected = -1;
 
-  
+
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
-    private cookieService: CookieService,
     private location: Location,
     public dialog: MatDialog
   ) { }
@@ -43,27 +43,20 @@ export class CompanyInfoComponent implements OnInit {
       this.mTitle = data.company_info;
     });
 
-    this.mService.getApiService().sendRequestGET_DETAIL_COMPANY(
-      
-      
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
-    ).then(data => {
+    let params: any = this.mService.handleActivatedRoute();
+    this.mID = params.companyID;
+
+    this.mService.getApiService().sendRequestGET_DETAIL_COMPANY(this.mID + "").then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mObj = data.obj;
       }
     });
 
-    this.mService.getApiService().sendRequestGET_LIST_CITY(
-      
-      
-    ).then(data => {
+    this.mService.getApiService().sendRequestGET_LIST_CITY().then(data => {
       this.listCity = data.array;
     })
 
-    this.mService.getApiService().sendRequestGET_DEAL_STAGE(
-      
-      
-    ).then(data => {
+    this.mService.getApiService().sendRequestGET_DEAL_STAGE().then(data => {
       this.listStep = data.array;
     })
   }
@@ -73,6 +66,12 @@ export class CompanyInfoComponent implements OnInit {
   }
 
   onInputChange(event, type) {
+
+    let value;
+    if (type != 6 && type != 8)
+      value = event.target.value;
+    else
+      value = event.value
 
     let companyName: string;
     let companyShortName: string;
@@ -84,19 +83,20 @@ export class CompanyInfoComponent implements OnInit {
     let stageID: string;
     let timeActive: string;
 
-    if (type == 1) companyName = event.target.value;
-    else if (type == 2) companyShortName = event.target.value;
-    else if (type == 3) companyAddress = event.target.value;
-    else if (type == 4) companyPhone = event.target.value;
-    else if (type == 5) companyEmail = event.target.value;
-    else if (type == 6) companyCity = event.target.value.split(': ')[1];
-    else if (type == 7) website = event.target.value;
-    else if (type == 8) stageID = event.target.value.split(': ')[1];
-    else if (type == 9) timeActive = event;
-    
+
+    if (type == 1) companyName = value;
+    else if (type == 2) companyShortName = value;
+    else if (type == 3) companyAddress = value;
+    else if (type == 4) companyPhone = value;
+    else if (type == 5) companyEmail = value;
+    else if (type == 6) companyCity = value;
+    else if (type == 7) website = value;
+    else if (type == 8) stageID = value;
+    else if (type == 9) timeActive = moment(value).format("YYYY-MM-DD") ;
+
+
     this.mService.getApiService().sendRequestUPDATE_COMPANY(
-      
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+      this.mID + "",
       companyName,
       companyShortName,
       companyAddress,
@@ -106,7 +106,9 @@ export class CompanyInfoComponent implements OnInit {
       website,
       stageID,
       timeActive
-    )
+    ).then(data => {
+      this.mService.showSnackBar(data.message);
+    })
   }
 
   onClickBack() {
@@ -115,16 +117,12 @@ export class CompanyInfoComponent implements OnInit {
 
   onClickFollow() {
     this.mService.getApiService().sendRequestFOLLOW_COMPANY(
-
-
-      
-      
       this.mObj.id, !this.mObj.follow ? true : null
     ).then(data => {
       if (data.status == STATUS.SUCCESS) {
         this.mObj.follow = Boolean(data.follow);
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
@@ -140,10 +138,6 @@ export class CompanyInfoComponent implements OnInit {
         listID.push(this.mObj.id);
 
         this.mService.getApiService().sendRequestDELETE_COMPANY(
-
-
-          
-          
           JSON.stringify(listID)
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {

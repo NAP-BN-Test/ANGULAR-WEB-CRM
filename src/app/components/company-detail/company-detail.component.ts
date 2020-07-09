@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
-import { STATUS } from 'src/app/services/constant/app-constant';
-import { CookieService } from 'ngx-cookie-service';
+import { STATUS, EVENT_PUSH } from 'src/app/services/constant/app-constant';
 
 @Component({
   selector: 'app-company-detail',
@@ -16,32 +15,46 @@ export class CompanyDetailComponent implements OnInit {
 
   mTitle: any;
 
+  mID = -1;
+
   listActivity = [];
 
+  dataSubscribe: any
 
   showSearchBar = false;
   menuSelected = 0;
 
   constructor(
     public mService: AppModuleService,
-    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mTitle = data.company_detail;
     })
+
+    let params: any = this.mService.handleActivatedRoute();
+    this.mID = params.companyID;
+
     if (this.oneActivity) {
       this.listActivity.push(this.oneActivity);
     } else {
       this.onLoadActivity(0)
     }
+    this.dataSubscribe = this.mService.currentEvent.subscribe(sData => {
+      if (sData.name == EVENT_PUSH.ACTIVITY) {
+        this.onLoadActivity(0);
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.dataSubscribe.unsubscribe();
   }
 
   onLoadActivity(activityType: number) {
     this.mService.getApiService().sendRequestGET_LIST_ACTIVITY(
-      
-      this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+      this.mID + "",
       activityType
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {

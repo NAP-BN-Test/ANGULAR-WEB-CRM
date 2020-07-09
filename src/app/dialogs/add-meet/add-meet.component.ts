@@ -18,6 +18,9 @@ export class AddMeetComponent implements OnInit {
   listTime = LIST_SELECT.LIST_TIME;
   listDuration = LIST_SELECT.LIST_DURATION;
   listUser = [];
+  listContact = [];
+
+  isCompany = false;
 
 
   constructor(
@@ -27,6 +30,7 @@ export class AddMeetComponent implements OnInit {
   ) {
     this.myForm = this.formBuilder.group({
       userIDs: [''],
+      contactIDs: [''],
       description: ['', [Validators.required]],
       duration: ['', [Validators.required]],
       dateStart: ['', [Validators.required]],
@@ -40,6 +44,19 @@ export class AddMeetComponent implements OnInit {
         this.listUser = data.array;
       }
     });
+
+    let router = this.mService.getRouterUrl();
+    if (router == "company-detail") {
+      this.isCompany = true;
+
+      let params: any = this.mService.handleActivatedRoute();
+      let companyID = params.companyID;
+
+      this.mService.getApiService().sendRequestGET_LIST_QUICK_CONTACT(companyID).then(data => {
+        if (data.status == STATUS.SUCCESS)
+          this.listContact = data.array;
+      })
+    }
   }
 
   checkRequire(group: FormGroup) {
@@ -61,6 +78,7 @@ export class AddMeetComponent implements OnInit {
       description: this.myForm.value.description,
       duration: this.myForm.value.duration,
       userIDs: this.myForm.value.userIDs,
+      contactIDs: this.myForm.value.contactIDs,
       outcomeType: this.myForm.value.outcomeType,
       timeStart: dateStart + " " + hourStart,
     })

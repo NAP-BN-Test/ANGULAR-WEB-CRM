@@ -174,7 +174,7 @@ export class ContactMenuContactComponent implements OnInit {
         this.mService.publishPageRoute('contact-detail', { contactID: event.data.id });
       }
       else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
-        this.mService.publishPageRoute('company-detail', null, event.data);
+        this.mService.publishPageRoute('company-detail', { companyID: event.data.id });
       }
     }
   }

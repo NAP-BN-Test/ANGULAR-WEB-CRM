@@ -1,5 +1,5 @@
 <div shadow height-100 *ngIf="mTitle">
-    <div class="m-header" padding between>
+    <div class="mm-header" padding between>
         <div bold font3>{{mTitle.component_title.add_company}}</div>
         <div (click)="onClickClose()" tappable>
             <mat-icon>close</mat-icon>
@@ -7,124 +7,124 @@
     </div>
 
     <div padding height-90>
-        <div>{{mTitle.other_title.contact_intro}}</div>
 
-        <ul padding-top bold ngbNav #nav="ngbNav" class="nav-tabs">
-            <li ngbNavItem (click)="onClickAdd(1)">
-                <a ngbNavLink>{{mTitle.nav_button_title.add_parent_company}}</a>
-            </li>
-            <li ngbNavItem (click)="onClickAdd(2)">
-                <a ngbNavLink>{{mTitle.nav_button_title.add_child_company}}</a>
-            </li>
-            <li ngbNavItem (click)="onClickAdd(3)">
-                <a ngbNavLink>{{mTitle.nav_button_title.create_new_comapny}}</a>
-            </li>
-        </ul>
+        <mat-tab-group focusIndex="0">
+            <mat-tab [label]="mTitle.nav_button_title.add_parent_company">
+                <div padding>
+                    <input type="search" [placeholder]="mTitle.placeholder_title.search" class="form-control" (change)="onSeachCompany($event)" />
+                </div>
 
-        <div [hidden]="btnType!=1" height-80>
-            <div padding>
-                <input type="search" [placeholder]="mTitle.placeholder_title.search" class="form-control" (change)="onSeachCompany($event)" />
-            </div>
+                <div *ngIf="listCompany.length>0" padding-horizontal style="overflow-y: scroll; max-height: 700px;">
+                    <div padding-top *ngFor="let item of listCompany">
 
-            <div padding-horizontal height-90 style="overflow-y: scroll;">
-                <div padding-top *ngFor="let item of listCompany">
-                    <div padding8 class="m-contact">
-                        <div bold>{{item.name}}</div>
-                        <div>{{item.phone | na}}</div>
-                        <div>
-                            <button class="btn-add btn-sm" type="button" (click)="onClickAddCompany(item, 1)">{{mTitle.button_title.add_company}}</button>
+                        <div padding8 between border-bottom>
+                            <div>
+                                <div bold>{{item.name}}</div>
+                                <div>{{item.phone}}</div>
+                            </div>
+                            <div>
+                                <button matTooltip="Thêm liên hệ" mat-icon-button color="primary" (click)="onClickAddCompany(item,1)">
+                                    <mat-icon>queue</mat-icon>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </mat-tab>
+            <mat-tab [label]="mTitle.nav_button_title.add_child_company">
+                <div padding>
+                    <input type="search" [placeholder]="mTitle.placeholder_title.search" class="form-control" (change)="onSeachCompany($event)" />
+                </div>
 
-        <div [hidden]="btnType!=2">
-            <div padding>
-                <input type="search" [placeholder]="mTitle.placeholder_title.search" class="form-control" (change)="onSeachCompany($event)" />
-            </div>
+                <div *ngIf="listCompany.length>0" padding-horizontal style="overflow-y: scroll; max-height: 700px;">
+                    <div padding-top *ngFor="let item of listCompany">
 
-            <div padding-horizontal>
-                <div padding-top *ngFor="let item of listCompany">
-                    <div padding8 class="m-contact">
-                        <div bold>{{item.name}}</div>
-                        <div>{{item.phone | na}}</div>
-                        <div>
-                            <button class="btn-add btn-sm" type="button" (click)="onClickAddCompany(item, 2)">{{mTitle.button_title.add_company}}</button>
+                        <div padding8 between border-bottom>
+                            <div>
+                                <div bold>{{item.name}}</div>
+                                <div>{{item.phone}}</div>
+                            </div>
+                            <div>
+                                <button matTooltip="Thêm liên hệ" mat-icon-button color="primary" (click)="onClickAddCompany(item,2)">
+                                    <mat-icon>queue</mat-icon>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </mat-tab>
+            <mat-tab [label]="mTitle.nav_button_title.create_new_comapny">
+                <div padding32-vertical>
 
-        <div padding32-top [hidden]="btnType!=3">
-            <div padding-start center-line>
-                <div class="col-3" font6>{{mTitle.input_title.name}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="name">
+                    <form [formGroup]="myForm">
+                        <div padding-start center-line>
+                            <mat-form-field width-100>
+                                <mat-label>Tên</mat-label>
+                                <input matInput type="text" formControlName="name" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start center-line>
+                            <mat-form-field width-100>
+                                <mat-label>Tên viết tắt</mat-label>
+                                <input matInput type="text" formControlName="shortName">
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Tỉnh/TP</mat-label>
+                                <mat-select formControlName="cityID" required>
+                                    <mat-option *ngFor="let item of listCity" [value]="item.id">{{item.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start *ngIf="!isNoID">
+                            <mat-form-field width-100>
+                                <mat-label>Vai trò</mat-label>
+                                <mat-select formControlName="role" required>
+                                    <mat-option *ngFor="let item of listCompanyRole" [value]="item.id">{{item.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Điện thoại</mat-label>
+                                <input matInput type="text" formControlName="phone">
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Email</mat-label>
+                                <input matInput type="text" formControlName="email">
+                            </mat-form-field>
+                        </div>
+
+                        <div padding-start>
+                            <mat-form-field width-100>
+                                <mat-label>Địa chỉ</mat-label>
+                                <input matInput type="text" formControlName="address">
+                            </mat-form-field>
+                        </div>
+                    </form>
+
                 </div>
-            </div>
 
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.short_name}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="shortName">
+                <div padding>
+                    <div style="justify-content: flex-end; display: flex;">
+
+                        <button mat-raised-button color="warn" (click)="onClickClose()">Hủy</button>
+                        <div padding-start></div>
+                        <button mat-raised-button color="primary" (click)="onClickSave()" [disabled]="!myForm.valid">Lưu</button>
+
+                    </div>
                 </div>
-            </div>
+            </mat-tab>
+        </mat-tab-group>
 
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.hand_phone}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="phone">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.email}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="email">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.address}}</div>
-                <div class="col-9">
-                    <input class="form-control" type="text" [(ngModel)]="address">
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line>
-                <div class="col-3" font6>{{mTitle.input_title.city}}</div>
-                <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="city">
-                        <option *ngFor="let item of listCity" [ngValue]="item">{{item.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div padding-start padding-top center-line *ngIf="!addOut">
-                <div class="col-3" font6>{{mTitle.input_title.company_role}}</div>
-                <div class="col-9">
-                    <select class="custom-select" width-100 [(ngModel)]="role">
-                        <option *ngFor="let item of listCompanyRole" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-        </div>
-
-
-    </div>
-
-    <div padding background-white class="m-footer">
-        <div flex>
-            <div padding-vertical>
-                <button mat-raised-button color="primary" [disabled]="!btnCanClicked" (click)="onClickSave()">{{mTitle.button_title.save}}</button>
-            </div>
-            <div padding>
-                <button mat-raised-button color="accent" (click)="onClickClose()">{{mTitle.button_title.cancel}}</button>
-            </div>
-        </div>
     </div>
 
 </div>

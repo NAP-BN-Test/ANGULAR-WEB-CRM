@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service'
-import { STATUS } from 'src/app/services/constant/app-constant';
+import { STATUS, EVENT_PUSH, ACTIVITY_TYPE } from 'src/app/services/constant/app-constant';
 import { CompanyDetailComponent } from '../company-detail/company-detail.component';
 import { CompanySubDetailComponent } from '../company-sub-detail/company-sub-detail.component';
+import { MatDialog } from '@angular/material';
+import { AddNoteComponent } from 'src/app/dialogs/add-note/add-note.component';
+import { AddCallComponent } from 'src/app/dialogs/add-call/add-call.component';
+import { AddEmailComponent } from 'src/app/dialogs/add-email/add-email.component';
+import { AddMeetComponent } from 'src/app/dialogs/add-meet/add-meet.component';
+import { AddTaskComponent } from 'src/app/dialogs/add-task/add-task.component';
 
 @Component({
   selector: 'app-home',
@@ -37,28 +41,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
-    private cookieService: CookieService
-  ) {
-    if (this.router.getCurrentNavigation().extras.state) {
-      let params = this.router.getCurrentNavigation().extras.state.params;
-
-      if (params.type) {
-        this.oneActivity = params;
-        this.mID = params.companyID
-      } else if (!params.stageID) {
-        this.mID = params.companyID;
-      } else {
-        this.mID = params.id;
-      }
-      this.cookieService.set('company-id', this.mID + "");
-    } else {
-      if (this.cookieService.get('company-id')) {
-        this.mID = Number(this.cookieService.get('company-id'));
-      }
-    }
-
-  }
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then(data => {
@@ -66,49 +50,29 @@ export class HomeComponent implements OnInit {
     });
 
     if (this.mService.getUser()) {
-      this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(
 
+      let params: any = this.mService.handleActivatedRoute();
+      this.mID = params.companyID
 
-        
-        
-        this.mID + ""
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_LIST_QUICK_COMPANY(this.mID + "").then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.listCompany = data.array
         }
       })
 
-      this.mService.getApiService().sendRequestGET_LIST_CONTACT(
-
-
-        
-        this.mID
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_LIST_CONTACT(this.mID).then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.listContact = data.array;
-
-          this.cookieService.set('list-contact', JSON.stringify(data.array));
-
         }
       });
 
-      this.mService.getApiService().sendRequestGET_LIST_USER(
-
-
-        
-        
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_LIST_USER().then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.listUser = data.array;
         }
       });
 
-      this.mService.getApiService().sendRequestGET_DEAL_STAGE(
-
-
-        
-        
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_DEAL_STAGE().then(data => {
         if (data.status == STATUS.SUCCESS) {
           this.listDealStage = data.array;
         }
@@ -122,7 +86,124 @@ export class HomeComponent implements OnInit {
   }
 
   onClickCreateAction(event) {
-    this.createTabIndex = event;
+    if (event == ACTIVITY_TYPE.NOTE) {
+      const dialogRef = this.dialog.open(AddNoteComponent, {
+        width: '700px',
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          this.mService.getApiService().sendRequestCREATE_NOTE(
+            this.mID + "",
+            null,
+            res.description,
+            [],
+            null
+          ).then(data => {
+            this.mService.showSnackBar(data.message)
+            if (data.status == STATUS.SUCCESS)
+              this.mService.publishEvent(EVENT_PUSH.ACTIVITY, null)
+          })
+        }
+      });
+    } else if (event == ACTIVITY_TYPE.CALL) {
+      const dialogRef = this.dialog.open(AddCallComponent, {
+        width: '700px',
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          this.mService.getApiService().sendRequestCREATE_CALL(
+            this.mID + "",
+            null,
+            res.outcomeType,
+            res.timeStart,
+            null,
+            res.description,
+            []
+          ).then(data => {
+            this.mService.showSnackBar(data.message)
+            if (data.status == STATUS.SUCCESS)
+              this.mService.publishEvent(EVENT_PUSH.ACTIVITY, null)
+          })
+        }
+      });
+    } else if (event == ACTIVITY_TYPE.EMAIL) {
+      const dialogRef = this.dialog.open(AddEmailComponent, {
+        width: '700px',
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          this.mService.getApiService().sendRequestCREATE_EMAIL(
+            this.mID + "",
+            null,
+            res.outcomeType,
+            res.timeStart,
+            null,
+            res.description,
+            []
+          ).then(data => {
+            this.mService.showSnackBar(data.message)
+            if (data.status == STATUS.SUCCESS)
+              this.mService.publishEvent(EVENT_PUSH.ACTIVITY, null)
+          })
+        }
+      });
+    } else if (event == ACTIVITY_TYPE.MEET) {
+      const dialogRef = this.dialog.open(AddMeetComponent, {
+        width: '700px',
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          this.mService.getApiService().sendRequestCREATE_MEET(
+            this.mID + "",
+            null,
+            res.userIDs,
+            res.duration,
+            res.timeStart,
+            null,
+            res.description,
+            res.contactIDs != "" ? res.contactIDs : []
+          ).then(data => {
+            this.mService.showSnackBar(data.message)
+            if (data.status == STATUS.SUCCESS)
+              this.mService.publishEvent(EVENT_PUSH.ACTIVITY, null)
+          })
+        }
+      });
+    } else if (event == ACTIVITY_TYPE.TASK) {
+      const dialogRef = this.dialog.open(AddTaskComponent, {
+        width: '700px',
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+          this.mService.getApiService().sendRequestCREATE_TASK(
+            this.mID + "",
+            null,
+            res.assignID,
+            res.taskType,
+            res.name,
+            res.timeAssign,
+            res.timeAssign,
+            null,
+            res.description,
+            []
+          ).then(data => {
+            this.mService.showSnackBar(data.message)
+            if (data.status == STATUS.SUCCESS)
+              this.mService.publishEvent(EVENT_PUSH.ACTIVITY, null)
+          })
+        }
+      });
+    }
   }
 
   onClickCloseCreateAction(event) {

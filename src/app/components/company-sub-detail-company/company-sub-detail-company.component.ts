@@ -3,7 +3,6 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,10 +18,11 @@ export class CompanySubDetailCompanyComponent implements OnInit {
 
   mTitle: any;
 
+  mID = -1;
+
   constructor(
     public mService: AppModuleService,
     public dialog: MatDialog,
-    private cookieService: CookieService,
     public router: Router
   ) { }
 
@@ -31,6 +31,8 @@ export class CompanySubDetailCompanyComponent implements OnInit {
       this.mTitle = data.company_sub_detail;
     });
 
+    let params: any = this.mService.handleActivatedRoute();
+    this.mID = params.companyID;
   }
 
   onClickDelete() {
@@ -41,12 +43,8 @@ export class CompanySubDetailCompanyComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.mService.getApiService().sendRequestDELETE_COMPANY_FROM_COMPANY(
-          
-          
-          
-          
           this.mObj.role,
-          this.cookieService.get('company-id') ? this.cookieService.get('company-id') : null,
+          this.mID + "",
           this.mObj.id
         ).then(data => {
           if (data.status == STATUS.SUCCESS) {
@@ -59,7 +57,7 @@ export class CompanySubDetailCompanyComponent implements OnInit {
 
   onClickDetail() {
     this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['company-detail'], { state: { params: this.mObj } });
+      this.mService.publishPageRoute('company-detail', { companyID: this.mObj.id });
     })
   }
 

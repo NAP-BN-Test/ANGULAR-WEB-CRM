@@ -5,7 +5,11 @@
                 <mat-icon>{{contactDetail}}</mat-icon>
                 <div>{{mTitle.contact}}({{listContact.length}})</div>
             </div>
-            <div color-primary (click)="onClickAddSubDetail(1)" tappable>{{mTitle.add_contact}}</div>
+            <div>
+                <button [matTooltip]="mTitle.add_contact" mat-icon-button color="primary" (click)="onClickAddSubDetail(1)">
+                    <mat-icon>queue</mat-icon>
+                </button>
+            </div>
         </div>
 
         <div id="contact-detail" [hidden]="!showContact">
@@ -22,7 +26,11 @@
                 <mat-icon>{{companyDetail}}</mat-icon>
                 <div>{{mTitle.company}}({{listCompany.length}})</div>
             </div>
-            <div color-primary (click)="onClickAddSubDetail(2)" tappable>{{mTitle.add_company}}</div>
+            <div>
+                <button [matTooltip]="mTitle.add_company" mat-icon-button color="primary" (click)="onClickAddSubDetail(2)">
+                    <mat-icon>queue</mat-icon>
+                </button>
+            </div>
         </div>
 
         <div id="company-detail" [hidden]="!showCompany">
@@ -34,7 +42,7 @@
 
     </div>
 
-    <div padding-bottom>
+    <!-- <div padding-bottom>
         <div padding-vertical between>
             <div flex bold tappable (click)="onClickDeal()">
                 <mat-icon>{{dealDetail}}</mat-icon>
@@ -50,6 +58,6 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 
 </div>

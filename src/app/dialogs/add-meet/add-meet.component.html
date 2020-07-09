@@ -10,6 +10,13 @@
             </mat-select>
         </mat-form-field>
 
+        <mat-form-field width-100 [hidden]="!isCompany">
+            <mat-label>Khách hàng</mat-label>
+            <mat-select multiple formControlName="contactIDs">
+                <mat-option *ngFor="let item of listContact" selected="true" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <mat-form-field width-100>
             <mat-label>Thời lượng</mat-label>
             <mat-select formControlName="duration" required>

@@ -199,8 +199,6 @@ export class ContactDetailComponent implements OnInit {
         }
       });
     }
-
-    // this.createTabIndex = event;
   }
 
   onClickCloseCreateAction(event) {

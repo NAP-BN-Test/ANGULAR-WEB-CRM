@@ -275,10 +275,14 @@ export class ContactMenuCompanyComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.CONTACT) {
-        this.mService.publishPageRoute('contact-detail', null, event.data);
+        this.mService.publishPageRoute('contact-detail', { contactID: event.data.id });
+
+        // this.mService.publishPageRoute('contact-detail', null, event.data);
       }
       else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
-        this.mService.publishPageRoute('company-detail', null, event.data);
+        this.mService.publishPageRoute('company-detail', { companyID: event.data.id });
+
+        // this.mService.publishPageRoute('company-detail', null, event.data);
       }
     }
   }
