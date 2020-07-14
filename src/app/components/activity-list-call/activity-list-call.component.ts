@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppModuleService } from 'src/app/services/app-module.service';
-import { Router } from '@angular/router';
 import { ParamsKey } from 'src/app/services/constant/paramskey';
 import { STATUS, CLICK_DETAIL, BUTTON_TYPE, SORT_TYPE, EVENT_PUSH } from 'src/app/services/constant/app-constant';
 import { MatDialog } from '@angular/material';
@@ -65,7 +64,6 @@ export class ActivityListCallComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    // public router: Router,
     public dialog: MatDialog,
   ) { }
 
@@ -149,12 +147,10 @@ export class ActivityListCallComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.CONTACT) {
-
         this.mService.publishPageRoute('contact-detail', { contactID: event.data.contactID, activityID: event.data.id })
-        // this.router.navigate(['contact-detail'], { state: { params: event.data } });
       }
       else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
-        // this.router.navigate(['company-detail'], { state: { params: event.data } });
+        this.mService.publishPageRoute('company-detail', { companyID: event.data.companyID, activityID: event.data.id })
       }
     }
   }

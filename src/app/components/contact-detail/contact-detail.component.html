@@ -8,11 +8,11 @@
         <div class="col-md-3" padding-top>
             <app-contact-detail-intro [mID]="mID" (createAction)="onClickCreateAction($event)"></app-contact-detail-intro>
         </div>
-        <div [class]="colDetail" padding-top relative background-whitesmoke>
+        <div class="col-md-9" padding-top relative background-whitesmoke>
             <app-contact-detail-activity [mID]="mID" [listContact]="listContact" [listUser]="listUser" [oneActivity]="oneActivity">
             </app-contact-detail-activity>
         </div>
-        <div [class]="colSubDetail">
+        <!-- <div [class]="colSubDetail">
             <div border-bottom padding-top tappable (click)="onClickShowSubDetail()">
                 <mat-icon>{{iconSubDetail}}</mat-icon>
             </div>
@@ -20,12 +20,12 @@
                 <app-contact-detail-other [listDealStage]="listDealStage" (addSubDetail)="onClickAddSubDetail($event)">
                 </app-contact-detail-other>
             </div>
-        </div>
+        </div> -->
     </div>
 
-    <div>
+    <!-- <div>
         <div class="box-add" [class.show-div]="addSubDetail==3">
             <app-add-deal [contactAddDeal]="1" [listDealStage]="listDealStage" (closeAddSub)="onClickCloseSubDetail($event, 3)"></app-add-deal>
         </div>
-    </div>
+    </div> -->
 </div>

@@ -19,6 +19,8 @@ export class ContactDetailActivityComponent implements OnInit {
 
   listActivity = [];
 
+  activityID;
+
 
   showSearchBar = false;
   menuSelected = 0;
@@ -34,6 +36,9 @@ export class ContactDetailActivityComponent implements OnInit {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mTitle = data.company_detail;
     })
+
+    let params: any = this.mService.handleActivatedRoute();
+    if (params.activityID) this.activityID = params.activityID;
 
     if (this.oneActivity) {
       this.listActivity.push(this.oneActivity);
@@ -55,7 +60,8 @@ export class ContactDetailActivityComponent implements OnInit {
   onLoadActivity(activityType: number) {
     this.mService.getApiService().sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(
       this.mID,
-      activityType
+      activityType,
+      this.activityID
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listActivity = data.array;
@@ -64,6 +70,9 @@ export class ContactDetailActivityComponent implements OnInit {
   }
 
   onClickMenu(index: number) {
+    this.activityID = null;
+    let listParams = [{ key: 'contactID', value: this.mID }];
+    this.mService.handleParamsRoute(listParams);
     if (index > -1) {
       this.menuSelected = index;
 

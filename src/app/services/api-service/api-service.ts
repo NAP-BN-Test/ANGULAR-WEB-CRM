@@ -162,7 +162,7 @@ export class ApiService extends HttpClient {
     }
 
     //7
-    public sendRequestGET_LIST_ACTIVITY(companyID: string, activityType: number, attendID?: number): Promise<any> {
+    public sendRequestGET_LIST_ACTIVITY(companyID: string, activityType: number, activityID?: number, attendID?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_ACTIVITY,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -171,6 +171,7 @@ export class ApiService extends HttpClient {
                 .add("username", this.username)
                 .add("companyID", companyID)
                 .add("activityType", activityType)
+                .addIgnoreNull("activityID", activityID)
                 .add("attendID", attendID ? attendID : -1));
     }
 

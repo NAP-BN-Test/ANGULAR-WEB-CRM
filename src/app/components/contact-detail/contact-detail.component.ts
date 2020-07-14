@@ -224,21 +224,21 @@ export class ContactDetailComponent implements OnInit {
     this.addSubDetail = 0;
   }
 
-  onClickShowSubDetail() {
-    if (this.iconSubDetailState) {
-      this.iconSubDetail = "arrow_back";
-      this.colDetail = "col-md-8 slide-animation";
-      this.colSubDetail = "col-md-1 slide-animation";
+  // onClickShowSubDetail() {
+  //   if (this.iconSubDetailState) {
+  //     this.iconSubDetail = "arrow_back";
+  //     this.colDetail = "col-md-8 slide-animation";
+  //     this.colSubDetail = "col-md-1 slide-animation";
 
-      this.iconSubDetailState = false;
-    }
-    else {
-      this.iconSubDetail = "arrow_forward";
-      this.colDetail = "col-md-6 slide-animation";
-      this.colSubDetail = "col-md-3 slide-animation fade-in";
+  //     this.iconSubDetailState = false;
+  //   }
+  //   else {
+  //     this.iconSubDetail = "arrow_forward";
+  //     this.colDetail = "col-md-6 slide-animation";
+  //     this.colSubDetail = "col-md-3 slide-animation fade-in";
 
-      this.iconSubDetailState = true;
-    }
-  }
+  //     this.iconSubDetailState = true;
+  //   }
+  // }
 
 }

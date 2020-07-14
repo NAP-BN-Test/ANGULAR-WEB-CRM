@@ -24,6 +24,8 @@ export class CompanyDetailComponent implements OnInit {
   showSearchBar = false;
   menuSelected = 0;
 
+  activityID;
+
   constructor(
     public mService: AppModuleService,
   ) { }
@@ -35,6 +37,7 @@ export class CompanyDetailComponent implements OnInit {
 
     let params: any = this.mService.handleActivatedRoute();
     this.mID = params.companyID;
+    this.activityID = params.activityID;
 
     if (this.oneActivity) {
       this.listActivity.push(this.oneActivity);
@@ -55,7 +58,8 @@ export class CompanyDetailComponent implements OnInit {
   onLoadActivity(activityType: number) {
     this.mService.getApiService().sendRequestGET_LIST_ACTIVITY(
       this.mID + "",
-      activityType
+      activityType,
+      this.activityID
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.listActivity = data.array;
@@ -64,6 +68,9 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   onClickMenu(index: number) {
+    this.activityID = null;
+    let listParams = [{ key: 'companyID', value: this.mID }];
+    this.mService.handleParamsRoute(listParams);
     if (index > -1) {
       this.menuSelected = index;
 
