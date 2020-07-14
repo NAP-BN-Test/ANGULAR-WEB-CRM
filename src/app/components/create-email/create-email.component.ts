@@ -39,7 +39,7 @@ export class CreateEmailComponent implements OnInit {
     ]
   }
 
-  listOutcome = LIST_SELECT.LIST_MAIL_STATUS;
+  listOutcome = [];
 
   constructor(
     public mService: AppModuleService,
@@ -51,6 +51,11 @@ export class CreateEmailComponent implements OnInit {
   ngOnInit() {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mTitle = data.create_tag;
+    });
+
+    this.mService.getApiService().sendRequestGET_CATEGORY_MAIL_OUTCOME("").then(data => {
+      if (data.status == STATUS.SUCCESS)
+        this.listOutcome = data.array;
     })
   }
 
@@ -81,8 +86,8 @@ export class CreateEmailComponent implements OnInit {
     this.mService.getApiService().sendRequestCREATE_EMAIL(
 
 
-      
-      
+
+
       !this.createInContact ? this.cookieService.get('company-id') : null,
       this.createInContact ? Number(this.cookieService.get('contact-id')) : this.contactID,
       this.outcomeType,

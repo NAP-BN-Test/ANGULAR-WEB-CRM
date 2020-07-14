@@ -23,8 +23,7 @@ export class ContactDetailIntroComponent implements OnInit {
 
   mObj: any;
 
-  listJobTile = LIST_SELECT.LIST_JOB_TILE;
-
+  listJobTile = [];
 
 
   constructor(
@@ -37,6 +36,11 @@ export class ContactDetailIntroComponent implements OnInit {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mTitle = data.company_info;
     });
+
+    this.mService.getApiService().sendRequestGET_CATEGORY_JOB_TILE("").then(data => {
+      if (data.status == STATUS.SUCCESS)
+        this.listJobTile = data.array;
+    })
 
     this.mService.getApiService().sendRequestGET_DETAIL_CONTACT(this.mID).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {

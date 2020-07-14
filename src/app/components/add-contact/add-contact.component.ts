@@ -22,11 +22,11 @@ export class AddContactComponent implements OnInit {
 
   mID = -1;
   isNoID = false;
-  
+
   listContact = [];
 
   listGender = LIST_SELECT.LIST_GENDER;
-  listJobTile = LIST_SELECT.LIST_JOB_TILE;
+  listJobTile = [];
 
   constructor(
     public mService: AppModuleService,
@@ -56,6 +56,12 @@ export class AddContactComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.mService.getApiService().sendRequestGET_CATEGORY_JOB_TILE("").then(data => {
+      if (data.status == STATUS.SUCCESS)
+        this.listJobTile = data.array;
+    })
+
     let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
     this.mTitle = JSON.parse(languageData);
 

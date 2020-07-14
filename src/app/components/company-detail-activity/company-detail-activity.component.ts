@@ -27,9 +27,9 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   
 
-  listOutcome = LIST_SELECT.LIST_OUTCOME;
+  listOutcome = [];
 
-  listMailStatus = LIST_SELECT.LIST_MAIL_STATUS
+  listMailStatus = [];
 
   listDuration = LIST_SELECT.LIST_DURATION;
 
@@ -50,6 +50,16 @@ export class CompanyDetailActivityComponent implements OnInit {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mTitle = data.company_detail;
     });
+
+    this.mService.getApiService().sendRequestGET_CATEGORY_MAIL_OUTCOME("").then(data => {
+      if(data.status == STATUS.SUCCESS)
+      this.listMailStatus = data.array;
+    }).then(() => {
+      this.mService.getApiService().sendRequestGET_CATEGORY_CALL_OUTCOME("").then(data => {
+        if(data.status = STATUS.SUCCESS)
+        this.listOutcome = data.array;
+      })
+    })
 
     if (this.mObj.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(

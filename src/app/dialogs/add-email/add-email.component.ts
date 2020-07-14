@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { LIST_SELECT } from 'src/app/services/constant/app-constant';
+import { LIST_SELECT, STATUS } from 'src/app/services/constant/app-constant';
 import { MatDialogRef } from '@angular/material';
 
 import * as moment from 'moment';
+import { AppModuleService } from 'src/app/services/app-module.service';
 
 @Component({
   selector: 'app-add-email',
@@ -14,10 +15,11 @@ export class AddEmailComponent implements OnInit {
 
   myForm: FormGroup;
 
-  listOutcome = LIST_SELECT.LIST_MAIL_STATUS;
+  listOutcome = [];
   listTime = LIST_SELECT.LIST_TIME;
 
   constructor(
+    public mService: AppModuleService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddEmailComponent>
   ) {
@@ -30,6 +32,10 @@ export class AddEmailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mService.getApiService().sendRequestGET_CATEGORY_MAIL_OUTCOME("").then(data => {
+      if (data.status == STATUS.SUCCESS)
+        this.listOutcome = data.array
+    })
   }
 
   checkRequire(group: FormGroup) {

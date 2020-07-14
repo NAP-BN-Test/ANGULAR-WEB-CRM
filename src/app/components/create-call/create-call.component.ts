@@ -41,7 +41,7 @@ export class CreateCallComponent implements OnInit {
     ]
   }
 
-  listOutcome = LIST_SELECT.LIST_OUTCOME;
+  listOutcome = [];
 
   constructor(
     public mService: AppModuleService,
@@ -54,6 +54,12 @@ export class CreateCallComponent implements OnInit {
     this.mService.LoadTitle(localStorage.getItem('language-key') != null ? localStorage.getItem('language-key') : "VI").then((data: any) => {
       this.mTitle = data.create_tag;
     });
+
+    this.mService.getApiService().sendRequestGET_CATEGORY_CALL_OUTCOME("").then(data => {
+      if (data.status == STATUS.SUCCESS)
+        this.listOutcome = data.array;
+    })
+
   }
 
   onClickClose() {

@@ -37,21 +37,21 @@ export const TASK_TYPE = {
     MEET: 3
 }
 
-export const CALL_STATUS = {
-    NO_ANSWER: 1,
-    BUSY: 2,
-    WRONG_NUMBER: 3,
-    LEFT_MESSAGE: 4,
-    LEFT_VOID: 5,
-    CONNECTED: 6,
-}
+// export const CALL_STATUS = {
+//     NO_ANSWER: 1,
+//     BUSY: 2,
+//     WRONG_NUMBER: 3,
+//     LEFT_MESSAGE: 4,
+//     LEFT_VOID: 5,
+//     CONNECTED: 6,
+// }
 
-export const MAIL_STATUS = {
-    SENT: 1,
-    RECEIVED: 2,
-    ANSWERED: 3,
-    WRONG_EMAIL: 4
-}
+// export const MAIL_STATUS = {
+//     SENT: 1,
+//     RECEIVED: 2,
+//     ANSWERED: 3,
+//     WRONG_EMAIL: 4
+// }
 
 export const COMPANY_ROLE = {
     PARENT: 1,
@@ -71,20 +71,20 @@ export const CONTACT_ROLE = {
 }
 
 export const LIST_SELECT = {
-    LIST_OUTCOME: [
-        { id: 1, name: "No Answer" },
-        { id: 2, name: "Busy" },
-        { id: 3, name: "Wrong number" },
-        { id: 4, name: "Left live message" },
-        { id: 5, name: "Left voicemail" },
-        { id: 6, name: "Connected" }
-    ],
-    LIST_MAIL_STATUS: [
-        { id: 1, name: "Đã gửi" },
-        { id: 2, name: "Đã nhận" },
-        { id: 3, name: "Đã trả lời" },
-        { id: 4, name: "Sai địa chỉ email" }
-    ],
+    // LIST_OUTCOME: [
+    //     { id: 1, name: "No Answer" },
+    //     { id: 2, name: "Busy" },
+    //     { id: 3, name: "Wrong number" },
+    //     { id: 4, name: "Left live message" },
+    //     { id: 5, name: "Left voicemail" },
+    //     { id: 6, name: "Connected" }
+    // ],
+    // LIST_MAIL_STATUS: [
+    //     { id: 1, name: "Đã gửi" },
+    //     { id: 2, name: "Đã nhận" },
+    //     { id: 3, name: "Đã trả lời" },
+    //     { id: 4, name: "Sai địa chỉ email" }
+    // ],
     LIST_DURATION: [
         { value: 900, name: "15 minutes" },
         { value: 1800, name: "30 minutes" },
@@ -101,12 +101,12 @@ export const LIST_SELECT = {
         { id: 1, name: "Nam" },
         { id: 2, name: "Nữ" }
     ],
-    LIST_JOB_TILE: [
-        { id: 0, name: "Chưa xác định" },
-        { id: 1, name: "Lãnh đạo" },
-        { id: 2, name: "Quản lý" },
-        { id: 3, name: "Nhân viên" }
-    ],
+    // LIST_JOB_TILE: [
+    //     { id: 0, name: "Chưa xác định" },
+    //     { id: 1, name: "Lãnh đạo" },
+    //     { id: 2, name: "Quản lý" },
+    //     { id: 3, name: "Nhân viên" }
+    // ],
     LIST_COMPANY_ROLE: [
         { id: 1, name: "Công ty cha" },
         { id: 2, name: "Công ty con" }

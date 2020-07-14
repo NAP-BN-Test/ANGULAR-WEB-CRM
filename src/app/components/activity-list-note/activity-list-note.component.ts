@@ -80,8 +80,8 @@ export class ActivityListNoteComponent implements OnInit {
 
   onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, timeType: number) {
     this.mService.getApiService().sendRequestGET_LIST_NOTE(
-      
-      
+
+
       page,
       menuType,
       searchKey,
@@ -101,8 +101,8 @@ export class ActivityListNoteComponent implements OnInit {
           listData: data.array,
           listTbData: this.listTbData
         });
-        
-        let listParams = [ { key: 'page', value: this.page }];
+
+        let listParams = [{ key: 'page', value: this.page }];
         this.paramsObj = this.mService.handleParamsRoute(listParams);
 
       }
@@ -140,11 +140,7 @@ export class ActivityListNoteComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-          this.mService.getApiService().sendRequestDELETE_CALL(
-            
-            
-            event.data
-          ).then(data => {
+          this.mService.getApiService().sendRequestDELETE_NOTE(event.data).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onLoadData(1, 1, "", this.timeFrom, this.timeTo, this.userIDFind, this.timeType);
             }

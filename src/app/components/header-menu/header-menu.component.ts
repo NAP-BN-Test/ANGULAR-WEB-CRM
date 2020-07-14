@@ -53,8 +53,8 @@ export class HeaderMenuComponent implements OnInit {
       list: [
         { index: 1, name: menuTitle.contact },
         { index: 2, name: menuTitle.company },
-        { index: 3, name: menuTitle.logistic },
-        { index: 4, name: menuTitle.transport }
+        // { index: 3, name: menuTitle.logistic },
+        // { index: 4, name: menuTitle.transport }
       ]
     }, {
       index: 2,
@@ -112,12 +112,12 @@ export class HeaderMenuComponent implements OnInit {
         else if (indexChild == 2) {
           this.router.navigate(['companies'], { queryParams: { menu: 1, page: 1 } });
         }
-        else if (indexChild == 3) {
-          this.router.navigate(['logistic_company'], { queryParams: { menu: 1, page: 1 } });
-        }
-        else if (indexChild == 4) {
-          this.router.navigate(['trasport_company'], { queryParams: { menu: 1, page: 1 } });
-        }
+        // else if (indexChild == 3) {
+        //   this.router.navigate(['logistic_company'], { queryParams: { menu: 1, page: 1 } });
+        // }
+        // else if (indexChild == 4) {
+        //   this.router.navigate(['trasport_company'], { queryParams: { menu: 1, page: 1 } });
+        // }
       }
       else if (index == 2) {
         if (indexChild == 1) {
