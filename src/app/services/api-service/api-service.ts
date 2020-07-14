@@ -722,7 +722,7 @@ export class ApiService extends HttpClient {
     }
 
     //43
-    public sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(contactID: string, activityType: number, attendID?: number): Promise<any> {
+    public sendRequestGET_LIST_ACTIVITY_FOR_CONTACT(contactID: string, activityType: number, activityID?: number, attendID?: number): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.GET_LIST_ACTIVITY_FOR_CONTACT,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -731,6 +731,7 @@ export class ApiService extends HttpClient {
                 .add("username", this.username)
                 .add("contactID", contactID)
                 .add("activityType", activityType)
+                .addIgnoreNull("activityID", activityID)
                 .add("attendID", attendID ? attendID : -1));
     }
 

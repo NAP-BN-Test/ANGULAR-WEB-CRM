@@ -65,7 +65,7 @@ export class ActivityListCallComponent implements OnInit {
 
   constructor(
     public mService: AppModuleService,
-    public router: Router,
+    // public router: Router,
     public dialog: MatDialog,
   ) { }
 
@@ -83,8 +83,8 @@ export class ActivityListCallComponent implements OnInit {
 
   onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, timeType: number) {
     this.mService.getApiService().sendRequestGET_LIST_CALL(
-      
-      
+
+
       page,
       menuType,
       searchKey,
@@ -105,9 +105,9 @@ export class ActivityListCallComponent implements OnInit {
           listTbData: this.listTbData
         });
 
-        let listParams = [ { key: 'page', value: this.page }];
+        let listParams = [{ key: 'page', value: this.page }];
         this.paramsObj = this.mService.handleParamsRoute(listParams);
-        
+
       }
     })
   }
@@ -132,8 +132,8 @@ export class ActivityListCallComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_CALL(
-            
-            
+
+
             event.data
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
@@ -149,10 +149,12 @@ export class ActivityListCallComponent implements OnInit {
   onClickCell(event) {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.CONTACT) {
-        this.router.navigate(['contact-detail'], { state: { params: event.data } });
+
+        this.mService.publishPageRoute('contact-detail', { contactID: event.data.contactID, activityID: event.data.id })
+        // this.router.navigate(['contact-detail'], { state: { params: event.data } });
       }
       else if (event.clickDetail == CLICK_DETAIL.COMPANY) {
-        this.router.navigate(['company-detail'], { state: { params: event.data } });
+        // this.router.navigate(['company-detail'], { state: { params: event.data } });
       }
     }
   }

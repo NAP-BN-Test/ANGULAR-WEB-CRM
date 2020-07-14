@@ -55,7 +55,8 @@ export class ContactDetailComponent implements OnInit {
     if (this.mService.getUser()) {
 
       let params: any = this.mService.handleActivatedRoute();
-      this.mID = params.contactID
+
+      this.mID = params.contactID;
 
       this.mService.getApiService().sendRequestGET_LIST_CONTACT(this.mID).then(data => {
         if (data.status == STATUS.SUCCESS) {

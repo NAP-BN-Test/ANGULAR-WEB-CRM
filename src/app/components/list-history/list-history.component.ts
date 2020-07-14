@@ -66,7 +66,8 @@ export class ListHistoryComponent implements OnInit {
     let params = JSON.parse(item.param);
 
     let listParams = [];
-    if (params.stageID != "") listParams.push({ key: 'stepID', value: params.stageID });
+    
+    if (params.stepID != "") listParams.push({ key: 'stepID', value: params.stepID });
     if (params.cityID != "") listParams.push({ key: 'cityID', value: params.cityID });
     if (params.timeFrom != "") listParams.push({ key: 'timeFrom', value: params.timeFrom });
     if (params.timeTo != "") listParams.push({ key: 'timeTo', value: params.timeTo });
