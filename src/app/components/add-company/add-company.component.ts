@@ -32,11 +32,12 @@ export class AddCompanyComponent implements OnInit {
     public mService: AppModuleService,
     private formBuilder: FormBuilder,
   ) {
+
     this.myForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       shortName: [''],
       cityID: ['', [Validators.required]],
-      role: ['', [Validators.required]],
+      role: [''],
       phone: [''],
       email: [''],
       address: [''],
@@ -46,9 +47,8 @@ export class AddCompanyComponent implements OnInit {
   checkRequire(group: FormGroup) {
     let requireName = group.controls.name.value != "";
     let requireCityID = group.controls.cityID.value != "";
-    let requireRole = group.controls.role.value != "";
 
-    if (requireName && requireCityID && (requireRole || !this.isNoID))
+    if (requireName && requireCityID)
       return null;
     else return { require: true };
   }
@@ -74,6 +74,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onClickSave() {
+    
     let obj = {
       name: this.myForm.value.name,
       shortName: this.myForm.value.shortName,

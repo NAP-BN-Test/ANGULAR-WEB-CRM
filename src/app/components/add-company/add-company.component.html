@@ -83,7 +83,7 @@
                         <div padding-start *ngIf="!isNoID">
                             <mat-form-field width-100>
                                 <mat-label>Vai trò</mat-label>
-                                <mat-select formControlName="role" required>
+                                <mat-select formControlName="role">
                                     <mat-option *ngFor="let item of listCompanyRole" [value]="item.id">{{item.name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>

@@ -34,23 +34,19 @@ export class AddContactComponent implements OnInit {
   ) {
     this.myForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
-      jobTile: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      gender: [''],
+      jobTile: [''],
+      phone: [''],
+      email: [''],
+      address: [''],
     }, { validator: [this.checkRequire] });
   }
 
   checkRequire(group: FormGroup) {
     let requireName = group.controls.name.value != "";
-    let requireGender = group.controls.gender.value != "";
-    let requireJobTile = group.controls.jobTile.value != "";
-    let requirePhone = group.controls.phone.value != "";
-    let requireEmail = group.controls.email.value != "";
-    let requireAddress = group.controls.address.value != "";
+    
 
-    if (requireName && requireGender && requireJobTile && requirePhone && requireEmail && requireAddress)
+    if (requireName)
       return null;
     else return { require: true };
   }
