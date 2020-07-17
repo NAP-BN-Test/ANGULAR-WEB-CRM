@@ -25,7 +25,8 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   mTitle: any;
 
-  
+
+  listHour = LIST_SELECT.LIST_TIME;
 
   listOutcome = [];
 
@@ -52,12 +53,12 @@ export class CompanyDetailActivityComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_CATEGORY_MAIL_OUTCOME("").then(data => {
-      if(data.status == STATUS.SUCCESS)
-      this.listMailStatus = data.array;
+      if (data.status == STATUS.SUCCESS)
+        this.listMailStatus = data.array;
     }).then(() => {
       this.mService.getApiService().sendRequestGET_CATEGORY_CALL_OUTCOME("").then(data => {
-        if(data.status = STATUS.SUCCESS)
-        this.listOutcome = data.array;
+        if (data.status = STATUS.SUCCESS)
+          this.listOutcome = data.array;
       })
     })
 
@@ -67,8 +68,13 @@ export class CompanyDetailActivityComponent implements OnInit {
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           data.array.forEach(itm => {
-            this.listAttend.push(itm.userID);
+            this.listAttend.push(Number(itm.userID));
+          });
+
+          this.mService.getApiService().sendRequestGET_LIST_USER().then(userData => {
+            if (userData.status == STATUS.SUCCESS) this.listUser = userData.array;
           })
+
         }
       });
       this.mService.getApiService().sendRequestGET_MEET_ASSOCIATE(
@@ -117,7 +123,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.TASK) {
       this.mService.getApiService().sendRequestGET_TASK_ASSOCIATE(
-        
+
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -139,9 +145,17 @@ export class CompanyDetailActivityComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
+  }
+
+  onChangeListAtend(event) {
+    if (event.value) {
+      this.mService.getApiService().sendRequestUPDATE_MEET_ATTEND(this.mObj.id, JSON.stringify(event.value)).then(data => {
+        this.mService.showSnackBar(data.message)
+      })
+    }
   }
 
   onChangeUser() {
@@ -152,7 +166,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
@@ -165,7 +179,7 @@ export class CompanyDetailActivityComponent implements OnInit {
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
@@ -181,62 +195,62 @@ export class CompanyDetailActivityComponent implements OnInit {
         listID.push(Number(this.mObj.id));
         if (type == ACTIVITY_TYPE.CALL) {
           this.mService.getApiService().sendRequestDELETE_CALL(
-            
-            
+
+
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
               this.mService.showSnackBar(data.message)
-              
+
             }
           })
         } else if (type == ACTIVITY_TYPE.EMAIL) {
           this.mService.getApiService().sendRequestDELETE_EMAIL(
-            
-            
+
+
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
               this.mService.showSnackBar(data.message)
-              
+
             }
           })
         } else if (type == ACTIVITY_TYPE.MEET) {
           this.mService.getApiService().sendRequestDELETE_MEET(
-            
-            
+
+
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
               this.mService.showSnackBar(data.message)
-              
+
             }
           })
         } else if (type == ACTIVITY_TYPE.NOTE) {
           this.mService.getApiService().sendRequestDELETE_NOTE(
-            
-            
+
+
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
               this.mService.showSnackBar(data.message)
-              
+
             }
           })
         } else if (type == ACTIVITY_TYPE.TASK) {
           this.mService.getApiService().sendRequestDELETE_TASK(
-            
-            
+
+
             JSON.stringify(listID)
           ).then(data => {
             if (data.status == STATUS.SUCCESS) {
               this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
               this.mService.showSnackBar(data.message)
-              
+
             }
           })
         }
@@ -247,78 +261,63 @@ export class CompanyDetailActivityComponent implements OnInit {
 
   onChangeDuration() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-      
       this.mObj,
       null, null, null, this.mObj.duration, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
 
   pickDate(event, type) { //type here is Time:1 or DateOny:2
-    let timeStart = ""
-    if (type == 1) {
-      timeStart = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
-    } else {
-      timeStart = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+    let time = ""
+    if (type == 1 && event.value) {
+      time = moment(event.value).format("YYYY-MM-DD") + " " + (this.mObj.hourStart != null ? this.mObj.hourStart : "00:00");
+    } else if (type == 2 && event.value) {
+      time = (this.mObj.dateStart != null ? this.mObj.dateStart : moment().format("YYYY-MM-DD")) + " " + event.value;
     }
-    this.mObj.timeStart = timeStart;
-
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-      
-      this.mObj, null, null, timeStart, null, null
+      this.mObj, null, null, time, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
 
   pickTimeStart(event, type) {
     let time = ""
-    if (type == 1) {
-      time = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
-    } else {
-      time = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+    if (type == 1 && event.value) {
+      time = moment(event.value).format("YYYY-MM-DD") + " " + (this.mObj.hourStart != null ? this.mObj.hourStart : "00:00");
+    } else if (type == 2 && event.value) {
+      time = (this.mObj.dateStart != null ? this.mObj.dateStart : moment().format("YYYY-MM-DD")) + " " + event.value;
     }
-    this.mObj.timeStart = time;
-
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
       this.mObj, null, null, time, null, null
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
 
-  pickTimeAssign(event, type) {
+  pickTimeRemind(event, type) {
     let time = ""
-    if (type == 1) {
-      time = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
-    } else {
-      time = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+    if (type == 1 && event.value) {
+      time = moment(event.value).format("YYYY-MM-DD") + " " + (this.mObj.hourRemind != null ? this.mObj.hourRemind : "00:00");
+    } else if (type == 2 && event.value) {
+      time = (this.mObj.dateRemind != null ? this.mObj.dateRemind : moment().format("YYYY-MM-DD")) + " " + event.value;
     }
-    this.mObj.timeStart = time;
-
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-
-      
-      this.mObj, null, null, null, null, null, null, null, null, null, time
+      this.mObj, null, null, null, null, null, null, null, null, null, null, time
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)
-        
+
       }
     })
   }
@@ -342,7 +341,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           this.mService.showSnackBar(data.message)
-          
+
         }
       })
 
@@ -359,7 +358,7 @@ export class CompanyDetailActivityComponent implements OnInit {
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           this.mService.showSnackBar(data.message)
-          
+
         }
       })
 

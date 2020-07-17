@@ -18,6 +18,8 @@ export class ActivityListTaskComponent implements OnInit {
     listColum: [
       { name: 'Tên', cell: 'taskName' },
       { name: 'Nội dung', cell: 'description' },
+      { name: 'Người LH', cell: 'contactName' },
+      { name: 'Công ty', cell: 'companyName' },
       { name: 'Phân công', cell: 'assignName' },
       { name: 'Loại', cell: 'type' },
       { name: 'Người tạo', cell: 'createName' },
@@ -83,8 +85,6 @@ export class ActivityListTaskComponent implements OnInit {
 
   onLoadData(page: number, menuType: number, searchKey: string, timeFrom: string, timeTo: string, userIDFind: number, timeType: number) {
     this.mService.getApiService().sendRequestGET_LIST_TASK(
-      
-      
       page,
       menuType,
       searchKey,

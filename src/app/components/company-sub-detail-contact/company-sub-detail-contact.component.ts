@@ -3,7 +3,6 @@ import { AppModuleService } from 'src/app/services/app-module.service';
 import { DialogComponent } from '../../dialogs/dialog/dialog.component';
 import { MatDialog } from '@angular/material';
 import { STATUS } from 'src/app/services/constant/app-constant';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-sub-detail-contact',
@@ -21,7 +20,6 @@ export class CompanySubDetailContactComponent implements OnInit {
   constructor(
     public mService: AppModuleService,
     public dialog: MatDialog,
-    public router: Router
   ) { }
 
   ngOnInit() {
@@ -38,13 +36,7 @@ export class CompanySubDetailContactComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        this.mService.getApiService().sendRequestDELETE_CONTACT_FROM_COMPANY(
-          
-          
-          
-          
-          this.mObj.id
-        ).then(data => {
+        this.mService.getApiService().sendRequestDELETE_CONTACT_FROM_COMPANY(this.mObj.id).then(data => {
           if (data.status == STATUS.SUCCESS) {
             this.deleteFromCompany.emit(this.mObj);
           }
@@ -54,7 +46,7 @@ export class CompanySubDetailContactComponent implements OnInit {
   }
 
   onClickDetail() {
-    this.router.navigate(['contact-detail'], { state: { params: this.mObj } });
+    this.mService.publishPageRoute('contact-detail', { contactID: this.mObj.id });
   }
 
 }

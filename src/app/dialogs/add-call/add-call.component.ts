@@ -32,7 +32,7 @@ export class AddCallComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mService.getApiService().sendRequestGET_CATEGORY_MAIL_OUTCOME("").then(data => {
+    this.mService.getApiService().sendRequestGET_CATEGORY_CALL_OUTCOME("").then(data => {
       if (data.status == STATUS.SUCCESS)
         this.listOutcome = data.array
     })

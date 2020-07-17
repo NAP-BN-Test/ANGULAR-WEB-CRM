@@ -31,6 +31,8 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   listMailOutcome = [];
 
+  listHour = LIST_SELECT.LIST_TIME;
+
   listDuration = LIST_SELECT.LIST_DURATION;
 
   listTaskType = LIST_SELECT.LIST_ACTIVITY;
@@ -66,23 +68,20 @@ export class ContactDetailActivityListComponent implements OnInit {
       })
     });
 
-
     if (this.mObj.activityType == ACTIVITY_TYPE.MEET) {
       this.mService.getApiService().sendRequestGET_LIST_MEET_ATTEND(
         this.mObj.id
       ).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           data.array.forEach(itm => {
-            this.listAttend.push(itm.userID);
+            this.listAttend.push(Number(itm.userID));
+          });
+          this.mService.getApiService().sendRequestGET_LIST_USER().then(userData => {
+            if (userData.status == STATUS.SUCCESS) this.listUser = userData.array;
           })
         }
       });
-      this.mService.getApiService().sendRequestGET_MEET_ASSOCIATE(
-
-
-
-        this.mObj.id
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_MEET_ASSOCIATE(this.mObj.id).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           data.array.forEach(itm => {
             this.listAssociate.push(itm.contactID);
@@ -91,12 +90,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       })
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.NOTE) {
-      this.mService.getApiService().sendRequestGET_NOTE_ASSOCIATE(
-
-
-
-        this.mObj.id
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_NOTE_ASSOCIATE(this.mObj.id).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           data.array.forEach(itm => {
             this.listAssociate.push(itm.contactID);
@@ -105,12 +99,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       })
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.CALL) {
-      this.mService.getApiService().sendRequestGET_CALL_ASSOCIATE(
-
-
-
-        this.mObj.id
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_CALL_ASSOCIATE(this.mObj.id).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           data.array.forEach(itm => {
             this.listAssociate.push(itm.contactID);
@@ -119,12 +108,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       })
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.EMAIL) {
-      this.mService.getApiService().sendRequestGET_EMAIL_ASSOCIATE(
-
-
-
-        this.mObj.id
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_EMAIL_ASSOCIATE(this.mObj.id).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           data.array.forEach(itm => {
             this.listAssociate.push(itm.contactID);
@@ -133,12 +117,7 @@ export class ContactDetailActivityListComponent implements OnInit {
       })
     }
     else if (this.mObj.activityType == ACTIVITY_TYPE.TASK) {
-      this.mService.getApiService().sendRequestGET_TASK_ASSOCIATE(
-
-
-
-        this.mObj.id
-      ).then(data => {
+      this.mService.getApiService().sendRequestGET_TASK_ASSOCIATE(this.mObj.id).then(data => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           data.array.forEach(itm => {
             this.listAssociate.push(itm.contactID);
@@ -151,7 +130,6 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onChangeContact(type) { //type is contactID:1 or state of activity:2
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
       this.mObj,
       type == 1 ? this.mObj.contactID : null,
       type == 2 ? this.mObj.state : null,
@@ -166,7 +144,6 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onChangeUser() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
       this.mObj,
       null, null, null, null, null, null,
       this.mObj.assignID
@@ -180,7 +157,6 @@ export class ContactDetailActivityListComponent implements OnInit {
 
   onTaskTypeChange() {
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
       this.mObj,
       null, null, null, null, null, null, null,
       this.mObj.taskType
@@ -192,7 +168,7 @@ export class ContactDetailActivityListComponent implements OnInit {
     })
   }
 
-  onClickDeleteNote() {
+  onClickDeleteActivity(type: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px'
     });
@@ -201,22 +177,47 @@ export class ContactDetailActivityListComponent implements OnInit {
       if (res) {
         let listID = [];
         listID.push(Number(this.mObj.id));
+        if (type == ACTIVITY_TYPE.CALL) {
+          this.mService.getApiService().sendRequestDELETE_CALL(JSON.stringify(listID)).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.mService.showSnackBar(data.message)
 
-        this.mService.getApiService().sendRequestDELETE_NOTE(
+            }
+          })
+        } else if (type == ACTIVITY_TYPE.EMAIL) {
+          this.mService.getApiService().sendRequestDELETE_EMAIL(JSON.stringify(listID)).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.mService.showSnackBar(data.message)
 
+            }
+          })
+        } else if (type == ACTIVITY_TYPE.MEET) {
+          this.mService.getApiService().sendRequestDELETE_MEET(JSON.stringify(listID)).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.mService.showSnackBar(data.message)
 
+            }
+          })
+        } else if (type == ACTIVITY_TYPE.NOTE) {
+          this.mService.getApiService().sendRequestDELETE_NOTE(JSON.stringify(listID)).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.mService.showSnackBar(data.message)
 
+            }
+          })
+        } else if (type == ACTIVITY_TYPE.TASK) {
+          this.mService.getApiService().sendRequestDELETE_TASK(JSON.stringify(listID)).then(data => {
+            if (data.status == STATUS.SUCCESS) {
+              this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
+              this.mService.showSnackBar(data.message)
 
-          JSON.stringify(listID)
-        ).then(data => {
-          if (data.status == STATUS.SUCCESS) {
-
-            this.onListChange.emit({ activityType: this.mObj.activityType, id: this.mObj.id });
-
-            this.mService.showSnackBar(data.message)
-
-          }
-        })
+            }
+          })
+        }
       }
     });
 
@@ -235,34 +236,21 @@ export class ContactDetailActivityListComponent implements OnInit {
     })
   }
 
-  pickDate(event, type) { //type here is Time:1 or DateOny:2
-    let timeStart = ""
-    if (type == 1) {
-      timeStart = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
-    } else {
-      timeStart = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
-    }
-    this.mObj.timeStart = timeStart;
-
-    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
-
-      this.mObj, null, null, timeStart, null, null
-    ).then(data => {
-      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+  onChangeListAtend(event) {
+    if (event.value) {
+      this.mService.getApiService().sendRequestUPDATE_MEET_ATTEND(this.mObj.id, JSON.stringify(event.value)).then(data => {
         this.mService.showSnackBar(data.message)
-
-      }
-    })
+      })
+    }
   }
 
-  pickTimeStart(event, type) {
+  pickDate(event, type) { //type here is Time:1 or DateOny:2
     let time = ""
-    if (type == 1) {
-      time = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
-    } else {
-      time = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+    if (type == 1 && event.value) {
+      time = moment(event.value).format("YYYY-MM-DD") + " " + (this.mObj.hourStart != null ? this.mObj.hourStart : "00:00");
+    } else if (type == 2 && event.value) {
+      time = (this.mObj.dateStart != null ? this.mObj.dateStart : moment().format("YYYY-MM-DD")) + " " + event.value;
     }
-    this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
@@ -275,18 +263,36 @@ export class ContactDetailActivityListComponent implements OnInit {
     })
   }
 
-  pickTimeAssign(event, type) {
+  pickTimeStart(event, type) {
     let time = ""
-    if (type == 1) {
-      time = event + " " + moment.utc(this.mObj.timeCreate).format("HH:mm");
-    } else {
-      time = moment.utc(this.mObj.timeCreate).format("YYYY-MM-DD") + " " + event;
+    if (type == 1 && event.value) {
+      time = moment(event.value).format("YYYY-MM-DD") + " " + (this.mObj.hourStart != null ? this.mObj.hourStart : "00:00");
+    } else if (type == 2 && event.value) {
+      time = (this.mObj.dateStart != null ? this.mObj.dateStart : moment().format("YYYY-MM-DD")) + " " + event.value;
     }
-    this.mObj.timeStart = time;
 
     this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
 
-      this.mObj, null, null, null, null, null, null, null, null, null, time
+      this.mObj, null, null, time, null, null
+    ).then(data => {
+      if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+        this.mService.showSnackBar(data.message)
+
+      }
+    })
+  }
+
+  pickTimeRemind(event, type) {
+    let time = ""
+    if (type == 1 && event.value) {
+      time = moment(event.value).format("YYYY-MM-DD") + " " + (this.mObj.hourRemind != null ? this.mObj.hourRemind : "00:00");
+    } else if (type == 2 && event.value) {
+      time = (this.mObj.dateRemind != null ? this.mObj.dateRemind : moment().format("YYYY-MM-DD")) + " " + event.value;
+    }
+
+    this.mService.getApiService().sendRequestUPDATE_ACTIVITY(
+
+      this.mObj, null, null, null, null, null, null, null, null, null, null, time
     ).then(data => {
       if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
         this.mService.showSnackBar(data.message)

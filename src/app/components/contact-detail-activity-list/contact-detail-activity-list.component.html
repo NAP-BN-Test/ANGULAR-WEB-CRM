@@ -8,14 +8,14 @@
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
-                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
-                    </app-dropdown-associate>
+                    <div bold padding-end center-line color-red tappable (click)="onClickDeleteActivity(5)">
+                        {{mTitle.note.delete}}</div>
                 </div>
                 <div padding-end center-line>
                     <div>{{mTitle.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
-                <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
+                <div center-line>{{mObj.timeCreate}}</div>
             </div>
         </div>
 
@@ -28,25 +28,31 @@
             </div>
         </div>
 
-        <div class="row" padding-top>
+        <div class="row" padding-top font6>
             <div class="col-5">
-                <div font7>{{mTitle.task.assign_to}}</div>
-                <div font6 color-primary>
-                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.assignID" (change)="onChangeUser()">
-                        <option *ngFor="let item of listUser" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
-                </div>
+                <mat-form-field width-100>
+                    <mat-label>Phân công cho</mat-label>
+                    <mat-select [(ngModel)]="mObj.assignID" (selectionChange)="onChangeUser()">
+                        <mat-option *ngFor="let item of listUser" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
-            <div class="col-7">
-                <div font7>{{mTitle.task.due_date}}</div>
-                <div font6 color-primary>
-                    <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickTimeStart($event,1)">
-                        </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start (pickTime)="pickTimeStart($event,2)">
-                        </app-datetime-pick-time>
-                    </div>
-                </div>
+            <div class="col-4">
+                <mat-form-field width-100>
+                    <mat-label>Ngày cảnh báo</mat-label>
+                    <input matInput [matDatepicker]="picker2" [value]="mObj.dateStart" (dateChange)="pickTimeStart($event, 1)">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-3">
+                <mat-form-field width-100>
+                    <mat-label>Giờ cảnh bảo</mat-label>
+                    <mat-select [(ngModel)]="mObj.hourStart" (selectionChange)="pickTimeStart($event, 2)">
+                        <mat-option *ngFor="let item of listHour" [value]="item.value">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
 
@@ -64,27 +70,30 @@
             <div font6 center-line>{{mTitle.task.detail}}</div>
         </div>
 
-        <div id="task-detail" class="row" padding-top [hidden]="!showDetail">
-            <div class="col-2">
-                <div font7>{{mTitle.task.type}}</div>
-                <div font6 color-primary flex>
-                    <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.taskType" (change)="onTaskTypeChange()">
-                        <option *ngFor="let item of listTaskType" [ngValue]="item.id">{{item.name}}</option>
-                    </select>
-                </div>
+        <div id="task-detail" class="row font6" padding-top [hidden]="!showDetail">
+            <div class="col-5">
+                <mat-form-field width-100>
+                    <mat-label>Loại</mat-label>
+                    <mat-select [(ngModel)]="mObj.taskType" (selectionChange)="onTaskTypeChange()">
+                        <mat-option *ngFor="let item of listTaskType" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field width-100>
+                    <mat-label>Ngày nhắc nhở</mat-label>
+                    <input matInput [matDatepicker]="picker1" [value]="mObj.dateRemind" (dateChange)="pickTimeRemind($event, 1)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
             </div>
             <div class="col-3">
-                <div font7>{{mTitle.create}}</div>
-                <div font6 color-primary class="task-line">{{mService.mUser.name}}</div>
-            </div>
-            <div class="col-7">
-                <div font7>{{mTitle.task.remind}}</div>
-                <div font6 color-primary flex>
-                    <app-datetime-pick-date [mDate]="mObj.timeAssign" (pickDate)="pickTimeAssign($event,1)">
-                    </app-datetime-pick-date>
-                    <app-datetime-pick-time [mTime]="mObj.timeAssign | datetimeTimeDefault" padding-start (pickTime)="pickTimeAssign($event,2)">
-                    </app-datetime-pick-time>
-                </div>
+                <mat-form-field width-100>
+                    <mat-label>Giờ nhắc nhở</mat-label>
+                    <mat-select [(ngModel)]="mObj.hourRemind" (selectionChange)="pickTimeRemind($event, 2)">
+                        <mat-option *ngFor="let item of listHour" [value]="item.value">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
     </div>
@@ -98,14 +107,14 @@
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
-                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
-                    </app-dropdown-associate>
+                    <div bold padding-end center-line color-red tappable (click)="onClickDeleteActivity(1)">
+                        {{mTitle.note.delete}}</div>
                 </div>
                 <div padding-end center-line>
                     <div>{{mTitle.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
-                <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
+                <div center-line>{{mObj.timeCreate}}</div>
             </div>
         </div>
 
@@ -118,33 +127,31 @@
             </div>
         </div>
 
-        <div class="row" padding-top>
-            <div class="col-6" flex>
-                <div width-60>
-                    <div font7>{{mTitle.contact}}</div>
-                    <div font6>
-                        <div color-primary style="padding: .375rem 1.75rem .375rem .75rem;">{{contactName}}</div>
-                    </div>
-                </div>
-                <div width-40 padding-start>
-                    <div font7>{{mTitle.out_come}}</div>
-                    <div font6 flex>
-                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.state" (change)="onChangeContact(2)">
-                            <option *ngFor="let item of listOutcome" [ngValue]="item.id">{{item.name}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+        <div class="row" padding-top font6>
             <div class="col-6">
-                <div font7>{{mTitle.date}}</div>
-                <div font6 color-primary>
-                    <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickDate($event,1)">
-                        </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start (pickTime)="pickDate($event,2)">
-                        </app-datetime-pick-time>
-                    </div>
-                </div>
+                <mat-form-field width-100>
+                    <mat-label>Trạng thái</mat-label>
+                    <mat-select [(ngModel)]="mObj.state" (selectionChange)="onChangeContact(2)">
+                        <mat-option *ngFor="let item of listOutcome" [value]="item.id">{{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field width-100>
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input matInput [matDatepicker]="picker1" [value]="mObj.dateStart" (dateChange)="pickDate($event, 1)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field width-100>
+                    <mat-label>Giờ bắt đầu</mat-label>
+                    <mat-select [(ngModel)]="mObj.hourStart" (selectionChange)="pickDate($event, 2)">
+                        <mat-option *ngFor="let item of listHour" [value]="item.value">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
 
@@ -161,14 +168,14 @@
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
-                    <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
-                    </app-dropdown-associate>
+                    <div bold padding-end center-line color-red tappable (click)="onClickDeleteActivity(2)">
+                        {{mTitle.note.delete}}</div>
                 </div>
                 <div padding-end center-line>
                     <div>{{mTitle.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
-                <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
+                <div center-line>{{mObj.timeCreate}}</div>
             </div>
         </div>
 
@@ -181,33 +188,31 @@
             </div>
         </div>
 
-        <div class="row" padding-top>
-            <div class="col-6" flex>
-                <div width-60>
-                    <div font7>{{mTitle.contact}}</div>
-                    <div font6 flex color-primary>
-                        <div style="padding: .375rem 1.75rem .375rem .75rem;">{{contactName}}</div>
-                    </div>
-                </div>
-                <div width-40 padding-start>
-                    <div font7>{{mTitle.out_come}}</div>
-                    <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.state" (change)="onChangeContact(1)">
-                            <option *ngFor="let item of listMailOutcome" [ngValue]="item.id">{{item.name}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+        <div class="row" padding-top font6>
             <div class="col-6">
-                <div font7>{{mTitle.date}}</div>
-                <div font6 color-primary>
-                    <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeRemind" (pickDate)="pickDate($event,1)">
-                        </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeRemind | datetimeTimeDefault" padding-start (pickTime)="pickDate($event,2)">
-                        </app-datetime-pick-time>
-                    </div>
-                </div>
+                <mat-form-field width-100>
+                    <mat-label>Trạng thái</mat-label>
+                    <mat-select [(ngModel)]="mObj.state" (selectionChange)="onChangeContact(2)">
+                        <mat-option *ngFor="let item of listMailOutcome" [value]="item.id">{{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field width-100>
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input matInput [matDatepicker]="picker1" [value]="mObj.dateStart" (dateChange)="pickDate($event, 1)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field width-100>
+                    <mat-label>Giờ bắt đầu</mat-label>
+                    <mat-select [(ngModel)]="mObj.hourStart" (selectionChange)="pickDate($event, 2)">
+                        <mat-option *ngFor="let item of listHour" [value]="item.value">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
 
@@ -223,9 +228,7 @@
                 <div padding8-start center-line>{{mTitle.note.name}}</div>
             </div>
             <div font6 class="activity-toolbar">
-                <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
-                </app-dropdown-associate>
-                <div bold padding-start center-line color-red tappable (click)="onClickDeleteNote()">
+                <div bold padding-start center-line color-red tappable (click)="onClickDeleteActivity(4)">
                     {{mTitle.note.delete}}</div>
             </div>
         </div>
@@ -252,6 +255,8 @@
             </div>
             <div flex font6>
                 <div font6 class="activity-toolbar">
+                    <div bold padding-start center-line color-red tappable (click)="onClickDeleteActivity(3)">
+                        {{mTitle.note.delete}}</div>
                     <app-dropdown-associate width-100 [listAssociateAll]="listContact" [listAssociate]="listAssociate" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="onNoteAssociateChange($event)" tappable>
                     </app-dropdown-associate>
                 </div>
@@ -259,7 +264,7 @@
                     <div>{{mTitle.create}}</div>
                     <div padding8-start color-primary>{{mService.mUser.name}}</div>
                 </div>
-                <div center-line>{{mObj.timeCreate | datetimeFull}}</div>
+                <div center-line>{{mObj.timeCreate}}</div>
             </div>
         </div>
 
@@ -272,34 +277,41 @@
             </div>
         </div>
 
-        <div class="row" padding-top>
-            <div class="col-6" flex>
-                <div width-50>
-                    <div font7>{{mTitle.meet.attend}}</div>
-                    <div font6 flex color-primary>
-                        <app-dropdown-multi width-100 [listUser]="listUser" [listAttend]="listAttend" [activityType]="mObj.activityType" [activityID]="mObj.id" (dropdownChange)="dropdownChange($event)"></app-dropdown-multi>
-
-                    </div>
-                </div>
-                <div width-50 padding-start>
-                    <div font7>{{mTitle.meet.duration}}</div>
-                    <div font6 flex color-primary>
-                        <select class="custom-select border0 font6 color-primary width-100" [(ngModel)]="mObj.duration" (change)="onChangeDuration()">
-                            <option *ngFor="let item of listDuration" [ngValue]="item.value">{{item.name}}</option>
-                        </select>
-                    </div>
-                </div>
+        <div class="row" padding-top font6>
+            <div class="col-5">
+                <mat-form-field width-100 *ngIf="listAttend">
+                    <mat-label>Tham gia</mat-label>
+                    <mat-select multiple [(value)]="listAttend" (selectionChange)="onChangeListAtend($event)">
+                        <mat-option *ngFor="let item of listUser" selected="true" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
-            <div class="col-6">
-                <div font7>{{mTitle.meet.start_time}}</div>
-                <div font6 color-primary>
-                    <div flex>
-                        <app-datetime-pick-date [mDate]="mObj.timeStart" (pickDate)="pickDate($event,1)">
-                        </app-datetime-pick-date>
-                        <app-datetime-pick-time [mTime]="mObj.timeStart | datetimeTimeDefault" padding-start (pickTime)="pickDate($event,2)">
-                        </app-datetime-pick-time>
-                    </div>
-                </div>
+            <div class="col-2">
+                <mat-form-field width-100>
+                    <mat-label>Thời lượng</mat-label>
+                    <mat-select [(ngModel)]="mObj.duration" (selectionChange)="onChangeDuration()">
+                        <mat-option *ngFor="let item of listDuration" [value]="item.value">{{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field width-100>
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input matInput [matDatepicker]="picker1" [value]="mObj.dateStart" (dateChange)="pickDate($event, 1)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field width-100>
+                    <mat-label>Giờ bắt đầu</mat-label>
+                    <mat-select [(ngModel)]="mObj.hourStart" (selectionChange)="pickDate($event, 2)">
+                        <mat-option *ngFor="let item of listHour" [value]="item.value">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
 

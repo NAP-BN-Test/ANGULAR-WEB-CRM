@@ -38,8 +38,18 @@ export class ContactDetailIntroComponent implements OnInit {
     });
 
     this.mService.getApiService().sendRequestGET_CATEGORY_JOB_TILE("").then(data => {
-      if (data.status == STATUS.SUCCESS)
+      if (data.status == STATUS.SUCCESS) {
         this.listJobTile = data.array;
+        // data.array.forEach(item => {
+        //   this.listJobTile.push({
+        //     id: Number(item.id),
+        //     name: item.name
+        //   })
+        // })
+        // console.log(this.listJobTile);
+      }
+
+
     })
 
     this.mService.getApiService().sendRequestGET_DETAIL_CONTACT(this.mID).then(data => {

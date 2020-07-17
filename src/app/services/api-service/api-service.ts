@@ -6,8 +6,8 @@ import * as md5 from 'md5';
 import { LOCAL_STORAGE_KEY } from '../constant/app-constant';
 
 export class ApiService extends HttpClient {
-    // mUrl: string = "http://192.168.1.4:3002/";
-    mUrl: string = "http://163.44.192.123:3302/";
+    mUrl: string = "http://192.168.1.4:3002/";
+    // mUrl: string = "http://163.44.192.123:3302/";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
     userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)).id : -1;
@@ -226,7 +226,8 @@ export class ApiService extends HttpClient {
         assignID?: number,
         taskType?: number,
         taskName?: string,
-        timeAssign?: string
+        timeAssign?: string,
+        timeRemind?: string
     ): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_ACTIVITY,
             ParamBuilder.builder()
@@ -245,7 +246,8 @@ export class ApiService extends HttpClient {
                 .addIgnoreNull("assignID", assignID)
                 .addIgnoreNull("taskType", taskType)
                 .addIgnoreNull("taskName", taskName)
-                .addIgnoreNull("timeAssign", timeAssign));
+                .addIgnoreNull("timeAssign", timeAssign)
+                .addIgnoreNull("timeRemind", timeRemind));
     }
 
     //11
@@ -392,7 +394,7 @@ export class ApiService extends HttpClient {
     }
 
     //22
-    public sendRequestUPDATE_MEET_ATTEND(meetID: number, state: number): Promise<any> {
+    public sendRequestUPDATE_MEET_ATTEND(meetID: number, listUserID: string): Promise<any> {
         return this.requestPost(this.mUrl + ApiCmd.UPDATE_MEET_ATTEND,
             ParamBuilder.builder()
                 .add("ip", this.ip)
@@ -400,8 +402,8 @@ export class ApiService extends HttpClient {
                 .add("secretKey", this.mSecretKey)
                 .add("username", this.username)
                 .add("userID", this.userID)
-                .add("meetID", meetID)
-                .add("state", state));
+                .add("listUserID", listUserID)
+                .add("meetID", meetID));
     }
 
     //23

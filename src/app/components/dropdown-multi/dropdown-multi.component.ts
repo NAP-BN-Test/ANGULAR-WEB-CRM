@@ -77,16 +77,16 @@ export class DropdownMultiComponent implements OnInit {
   onClickItem(index, item) {
     this.dropdownList[index].checked = !this.dropdownList[index].checked
 
-    if (this.activityType == ACTIVITY_TYPE.MEET) {
-      this.mService.getApiService().sendRequestUPDATE_MEET_ATTEND(
-        this.activityID,
-        item.checked ? 1 : 0
-      ).then(data => {
-        if (data.status == STATUS.SUCCESS) {
-          this.dropdownChange.emit(data.message);
-        }
-      })
-    }
+    // if (this.activityType == ACTIVITY_TYPE.MEET) {
+    //   this.mService.getApiService().sendRequestUPDATE_MEET_ATTEND(
+    //     this.activityID,
+    //     item.checked ? 1 : 0
+    //   ).then(data => {
+    //     if (data.status == STATUS.SUCCESS) {
+    //       this.dropdownChange.emit(data.message);
+    //     }
+    //   })
+    // }
   }
 
   onClickDropdown() {
