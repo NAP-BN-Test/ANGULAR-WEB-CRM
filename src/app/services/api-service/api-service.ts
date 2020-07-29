@@ -6,8 +6,8 @@ import * as md5 from 'md5';
 import { LOCAL_STORAGE_KEY } from '../constant/app-constant';
 
 export class ApiService extends HttpClient {
-    mUrl: string = "http://192.168.1.4:3002/";
-    // mUrl: string = "http://163.44.192.123:3302/";
+    // mUrl: string = "http://192.168.1.4:3002/";
+    mUrl: string = "http://localhost:3002/";
     mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
     userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO) ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)).id : -1;
@@ -1908,5 +1908,21 @@ export class ApiService extends HttpClient {
                 .add("secretKey", this.mSecretKey)
 
                 .add("listID", listID));
+    }
+
+    //==============================
+    public sendRequestGET_MAILMERGE_CAMPAIGN(page: number, searchKey: string): Promise<any> {
+        let mSearchKey = searchKey != "" ? searchKey : null;
+
+        return this.requestPost(this.mUrl + ApiCmd.GET_LIST_MAILMERGE_CAMPAIGN,
+            ParamBuilder.builder()
+                .add("ip", this.ip)
+                .add("dbName", this.dbName)
+                .add("secretKey", this.mSecretKey)
+                .add("userID", this.userID)
+
+                .add("page", page)
+                .addIgnoreNull("searchKey", mSearchKey)
+                .add("itemPerPage", this.itemPerPage));
     }
 }

@@ -7,7 +7,7 @@
     },
     "http": {
         "debug": true,
-        "api_server": "api_test",
+        "api_server": "api_local",
         "api_primary": {
             "host": "http://163.44.192.123:3302/"
         },
@@ -15,7 +15,7 @@
             "host": "http://192.168.1.4:3002/"
         },
         "api_local": {
-            "host": "http://localhost:63687/"
+            "host": "http://localhost:3002/"
         }
     }
 }

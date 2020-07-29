@@ -1,210 +1,232 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ContactMenuContactComponent } from './components/contact-menu-contact/contact-menu-contact.component';
-import { ContactMenuCompanyComponent } from './components/contact-menu-company/contact-menu-company.component';
-import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
-import { ActivityListTaskComponent } from './components/activity-list-task/activity-list-task.component';
-import { ActivityListCallComponent } from './components/activity-list-call/activity-list-call.component';
-import { ActivityListEmailComponent } from './components/activity-list-email/activity-list-email.component';
-import { ActivityListMeetComponent } from './components/activity-list-meet/activity-list-meet.component';
-import { ActivityListNoteComponent } from './components/activity-list-note/activity-list-note.component';
-import { RefreshComponent } from './components/refresh/refresh.component';
-import { EmailListComponent } from './components/email-list/email-list.component';
-import { EmailCampainComponent } from './components/email-campain/email-campain.component';
-import { ReportListComponent } from './components/report-list/report-list.component';
-import { ReportDetailComponent } from './components/report-detail/report-detail.component';
-import { ReportListAccountComponent } from './components/report-list-account/report-list-account.component';
-import { EmailListSubComponent } from './components/email-list-sub/email-list-sub.component';
-import { ListCompanyLogisticComponent } from './components/list-company-logistic/list-company-logistic.component';
-import { ListCompanyTransportComponent } from './components/list-company-transport/list-company-transport.component';
-import { EmailCampainDetailComponent } from './components/email-campain-detail/email-campain-detail.component';
-import { EmailListSubReportComponent } from './components/email-list-sub-report/email-list-sub-report.component';
-import { ReportListMaillistComponent } from './components/report-list-maillist/report-list-maillist.component';
-import { ReportListMaillistDetailComponent } from './components/report-list-maillist-detail/report-list-maillist-detail.component';
-import { CategoryCityComponent } from './components/category-city/category-city.component';
-import { CategoryStepComponent } from './components/category-step/category-step.component';
-import { CategoryCountryComponent } from './components/category-country/category-country.component';
-import { ListHistoryComponent } from './components/list-history/list-history.component';
-import { CategoryJobTileComponent } from './components/category-job-tile/category-job-tile.component';
-import { CategoryCallOutcomeComponent } from './components/category-call-outcome/category-call-outcome.component';
-import { CategoryMailOutcomeComponent } from './components/category-mail-outcome/category-mail-outcome.component';
-import { CategoryUserComponent } from './components/category-user/category-user.component';
-
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { HomeComponent } from "./components/home/home.component";
+import { LoginComponent } from "./components/login/login.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { ContactMenuContactComponent } from "./components/contact-menu-contact/contact-menu-contact.component";
+import { ContactMenuCompanyComponent } from "./components/contact-menu-company/contact-menu-company.component";
+import { ContactDetailComponent } from "./components/contact-detail/contact-detail.component";
+import { ActivityListTaskComponent } from "./components/activity-list-task/activity-list-task.component";
+import { ActivityListCallComponent } from "./components/activity-list-call/activity-list-call.component";
+import { ActivityListEmailComponent } from "./components/activity-list-email/activity-list-email.component";
+import { ActivityListMeetComponent } from "./components/activity-list-meet/activity-list-meet.component";
+import { ActivityListNoteComponent } from "./components/activity-list-note/activity-list-note.component";
+import { RefreshComponent } from "./components/refresh/refresh.component";
+import { EmailListComponent } from "./components/email-list/email-list.component";
+import { EmailCampainComponent } from "./components/email-campain/email-campain.component";
+import { ReportListComponent } from "./components/report-list/report-list.component";
+import { ReportDetailComponent } from "./components/report-detail/report-detail.component";
+import { ReportListAccountComponent } from "./components/report-list-account/report-list-account.component";
+import { EmailListSubComponent } from "./components/email-list-sub/email-list-sub.component";
+import { ListCompanyLogisticComponent } from "./components/list-company-logistic/list-company-logistic.component";
+import { ListCompanyTransportComponent } from "./components/list-company-transport/list-company-transport.component";
+import { EmailCampainDetailComponent } from "./components/email-campain-detail/email-campain-detail.component";
+import { EmailListSubReportComponent } from "./components/email-list-sub-report/email-list-sub-report.component";
+import { ReportListMaillistComponent } from "./components/report-list-maillist/report-list-maillist.component";
+import { ReportListMaillistDetailComponent } from "./components/report-list-maillist-detail/report-list-maillist-detail.component";
+import { CategoryCityComponent } from "./components/category-city/category-city.component";
+import { CategoryStepComponent } from "./components/category-step/category-step.component";
+import { CategoryCountryComponent } from "./components/category-country/category-country.component";
+import { ListHistoryComponent } from "./components/list-history/list-history.component";
+import { CategoryJobTileComponent } from "./components/category-job-tile/category-job-tile.component";
+import { CategoryCallOutcomeComponent } from "./components/category-call-outcome/category-call-outcome.component";
+import { CategoryMailOutcomeComponent } from "./components/category-mail-outcome/category-mail-outcome.component";
+import { CategoryUserComponent } from "./components/category-user/category-user.component";
+import { MailmergeTemplateListComponent } from "./components/mailmerge-template-list/mailmerge-template-list.component";
+import { MailmergeCampaignListComponent } from "./components/mailmerge-campaign-list/mailmerge-campaign-list.component";
+import { SetupFollowMailmergeCampaignComponent } from './components/setup-follow-mailmerge-campaign/setup-follow-mailmerge-campaign.component';
+import { MailmergeTemplateDetailComponent } from './components/mailmerge-template-detail/mailmerge-template-detail.component';
 
 const routes: Routes = [
   {
-    path: 'company-detail',
+    path: "company-detail",
     component: HomeComponent,
-    data: { title: 'Company Detail' }
+    data: { title: "Company Detail" },
   },
   {
-    path: 'contact-detail',
+    path: "contact-detail",
     component: ContactDetailComponent,
-    data: { title: 'Contact Detail' }
+    data: { title: "Contact Detail" },
   },
   {
-    path: 'dashboard',
+    path: "dashboard",
     component: DashboardComponent,
-    data: { title: 'Dashboard' }
+    data: { title: "Dashboard" },
   },
   {
-    path: 'contacts',
+    path: "contacts",
     component: ContactMenuContactComponent,
-    data: { title: 'Contact' }
+    data: { title: "Contact" },
   },
   {
-    path: 'companies',
+    path: "companies",
     component: ContactMenuCompanyComponent,
-    data: { title: 'Company' }
+    data: { title: "Company" },
   },
   {
-    path: 'login',
+    path: "login",
     component: LoginComponent,
-    data: { title: 'login' }
+    data: { title: "login" },
   },
   {
-    path: 'task',
+    path: "task",
     component: ActivityListTaskComponent,
-    data: { title: 'task' }
+    data: { title: "task" },
   },
   {
-    path: 'call',
+    path: "call",
     component: ActivityListCallComponent,
-    data: { title: 'call' }
+    data: { title: "call" },
   },
   {
-    path: 'email',
+    path: "email",
     component: ActivityListEmailComponent,
-    data: { title: 'email' }
+    data: { title: "email" },
   },
   {
-    path: 'meet',
+    path: "meet",
     component: ActivityListMeetComponent,
-    data: { title: 'meet' }
+    data: { title: "meet" },
   },
   {
-    path: 'note',
+    path: "note",
     component: ActivityListNoteComponent,
-    data: { title: 'note' }
+    data: { title: "note" },
   },
   {
-    path: 'refresh',
+    path: "refresh",
     component: RefreshComponent,
-    data: { title: 'refresh' }
+    data: { title: "refresh" },
   },
   {
-    path: 'email-list',
+    path: "email-list",
     component: EmailListComponent,
-    data: { title: 'emailList' }
+    data: { title: "emailList" },
   },
   {
-    path: 'email-list-sub',
+    path: "email-list-sub",
     component: EmailListSubComponent,
-    data: { title: 'emailListSub' }
+    data: { title: "emailListSub" },
   },
   {
-    path: 'email-campain',
+    path: "email-campain",
     component: EmailCampainComponent,
-    data: { title: 'emailCampain' }
+    data: { title: "emailCampain" },
   },
   {
-    path: 'report-list',
+    path: "report-list",
     component: ReportListComponent,
-    data: { title: 'reportList' }
+    data: { title: "reportList" },
   },
   {
-    path: 'report-detail',
+    path: "report-detail",
     component: ReportDetailComponent,
-    data: { title: 'reportDetail' }
+    data: { title: "reportDetail" },
   },
   {
-    path: 'report-list-account',
+    path: "report-list-account",
     component: ReportListAccountComponent,
-    data: { title: 'reportListAccount' }
+    data: { title: "reportListAccount" },
   },
   {
-    path: 'logistic_company',
+    path: "logistic_company",
     component: ListCompanyLogisticComponent,
-    data: { title: 'listCompanyLogistic' }
+    data: { title: "listCompanyLogistic" },
   },
   {
-    path: 'trasport_company',
+    path: "trasport_company",
     component: ListCompanyTransportComponent,
-    data: { title: 'listCompanyTransport' }
+    data: { title: "listCompanyTransport" },
   },
   {
-    path: 'email-campain-detail',
+    path: "email-campain-detail",
     component: EmailCampainDetailComponent,
-    data: { title: 'mailCampainDetail' }
+    data: { title: "mailCampainDetail" },
   },
   {
-    path: 'email-list-sub-report',
+    path: "email-list-sub-report",
     component: EmailListSubReportComponent,
-    data: { title: 'mailListSubReport' }
+    data: { title: "mailListSubReport" },
   },
   {
-    path: 'report-list-maillist',
+    path: "report-list-maillist",
     component: ReportListMaillistComponent,
-    data: { title: 'reportListMaillist' }
+    data: { title: "reportListMaillist" },
   },
   {
-    path: 'report-list-maillist-detail',
+    path: "report-list-maillist-detail",
     component: ReportListMaillistDetailComponent,
-    data: { title: 'reportListMaillistDetail' }
+    data: { title: "reportListMaillistDetail" },
   },
   {
-    path: 'category-city',
+    path: "category-city",
     component: CategoryCityComponent,
-    data: { title: 'CategoryCity' }
+    data: { title: "CategoryCity" },
   },
   {
-    path: 'category-step',
+    path: "category-step",
     component: CategoryStepComponent,
-    data: { title: 'CategoryStep' }
+    data: { title: "CategoryStep" },
   },
   {
-    path: 'category-country',
+    path: "category-country",
     component: CategoryCountryComponent,
-    data: { title: 'CategoryCountry' }
+    data: { title: "CategoryCountry" },
   },
   {
-    path: 'job-tile',
+    path: "job-tile",
     component: CategoryJobTileComponent,
-    data: { title: 'CategoryJobTile' }
+    data: { title: "CategoryJobTile" },
   },
   {
-    path: 'call-outcome',
+    path: "call-outcome",
     component: CategoryCallOutcomeComponent,
-    data: { title: 'CategoryCallOutcome' }
+    data: { title: "CategoryCallOutcome" },
   },
   {
-    path: 'mail-outcome',
+    path: "mail-outcome",
     component: CategoryMailOutcomeComponent,
-    data: { title: 'CategoryMailOutcome' }
+    data: { title: "CategoryMailOutcome" },
   },
   {
-    path: 'list-user',
+    path: "list-user",
     component: CategoryUserComponent,
-    data: { title: 'CategoryUser' }
+    data: { title: "CategoryUser" },
   },
   {
-    path: 'history',
+    path: "history",
     component: ListHistoryComponent,
-    data: { title: 'History' }
+    data: { title: "History" },
   },
   {
-    path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
+    path: "mailmerge-template-list",
+    component: MailmergeTemplateListComponent,
+    data: { title: "MailmergeTemplateList" },
   },
-
+  {
+    path: "mailmerge-campaign-list",
+    component: MailmergeCampaignListComponent,
+    data: { title: "MailmergeCampaignList" },
+  },
+  {
+    path: "setup-follow-mailmerge-campaign",
+    component: SetupFollowMailmergeCampaignComponent,
+    data: { title: "SetupFollowMailmergeCampaign" },
+  },
+  {
+    path: "mailmerge-template-detail",
+    component: MailmergeTemplateDetailComponent,
+    data: { title: "MailmergeTemplateDetail" },
+  },
+  {
+    path: "",
+    redirectTo: "/login",
+    pathMatch: "full",
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

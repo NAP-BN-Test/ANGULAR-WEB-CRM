@@ -1,0 +1,157 @@
+<div *ngIf="mTitle">
+  <div class="m-header">
+    <app-header-menu menuIndex="6"></app-header-menu>
+  </div>
+  <div class="padding m-content">
+    <div class="d-flex justify-content-end padding-bottom1">
+      <button
+        mat-raised-button
+        class="button-margin-right"
+        (click)="openNew(content)"
+      >
+        <mat-icon>add_box</mat-icon>New field
+      </button>
+      <button mat-raised-button class="button-margin-right" color="primary">
+        <mat-icon>save</mat-icon>Save
+      </button>
+      <button mat-raised-button class="button-margin-right" color="accent">
+        <mat-icon>save</mat-icon>Save & Close
+      </button>
+      <button mat-raised-button color="warn">
+        <mat-icon>close</mat-icon>Close
+      </button>
+    </div>
+    <div class="d-flex flex-row">
+      <div class="col-md-3 padding-top">
+        <div bold></div>
+
+        <div padding-top>
+          <div font7>Tên chiến dịch</div>
+          <div relative class="m-input">
+            <input class="form-control" type="text" />
+          </div>
+        </div>
+        <div padding-top>
+          <div font7>Tiêu đề</div>
+          <div relative class="m-input">
+            <input class="form-control" type="text" />
+          </div>
+        </div>
+        <div padding-top>
+          <div font7>Ngày bắt đầu</div>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="dp"
+                ngbDatepicker
+                #d="ngbDatepicker"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  (click)="d.toggle()"
+                  type="button"
+                >
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div font7>Ngày kết thúc</div>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="dp"
+                ngbDatepicker
+                #d="ngbDatepicker"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  (click)="d.toggle()"
+                  type="button"
+                >
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div font7>Mail list</div>
+        <div relative class="m-input">
+          <select class="custom-select" width-100> </select>
+        </div>
+      </div>
+      <div class="col-md-9 padding-vertical" relative box-border>
+        <div bold>Menu soạn thảo văn bản</div>
+
+        <div padding-top>
+          <angular-editor [config]="config"></angular-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="add-new-campaign">ADD INFORMATION FIELD</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <div class="modal-margin-inherit d-flex justify-content-between">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" class="width80" />
+        </div>
+        <div class="modal-margin-inherit d-flex justify-content-between">
+          <mat-label>Tile</mat-label>
+          <input matInput type="text" class="width80" />
+        </div>
+        <div class="d-flex justify-content-between">
+            <mat-label>Type</mat-label>
+            <select type="number" class="width80">
+              <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
+            </select>
+          </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="modal.close('Save click')"
+      class="button-margin-right"
+    >
+      <mat-icon>save</mat-icon>Save
+    </button>
+    <a routerLink="/setup-follow-mailmerge-campaign">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="modal.close()"
+        class="button-margin-right"
+      >
+        <mat-icon>save</mat-icon>Save & Close
+      </button></a
+    >
+    <button mat-raised-button color="warn" (click)="modal.close('Save click')">
+      <mat-icon>cancel</mat-icon>Close
+    </button>
+  </div>
+</ng-template>

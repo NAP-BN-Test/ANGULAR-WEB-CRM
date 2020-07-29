@@ -1,0 +1,98 @@
+<div *ngIf="mTitle">
+  <div class="m-header">
+    <app-header-menu></app-header-menu>
+  </div>
+  <div class="padding m-content">
+    <div flex no-wrap>
+      <div width-20 class="border-red">
+        <div class="d-flex flex-column bd-highlight mb-3 padding">
+          <mat-form-field appearance="legacy">
+            <mat-label>Legacy form field</mat-label>
+            <input matInput placeholder="Placeholder" />
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Standard form field</mat-label>
+            <input matInput placeholder="Placeholder" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Fill form field</mat-label>
+            <input matInput placeholder="Placeholder" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Outline form field</mat-label>
+            <input matInput placeholder="Placeholder" />
+          </mat-form-field>
+          <div class="d-flex justify-content-around">
+            <button
+              mat-raised-button
+              color="primary"
+              class="button-margin-right"
+            >
+              <mat-icon>save</mat-icon>Save
+            </button>
+            <button mat-raised-button color="warn">
+              <mat-icon>cancel</mat-icon>Close
+            </button>
+          </div>
+        </div>
+      </div>
+      <div width-80 class="border-red">
+        <div class="d-flex justify-content-between padding1">
+          <div>
+            <span class="span-custom">MAILMERGE CAMPAIGN LIST</span>
+          </div>
+          <div class="d-flex flex-row">
+            <button mat-raised-button class="button-margin-right">
+              <mat-icon>search</mat-icon>Search
+            </button>
+            <button mat-raised-button class="button-margin-right">
+              <mat-icon>miscellaneous_services</mat-icon>Option
+            </button>
+            <button mat-raised-button color="primary">
+              <mat-icon>add_circle_outline</mat-icon>Add new
+            </button>
+          </div>
+        </div>
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8"
+          class="table-container"
+        >
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef>Weight</th>
+            <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef>Symbol</th>
+            <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <button mat-raised-button color="primary" class="button-margin-right margin1">
+          <mat-icon>send</mat-icon>Send
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

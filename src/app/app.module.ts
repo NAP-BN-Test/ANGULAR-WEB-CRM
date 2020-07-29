@@ -143,6 +143,12 @@ import { AddCategoryMailOutcomeComponent } from './dialogs/add-category-mail-out
 import { AddCategoryCallOutcomeComponent } from './dialogs/add-category-call-outcome/add-category-call-outcome.component';
 import { TableCategoryComponent } from './materials/table-category/table-category.component';
 import { CategoryUserComponent } from './components/category-user/category-user.component';
+import { AddressBookComponent } from './components/address-book/address-book.component';
+import { MailmergeTemplateListComponent } from './components/mailmerge-template-list/mailmerge-template-list.component';
+import { MailmergeCampaignListComponent } from './components/mailmerge-campaign-list/mailmerge-campaign-list.component';
+import { SetupFollowMailmergeCampaignComponent } from './components/setup-follow-mailmerge-campaign/setup-follow-mailmerge-campaign.component';
+import { MailmergeTemplateDetailComponent } from './components/mailmerge-template-detail/mailmerge-template-detail.component';
+import { AddUpdateMailmergeCampaignComponent } from './components/add-update-mailmerge-campaign/add-update-mailmerge-campaign.component';
 
 @NgModule({
   declarations: [
@@ -255,6 +261,12 @@ import { CategoryUserComponent } from './components/category-user/category-user.
     AddCategoryCallOutcomeComponent,
     TableCategoryComponent,
     CategoryUserComponent,
+    AddressBookComponent,
+    MailmergeTemplateListComponent,
+    MailmergeCampaignListComponent,
+    SetupFollowMailmergeCampaignComponent,
+    MailmergeTemplateDetailComponent,
+    AddUpdateMailmergeCampaignComponent,
   ],
   imports: [
     BrowserModule,

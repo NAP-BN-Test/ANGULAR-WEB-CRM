@@ -1,33 +1,41 @@
 .m-container {
-    max-height: 650px;
-    overflow: auto;
-    position: relative;
+  max-height: 650px;
+  overflow: auto;
+  position: relative;
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
 th {
-    font-weight: bold !important;
-    font-size: .9rem !important;
+  font-weight: bold !important;
+  font-size: 0.9rem !important;
 }
 
 td,
 th {
-    padding-right: 8px !important;
-    white-space: normal;
-    word-wrap: break-word;
-    max-width: 200px;
+  padding-right: 8px !important;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
 }
 
 .m-option {
-    position: fixed;
-    box-shadow: 0 3px 6px rgba($color: #000000, $alpha: .2);
-    z-index: 999;
-    padding: 10px 32px;
-    background-color: rgba($color: #ffff, $alpha: .9);
-    right: 32px;
-    animation: fadeIn 300ms;
-    display: flex;
+  position: fixed;
+  box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.2);
+  z-index: 999;
+  padding: 10px 32px;
+  background-color: rgba($color: #ffff, $alpha: 0.9);
+  right: 32px;
+  animation: fadeIn 300ms;
+  display: flex;
+}
+
+.mat-header-row {
+  background-color: #702C90 !important;
+}
+
+.mat-header-cell {
+  color: white;
 }
