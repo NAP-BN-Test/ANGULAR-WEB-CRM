@@ -1,25 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { LOCAL_STORAGE_KEY } from "src/app/services/constant/app-constant";
+import { MatDialog } from "@angular/material";
+import { LOCAL_STORAGE_KEY, BUTTON_TYPE, STATUS, EVENT_PUSH } from "src/app/services/constant/app-constant";
+import { AppModuleService } from "src/app/services/app-module.service";
+import { ParamsKey } from 'src/app/services/constant/paramskey';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: "Hydrogen", weight: 1.0079, symbol: "H" },
-  { position: 2, name: "Helium", weight: 4.0026, symbol: "He" },
-  { position: 3, name: "Lithium", weight: 6.941, symbol: "Li" },
-  { position: 4, name: "Beryllium", weight: 9.0122, symbol: "Be" },
-  { position: 5, name: "Boron", weight: 10.811, symbol: "B" },
-  { position: 6, name: "Carbon", weight: 12.0107, symbol: "C" },
-  { position: 7, name: "Nitrogen", weight: 14.0067, symbol: "N" },
-  { position: 8, name: "Oxygen", weight: 15.9994, symbol: "O" },
-  { position: 9, name: "Fluorine", weight: 18.9984, symbol: "F" },
-  { position: 10, name: "Neon", weight: 20.1797, symbol: "Ne" },
-];
 
 @Component({
   selector: "app-mailmerge-template-list",
@@ -27,20 +11,65 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ["./mailmerge-template-list.component.scss"],
 })
 export class MailmergeTemplateListComponent implements OnInit {
-  mTitle: any;
-  dataSource = ELEMENT_DATA;
-  displayedColumns: string[] = [
-    "position",
-    "name",
-    "weight",
-    "symbol",
-    "actions",
-  ];
+  listTbData = {
+    listColum: [
+      { name: "Name", cell: "Name" },
+      { name: "Create Date", cell: "TimeCreate" },
+      { name: "Create User", cell: "UserID" },
+      { name: "Data Send Email", cell: "dataName" },
+      { name: "Action", cell: undefined },
+    ],
+    listButton: [{ id: BUTTON_TYPE.DELETE, name: "Xóa", color: "warn" }],
+  };
 
-  constructor() {}
+  page = 1;
+  mTitle: any;
+  searchKey = null;
+  collectionSize: number;
+  paramsObj: any;
+
+  constructor(public mService: AppModuleService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
+    this.mService.LoadAppConfig();
     let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
     this.mTitle = JSON.parse(languageData);
+    if (this.mService.getUser()) {
+      let params: any = this.mService.handleActivatedRoute();
+      this.page = params.page;
+
+      this.onLoadData(this.page, this.searchKey);
+    } else {
+      this.mService.publishPageRoute("login");
+    }
   }
+
+  onLoadData(page: number, searchKey: string) {
+    this.mService
+      .getApiService()
+      .sendRequestGET_MAILMERGE_TEMPLATE(page, searchKey)
+      .then((data) => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          this.collectionSize = data.count;
+
+          this.mService.publishEvent(EVENT_PUSH.TABLE, {
+            page: this.page,
+            collectionSize: this.collectionSize,
+            listData: data.array,
+            listTbData: this.listTbData,
+          });
+
+          let listParams = [{ key: "page", value: this.page }];
+          if (this.searchKey != "")
+            listParams.push({ key: "searchKey", value: this.searchKey });
+
+          this.paramsObj = this.mService.handleParamsRoute(listParams);
+        }
+      });
+  }
+
+  onClickPagination(event) {
+    this.onLoadData(event, this.searchKey);
+  }
+
 }

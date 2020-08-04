@@ -236,8 +236,9 @@ export class ApiCmd {
     public static GET_HISTORY: string = "crm/get_history";
     public static DELETE_HISTORY: string = "crm/delete_history";
 
-    public static GET_LIST_MAILMERGE_CAMPAIGN: string ="crm/get_list_mailmerge_campaign";
     public static GET_ALL_MAILMERGE_TEMPLATE: string = "crm/get_all_mailmerge_template";
-    public static ADD_MAILMERGE_CAMPAIGN: string = "crm/add_mailmerge_campaign";
     public static UPDATE_MAILMERGE_CAMPAIGN: string = "crm/update_mailmerge_campaign";
+
+    public static GET_LIST_MAILMERGE_TEMPLATE: string ="crm/get_list_mailmerge_template";
+    
 }

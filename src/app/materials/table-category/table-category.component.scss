@@ -23,13 +23,14 @@ th {
 
 .m-option {
   position: fixed;
-  box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.2);
+  // box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.2); gihug edit
   z-index: 999;
   padding: 10px 32px;
   background-color: rgba($color: #ffff, $alpha: 0.9);
   right: 32px;
   animation: fadeIn 300ms;
   display: flex;
+  background-color: #702C90 !important; // Gihug edit
 }
 
 .mat-header-row {

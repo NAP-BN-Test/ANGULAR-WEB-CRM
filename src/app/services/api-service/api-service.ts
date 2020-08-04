@@ -7,7 +7,8 @@ import { LOCAL_STORAGE_KEY } from "../constant/app-constant";
 
 export class ApiService extends HttpClient {
   // mUrl: string = "http://192.168.1.4:3002/";
-  mUrl: string = "http://localhost:3002/";
+  // mUrl: string = "http://localhost:3002/";
+  mUrl: string = "http://192.168.1.101:3002/";
   mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
   userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)
@@ -1483,7 +1484,8 @@ export class ApiService extends HttpClient {
     searchKey: string,
     timeFrom: string,
     timeTo: string,
-    userIDFind: number
+    userIDFind: number,
+    type: string
   ): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.GET_LIST_MAIL_CAMPAIN,
@@ -1494,6 +1496,7 @@ export class ApiService extends HttpClient {
         .add("userID", this.userID)
         .add("page", page)
         .add("itemPerPage", this.itemPerPage)
+        .add("Type", type)
     );
   }
 
@@ -1669,6 +1672,8 @@ export class ApiService extends HttpClient {
         .add("name", obj.name)
         .add("subject", obj.subject)
         .add("mailListID", obj.mailListID)
+        .add("TemplateID", obj.Template_ID) //GiHug
+        .add("Type", obj.Type)
     );
   }
 
@@ -1689,13 +1694,13 @@ export class ApiService extends HttpClient {
 
   //==============================
   public sendRequestDELETE_MAIL_LIST(listID: string): Promise<any> {
+    console.log(listID);
     return this.requestPost(
       this.mUrl + ApiCmd.DELETE_MAIL_LIST,
       ParamBuilder.builder()
         .add("ip", this.ip)
         .add("dbName", this.dbName)
         .add("secretKey", this.mSecretKey)
-
         .add("listID", listID)
     );
   }
@@ -1772,7 +1777,8 @@ export class ApiService extends HttpClient {
 
   //==============================
   public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
-    let body = obj.body.replace(/&/g, "%26");
+    let body: string;
+    if (obj.body !== undefined) body = obj.body.replace(/&/g, "%26");
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
       ParamBuilder.builder()
@@ -1787,6 +1793,10 @@ export class ApiService extends HttpClient {
         .add("body", body)
         .add("mailListID", obj.mailListID)
         .add("name", obj.name)
+        //Gihug
+        .add("TemplateID", obj.Template_ID)
+        .add("NumberAddressBook", obj.NumberAddressBook)
+        .add("Description", obj.Description)
     );
   }
 
@@ -2316,27 +2326,6 @@ export class ApiService extends HttpClient {
   }
 
   //==============================
-  public sendRequestGET_MAILMERGE_CAMPAIGN(
-    page: number,
-    searchKey: string
-  ): Promise<any> {
-    let mSearchKey = searchKey != "" ? searchKey : null;
-
-    return this.requestPost(
-      this.mUrl + ApiCmd.GET_LIST_MAILMERGE_CAMPAIGN,
-      ParamBuilder.builder()
-        .add("ip", this.ip)
-        .add("dbName", this.dbName)
-        .add("secretKey", this.mSecretKey)
-        .add("userID", this.userID)
-
-        .add("page", page)
-        .addIgnoreNull("searchKey", mSearchKey)
-        .add("itemPerPage", this.itemPerPage)
-    );
-  }
-
-  //==============================
   public sendRequestGET_ALL_MAILMERGE_TEMPLATE(): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.GET_ALL_MAILMERGE_TEMPLATE,
@@ -2345,21 +2334,6 @@ export class ApiService extends HttpClient {
         .add("dbName", this.dbName)
         .add("secretKey", this.mSecretKey)
         .add("userID", this.userID)
-    );
-  }
-
-  //==============================
-  public sendRequestADD_MAILMERGE_CAMPAIGN(obj: any): Promise<any> {
-    return this.requestPost(
-      this.mUrl + ApiCmd.ADD_MAILMERGE_CAMPAIGN,
-      ParamBuilder.builder()
-        .add("ip", this.ip)
-        .add("dbName", this.dbName)
-        .add("secretKey", this.mSecretKey)
-        .add("userID", this.userID)
-
-        .add("Name", obj.Name)
-        .add("Template_ID", obj.Template_ID)
     );
   }
 
@@ -2381,6 +2355,27 @@ export class ApiService extends HttpClient {
         .add("Template_ID", obj.Template_ID)
         .add("Number_Address", obj.Number_Address)
         .add("Description", obj.Description)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_MAILMERGE_TEMPLATE(
+    page: number,
+    searchKey: string
+  ): Promise<any> {
+    let mSearchKey = searchKey != "" ? searchKey : null;
+
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_MAILMERGE_TEMPLATE,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("page", page)
+        .addIgnoreNull("searchKey", mSearchKey)
+        .add("itemPerPage", this.itemPerPage)
     );
   }
 }

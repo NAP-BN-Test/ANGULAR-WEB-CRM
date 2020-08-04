@@ -4,11 +4,13 @@ import {
   STATUS,
   EVENT_PUSH,
   BUTTON_TYPE,
+  CLICK_DETAIL,
 } from "src/app/services/constant/app-constant";
 import { AppModuleService } from "src/app/services/app-module.service";
 import { ParamsKey } from "src/app/services/constant/paramskey";
 import { MatDialog } from "@angular/material";
 import { AddUpdateMailmergeCampaignComponent } from "../add-update-mailmerge-campaign/add-update-mailmerge-campaign.component";
+import { DialogComponent } from "src/app/dialogs/dialog/dialog.component";
 
 @Component({
   selector: "app-mailmerge-campaign-list",
@@ -17,13 +19,14 @@ import { AddUpdateMailmergeCampaignComponent } from "../add-update-mailmerge-cam
 })
 export class MailmergeCampaignListComponent implements OnInit {
   listTbData = {
+    clickDetail: CLICK_DETAIL.MAILMERGE_CAMPAIGN_LIST,
     listColum: [
-      { name: "Name", cell: "Name" },
-      { name: "Template", cell: "Template_ID" },
-      { name: "Create Date", cell: "Create_Date" },
-      { name: "Create User", cell: "UserID" },
-      { name: "Number Of AddressBook", cell: "Number_Address" },
-      { name: "Thao tác", cell: undefined },
+      { name: "Name", cell: "name" },
+      { name: "Template", cell: "TemplateName" },
+      { name: "Create Date", cell: "createTime" },
+      { name: "Create User", cell: "owner" },
+      { name: "Number Of AddressBook", cell: "NumberAddressBook" },
+      { name: "Action", cell: undefined },
     ],
     listButton: [{ id: BUTTON_TYPE.DELETE, name: "Xóa", color: "warn" }],
   };
@@ -33,6 +36,7 @@ export class MailmergeCampaignListComponent implements OnInit {
   page = 1;
   collectionSize: number;
   paramsObj: any;
+  type = "MailMerge";
 
   constructor(public mService: AppModuleService, public dialog: MatDialog) {}
 
@@ -53,9 +57,17 @@ export class MailmergeCampaignListComponent implements OnInit {
   onLoadData(page: number, searchKey: string) {
     this.mService
       .getApiService()
-      .sendRequestGET_MAILMERGE_CAMPAIGN(page, searchKey)
+      .sendRequestGET_LIST_MAIL_CAMPAIN(
+        page,
+        searchKey,
+        null,
+        null,
+        null,
+        this.type
+      )
       .then((data) => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          console.log(data);
           this.collectionSize = data.count;
 
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
@@ -86,13 +98,14 @@ export class MailmergeCampaignListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         let obj = {
-          Name: res.Name,
+          name: res.Name,
           Template_ID: res.Template_ID,
+          Type: this.type,
         };
         console.log(obj);
         this.mService
           .getApiService()
-          .sendRequestADD_MAILMERGE_CAMPAIGN(obj)
+          .sendRequestADD_MAIL_CAMPAIN(obj)
           .then((data) => {
             this.mService.showSnackBar(data.message);
             if (data.status == STATUS.SUCCESS) {
@@ -107,26 +120,25 @@ export class MailmergeCampaignListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateMailmergeCampaignComponent, {
       width: "500px",
       data: {
-        Name: event.data.Name,
-        Template_ID: event.data.Template_ID,
-        Number_Address: event.data.Number_Address,
+        Name: event.data.name,
+        Template_ID: event.data.TemplateName,
+        Number_Address: event.data.NumberAddressBook,
         Description: event.data.Description,
       },
     });
-
-    console.log(event)
-
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         let obj = {
-          Name: res.name,
+          id: event.data.id,
+          name: res.Name,
           Template_ID: res.Template_ID,
-          Number_Address: res.Number_Address,
+          NumberAddressBook: res.Number_Address,
           Description: res.Description,
         };
+        console.log(obj);
         this.mService
           .getApiService()
-          .sendRequestUPDATE_MAILMERGE_CAMPAIGN(obj, event.data.id)
+          .sendRequestUPDATE_MAIL_CAMPAIN(obj)
           .then((data) => {
             this.mService.showSnackBar(data.message);
             if (data.status == STATUS.SUCCESS) {
@@ -135,5 +147,37 @@ export class MailmergeCampaignListComponent implements OnInit {
           });
       }
     });
+  }
+
+  onClickBtn(event) {
+    if (event.btnType == BUTTON_TYPE.DELETE) {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: "500px",
+      });
+      console.log(event);
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          this.mService
+            .getApiService()
+            .sendRequestDELETE_MAIL_CAMPAIN(event.data)
+            .then((data) => {
+              if (data.status == STATUS.SUCCESS) {
+                this.onLoadData(1, this.searchKey);
+              }
+            });
+        }
+      });
+    }
+  }
+
+  onClickCell(event) {
+    console.log(event);
+    if (event) {
+      if (event.clickDetail == CLICK_DETAIL.MAILMERGE_CAMPAIGN_LIST) {
+        this.mService.publishPageRoute("setup-follow-mailmerge-campaign", {
+          templateID: event.data.Template_ID,
+        });
+      }
+    }
   }
 }

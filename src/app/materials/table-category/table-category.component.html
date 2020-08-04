@@ -22,7 +22,9 @@
         <ng-container *ngFor="let item of displayedColumnsAll; let i = index" [matColumnDef]="item.cell" sticky>
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{item.name}} </th>
             <td tappable mat-cell *matCellDef="let row">
-                <div *ngIf="item.cell">{{row[item.cell]}}</div>
+                <!-- <div *ngIf="item.cell">{{row[item.cell]}}</div> -->
+                <!-- Gihug thêm phần click cell cho table -->
+                <div *ngIf="item.cell" (click)="onClickCell(row, item.cell)">{{row[item.cell]}}</div>
                 <div *ngIf="!item.cell" (click)="onClickEdit(row)">
                     <button mat-raised-button color="accent">Sửa</button>
                 </div>

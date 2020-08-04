@@ -123,7 +123,7 @@ export class CategoryCityComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: '500px'
       });
-
+      console.log(event);
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
           this.mService.getApiService().sendRequestDELETE_CATEGORY_CITY(event.data).then(data => {
