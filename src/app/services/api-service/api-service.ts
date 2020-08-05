@@ -2378,4 +2378,43 @@ export class ApiService extends HttpClient {
         .add("itemPerPage", this.itemPerPage)
     );
   }
+
+  public sendRequestGET_ALL_ADDITIONAL_INFORMATION(): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_ALL_ADDTIONAL_INFORMATION,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_DETAIL_ADDITIONAL_INFORMATION(mailListID: string): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_DETAIL_ADDITIONAL_INFORMATION,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("username", this.username)
+        .add("userID", this.userID)
+        .add("ID", mailListID)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_ALL_DATA_MAILLIST(MailListID: string): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_ALL_DATA_MAILLIST,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("username", this.username)
+        .add("userID", this.userID)
+        .add("MailListID", MailListID)
+    );
+  }
 }

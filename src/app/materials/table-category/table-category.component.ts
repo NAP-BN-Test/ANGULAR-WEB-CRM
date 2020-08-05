@@ -164,5 +164,11 @@ export class TableCategoryComponent implements OnInit {
         data: row
       });
     }
+    else if (this.listTbData.clickDetail == CLICK_DETAIL.ADDITIONAL_INFORMATION) {
+      this.clickCell.emit({
+        clickDetail: CLICK_DETAIL.ADDITIONAL_INFORMATION,
+        data: row
+      });
+    }
   }
 }

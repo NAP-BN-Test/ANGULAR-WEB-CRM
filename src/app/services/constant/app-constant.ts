@@ -217,7 +217,9 @@ export const CLICK_DETAIL = {
   ACTIVITY: 3,
   MAIL_LIST: 4,
   MAIL_REPORT: 5,
-  MAILMERGE_CAMPAIGN_LIST: 6, //Gihug
+  //Gihug
+  MAILMERGE_CAMPAIGN_LIST: 6, 
+  ADDITIONAL_INFORMATION: 7,
 };
 
 export const SORT_TYPE = {

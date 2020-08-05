@@ -30,13 +30,22 @@ th {
   right: 32px;
   animation: fadeIn 300ms;
   display: flex;
-  background-color: #702C90 !important; // Gihug edit
+  background-color: #702c90 !important; // Gihug edit
+}
+
+::ng-deep .mat-sort-header-container {
+  justify-content: center;
 }
 
 .mat-header-row {
-  background-color: #702C90 !important;
+  background-color: #702c90 !important;
 }
 
 .mat-header-cell {
   color: white;
+  text-align: center;
+}
+
+.mat-cell {
+  text-align: center;
 }

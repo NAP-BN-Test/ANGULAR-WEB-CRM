@@ -55,12 +55,12 @@ export class AddUpdateMailmergeCampaignComponent implements OnInit {
   private _filter(value): string[] {
     const filterValue = value.toLowerCase();
     return this.listTemplate.filter(
-      (option: any) => option.name.toLowerCase().indexOf(filterValue) === 0
+      (option: any) => option.name.toLowerCase().includes(filterValue)
     );
   }
 
   onClickOk(event) {
-    // console.log(event)
+    console.log(event.target.textContent.trim())
     let obj = this.listTemplate.find((item) => {
       return (
         item.name.toLowerCase() == this.myForm.value.Template_ID.toLowerCase()
@@ -71,10 +71,7 @@ export class AddUpdateMailmergeCampaignComponent implements OnInit {
       Template_ID: obj.id,
       Number_Address: this.myForm.value.Number_Address,
       Description: this.myForm.value.Description,
+      textContent: event.target.textContent.trim()
     });
-  }
-
-  onClickSetup(event){
-    console.log(event)
   }
 }

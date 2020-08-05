@@ -102,14 +102,19 @@ export class MailmergeCampaignListComponent implements OnInit {
           Template_ID: res.Template_ID,
           Type: this.type,
         };
-        console.log(obj);
         this.mService
           .getApiService()
           .sendRequestADD_MAIL_CAMPAIN(obj)
           .then((data) => {
             this.mService.showSnackBar(data.message);
-            if (data.status == STATUS.SUCCESS) {
+            if (
+              data.status == STATUS.SUCCESS &&
+              res.textContent !== "Thiết lập"
+            ) {
               this.onLoadData(1, this.searchKey);
+            } else {
+              this.mService.publishPageRoute(
+                "setup-follow-mailmerge-campaign");
             }
           });
       }
@@ -141,8 +146,15 @@ export class MailmergeCampaignListComponent implements OnInit {
           .sendRequestUPDATE_MAIL_CAMPAIN(obj)
           .then((data) => {
             this.mService.showSnackBar(data.message);
-            if (data.status == STATUS.SUCCESS) {
+            if (
+              data.status == STATUS.SUCCESS &&
+              res.textContent !== "Thiết lập"
+            ) {
               this.onLoadData(1, this.searchKey);
+            } else {
+              this.mService.publishPageRoute(
+                "setup-follow-mailmerge-campaign"
+              );
             }
           });
       }

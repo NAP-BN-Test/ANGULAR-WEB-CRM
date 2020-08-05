@@ -241,4 +241,7 @@ export class ApiCmd {
 
     public static GET_LIST_MAILMERGE_TEMPLATE: string ="crm/get_list_mailmerge_template";
     
+    public static GET_ALL_ADDTIONAL_INFORMATION: string="crm/get_all_additional_infomation";
+    public static GET_DETAIL_ADDITIONAL_INFORMATION: string="crm/get_detail_additional_infomation";
+    public static GET_ALL_DATA_MAILLIST: string="crm/get_all_data_maillist"
 }
