@@ -1672,12 +1672,13 @@ export class ApiService extends HttpClient {
         .add("name", obj.name)
         .add("subject", obj.subject)
         .add("mailListID", obj.mailListID)
-        .add("TemplateID", obj.Template_ID) //GiHug
+        //GiHug
+        .add("TemplateID", obj.Template_ID)
         .add("Type", obj.Type)
     );
   }
 
-  //==============================
+  // ==============================
   public sendRequestADD_MAIL_LIST(obj: any, listMail?: string): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.ADD_MAIL_LIST,
@@ -1778,7 +1779,8 @@ export class ApiService extends HttpClient {
   //==============================
   public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
     let body: string;
-    if (obj.body !== undefined) body = obj.body.replace(/&/g, "%26");
+    if (obj.body && obj.body !== undefined)
+      body = obj.body.replace(/&/g, "%26");
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
       ParamBuilder.builder()
@@ -1797,6 +1799,7 @@ export class ApiService extends HttpClient {
         .add("TemplateID", obj.Template_ID)
         .add("NumberAddressBook", obj.NumberAddressBook)
         .add("Description", obj.Description)
+        .add("Type", obj.Type)
     );
   }
 
@@ -2338,27 +2341,6 @@ export class ApiService extends HttpClient {
   }
 
   //==============================
-  public sendRequestUPDATE_MAILMERGE_CAMPAIGN(
-    obj: any,
-    mailmergeCampaignID
-  ): Promise<any> {
-    return this.requestPost(
-      this.mUrl + ApiCmd.UPDATE_MAILMERGE_CAMPAIGN,
-      ParamBuilder.builder()
-        .add("ip", this.ip)
-        .add("dbName", this.dbName)
-        .add("secretKey", this.mSecretKey)
-        .add("userID", this.userID)
-
-        .add("ID", mailmergeCampaignID)
-        .add("Name", obj.Name)
-        .add("Template_ID", obj.Template_ID)
-        .add("Number_Address", obj.Number_Address)
-        .add("Description", obj.Description)
-    );
-  }
-
-  //==============================
   public sendRequestGET_MAILMERGE_TEMPLATE(
     page: number,
     searchKey: string
@@ -2391,7 +2373,9 @@ export class ApiService extends HttpClient {
   }
 
   //==============================
-  public sendRequestGET_DETAIL_ADDITIONAL_INFORMATION(mailListID: string): Promise<any> {
+  public sendRequestGET_DETAIL_ADDITIONAL_INFORMATION(
+    mailListID: string
+  ): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.GET_DETAIL_ADDITIONAL_INFORMATION,
       ParamBuilder.builder()
@@ -2415,6 +2399,40 @@ export class ApiService extends HttpClient {
         .add("username", this.username)
         .add("userID", this.userID)
         .add("MailListID", MailListID)
+    );
+  }
+
+  //==============================
+  public sendRequestUPDATE_ADDITIONAL_INFORMATION(obj: any): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.UPDATE_ADDITIONAL_INFORMATION,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("ID", obj.ID)
+        .add("OurRef", obj.OurRef)
+        .add("Applicant", obj.Applicant)
+        .add("ApplicationNo", obj.ApplicationNo)
+        .add("ClassA", obj.ClassA)
+        .add("FilingDate", obj.FilingDate)
+        .add("PriorTrademark", obj.PriorTrademark)
+        .add("OwnerID", obj.OwnerID)
+        .add("RedNo", obj.RedNo)
+        .add("ClassB", obj.ClassB)
+        .add("Firm", obj.Firm)
+        .add("Address", obj.Address)
+        .add("Tel", obj.Tel)
+        .add("Fax", obj.Fax)
+        .add("Email", obj.Email)
+        .add("Status", obj.Status)
+        .add("Rerminder", obj.Rerminder)
+        .add("UserID", obj.UserID)
+        .add("Description", obj.Description)
+        .add("TimeRemind", obj.TimeRemind)
+        .add("PAT", obj.PAT)
     );
   }
 }

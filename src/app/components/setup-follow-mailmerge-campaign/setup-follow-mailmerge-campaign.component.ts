@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   LOCAL_STORAGE_KEY,
   BUTTON_TYPE,
@@ -9,8 +9,11 @@ import {
 import { AppModuleService } from "src/app/services/app-module.service";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormControl } from "@angular/forms";
 import { ParamsKey } from "src/app/services/constant/paramskey";
+
+import * as moment from "moment";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-setup-follow-mailmerge-campaign",
@@ -53,10 +56,21 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
   filterMailList: Observable<string[]>;
   myControl = new FormControl();
   mailListName: string;
+  add_info_initial_id: number;
+  tableHaveValue = false;
+  mailMergeCampaignID = -1;
 
-  constructor(public mService: AppModuleService) {}
+  constructor(
+    public mService: AppModuleService,
+    public activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    //Gihug: Nhận param gửi từ mailmerge-campaign-list
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.mailMergeCampaignID = Number(params.mailMergeCampaignID);
+    });
+    console.log(this.mailMergeCampaignID)
     this.mService.LoadAppConfig();
     let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
     this.mTitle = JSON.parse(languageData);
@@ -79,12 +93,22 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
           map((value) => this._filter(value))
         );
       });
+    this.resetInfoLeft();
+  }
 
+  private _filter(value): string[] {
+    const filterValue = value.toLowerCase();
+    return this.listMailList.filter((option: any) =>
+      option.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  resetInfoLeft() {
     this.mObj = {
       ID: null,
       OwnerID: null,
-      OurRef: "",
-      PAT: "",
+      OurRef: null,
+      PAT: null,
       Applicant: null,
       ApplicationNo: null,
       ClassA: null,
@@ -93,26 +117,20 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       RedNo: null,
       ClassB: null,
       Firm: null,
-      Address: "",
+      Address: null,
       Tel: null,
-      Fax: "",
+      Fax: null,
       Email: null,
       Status: null,
       Rerminder: null,
-      TimeCreate: "",
+      TimeCreate: null,
       TimeStart: null,
       Description: null,
       TimeRemind: null,
-      UserID: "",
-      TimeUpdate: "",
+      UserID: null,
+      TimeUpdate: null,
     };
-  }
-
-  private _filter(value): string[] {
-    const filterValue = value.toLowerCase();
-    return this.listMailList.filter((option: any) =>
-      option.name.toLowerCase().includes(filterValue)
-    );
+    this.tableHaveValue = false;
   }
 
   onLoadData(page: number, searchKey: string) {
@@ -129,17 +147,16 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
   }
 
   onClickSelect() {
-    console.log(this.mailListName);
     let obj = this.listMailList.find((item) => {
       return item.name.toLowerCase() == this.myControl.value.toLowerCase();
     });
-    console.log(obj.id);
     this.mService
       .getApiService()
       .sendRequestGET_ALL_DATA_MAILLIST(obj.id)
       .then((data) => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           console.log(data.information);
+          this.tableHaveValue = true;
           this.collectionSize = data.count;
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
             page: this.page,
@@ -153,6 +170,7 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
           this.paramsObj = this.mService.handleParamsRoute(listParams);
         }
       });
+    this.resetInfoLeft();
   }
 
   onClickBtn(event) {
@@ -164,11 +182,84 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
   }
 
   onClickCell(event) {
-    console.log(event);
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.ADDITIONAL_INFORMATION) {
         this.mObj = event.data;
+        this.add_info_initial_id = this.mObj.ID;
       }
     }
+  }
+
+  onClickCancel() {
+    this.mService
+      .getApiService()
+      .sendRequestGET_DETAIL_ADDITIONAL_INFORMATION(
+        this.add_info_initial_id.toString()
+      )
+      .then((data) => {
+        if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
+          console.log(data);
+          this.mObj = data.array;
+          this.onClickSelect();
+        }
+      });
+  }
+
+  onClickSave() {
+    console.log(this.mObj);
+    let obj = {
+      ID: this.mObj.ID,
+      OurRef: this.mObj.OurRef,
+      Applicant: this.mObj.Applicant,
+      ApplicationNo: this.mObj.ApplicationNo,
+      ClassA: this.mObj.ClassA,
+      FilingDate: moment(this.mObj.FilingDate).format("YYYY-MM-DD"),
+      PriorTrademark: this.mObj.PriorTrademark,
+      OwnerID: this.mObj.OwnerID,
+      RedNo: this.mObj.RedNo,
+      ClassB: this.mObj.ClassB,
+      Firm: this.mObj.Firm,
+      Address: this.mObj.Address,
+      Tel: this.mObj.Tel,
+      Fax: this.mObj.Fax,
+      Email: this.mObj.Email,
+      Status: this.mObj.Status,
+      Rerminder: this.mObj.Rerminder,
+      UserID: this.mObj.UserID,
+      Description: this.mObj.Description,
+      TimeRemind: this.mObj.TimeRemind,
+      PAT: this.mObj.PAT,
+    };
+    this.mService
+      .getApiService()
+      .sendRequestUPDATE_ADDITIONAL_INFORMATION(obj)
+      .then((data) => {
+        if (data.status == STATUS.SUCCESS) {
+          this.mService.showSnackBar(data.message);
+          this.onClickSelect();
+        }
+      });
+  }
+
+  //Gihug: Hàm lưu thông tin mailmerge-campaign với chi tiết maillist
+  onClickSaveDetail() {
+    let mailList = this.listMailList.find((item) => {
+      return item.name.toLowerCase() == this.myControl.value.toLowerCase();
+    });
+    let obj = {
+      id: this.mailMergeCampaignID,
+      mailListID: mailList.id,
+    };
+    console.log(this.mailMergeCampaignID)
+    console.log(obj);
+    // this.mService
+    //   .getApiService()
+    //   .sendRequestUPDATE_MAIL_CAMPAIN(obj.id)
+    //   .then((data) => {
+    //     this.mService.showSnackBar(data.message);
+    //     if (data.status == STATUS.SUCCESS) {
+    //       console.log(data)
+    //     }
+    //   });
   }
 }

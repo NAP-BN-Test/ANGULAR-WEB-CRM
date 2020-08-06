@@ -36,6 +36,7 @@ export class EmailCampainDetailComponent implements OnInit {
   timeEnd: any;
 
   btnVerify = false;
+  type = "MailList";
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -160,7 +161,8 @@ export class EmailCampainDetailComponent implements OnInit {
       startTime: moment(this.timeStart.year + "-" + this.timeStart.month + "-" + this.timeStart.day).format("YYYY-MM-DD"),
       endTime: moment(this.timeEnd.year + "-" + this.timeEnd.month + "-" + this.timeEnd.day).format("YYYY-MM-DD"),
       body: this.mObj.body,
-      mailListID: this.mObj.mailListID
+      mailListID: this.mObj.mailListID,
+      Type: this.type,
     };
 
     this.mService.getApiService().sendRequestUPDATE_MAIL_CAMPAIN(obj).then(data => {

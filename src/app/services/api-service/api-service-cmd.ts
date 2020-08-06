@@ -237,11 +237,11 @@ export class ApiCmd {
     public static DELETE_HISTORY: string = "crm/delete_history";
 
     public static GET_ALL_MAILMERGE_TEMPLATE: string = "crm/get_all_mailmerge_template";
-    public static UPDATE_MAILMERGE_CAMPAIGN: string = "crm/update_mailmerge_campaign";
 
     public static GET_LIST_MAILMERGE_TEMPLATE: string ="crm/get_list_mailmerge_template";
     
-    public static GET_ALL_ADDTIONAL_INFORMATION: string="crm/get_all_additional_infomation";
-    public static GET_DETAIL_ADDITIONAL_INFORMATION: string="crm/get_detail_additional_infomation";
-    public static GET_ALL_DATA_MAILLIST: string="crm/get_all_data_maillist"
+    public static GET_ALL_ADDTIONAL_INFORMATION: string="crm/get_all_additional_information";
+    public static GET_DETAIL_ADDITIONAL_INFORMATION: string="crm/get_detail_additional_information";
+    public static GET_ALL_DATA_MAILLIST: string="crm/get_all_data_maillist";
+    public static UPDATE_ADDITIONAL_INFORMATION: string="crm/update_additional_information";
 }

@@ -139,6 +139,7 @@ export class MailmergeCampaignListComponent implements OnInit {
           Template_ID: res.Template_ID,
           NumberAddressBook: res.Number_Address,
           Description: res.Description,
+          Type: this.type,
         };
         console.log(obj);
         this.mService
@@ -187,7 +188,7 @@ export class MailmergeCampaignListComponent implements OnInit {
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAILMERGE_CAMPAIGN_LIST) {
         this.mService.publishPageRoute("setup-follow-mailmerge-campaign", {
-          templateID: event.data.Template_ID,
+          mailMergeCampaignID: event.data.id,
         });
       }
     }
