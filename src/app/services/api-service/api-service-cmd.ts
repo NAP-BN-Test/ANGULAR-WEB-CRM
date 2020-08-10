@@ -244,4 +244,11 @@ export class ApiCmd {
     public static GET_DETAIL_ADDITIONAL_INFORMATION: string="crm/get_detail_additional_information";
     public static GET_ALL_DATA_MAILLIST: string="crm/get_all_data_maillist";
     public static UPDATE_ADDITIONAL_INFORMATION: string="crm/update_additional_information";
+
+    public static GET_LIST_NAME_COMPANY: string="crm/get_list_name_company";
+    public static GET_LIST_CONTACT_FROM_COMPANY: string="crm/get_list_contact_from_company";
+    public static ADD_INFORMATION_FROM_CONTACT: string="crm/add_information_from_contact";
+    public static GET_LIST_ADDITIONAL_INFORMARTION: string="crm/get_list_additional_information";
+    public static DELETE_ADDITIONAL_INFORMATION: string ="crm/delete_additional_information";
+    public static SEND_MAILMERGE: string="crm/send_mailmerge";
 }

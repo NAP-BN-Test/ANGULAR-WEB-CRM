@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center flex-column align-items-center">
+  <div class="form-add">
+    <h2 mat-dialog-title>ADD CUSTOMER TO CAMPAIGN</h2>
+    <mat-dialog-content class="mat-typography">
+      <form>
+        <mat-form-field width-100 appearance="fill">
+          <mat-label>Company</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="myControlCompany"
+            [matAutocomplete]="autoCompany"
+            required
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #autoCompany="matAutocomplete"
+            (optionSelected)="onSelectCompany()"
+          >
+            <mat-option
+              *ngFor="let item of filterListCompany | async"
+              [value]="item.name"
+            >
+              {{ item.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+      <app-table-category
+        *ngIf="mObj"
+        (clickPagination)="onClickPagination($event)"
+        (clickBtn)="onClickBtn($event)"
+      ></app-table-category>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button
+      mat-raised-button
+      color="warn"
+      (click)="onClickCancel()"
+    >
+      <mat-icon>cancel</mat-icon>Close
+    </button></mat-dialog-actions>
+  </div>
+</div>

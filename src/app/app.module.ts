@@ -149,6 +149,7 @@ import { MailmergeCampaignListComponent } from './components/mailmerge-campaign-
 import { SetupFollowMailmergeCampaignComponent } from './components/setup-follow-mailmerge-campaign/setup-follow-mailmerge-campaign.component';
 import { MailmergeTemplateDetailComponent } from './components/mailmerge-template-detail/mailmerge-template-detail.component';
 import { AddUpdateMailmergeCampaignComponent } from './components/add-update-mailmerge-campaign/add-update-mailmerge-campaign.component';
+import { AddItemsToMailmergeCampaignComponent } from './dialogs/add-items-to-mailmerge-campaign/add-items-to-mailmerge-campaign.component';
 
 @NgModule({
   declarations: [
@@ -267,6 +268,7 @@ import { AddUpdateMailmergeCampaignComponent } from './components/add-update-mai
     SetupFollowMailmergeCampaignComponent,
     MailmergeTemplateDetailComponent,
     AddUpdateMailmergeCampaignComponent,
+    AddItemsToMailmergeCampaignComponent,
   ],
   imports: [
     BrowserModule,

@@ -197,6 +197,7 @@ export const BUTTON_TYPE = {
   ADD_LIST_MAIL: 2,
   COMPLETE: 3,
   PRINT: 4,
+  ADD_LIST_INFO: 5, //GiHug
 };
 
 export const REPORT_TYPE = {
@@ -218,7 +219,7 @@ export const CLICK_DETAIL = {
   MAIL_LIST: 4,
   MAIL_REPORT: 5,
   //Gihug
-  MAILMERGE_CAMPAIGN_LIST: 6, 
+  MAILMERGE_CAMPAIGN_LIST: 6,
   ADDITIONAL_INFORMATION: 7,
 };
 

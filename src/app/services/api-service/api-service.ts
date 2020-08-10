@@ -276,9 +276,6 @@ export class ApiService extends HttpClient {
         .add("username", this.username)
         .add("activityID", activity.id)
         .add("activityType", activity.activityType)
-        .addIgnoreNull("activityState", activityState)
-        .addIgnoreNull("contactID", contactID)
-        .addIgnoreNull("timeStart", timeStart)
         .addIgnoreNull("duration", duration)
         .addIgnoreNull("listAttendID", listAttendID)
         .addIgnoreNull("description", description)
@@ -1789,16 +1786,16 @@ export class ApiService extends HttpClient {
         .add("secretKey", this.mSecretKey)
 
         .add("campainID", obj.id)
-        .add("subject", obj.subject)
+        .addIgnoreNull("subject", obj.subject)
         // .add("startTime", obj.startTime)
         // .add("endTime", obj.endTime)
-        .add("body", body)
+        .addIgnoreNull("body", body)
         .add("mailListID", obj.mailListID)
-        .add("name", obj.name)
+        .addIgnoreNull("name", obj.name)
         //Gihug
         .add("TemplateID", obj.Template_ID)
-        .add("NumberAddressBook", obj.NumberAddressBook)
-        .add("Description", obj.Description)
+        .addIgnoreNull("NumberAddressBook", obj.NumberAddressBook)
+        .addIgnoreNull("Description", obj.Description)
         .add("Type", obj.Type)
     );
   }
@@ -2413,26 +2410,113 @@ export class ApiService extends HttpClient {
         .add("userID", this.userID)
 
         .add("ID", obj.ID)
-        .add("OurRef", obj.OurRef)
-        .add("Applicant", obj.Applicant)
-        .add("ApplicationNo", obj.ApplicationNo)
-        .add("ClassA", obj.ClassA)
-        .add("FilingDate", obj.FilingDate)
-        .add("PriorTrademark", obj.PriorTrademark)
-        .add("OwnerID", obj.OwnerID)
-        .add("RedNo", obj.RedNo)
-        .add("ClassB", obj.ClassB)
-        .add("Firm", obj.Firm)
-        .add("Address", obj.Address)
-        .add("Tel", obj.Tel)
-        .add("Fax", obj.Fax)
-        .add("Email", obj.Email)
-        .add("Status", obj.Status)
-        .add("Rerminder", obj.Rerminder)
-        .add("UserID", obj.UserID)
-        .add("Description", obj.Description)
-        .add("TimeRemind", obj.TimeRemind)
-        .add("PAT", obj.PAT)
+        .addIgnoreNull("OurRef", obj.OurRef)
+        .addIgnoreNull("Applicant", obj.Applicant)
+        .addIgnoreNull("ApplicationNo", obj.ApplicationNo)
+        .addIgnoreNull("ClassA", obj.ClassA)
+        .addIgnoreNull("FilingDate", obj.FilingDate)
+        .addIgnoreNull("PriorTrademark", obj.PriorTrademark)
+        .addIgnoreNull("OwnerID", obj.OwnerID)
+        .addIgnoreNull("RedNo", obj.RedNo)
+        .addIgnoreNull("ClassB", obj.ClassB)
+        .addIgnoreNull("Firm", obj.Firm)
+        .addIgnoreNull("Address", obj.Address)
+        .addIgnoreNull("Tel", obj.Tel)
+        .addIgnoreNull("Fax", obj.Fax)
+        .addIgnoreNull("Email", obj.Email)
+        .addIgnoreNull("Status", obj.Status)
+        .addIgnoreNull("Rerminder", obj.Rerminder)
+        .addIgnoreNull("UserID", obj.UserID)
+        .addIgnoreNull("Description", obj.Description)
+        .addIgnoreNull("TimeRemind", obj.TimeRemind)
+        .addIgnoreNull("PAT", obj.PAT)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_LIST_NAME_COMPANY(): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_NAME_COMPANY,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_LIST_CONTACT_FROM_COMPANY(
+    CompanyID: string
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_CONTACT_FROM_COMPANY,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("CompanyID", CompanyID)
+    );
+  }
+
+  //==============================
+  public sendRequestADD_INFORMATION_FROM_CONTACT(
+    listContactID: string,
+    CampaignID: number
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.ADD_INFORMATION_FROM_CONTACT,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("listContactID", listContactID)
+        .add("CampaignID", CampaignID)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_LIST_ADDITIONAL_INFORMATION(
+    CampaignID: string
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_ADDITIONAL_INFORMARTION,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("CampaignID", CampaignID)
+    );
+  }
+
+  //==============================
+  public sendRequestDELETE_ADDITIONAL_INFORMATION(
+    AdditionalInformationIDs: string
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.DELETE_ADDITIONAL_INFORMATION,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("AdditionalInformationIDs", AdditionalInformationIDs)
+    );
+  }
+
+  //==============================
+  public sendRequestSEND_MAILMERGE(CampaignID: string): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.SEND_MAILMERGE,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("CampaignID", CampaignID)
     );
   }
 }

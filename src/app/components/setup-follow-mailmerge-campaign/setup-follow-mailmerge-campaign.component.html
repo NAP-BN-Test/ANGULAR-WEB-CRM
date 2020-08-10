@@ -8,69 +8,88 @@
         <div class="d-flex flex-column bd-highlight mb-3 padding" *ngIf="mObj">
           <mat-form-field appearance="legacy">
             <mat-label>OurRef</mat-label>
-            <input matInput placeholder="OurRef" [(ngModel)]="mObj.OurRef"/>
+            <input matInput placeholder="OurRef" [(ngModel)]="mObj.OurRef" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>P.A.T</mat-label>
-            <input matInput placeholder="P.A.T" [(ngModel)]="mObj.PAT"/>
+            <input matInput placeholder="P.A.T" [(ngModel)]="mObj.PAT" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Applicant</mat-label>
-            <input matInput placeholder="Applicant" [(ngModel)]="mObj.Applicant"/>
+            <input
+              matInput
+              placeholder="Applicant"
+              [(ngModel)]="mObj.Applicant"
+            />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Application No.</mat-label>
-            <input matInput placeholder="Application No." [(ngModel)]="mObj.ApplicationNo"/>
+            <input
+              matInput
+              placeholder="Application No."
+              [(ngModel)]="mObj.ApplicationNo"
+            />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Class A</mat-label>
-            <input matInput placeholder="Class A" [(ngModel)]="mObj.ClassA"/>
+            <input matInput placeholder="Class A" [(ngModel)]="mObj.ClassA" />
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Filing Date</mat-label>
-            <input matInput [matDatepicker]="basicDatepicker" [(ngModel)]="mObj.FilingDate">
-            <mat-datepicker-toggle matSuffix [for]="basicDatepicker"></mat-datepicker-toggle>
+            <input
+              matInput
+              [matDatepicker]="basicDatepicker"
+              [(ngModel)]="mObj.FilingDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="basicDatepicker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #basicDatepicker></mat-datepicker>
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Prior Trademark</mat-label>
-            <input matInput placeholder="Prior Trademark" [(ngModel)]="mObj.PriorTrademark"/>
+            <input
+              matInput
+              placeholder="Prior Trademark"
+              [(ngModel)]="mObj.PriorTrademark"
+            />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Owner</mat-label>
-            <input matInput placeholder="Owner" [(ngModel)]="mObj.Owner"/>
+            <input matInput placeholder="Owner" [(ngModel)]="mObj.Owner" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Reg. No..</mat-label>
-            <input matInput placeholder="Reg. No.." [(ngModel)]="mObj.RedNo"/>
+            <input matInput placeholder="Reg. No.." [(ngModel)]="mObj.RedNo" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Class B</mat-label>
-            <input matInput placeholder="Class B" [(ngModel)]="mObj.ClassB"/>
+            <input matInput placeholder="Class B" [(ngModel)]="mObj.ClassB" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Status</mat-label>
-            <input matInput placeholder="Status" [(ngModel)]="mObj.Status"/>
+            <input matInput placeholder="Status" [(ngModel)]="mObj.Status" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Firm</mat-label>
-            <input matInput placeholder="Firm" [(ngModel)]="mObj.Firm"/>
+            <input matInput placeholder="Firm" [(ngModel)]="mObj.Firm" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Address</mat-label>
-            <input matInput placeholder="Address" [(ngModel)]="mObj.Address"/>
+            <input matInput placeholder="Address" [(ngModel)]="mObj.Address" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Tel</mat-label>
-            <input matInput placeholder="Tel" [(ngModel)]="mObj.Tel"/>
+            <input matInput placeholder="Tel" [(ngModel)]="mObj.Tel" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Fax</mat-label>
-            <input matInput placeholder="Fax" [(ngModel)]="mObj.Fax"/>
+            <input matInput placeholder="Fax" [(ngModel)]="mObj.Fax" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Email</mat-label>
-            <input matInput placeholder="Email" [(ngModel)]="mObj.Email"/>
+            <input matInput placeholder="Email" [(ngModel)]="mObj.Email" />
           </mat-form-field>
           <div class="d-flex justify-content-around">
             <button
@@ -78,10 +97,16 @@
               color="primary"
               class="button-margin-right"
               (click)="onClickSave()"
+              *ngIf="mObj.ID"
             >
               <mat-icon>save</mat-icon>Save
             </button>
-            <button mat-raised-button color="warn" (click)="onClickCancel()">
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="onClickCancel()"
+              *ngIf="mObj.ID"
+            >
               <mat-icon>cancel</mat-icon>Close
             </button>
           </div>
@@ -93,40 +118,13 @@
             <span class="span-custom">MAILMERGE CAMPAIGN LIST</span>
           </div>
           <div class="d-flex flex-row">
-            <form class="margin-right1">
-              <mat-form-field appearance="legacy">
-                <mat-label>Mail list</mat-label>
-                <input
-                  matInput
-                  type="text"
-                  [(ngModel)]="mailListName"
-                  [formControl]="myControl"
-                  [matAutocomplete]="auto"
-                  required
-                />
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                  <mat-option
-                    *ngFor="let item of filterMailList | async"
-                    [value]="item.name"
-                  >
-                    {{ item.name }}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-            </form>
-            <button mat-raised-button class="margin-right1" (click)="onClickSelect()">
-              <mat-icon>check</mat-icon>Select
-            </button>
-            <button mat-raised-button class="margin-right1">
-              <mat-icon>miscellaneous_services</mat-icon>Tạo Maillist
-            </button>
             <button mat-raised-button class="margin-right1">
               <mat-icon>search</mat-icon>Search
             </button>
             <button mat-raised-button class="margin-right1">
               <mat-icon>miscellaneous_services</mat-icon>Option
             </button>
-            <button mat-raised-button color="primary">
+            <button mat-raised-button color="primary" (click)="OnClickAddNew()">
               <mat-icon>add_circle_outline</mat-icon>Add new
             </button>
           </div>
@@ -135,25 +133,22 @@
           (clickPagination)="onClickPagination($event)"
           (clickCell)="onClickCell($event)"
           (clickBtn)="onClickBtn($event)"
-          (clickEdit)="onClickEdit($event)"
         ></app-table-category>
         <button
           mat-raised-button
           color="primary"
           class="margin1"
           *ngIf="tableHaveValue"
+          (click)="onClickSend()"
         >
           <mat-icon>send</mat-icon>Send
         </button>
-        <button
-          mat-raised-button
-          color="warn"
-          class="margin1"
-          *ngIf="tableHaveValue"
-          (click)="onClickSaveDetail()"
-        >
-          <mat-icon>save</mat-icon>Save
-        </button>
+        <div class="notice" *ngIf="mDulicate.length > 0">
+          <h3>THÔNG BÁO</h3>
+          <div *ngFor="let item of mDulicate">
+            <span>{{ item }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

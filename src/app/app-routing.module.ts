@@ -34,8 +34,9 @@ import { CategoryMailOutcomeComponent } from "./components/category-mail-outcome
 import { CategoryUserComponent } from "./components/category-user/category-user.component";
 import { MailmergeTemplateListComponent } from "./components/mailmerge-template-list/mailmerge-template-list.component";
 import { MailmergeCampaignListComponent } from "./components/mailmerge-campaign-list/mailmerge-campaign-list.component";
-import { SetupFollowMailmergeCampaignComponent } from './components/setup-follow-mailmerge-campaign/setup-follow-mailmerge-campaign.component';
-import { MailmergeTemplateDetailComponent } from './components/mailmerge-template-detail/mailmerge-template-detail.component';
+import { SetupFollowMailmergeCampaignComponent } from "./components/setup-follow-mailmerge-campaign/setup-follow-mailmerge-campaign.component";
+import { MailmergeTemplateDetailComponent } from "./components/mailmerge-template-detail/mailmerge-template-detail.component";
+import { AddItemsToMailmergeCampaignComponent } from "./dialogs/add-items-to-mailmerge-campaign/add-items-to-mailmerge-campaign.component";
 
 const routes: Routes = [
   {
@@ -217,6 +218,11 @@ const routes: Routes = [
     path: "mailmerge-template-detail",
     component: MailmergeTemplateDetailComponent,
     data: { title: "MailmergeTemplateDetail" },
+  },
+  {
+    path: "add-items-to-mailmerge-campaign",
+    component: AddItemsToMailmergeCampaignComponent,
+    data: { title: "AddItemsToMailmergeCampaign" },
   },
   {
     path: "",

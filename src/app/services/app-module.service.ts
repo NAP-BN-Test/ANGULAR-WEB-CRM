@@ -199,6 +199,7 @@ export class AppModuleService {
     });
   }
 
+  // Thêm route history path trên URL
   handleActivatedRoute() {
     let array = [];
     this.activatedRoute.queryParams.subscribe(params => {
@@ -222,6 +223,7 @@ export class AppModuleService {
       if (params.contactID) array.push({ key: 'contactID', value: params.contactID })
       if (params.companyID) array.push({ key: 'companyID', value: params.companyID })
       if (params.activityID) array.push({ key: 'activityID', value: params.activityID })
+      if (params.mailMergeCampaignID) array.push({ key: 'mailMergeCampaignID', value: params.mailMergeCampaignID }) //GiHug
     });
 
     let paramsObj = {};

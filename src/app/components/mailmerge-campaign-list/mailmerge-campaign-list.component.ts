@@ -47,7 +47,6 @@ export class MailmergeCampaignListComponent implements OnInit {
     if (this.mService.getUser()) {
       let params: any = this.mService.handleActivatedRoute();
       this.page = params.page;
-
       this.onLoadData(this.page, this.searchKey);
     } else {
       this.mService.publishPageRoute("login");
@@ -114,7 +113,11 @@ export class MailmergeCampaignListComponent implements OnInit {
               this.onLoadData(1, this.searchKey);
             } else {
               this.mService.publishPageRoute(
-                "setup-follow-mailmerge-campaign");
+                "setup-follow-mailmerge-campaign",
+                {
+                  mailMergeCampaignID: data.id,
+                }
+              );
             }
           });
       }
@@ -154,7 +157,10 @@ export class MailmergeCampaignListComponent implements OnInit {
               this.onLoadData(1, this.searchKey);
             } else {
               this.mService.publishPageRoute(
-                "setup-follow-mailmerge-campaign"
+                "setup-follow-mailmerge-campaign",
+                {
+                  mailMergeCampaignID: event.data.id,
+                }
               );
             }
           });
