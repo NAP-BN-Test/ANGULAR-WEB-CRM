@@ -60,7 +60,6 @@ export class AddUpdateMailmergeCampaignComponent implements OnInit {
   }
 
   onClickOk(event) {
-    console.log(event.target.textContent.trim())
     let obj = this.listTemplate.find((item) => {
       return (
         item.name.toLowerCase() == this.myForm.value.Template_ID.toLowerCase()

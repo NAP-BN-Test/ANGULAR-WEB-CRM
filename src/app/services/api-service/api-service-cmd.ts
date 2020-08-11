@@ -251,4 +251,8 @@ export class ApiCmd {
     public static GET_LIST_ADDITIONAL_INFORMARTION: string="crm/get_list_additional_information";
     public static DELETE_ADDITIONAL_INFORMATION: string ="crm/delete_additional_information";
     public static SEND_MAILMERGE: string="crm/send_mailmerge";
+    public static ADD_MAILMERGE_TEMPLATE: string="crm/add_mailmerge_template";
+    public static UPDATE_MAILMERGE_TEMPLATE: string="crm/update_mailmerge_template";
+    public static DELETE_MAILMERGE_TEMPLATE: string="crm/delete_mailmerge_template";
+    public static GET_DETAIL_MAILMERGE_TEMPLATE: string="crm/get_detail_mailmerge_template";
 }

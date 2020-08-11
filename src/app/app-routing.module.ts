@@ -37,7 +37,9 @@ import { MailmergeCampaignListComponent } from "./components/mailmerge-campaign-
 import { SetupFollowMailmergeCampaignComponent } from "./components/setup-follow-mailmerge-campaign/setup-follow-mailmerge-campaign.component";
 import { MailmergeTemplateDetailComponent } from "./components/mailmerge-template-detail/mailmerge-template-detail.component";
 import { AddItemsToMailmergeCampaignComponent } from "./dialogs/add-items-to-mailmerge-campaign/add-items-to-mailmerge-campaign.component";
+import { AddMailmergeTemplateComponent } from './dialogs/add-mailmerge-template/add-mailmerge-template.component';
 
+//GiHug: Thêm đường dẫn route
 const routes: Routes = [
   {
     path: "company-detail",
@@ -223,6 +225,11 @@ const routes: Routes = [
     path: "add-items-to-mailmerge-campaign",
     component: AddItemsToMailmergeCampaignComponent,
     data: { title: "AddItemsToMailmergeCampaign" },
+  },
+  {
+    path: "add-mailmerge-template",
+    component: AddMailmergeTemplateComponent,
+    data: { title: "AddMailmergeTemplate" },
   },
   {
     path: "",

@@ -1,7 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularEditorConfig } from "@kolkov/angular-editor";
-import { LOCAL_STORAGE_KEY } from "src/app/services/constant/app-constant";
-import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
+import {
+  LOCAL_STORAGE_KEY,
+  STATUS,
+} from "src/app/services/constant/app-constant";
+import { AppModuleService } from "src/app/services/app-module.service";
 
 @Component({
   selector: "app-mailmerge-template-detail",
@@ -9,19 +12,25 @@ import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ["./mailmerge-template-detail.component.scss"],
 })
 export class MailmergeTemplateDetailComponent implements OnInit {
-
-  closeResult = "";
   mTitle: any;
-  levels: Array<Object> = [
-    { num: 0, name: "Text" },
-    { num: 1, name: "Picture" },
-  ];
+  page = 1;
+  mailMergeTemplateID = -1;
+  mObj: any;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(public mService: AppModuleService) {}
 
   ngOnInit(): void {
+    this.mService.LoadAppConfig();
     let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
     this.mTitle = JSON.parse(languageData);
+    if (this.mService.getUser()) {
+      let params: any = this.mService.handleActivatedRoute();
+      this.mailMergeTemplateID = params.mailMergeTemplateID;
+      this.page = params.page;
+      this.onLoadData(this.mailMergeTemplateID);
+    } else {
+      this.mService.publishPageRoute("login");
+    }
   }
 
   config: AngularEditorConfig = {
@@ -67,26 +76,42 @@ export class MailmergeTemplateDetailComponent implements OnInit {
     toolbarHiddenButtons: [],
   };
 
-  openNew(content) {
-    this.modalService
-      .open(content, { ariaLabelledBy: "add-new-campaign" })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  onLoadData(mailMergeTemplateID) {
+    this.mService
+      .getApiService()
+      .sendRequestGET_DETAIL_MAILMERGE_TEMPLATE(mailMergeTemplateID)
+      .then((data) => {
+        if (data.status == STATUS.SUCCESS) {
+          this.mService.showSnackBar(data.message);
+          this.mObj = data.obj;
         }
-      );
+      });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return "by pressing ESC";
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "by clicking on a backdrop";
-    } else {
-      return `with: ${reason}`;
-    }
+  onClickSave(event) {
+    let obj = {
+      ID: this.mailMergeTemplateID,
+      body: this.mObj.body,
+    };
+    this.mService
+      .getApiService()
+      .sendRequestUPDATE_MAILMERGE_TEMPLATE(obj)
+      .then((data) => {
+        console.log(data);
+        if (data.status == STATUS.SUCCESS) {
+          this.mService.showSnackBar(data.message);
+        }
+      });
+  }
+
+  onClickSaveClose(event){
+    this.onClickSave(event)
+    this.onClickClose(event)
+  }
+  
+  onClickClose(event){
+    this.mService.publishPageRoute(
+      "mailmerge-template-list"
+    );
   }
 }

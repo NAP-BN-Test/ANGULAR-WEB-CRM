@@ -9,12 +9,15 @@
         <div>
           <span class="span-custom">MAILMERGE TEMPLATE LIST</span>
         </div>
-        <a routerLink="/mailmerge-template-detail"><button mat-raised-button color="primary">
+        <button mat-raised-button color="primary" (click)="onClickAddNew()">
           <mat-icon>add_circle_outline</mat-icon>Add new
-        </button></a>
+        </button>
       </div>
       <app-table-category
         (clickPagination)="onClickPagination($event)"
+        (clickEdit)="onClickEdit($event)"
+        (clickBtn)="onClickBtn($event)"
+        (clickCell)="onClickCell($event)"
       ></app-table-category>
     </div>
   </div>

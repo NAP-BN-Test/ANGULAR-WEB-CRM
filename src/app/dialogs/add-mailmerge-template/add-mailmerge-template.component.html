@@ -1,0 +1,34 @@
+<h2 mat-dialog-title *ngIf="!mData">ADD NEW TEMPLATE</h2>
+<h2 mat-dialog-title *ngIf="mData">EDIT TEMPLATE</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="myForm">
+    <mat-form-field width-100 appearance="legacy">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="Name" required />
+      <mat-error *ngIf="myForm.hasError('required')">
+        Please input <strong>name's template</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Hủy</button>
+  <button
+    name="OK"
+    mat-raised-button
+    color="primary"
+    (click)="onClickOk($event)"
+    [disabled]="!myForm.valid"
+    cdkFocusInitial
+  >
+    {{ mData ? "Lưu" : "Thêm" }}
+  </button>
+  <button
+    name="SETUP"
+    mat-raised-button
+    (click)="onClickOk($event)"
+    [disabled]="!myForm.valid"
+  >
+    Thiết lập
+  </button>
+</mat-dialog-actions>

@@ -66,7 +66,6 @@ export class MailmergeCampaignListComponent implements OnInit {
       )
       .then((data) => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-          console.log(data);
           this.collectionSize = data.count;
 
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
@@ -144,7 +143,6 @@ export class MailmergeCampaignListComponent implements OnInit {
           Description: res.Description,
           Type: this.type,
         };
-        console.log(obj);
         this.mService
           .getApiService()
           .sendRequestUPDATE_MAIL_CAMPAIN(obj)
@@ -173,7 +171,6 @@ export class MailmergeCampaignListComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: "500px",
       });
-      console.log(event);
       dialogRef.afterClosed().subscribe((res) => {
         if (res) {
           this.mService
@@ -190,7 +187,6 @@ export class MailmergeCampaignListComponent implements OnInit {
   }
 
   onClickCell(event) {
-    console.log(event);
     if (event) {
       if (event.clickDetail == CLICK_DETAIL.MAILMERGE_CAMPAIGN_LIST) {
         this.mService.publishPageRoute("setup-follow-mailmerge-campaign", {

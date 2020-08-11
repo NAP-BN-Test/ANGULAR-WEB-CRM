@@ -224,6 +224,7 @@ export class AppModuleService {
       if (params.companyID) array.push({ key: 'companyID', value: params.companyID })
       if (params.activityID) array.push({ key: 'activityID', value: params.activityID })
       if (params.mailMergeCampaignID) array.push({ key: 'mailMergeCampaignID', value: params.mailMergeCampaignID }) //GiHug
+      if (params.mailMergeTemplateID) array.push({ key: 'mailMergeTemplateID', value: params.mailMergeTemplateID }) //GiHug
     });
 
     let paramsObj = {};

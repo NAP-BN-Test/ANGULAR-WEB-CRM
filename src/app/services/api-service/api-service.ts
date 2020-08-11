@@ -2338,7 +2338,7 @@ export class ApiService extends HttpClient {
   }
 
   //==============================
-  public sendRequestGET_MAILMERGE_TEMPLATE(
+  public sendRequestGET_LIST_MAILMERGE_TEMPLATE(
     page: number,
     searchKey: string
   ): Promise<any> {
@@ -2517,6 +2517,63 @@ export class ApiService extends HttpClient {
         .add("secretKey", this.mSecretKey)
         .add("userID", this.userID)
         .add("CampaignID", CampaignID)
+    );
+  }
+
+  //==============================
+  public sendRequestADD_MAILMERGE_TEMPLATE(obj: any): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.ADD_MAILMERGE_TEMPLATE,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("Name", obj.Name)
+    );
+  }
+
+  //==============================
+  public sendRequestUPDATE_MAILMERGE_TEMPLATE(obj: any): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.UPDATE_MAILMERGE_TEMPLATE,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("ID", obj.ID)
+        .addIgnoreNull("Name", obj.Name)
+        .addIgnoreNull("body",obj.body)
+    );
+  }
+
+  //==============================
+  public sendRequestDELETE_MAILMERGE_TEMPLATE(MailmergeTemplateIDs: string): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.DELETE_MAILMERGE_TEMPLATE,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("MailmergeTemplateIDs", MailmergeTemplateIDs)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_DETAIL_MAILMERGE_TEMPLATE(mailMergeTemplateID): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_DETAIL_MAILMERGE_TEMPLATE,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("ID", mailMergeTemplateID)
     );
   }
 }

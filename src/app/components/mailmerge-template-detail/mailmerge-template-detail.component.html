@@ -7,17 +7,16 @@
       <button
         mat-raised-button
         class="button-margin-right"
-        (click)="openNew(content)"
       >
         <mat-icon>add_box</mat-icon>New field
       </button>
-      <button mat-raised-button class="button-margin-right" color="primary">
+      <button mat-raised-button class="button-margin-right" color="primary" (click)="onClickSave($event)">
         <mat-icon>save</mat-icon>Save
       </button>
-      <button mat-raised-button class="button-margin-right" color="accent">
+      <button mat-raised-button class="button-margin-right" color="accent" (click)="onClickSaveClose($event)">
         <mat-icon>save</mat-icon>Save & Close
       </button>
-      <button mat-raised-button color="warn">
+      <button mat-raised-button color="warn" (click)="onClickClose($event)">
         <mat-icon>close</mat-icon>Close
       </button>
     </div>
@@ -68,66 +67,9 @@
         <div bold>Menu soạn thảo văn bản</div>
 
         <div padding-top>
-          <angular-editor [config]="config"></angular-editor>
+          <angular-editor [config]="config" [(ngModel)]="mObj.body"></angular-editor>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="add-new-campaign">ADD INFORMATION FIELD</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <div class="modal-margin-inherit d-flex justify-content-between">
-          <mat-label>Name</mat-label>
-          <input matInput type="text" class="width80" />
-        </div>
-        <div class="modal-margin-inherit d-flex justify-content-between">
-          <mat-label>Tile</mat-label>
-          <input matInput type="text" class="width80" />
-        </div>
-        <div class="d-flex justify-content-between">
-            <mat-label>Type</mat-label>
-            <select type="number" class="width80">
-              <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
-            </select>
-          </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="modal.close('Save click')"
-      class="button-margin-right"
-    >
-      <mat-icon>save</mat-icon>Save
-    </button>
-    <a routerLink="/setup-follow-mailmerge-campaign">
-      <button
-        mat-raised-button
-        color="accent"
-        (click)="modal.close()"
-        class="button-margin-right"
-      >
-        <mat-icon>save</mat-icon>Save & Close
-      </button></a
-    >
-    <button mat-raised-button color="warn" (click)="modal.close('Save click')">
-      <mat-icon>cancel</mat-icon>Close
-    </button>
-  </div>
-</ng-template>

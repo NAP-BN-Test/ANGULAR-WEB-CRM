@@ -170,5 +170,11 @@ export class TableCategoryComponent implements OnInit {
         data: row
       });
     }
+    else if (this.listTbData.clickDetail == CLICK_DETAIL.MAILMERGE_TEMPLATE_LIST) {
+      this.clickCell.emit({
+        clickDetail: CLICK_DETAIL.MAILMERGE_TEMPLATE_LIST,
+        data: row
+      });
+    }
   }
 }

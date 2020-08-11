@@ -110,6 +110,21 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       .getApiService()
       .sendRequestGET_LIST_ADDITIONAL_INFORMATION(mailMergeCampaignID)
       .then((data) => {
+        this.tableHaveValue = true;
+        data.array.forEach((e) => {
+          data.array.FilingDate = moment(data.array.FilingDate).format(
+            "DD-MM-YYYY"
+          );
+          if (e.checkDuplicate) {
+            this.mDulicate.push(
+              "Thông tin của liên hệ [" +
+                e.OurRef +
+                "] đã tồn tại ở chiến dịch: " +
+                e.nameCampaign +
+                "."
+            );
+          }
+        });
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
             page: this.page,
@@ -117,21 +132,6 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
             listData: data.array,
             listTbData: this.listTbData,
           });
-          this.tableHaveValue = true;
-          console.log(data.array);
-          data.array.forEach((e) => {
-            if (e.checkDuplicate) {
-              console.log("1 ");
-              this.mDulicate.push(
-                "Thông tin của liên hệ [" +
-                  e.OurRef +
-                  "] đã tồn tại ở chiến dịch: " +
-                  e.nameCampaign +
-                  "."
-              );
-            }
-          });
-          console.log(this.mDulicate);
         }
       });
   }
@@ -141,7 +141,7 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
   }
 
   onClickBtn(event) {
-    console.log(event)
+    console.log(event);
     this.mService
       .getApiService()
       .sendRequestDELETE_ADDITIONAL_INFORMATION(event.data)
@@ -215,6 +215,8 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
           this.mService.showSnackBar(data.message);
         }
       });
+    this.resetInfoLeft();
+    this.onLoadData(this.mailMergeCampaignID);
   }
 
   //Hàm thêm mới các add_info cho MailmergeCampaign
@@ -225,8 +227,8 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
   }
 
   //Hàm thực hiện gửi
-  onClickSend(){
-    this.tableHaveValue = false
+  onClickSend() {
+    this.tableHaveValue = false;
     this.mService
       .getApiService()
       .sendRequestSEND_MAILMERGE(this.mailMergeCampaignID.toString())
