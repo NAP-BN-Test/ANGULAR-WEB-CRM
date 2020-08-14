@@ -810,15 +810,20 @@ export class ApiService extends HttpClient {
         .add("secretKey", this.mSecretKey)
         .add("username", this.username)
         .add("userID", this.userID)
-        .add("companyID", companyID)
-        .add("name", company.name)
-        .add("shortName", company.shortName)
-        .add("phone", company.phone)
-        .add("email", company.email)
-        .add("address", company.address)
-        .add("cityID", company.cityID)
-        .add("cityName", company.cityName)
-        .add("role", company.role)
+
+        .addIgnoreNull("companyID", companyID)
+        .addIgnoreNull("name", company.name)
+        .addIgnoreNull("shortName", company.shortName)
+        .addIgnoreNull("phone", company.phone)
+        .addIgnoreNull("email", company.email)
+        .addIgnoreNull("address", company.address)
+        .addIgnoreNull("cityID", company.cityID)
+        .addIgnoreNull("cityName", company.cityName)
+        .addIgnoreNull("role", company.role)
+        .addIgnoreNull("Note", company.Note)
+        .addIgnoreNull("CountryID",company.CountryID)
+        .addIgnoreNull("Fax",company.Fax)
+        .addIgnoreNull("Role",company.Role)
     );
   }
 
@@ -1776,8 +1781,9 @@ export class ApiService extends HttpClient {
   //==============================
   public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
     let body: string;
-    if (obj.body && obj.body !== undefined)
+    if (obj.body)
       body = obj.body.replace(/&/g, "%26");
+    console.log(body)
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
       ParamBuilder.builder()
@@ -2535,6 +2541,9 @@ export class ApiService extends HttpClient {
 
   //==============================
   public sendRequestUPDATE_MAILMERGE_TEMPLATE(obj: any): Promise<any> {
+    let body: string;
+    if (obj.body)
+      body = obj.body.replace(/&/g, "%26");
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_MAILMERGE_TEMPLATE,
       ParamBuilder.builder()
@@ -2545,12 +2554,14 @@ export class ApiService extends HttpClient {
 
         .add("ID", obj.ID)
         .addIgnoreNull("Name", obj.Name)
-        .addIgnoreNull("body",obj.body)
+        .addIgnoreNull("body", body)
     );
   }
 
   //==============================
-  public sendRequestDELETE_MAILMERGE_TEMPLATE(MailmergeTemplateIDs: string): Promise<any> {
+  public sendRequestDELETE_MAILMERGE_TEMPLATE(
+    MailmergeTemplateIDs: string
+  ): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.DELETE_MAILMERGE_TEMPLATE,
       ParamBuilder.builder()
@@ -2564,7 +2575,9 @@ export class ApiService extends HttpClient {
   }
 
   //==============================
-  public sendRequestGET_DETAIL_MAILMERGE_TEMPLATE(mailMergeTemplateID): Promise<any> {
+  public sendRequestGET_DETAIL_MAILMERGE_TEMPLATE(
+    mailMergeTemplateID
+  ): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.GET_DETAIL_MAILMERGE_TEMPLATE,
       ParamBuilder.builder()
@@ -2574,6 +2587,41 @@ export class ApiService extends HttpClient {
         .add("userID", this.userID)
 
         .add("ID", mailMergeTemplateID)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_LIST_ADDRESS_BOOK(
+    page: number,
+    name: string,
+    userIDFind: number,
+    address: string,
+    cityID: number,
+    countryID: number,
+    email: string,
+    phone: string,
+    fax: string,
+    role: string
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_ADDRESS_BOOK,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("username", this.username)
+        .add("userID", this.userID)
+        .add("page", page)
+        .add("itemPerPage", this.itemPerPage)
+        .addIgnoreNull("searchKey", name)
+        .addIgnoreNull("userIDFind", userIDFind)
+        .addIgnoreNull("Address", address)
+        .addIgnoreNull("CityID", cityID)
+        .addIgnoreNull("CountryID", countryID)
+        .addIgnoreNull("Email", email)
+        .addIgnoreNull("Phone", phone)
+        .addIgnoreNull("Fax", fax)
+        .addIgnoreNull("Role", role)
     );
   }
 }

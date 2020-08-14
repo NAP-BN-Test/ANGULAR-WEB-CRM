@@ -1,1 +1,163 @@
-<p>address-book works!</p>
+<div *ngIf="mTitle">
+  <div class="m-header">
+    <app-header-menu menuIndex="7"></app-header-menu>
+  </div>
+
+  <div class="padding m-content">
+    <div no-wrap>
+      <div class="d-flex justify-content-between padding1">
+        <div>
+          <span class="span-custom">LIST OF CUSTOMERS</span>
+        </div>
+        <div class="d-flex flex-row">
+          <button mat-raised-button class="button-margin-right" (click)="onClickSearch()">
+            <mat-icon>search</mat-icon> Search
+          </button>
+          <button mat-raised-button class="button-margin-right">
+            <mat-icon>queue</mat-icon> Add to Merge
+          </button>
+          <button mat-raised-button class="button-margin-right">
+            <mat-icon>group_add</mat-icon> Add to Group
+          </button>
+          <button mat-raised-button class="button-margin-right">
+            <mat-icon>miscellaneous_services</mat-icon> Option
+          </button>
+          <button mat-raised-button color="primary" (click)="onClickAddNew()">
+            <mat-icon>add_circle_outline</mat-icon> Add new
+          </button>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-column padding-left-right margin-bottom-20" *ngIf="hasSearch"
+      >
+        <div class="search-condition">Search Conditions</div>
+        <div class="d-flex flex-row">
+          <div width-20 class="title-input"><Span>Search</Span></div>
+          <div width-80>
+            <mat-form-field width-60>
+              <mat-label>Search</mat-label>
+              <input #nameInput matInput placeholder="Nhập từ khóa" width-100 />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex flex-row">
+          <div width-20 class="title-input"><Span>Advanced Search</Span></div>
+          <div width-80>
+            <mat-form-field width-60>
+              <mat-label>Bộ lọc</mat-label>
+              <mat-select
+                multiple
+                [(value)]="toppingListSelected"
+                (selectionChange)="onSortChange($event)"
+              >
+                <mat-option
+                  *ngFor="let item of toppingList"
+                  selected="true"
+                  [value]="item.id"
+                  >{{ item.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around">
+          <div width-20></div>
+          <div width-60 class="mat-form-field-right1 auto-down">
+            <mat-form-field [hidden]="!sortUser">
+              <mat-label>User</mat-label>
+              <mat-select #userSelect>
+                <mat-option *ngFor="let item of listUser" [value]="item.id">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field [hidden]="!sortAddress">
+              <mat-label>Address</mat-label>
+              <input
+                #addressInput
+                matInput
+                placeholder="Nhập từ khóa"
+                width-100
+              />
+            </mat-form-field>
+            <mat-form-field [hidden]="!sortCity">
+              <mat-label>Tỉnh/TP</mat-label>
+              <mat-select #citySelect>
+                <mat-option *ngFor="let item of listCity" [value]="item.id">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field [hidden]="!sortCountry">
+              <mat-label>Quốc Gia</mat-label>
+              <mat-select #countrySelect>
+                <mat-option *ngFor="let item of listCountry" [value]="item.id">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field [hidden]="!sortEmail">
+              <mat-label>Email</mat-label>
+              <input
+                #emailInput
+                matInput
+                placeholder="Nhập từ khóa"
+                width-100
+              />
+            </mat-form-field>
+            <mat-form-field [hidden]="!sortPhone">
+              <mat-label>Phone</mat-label>
+              <input
+                #phoneInput
+                matInput
+                placeholder="Nhập từ khóa"
+                width-100
+              />
+            </mat-form-field>
+            <mat-form-field [hidden]="!sortFax">
+              <mat-label>Fax</mat-label>
+              <input #faxInput matInput placeholder="Nhập từ khóa" width-100 />
+            </mat-form-field>
+            <mat-form-field [hidden]="!sortRole">
+              <mat-label>Role</mat-label>
+              <input #roleInput matInput placeholder="Nhập từ khóa" width-100 />
+            </mat-form-field>
+          </div>
+          <div width-20></div>
+        </div>
+        <div class="d-flex justify-content-end width68">
+          <div class="button-margin-right">
+            <button
+              matTooltip="Làm mới dữ liệu"
+              style="animation: fadeIn 300ms;"
+              *ngIf="
+                nameInput.value ||
+                userSelect.value ||
+                addressInput.value ||
+                citySelect.value ||
+                countrySelect.value ||
+                emailInput.value ||
+                phoneInput.value ||
+                faxInput.value ||
+                roleInput.value
+              "
+              mat-mini-fab
+              color="primary"
+              (click)="onClickClear()"
+            >
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <button matTooltip="Lọc" mat-mini-fab color="primary" (click)="onClickSort()">
+            <mat-icon>filter_alt</mat-icon>
+          </button>
+        </div>
+      </div>
+      <app-mat-table
+        (clickPagination)="onClickPagination($event)"
+        (clickCell)="onClickCell($event)"
+        (clickBtn)="onClickBtn($event)"
+      ></app-mat-table>
+    </div>
+  </div>
+</div>

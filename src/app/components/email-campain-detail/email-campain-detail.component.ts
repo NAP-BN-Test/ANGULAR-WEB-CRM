@@ -164,7 +164,7 @@ export class EmailCampainDetailComponent implements OnInit {
       mailListID: this.mObj.mailListID,
       Type: this.type,
     };
-
+    console.log(this.mObj.body)
     this.mService.getApiService().sendRequestUPDATE_MAIL_CAMPAIN(obj).then(data => {
 
       if (data.status == STATUS.SUCCESS) {

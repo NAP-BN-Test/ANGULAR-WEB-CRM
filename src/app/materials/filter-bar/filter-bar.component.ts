@@ -117,6 +117,7 @@ export class FilterBarComponent implements OnInit {
   }
 
   onClickSort() {
+    console.log("1")
     if (this.userSelect.value ||
       this.stepSelect.value ||
       this.citySelect.value ||

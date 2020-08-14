@@ -222,6 +222,7 @@ export const CLICK_DETAIL = {
   MAILMERGE_CAMPAIGN_LIST: 6,
   ADDITIONAL_INFORMATION: 7,
   MAILMERGE_TEMPLATE_LIST: 8,
+  ADDRESS_BOOK: 9,
 };
 
 export const SORT_TYPE = {
@@ -232,6 +233,13 @@ export const SORT_TYPE = {
   STEP: 5,
   CITY: 6,
   TIME_TYPE: 7,
+  //Gihug
+  ADDRESS: 8,
+  EMAIL: 9,
+  PHONE: 10,
+  FAX: 11,
+  ROLE: 12,
+  COUNTRY: 13,
 };
 
 export const MAIL_RESPONSE_TYPE = {

@@ -56,7 +56,8 @@
     "all_task": "Tất cả công việc ",
     "my_customer": "Khách hàng",
     "mailmerge_campaign_list": "Mailmerge Campaign List",
-    "mailmerge_template_list": "Mailmerge Template List"
+    "mailmerge_template_list": "Mailmerge Template List",
+    "address_book":"Address Book"
   },
   "table_header_title": {
     "name": "Tên",

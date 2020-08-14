@@ -69,6 +69,12 @@ export class HeaderMenuComponent implements OnInit {
         ],
       },
       {
+        index: 7,
+        name: menuTitle.address_book,
+        list: [
+          { index: 1, name: menuTitle.address_book },],
+      },
+      {
         index: 3,
         name: menuTitle.email,
         list: [
@@ -181,6 +187,11 @@ export class HeaderMenuComponent implements OnInit {
           this.router.navigate(["mailmerge-campaign-list"]);
         } else if (indexChild == 2) {
           this.router.navigate(["mailmerge-template-list"]);
+        }
+      }
+      else if (index == 7) {
+        if (indexChild == 1) {
+          this.router.navigate(["address-book"]);
         }
       }
     }

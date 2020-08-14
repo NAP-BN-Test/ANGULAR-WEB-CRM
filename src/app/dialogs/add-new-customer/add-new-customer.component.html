@@ -1,0 +1,122 @@
+<h2 mat-dialog-title>ADD NEW CUSTOMER</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="myForm">
+    <div class="margin2" width-100>
+      <mat-label>Old Name&nbsp;&nbsp;</mat-label>
+      <mat-checkbox
+        class="margin-top-5"
+        matInput
+        formControlName="OldName"
+        [(ngModel)]="OldNameChecked"
+        required
+      ></mat-checkbox>
+      <mat-error *ngIf="myForm.hasError('required')">
+        Please press <strong>Old Name check box</strong>
+      </mat-error>
+    </div>
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Full Name</mat-label>
+      <input matInput type="text" formControlName="FullName" required />
+      <mat-error *ngIf="myForm.hasError('required')">
+        Please input <strong>Full Name</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Address</mat-label>
+      <input matInput type="text" formControlName="Address" required />
+      <mat-error *ngIf="myForm.hasError('required')">
+        Please input <strong>Address</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" formControlName="Email" />
+    </mat-form-field>
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input matInput type="text" formControlName="Phone" />
+    </mat-form-field>
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Fax</mat-label>
+      <input matInput type="text" formControlName="Fax" />
+    </mat-form-field>
+    <!-- <mat-form-field width-100 appearance="fill">
+      <mat-label>Customer Group</mat-label> -->
+    <!-- <input
+        matInput
+        type="text"
+        formControlName="Template_ID"
+        [matAutocomplete]="auto"
+        required
+      /> -->
+    <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let item of filterListTemplate | async"
+          [value]="item.name"
+        >
+          {{ item.name }}
+        </mat-option>
+      </mat-autocomplete> -->
+    <!-- </mat-form-field> -->
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>National</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="National"
+        [matAutocomplete]="auto1"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+        <mat-option
+          *ngFor="let item of filterListNational | async"
+          [value]="item.name"
+        >
+          {{ item.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Note</mat-label>
+      <textarea matInput formControlName="Note"></textarea>
+    </mat-form-field>
+
+    <div width-100>
+      <mat-label>Properties </mat-label>
+      <mat-radio-group
+        class="padding1 auto-down"
+        [(ngModel)]="labelPosition"
+        formControlName="Properties"
+      >
+        <mat-radio-button value="Applicant">Applicant</mat-radio-button>
+        <mat-radio-button value="Representative"
+          >Representative</mat-radio-button
+        >
+        <mat-radio-button value="Member">Member</mat-radio-button>
+        <mat-radio-button value="Author">Author</mat-radio-button>
+        <mat-radio-button value="GovermmentAgency"
+          >Govermment Agency</mat-radio-button
+        >
+        <mat-radio-button value="Other">Other</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>
+    <mat-icon>close</mat-icon>Close
+  </button>
+  <button
+    name="OK"
+    mat-raised-button
+    color="primary"
+    [disabled]="!myForm.valid"
+    cdkFocusInitial
+    (click)="onClickSave()"
+  >
+  <mat-icon>
+    save
+  </mat-icon>
+    Save
+  </button>
+</mat-dialog-actions>

@@ -33,10 +33,10 @@ export class MailmergeTemplateDetailComponent implements OnInit {
     }
   }
 
-  config: AngularEditorConfig = {
+  editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: "600px",
+    height: "500px",
     minHeight: "0",
     maxHeight: "auto",
     width: "auto",
@@ -93,6 +93,7 @@ export class MailmergeTemplateDetailComponent implements OnInit {
       ID: this.mailMergeTemplateID,
       body: this.mObj.body,
     };
+    console.log(obj.body);
     this.mService
       .getApiService()
       .sendRequestUPDATE_MAILMERGE_TEMPLATE(obj)
@@ -104,14 +105,12 @@ export class MailmergeTemplateDetailComponent implements OnInit {
       });
   }
 
-  onClickSaveClose(event){
-    this.onClickSave(event)
-    this.onClickClose(event)
+  onClickSaveClose(event) {
+    this.onClickSave(event);
+    this.onClickClose(event);
   }
-  
-  onClickClose(event){
-    this.mService.publishPageRoute(
-      "mailmerge-template-list"
-    );
+
+  onClickClose(event) {
+    this.mService.publishPageRoute("mailmerge-template-list");
   }
 }

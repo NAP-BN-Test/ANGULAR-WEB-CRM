@@ -252,6 +252,7 @@ export class ContactMenuCompanyComponent implements OnInit {
   }
 
   onClickSort(event) {
+    console.log(event)
     this.timeFrom = event.timeFrom;
     this.timeTo = event.timeTo;
     this.userIDFind = event.userID;
