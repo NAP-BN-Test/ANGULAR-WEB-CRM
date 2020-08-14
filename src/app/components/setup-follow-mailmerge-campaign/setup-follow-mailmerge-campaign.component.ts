@@ -215,17 +215,17 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       .getApiService()
       .sendRequestUPDATE_ADDITIONAL_INFORMATION(obj)
       .then((data) => {
-        if (data.emailExist === false) {
+        if (data.status == STATUS.SUCCESS && data.emailExist === false) {
           const dialogRef = this.dialog.open(DialogEmailErrorComponent, {
             width: "500px",
           });
         }
-        if (data.status == STATUS.SUCCESS) {
+        else {
           this.mService.showSnackBar(data.message);
           this.onLoadData(this.mailMergeCampaignID);
+          this.resetInfoLeft();
         }
       });
-    this.resetInfoLeft();
   }
 
   //Hàm thêm mới các add_info cho MailmergeCampaign
