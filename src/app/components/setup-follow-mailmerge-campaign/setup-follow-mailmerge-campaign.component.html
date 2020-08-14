@@ -61,7 +61,7 @@
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Reg. No..</mat-label>
-            <input matInput placeholder="Reg. No.." [(ngModel)]="mObj.RedNo" />
+            <input matInput placeholder="Reg. No.." [(ngModel)]="mObj.RegNo" />
           </mat-form-field>
           <mat-form-field appearance="legacy">
             <mat-label>Class B</mat-label>
@@ -113,9 +113,9 @@
         </div>
       </div>
       <div width-80 class="border-red">
-        <div class="d-flex justify-content-between padding1 height-70px">
+        <div class="d-flex justify-content-between padding1">
           <div>
-            <span class="span-custom">MAILMERGE CAMPAIGN LIST</span>
+            <span class="span-custom">MAILMERGE CAMPAIGN LIST:{{" "+nameCampaign}}</span>
           </div>
           <div class="d-flex flex-row">
             <button mat-raised-button class="margin-right1">

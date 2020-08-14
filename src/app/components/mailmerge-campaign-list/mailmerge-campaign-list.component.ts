@@ -92,7 +92,6 @@ export class MailmergeCampaignListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateMailmergeCampaignComponent, {
       width: "500px",
     });
-
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         let obj = {
@@ -104,6 +103,7 @@ export class MailmergeCampaignListComponent implements OnInit {
           .getApiService()
           .sendRequestADD_MAIL_CAMPAIN(obj)
           .then((data) => {
+            console.log(data);
             this.mService.showSnackBar(data.message);
             if (
               data.status == STATUS.SUCCESS &&

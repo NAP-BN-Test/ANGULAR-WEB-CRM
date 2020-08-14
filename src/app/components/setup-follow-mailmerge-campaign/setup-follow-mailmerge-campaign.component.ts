@@ -12,6 +12,8 @@ import { ParamsKey } from "src/app/services/constant/paramskey";
 import * as moment from "moment";
 import { ActivatedRoute } from "@angular/router";
 import { MatDialog } from "@angular/material";
+import { DialogComponent } from "src/app/dialogs/dialog/dialog.component";
+import { DialogEmailErrorComponent } from "src/app/dialogs/dialog-email-error/dialog-email-error.component";
 
 @Component({
   selector: "app-setup-follow-mailmerge-campaign",
@@ -30,8 +32,8 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       { name: "Class A", cell: "ClassA" },
       { name: "Filing Date", cell: "FilingDate" },
       { name: "Prior Trademark", cell: "PriorTrademark" },
-      { name: "Owner", cell: "OwnerID" },
-      { name: "Reg. No.:", cell: "RedNo" },
+      { name: "Owner", cell: "Owner" },
+      { name: "Reg. No.:", cell: "RegNo" },
       { name: "Class B", cell: "ClassB" },
       { name: "Firm", cell: "Firm" },
       { name: "Address", cell: "Address" },
@@ -49,10 +51,11 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
   searchKey = null;
   collectionSize: number;
   mObj: any;
-  mailListName: string;
   addInfoInitialID: number;
   tableHaveValue = false;
   mailMergeCampaignID = -1;
+  nameCampaign: string;
+
   constructor(
     public mService: AppModuleService,
     public activatedRoute: ActivatedRoute,
@@ -78,7 +81,7 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
   resetInfoLeft() {
     this.mObj = {
       ID: null,
-      OwnerID: null,
+      Owner: null,
       OurRef: null,
       PAT: null,
       Applicant: null,
@@ -86,7 +89,7 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       ClassA: null,
       FilingDate: null,
       PriorTrademark: null,
-      RedNo: null,
+      RegNo: null,
       ClassB: null,
       Firm: null,
       Address: null,
@@ -110,6 +113,7 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       .getApiService()
       .sendRequestGET_LIST_ADDITIONAL_INFORMATION(mailMergeCampaignID)
       .then((data) => {
+        this.nameCampaign = data.nameCampaign;
         this.tableHaveValue = true;
         data.array.forEach((e) => {
           data.array.FilingDate = moment(data.array.FilingDate).format(
@@ -192,8 +196,8 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       PriorTrademark: this.mObj.PriorTrademark
         ? this.mObj.PriorTrademark
         : null,
-      OwnerID: this.mObj.OwnerID ? this.mObj.OwnerID : null,
-      RedNo: this.mObj.RedNo ? this.mObj.RedNo : null,
+      Owner: this.mObj.Owner ? this.mObj.Owner : null,
+      RegNo: this.mObj.RegNo ? this.mObj.RegNo : null,
       ClassB: this.mObj.ClassB ? this.mObj.ClassB : null,
       Firm: this.mObj.Firm ? this.mObj.Firm : null,
       Address: this.mObj.Address ? this.mObj.Address : null,
@@ -211,12 +215,17 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       .getApiService()
       .sendRequestUPDATE_ADDITIONAL_INFORMATION(obj)
       .then((data) => {
+        if (data.emailExist === false) {
+          const dialogRef = this.dialog.open(DialogEmailErrorComponent, {
+            width: "500px",
+          });
+        }
         if (data.status == STATUS.SUCCESS) {
           this.mService.showSnackBar(data.message);
+          this.onLoadData(this.mailMergeCampaignID);
         }
       });
     this.resetInfoLeft();
-    this.onLoadData(this.mailMergeCampaignID);
   }
 
   //Hàm thêm mới các add_info cho MailmergeCampaign
