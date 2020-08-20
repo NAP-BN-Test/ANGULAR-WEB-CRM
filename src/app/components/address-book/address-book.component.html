@@ -10,7 +10,11 @@
           <span class="span-custom">LIST OF CUSTOMERS</span>
         </div>
         <div class="d-flex flex-row">
-          <button mat-raised-button class="button-margin-right" (click)="onClickSearch()">
+          <button
+            mat-raised-button
+            class="button-margin-right"
+            (click)="onClickSearch()"
+          >
             <mat-icon>search</mat-icon> Search
           </button>
           <button mat-raised-button class="button-margin-right">
@@ -22,142 +26,155 @@
           <button mat-raised-button class="button-margin-right">
             <mat-icon>miscellaneous_services</mat-icon> Option
           </button>
-          <button mat-raised-button color="primary" (click)="onClickAddNew()">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="onClickAddNew()"
+          >
             <mat-icon>add_circle_outline</mat-icon> Add new
           </button>
         </div>
       </div>
       <div
-        class="d-flex flex-column padding-left-right margin-bottom-20" *ngIf="hasSearch"
+        class="d-flex flex-column padding-left-right margin-bottom-20"
+        *ngIf="!hasSearch"
       >
-        <div class="search-condition">Search Conditions</div>
-        <div class="d-flex flex-row">
-          <div width-20 class="title-input"><Span>Search</Span></div>
-          <div width-80>
-            <mat-form-field width-60>
-              <mat-label>Search</mat-label>
-              <input #nameInput matInput placeholder="Nhập từ khóa" width-100 />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="d-flex flex-row">
-          <div width-20 class="title-input"><Span>Advanced Search</Span></div>
-          <div width-80>
-            <mat-form-field width-60>
-              <mat-label>Bộ lọc</mat-label>
-              <mat-select
-                multiple
-                [(value)]="toppingListSelected"
-                (selectionChange)="onSortChange($event)"
-              >
-                <mat-option
-                  *ngFor="let item of toppingList"
-                  selected="true"
-                  [value]="item.id"
-                  >{{ item.name }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="d-flex justify-content-around">
-          <div width-20></div>
-          <div width-60 class="mat-form-field-right1 auto-down">
-            <mat-form-field [hidden]="!sortUser">
-              <mat-label>User</mat-label>
-              <mat-select #userSelect>
-                <mat-option *ngFor="let item of listUser" [value]="item.id">
-                  {{ item.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field [hidden]="!sortAddress">
-              <mat-label>Address</mat-label>
-              <input
-                #addressInput
-                matInput
-                placeholder="Nhập từ khóa"
-                width-100
-              />
-            </mat-form-field>
-            <mat-form-field [hidden]="!sortCity">
-              <mat-label>Tỉnh/TP</mat-label>
-              <mat-select #citySelect>
-                <mat-option *ngFor="let item of listCity" [value]="item.id">
-                  {{ item.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field [hidden]="!sortCountry">
-              <mat-label>Quốc Gia</mat-label>
-              <mat-select #countrySelect>
-                <mat-option *ngFor="let item of listCountry" [value]="item.id">
-                  {{ item.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field [hidden]="!sortEmail">
-              <mat-label>Email</mat-label>
-              <input
-                #emailInput
-                matInput
-                placeholder="Nhập từ khóa"
-                width-100
-              />
-            </mat-form-field>
-            <mat-form-field [hidden]="!sortPhone">
-              <mat-label>Phone</mat-label>
-              <input
-                #phoneInput
-                matInput
-                placeholder="Nhập từ khóa"
-                width-100
-              />
-            </mat-form-field>
-            <mat-form-field [hidden]="!sortFax">
-              <mat-label>Fax</mat-label>
-              <input #faxInput matInput placeholder="Nhập từ khóa" width-100 />
-            </mat-form-field>
-            <mat-form-field [hidden]="!sortRole">
-              <mat-label>Role</mat-label>
-              <input #roleInput matInput placeholder="Nhập từ khóa" width-100 />
-            </mat-form-field>
-          </div>
-          <div width-20></div>
-        </div>
-        <div class="d-flex justify-content-end width68">
-          <div class="button-margin-right">
-            <button
-              matTooltip="Làm mới dữ liệu"
-              style="animation: fadeIn 300ms;"
-              *ngIf="
-                nameInput.value ||
-                userSelect.value ||
-                addressInput.value ||
-                citySelect.value ||
-                countrySelect.value ||
-                emailInput.value ||
-                phoneInput.value ||
-                faxInput.value ||
-                roleInput.value
+        <form
+          [formGroup]="myForm"
+          #form="ngForm"
+          (submit)="onSubmit(form.value)"
+          width-100
+        >
+          <table width-100>
+            <tr>
+              <div class="search-condition">Search Conditions</div>
+            </tr>
+            <tr>
+              <td width-20 class="title-input"><Span>Search</Span></td>
+              <td width-80>
+                <mat-form-field width-60>
+                  <mat-label>Search</mat-label>
+                  <input
+                    formControlName="search"
+                    matInput
+                    placeholder="Nhập từ khóa"
+                    width-100
+                  />
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr
+              formArrayName="items"
+              *ngFor="
+                let item of myForm.get('items')['controls'];
+                let i = index
               "
-              mat-mini-fab
-              color="primary"
-              (click)="onClickClear()"
             >
-              <mat-icon>refresh</mat-icon>
+              <ng-container [formGroupName]="i">
+                <td width-20 class="title-input">
+                  <Span *ngIf="i === 0">Advanced Search</Span>
+                </td>
+                <td width-80>
+                  <mat-form-field
+                    class="button-margin-right"
+                    style="width: 7%;"
+                  >
+                    <input
+                      appearance="fill"
+                      type="text"
+                      placeholder="And/Or/Not"
+                      matInput
+                      formControlName="conditionFields"
+                      [matAutocomplete]="autoCondition"
+                    />
+                    <mat-autocomplete
+                      #autoCondition="matAutocomplete"
+                      [displayWith]="displayFnConditions"
+                    >
+                      <mat-option
+                        *ngFor="let option of filteredConditions[i] | async"
+                        [value]="option"
+                      >
+                        {{ option.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field class="button-margin-right">
+                    <input
+                      type="text"
+                      placeholder="Fields"
+                      matInput
+                      formControlName="fields"
+                      [matAutocomplete]="autoFields"
+                    />
+                    <mat-autocomplete
+                      #autoFields="matAutocomplete"
+                      [displayWith]="displayFnFields"
+                    >
+                      <mat-option
+                        *ngFor="let option of filteredFields[i] | async"
+                        [value]="option"
+                      >
+                        {{ option.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field
+                    class="button-margin-right"
+                    style="width: 37%;"
+                  >
+                    <input
+                      matInput
+                      placeholder="Write something..."
+                      formControlName="searchFields"
+                    />
+                  </mat-form-field>
+                  <button
+                    mat-fab
+                    color="primary"
+                    type="button"
+                    (click)="removeItem(i)"
+                    class="button-delete"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+            </tr>
+            <tr>
+              <button
+                mat-fab
+                color="primary"
+                (click)="addNewItem()"
+                class="margin-left-100"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </tr>
+          </table>
+          <div class="d-flex justify-content-center">
+            <button
+              mat-raised-button
+              color="accent"
+              type="submit"
+              class="button-margin-right"
+            >
+              <mat-icon>search</mat-icon>Search
+            </button>
+            <button mat-raised-button color="warn" (click)="onClickClear()">
+              <mat-icon>close</mat-icon>Close
             </button>
           </div>
-          <button matTooltip="Lọc" mat-mini-fab color="primary" (click)="onClickSort()">
-            <mat-icon>filter_alt</mat-icon>
-          </button>
+        </form>
+        <div style="margin-top: 2%;">
+          <app-mat-table
+          (clickPagination)="onClickPagination($event)"
+          (clickCell)="onClickCell($event)"
+          (clickBtn)="onClickBtn($event)"
+        ></app-mat-table>
         </div>
       </div>
-      <app-mat-table
-        (clickPagination)="onClickPagination($event)"
-        (clickCell)="onClickCell($event)"
-        (clickBtn)="onClickBtn($event)"
-      ></app-mat-table>
     </div>
   </div>
 </div>

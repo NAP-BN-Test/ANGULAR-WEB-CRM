@@ -2,6 +2,7 @@
   "name": "web-logistic-crm",
   "version": "0.0.0",
   "scripts": {
+    "yarn start":"ng serve",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

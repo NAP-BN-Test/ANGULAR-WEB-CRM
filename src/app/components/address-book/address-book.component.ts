@@ -1,10 +1,10 @@
 // author: GiHug 12/08/2020
 import {
-  Component,
   OnInit,
   ViewChild,
   Output,
   EventEmitter,
+  Component,
 } from "@angular/core";
 import { AppModuleService } from "src/app/services/app-module.service";
 import {
@@ -18,7 +18,18 @@ import {
 import { ParamsKey } from "src/app/services/constant/paramskey";
 import { MatSelect, MatInput, MatDialog } from "@angular/material";
 import { AddNewCustomerComponent } from "src/app/dialogs/add-new-customer/add-new-customer.component";
-import { DialogComponent } from 'src/app/dialogs/dialog/dialog.component';
+import { DialogComponent } from "src/app/dialogs/dialog/dialog.component";
+import { Observable } from "rxjs";
+import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
+import { startWith, map } from "rxjs/operators";
+
+export interface ConditionFields {
+  name: string;
+}
+
+export interface Fields {
+  name: string;
+}
 
 @Component({
   selector: "app-address-book",
@@ -26,12 +37,6 @@ import { DialogComponent } from 'src/app/dialogs/dialog/dialog.component';
   styleUrls: ["./address-book.component.scss"],
 })
 export class AddressBookComponent implements OnInit {
-  @ViewChild("nameInput", { read: MatInput }) nameInput: MatInput;
-  @ViewChild("addressInput", { read: MatInput }) addressInput: MatInput;
-  @ViewChild("emailInput", { read: MatInput }) emailInput: MatInput;
-  @ViewChild("phoneInput", { read: MatInput }) phoneInput: MatInput;
-  @ViewChild("faxInput", { read: MatInput }) faxInput: MatInput;
-  @ViewChild("roleInput", { read: MatInput }) roleInput: MatInput;
   @ViewChild("userSelect", { read: MatSelect }) userSelect: MatSelect;
   @ViewChild("citySelect", { read: MatSelect }) citySelect: MatSelect;
   @ViewChild("countrySelect", { read: MatSelect }) countrySelect: MatSelect;
@@ -54,16 +59,34 @@ export class AddressBookComponent implements OnInit {
   countryID = null;
   role = null;
 
+  listConditions: ConditionFields[] = [
+    { name: "And" },
+    { name: "Or" },
+    { name: "Not" },
+  ];
+
+  listFields: Fields[] = [
+    { name: "Name" },
+    { name: "Email" },
+    { name: "Address" },
+    { name: "ShortName" },
+    { name: "Phone" },
+    { name: "Website" },
+    { name: "Source" },
+    { name: "Note" },
+    { name: "Fax" },
+    { name: "Role" },
+  ];
+
+  filteredConditions: Observable<ConditionFields[]>[] = [];
+  filteredFields: Observable<Fields[]>[] = [];
+  myForm: FormGroup;
+
   //data for component fillter bar
   toppingList = [
-    { id: SORT_TYPE.ADDRESS, name: "Địa chỉ" },
-    { id: SORT_TYPE.EMAIL, name: "Email" },
-    { id: SORT_TYPE.PHONE, name: "Số điện thoại" },
-    { id: SORT_TYPE.FAX, name: "Fax" },
     { id: SORT_TYPE.USER, name: "Phân công" },
     { id: SORT_TYPE.CITY, name: "Tỉnh/TP" },
     { id: SORT_TYPE.COUNTRY, name: "Quốc Gia" },
-    { id: SORT_TYPE.ROLE, name: "Chức vụ" },
   ];
 
   listTbData = {
@@ -98,7 +121,100 @@ export class AddressBookComponent implements OnInit {
   // danh sách các lựa chọn bộ lọc
   toppingListSelected = [];
 
-  constructor(public mService: AppModuleService, public dialog: MatDialog) {}
+  constructor(
+    public mService: AppModuleService,
+    public dialog: MatDialog,
+    private fb: FormBuilder
+  ) {
+    this.createForm();
+  }
+
+  createForm() {
+    this.myForm = this.fb.group({
+      search: [""],
+      items: this.initItems(),
+    });
+    this.ManageNameControl(0);
+  }
+
+  initItems() {
+    var formArray = this.fb.array([]);
+
+    formArray.push(
+      this.fb.group({
+        conditionFields: [""],
+        fields: [""],
+        searchFields: [""],
+      })
+    );
+    return formArray;
+  }
+
+  ManageNameControl(index: number) {
+    var arrayControl = this.myForm.get("items") as FormArray;
+    this.filteredConditions[index] = arrayControl
+      .at(index)
+      .get("conditionFields")
+      .valueChanges.pipe(
+        startWith<string | ConditionFields>(""),
+        map((value) => (typeof value === "string" ? value : value.name)),
+        map((name) =>
+          name ? this._filterConditions(name) : this.listConditions.slice()
+        )
+      );
+    this.filteredFields[index] = arrayControl
+      .at(index)
+      .get("fields")
+      .valueChanges.pipe(
+        startWith<string | Fields>(""),
+        map((value) => (typeof value === "string" ? value : value.name)),
+        map((name) =>
+          name ? this._filterFields(name) : this.listFields.slice()
+        )
+      );
+  }
+
+  addNewItem() {
+    const controls = <FormArray>this.myForm.controls["items"];
+    let formGroup = this.fb.group({
+      conditionFields: [""],
+      fields: [""],
+      searchFields: [""],
+    });
+    controls.push(formGroup);
+    // Build the account Auto Complete values
+    this.ManageNameControl(controls.length - 1);
+  }
+  removeItem(i: number) {
+    const controls = <FormArray>this.myForm.controls["items"];
+    controls.removeAt(i);
+    // remove from filteredOptions too.
+    this.filteredConditions.splice(i, 1);
+    this.filteredFields.splice(i, 1);
+  }
+
+  private _filterConditions(value: string): ConditionFields[] {
+    const filterValue = value.toLowerCase();
+    return this.listConditions.filter((option: any) =>
+      option.name.toLowerCase().indexOf(filterValue)
+    );
+  }
+
+  private _filterFields(value: string): Fields[] {
+    const filterValue = value.toLowerCase();
+
+    return this.listFields.filter((option: any) =>
+      option.name.toLowerCase().indexOf(filterValue)
+    );
+  }
+
+  displayFnConditions(ConditionFields?: ConditionFields): string | undefined {
+    return ConditionFields ? ConditionFields.name : undefined;
+  }
+
+  displayFnFields(Fields?: Fields): string | undefined {
+    return Fields ? Fields.name : undefined;
+  }
 
   ngOnInit(): void {
     this.mService.LoadAppConfig();
@@ -134,7 +250,6 @@ export class AddressBookComponent implements OnInit {
           this.listCountry.unshift({ id: -1, name: this.mTitle.all });
         }
       });
-    this.handleParams();
     if (this.mService.getUser()) {
       let params: any = this.mService.handleActivatedRoute();
       this.page = params.page;
@@ -223,36 +338,6 @@ export class AddressBookComponent implements OnInit {
       });
   }
 
-  onClickSort() {
-    if (
-      this.nameInput.value ||
-      this.userSelect.value ||
-      this.addressInput.value ||
-      this.citySelect.value ||
-      this.countrySelect.value ||
-      this.emailInput.value ||
-      this.phoneInput.value ||
-      this.faxInput.value ||
-      this.roleInput.value != ""
-    )
-      this.hasSort = true;
-    else this.hasSort = false;
-    console.log("11");
-
-    this.onLoadData(
-      1,
-      this.nameInput.value,
-      toID(this.userSelect.value),
-      this.addressInput.value,
-      toID(this.citySelect.value),
-      toID(this.countrySelect.value),
-      this.emailInput.value,
-      this.phoneInput.value,
-      this.faxInput.value,
-      this.roleInput.value
-    );
-  }
-
   onClickPagination(event) {
     this.onLoadData(
       event,
@@ -272,59 +357,6 @@ export class AddressBookComponent implements OnInit {
     console.log(event);
   }
 
-  handleParams() {
-    setTimeout(() => {
-      if (this.paramsObj) {
-        if (this.paramsObj.name) {
-          this.nameInput.value = this.paramsObj.name;
-          this.sortName = true;
-          this.toppingListSelected.push(SORT_TYPE.SEARCH);
-        }
-        if (this.paramsObj.userIDFind) {
-          this.userSelect.value = this.paramsObj.userIDFind;
-          this.sortUser = true;
-          this.toppingListSelected.push(SORT_TYPE.USER);
-        }
-        if (this.paramsObj.address) {
-          this.addressInput.value = this.paramsObj.address;
-          this.sortAddress = true;
-          this.toppingListSelected.push(SORT_TYPE.ADDRESS);
-        }
-        if (this.paramsObj.cityID) {
-          this.citySelect.value = this.paramsObj.cityID;
-          this.sortCity = true;
-          this.toppingListSelected.push(SORT_TYPE.CITY);
-        }
-        if (this.paramsObj.countryID) {
-          this.countrySelect.value = this.paramsObj.countryID;
-          this.sortCountry = true;
-          this.toppingListSelected.push(SORT_TYPE.COUNTRY);
-        }
-        if (this.paramsObj.email) {
-          this.emailInput.value = this.paramsObj.email;
-          this.sortEmail = true;
-          this.toppingListSelected.push(SORT_TYPE.EMAIL);
-        }
-
-        if (this.paramsObj.phone) {
-          this.phoneInput.value = this.paramsObj.phone;
-          this.sortPhone = true;
-          this.toppingListSelected.push(SORT_TYPE.PHONE);
-        }
-        if (this.paramsObj.fax) {
-          this.faxInput.value = this.paramsObj.fax;
-          this.sortFax = true;
-          this.toppingListSelected.push(SORT_TYPE.FAX);
-        }
-        if (this.paramsObj.role) {
-          this.roleInput.value = this.paramsObj.role;
-          this.sortRole = true;
-          this.toppingListSelected.push(SORT_TYPE.ROLE);
-        }
-      }
-    }, 500);
-  }
-
   onSortChange(event) {
     this.sortName = event.value.includes(SORT_TYPE.SEARCH);
     this.sortUser = event.value.includes(SORT_TYPE.USER);
@@ -335,19 +367,6 @@ export class AddressBookComponent implements OnInit {
     this.sortPhone = event.value.includes(SORT_TYPE.PHONE);
     this.sortFax = event.value.includes(SORT_TYPE.FAX);
     this.sortRole = event.value.includes(SORT_TYPE.ROLE);
-  }
-
-  onClickClear() {
-    this.nameInput.value = "";
-    this.userSelect.value = "";
-    this.addressInput.value = "";
-    this.citySelect.value = "";
-    this.countrySelect.value = "";
-    this.emailInput.value = "";
-    this.phoneInput.value = "";
-    this.faxInput.value = "";
-    this.roleInput.value = "";
-    this.hasSort = false;
   }
 
   onClickSearch() {
@@ -373,7 +392,7 @@ export class AddressBookComponent implements OnInit {
           Role: res.Properties,
         };
         console.log(obj);
-        
+
         this.mService
           .getApiService()
           .sendRequestADD_COMPANY(null, obj)
@@ -398,7 +417,7 @@ export class AddressBookComponent implements OnInit {
     });
   }
 
-  onClickBtn(event){
+  onClickBtn(event) {
     if (event.btnType == BUTTON_TYPE.DELETE) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: "500px",
@@ -427,6 +446,29 @@ export class AddressBookComponent implements OnInit {
         }
       });
     }
+  }
+
+  onClickClear() {
+    this.myForm.reset();
+  }
+
+  onSubmit(value) {
+    console.log(value);
+    console.log(JSON.stringify(value));
+    this.mService
+      .getApiService()
+      .sendRequestSEARCH_ADDRESS_BOOK(1, JSON.stringify(value))
+      .then((data) => {
+        if (data.status == STATUS.SUCCESS) {
+          this.collectionSize = data.all;
+          this.mService.publishEvent(EVENT_PUSH.TABLE, {
+            page: this.page,
+            collectionSize: this.collectionSize,
+            listData: data.array,
+            listTbData: this.listTbData,
+          });
+        }
+      });
   }
 }
 

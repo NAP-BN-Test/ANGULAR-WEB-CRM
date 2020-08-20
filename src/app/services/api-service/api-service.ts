@@ -6,9 +6,9 @@ import * as md5 from "md5";
 import { LOCAL_STORAGE_KEY } from "../constant/app-constant";
 
 export class ApiService extends HttpClient {
-  // mUrl: string = "http://192.168.1.4:3002/";
+  mUrl: string = "http://192.168.1.101:3002/";
   // mUrl: string = "http://localhost:3002/";
-  mUrl: string = "http://163.44.192.123:3002/";
+  // mUrl: string = "http://163.44.192.123:3002/";
   mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
   userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)
@@ -821,9 +821,9 @@ export class ApiService extends HttpClient {
         .addIgnoreNull("cityName", company.cityName)
         .addIgnoreNull("role", company.role)
         .addIgnoreNull("Note", company.Note)
-        .addIgnoreNull("CountryID",company.CountryID)
-        .addIgnoreNull("Fax",company.Fax)
-        .addIgnoreNull("Role",company.Role)
+        .addIgnoreNull("CountryID", company.CountryID)
+        .addIgnoreNull("Fax", company.Fax)
+        .addIgnoreNull("Role", company.Role)
     );
   }
 
@@ -1781,9 +1781,8 @@ export class ApiService extends HttpClient {
   //==============================
   public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
     let body: string;
-    if (obj.body)
-      body = obj.body.replace(/&/g, "%26");
-    console.log(body)
+    if (obj.body) body = obj.body.replace(/&/g, "%26");
+    console.log(body);
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
       ParamBuilder.builder()
@@ -2542,8 +2541,7 @@ export class ApiService extends HttpClient {
   //==============================
   public sendRequestUPDATE_MAILMERGE_TEMPLATE(obj: any): Promise<any> {
     let body: string;
-    if (obj.body)
-      body = obj.body.replace(/&/g, "%26");
+    if (obj.body) body = obj.body.replace(/&/g, "%26");
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_MAILMERGE_TEMPLATE,
       ParamBuilder.builder()
@@ -2622,6 +2620,20 @@ export class ApiService extends HttpClient {
         .addIgnoreNull("Phone", phone)
         .addIgnoreNull("Fax", fax)
         .addIgnoreNull("Role", role)
+    );
+  }
+
+  //==============================
+  public sendRequestSEARCH_ADDRESS_BOOK(page: number, data): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.SEARCH_ADDRESS_BOOK,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("data", data)
     );
   }
 }
