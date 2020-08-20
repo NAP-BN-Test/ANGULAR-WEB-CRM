@@ -8,7 +8,7 @@ import { LOCAL_STORAGE_KEY } from "../constant/app-constant";
 export class ApiService extends HttpClient {
   // mUrl: string = "http://192.168.1.4:3002/";
   // mUrl: string = "http://localhost:3002/";
-  mUrl: string = "http://192.168.1.101:3002/";
+  mUrl: string = "http://163.44.192.123:3002/";
   mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
   userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)

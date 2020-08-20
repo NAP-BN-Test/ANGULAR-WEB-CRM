@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "web-logistic-crm"
+  "defaultProject": "web-logistic-crm",
+  "cli": {
+    "analytics": "e7de6b52-7365-437b-b71a-850af8f4bc25"
+  }
 }

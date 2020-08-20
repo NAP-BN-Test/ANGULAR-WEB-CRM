@@ -219,6 +219,7 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
           const dialogRef = this.dialog.open(DialogEmailErrorComponent, {
             width: "500px",
           });
+          this.onLoadData(this.mailMergeCampaignID);
         }
         else {
           this.mService.showSnackBar(data.message);
