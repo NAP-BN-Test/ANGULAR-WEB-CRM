@@ -2589,41 +2589,6 @@ export class ApiService extends HttpClient {
   }
 
   //==============================
-  public sendRequestGET_LIST_ADDRESS_BOOK(
-    page: number,
-    name: string,
-    userIDFind: number,
-    address: string,
-    cityID: number,
-    countryID: number,
-    email: string,
-    phone: string,
-    fax: string,
-    role: string
-  ): Promise<any> {
-    return this.requestPost(
-      this.mUrl + ApiCmd.GET_LIST_ADDRESS_BOOK,
-      ParamBuilder.builder()
-        .add("ip", this.ip)
-        .add("dbName", this.dbName)
-        .add("secretKey", this.mSecretKey)
-        .add("username", this.username)
-        .add("userID", this.userID)
-        .add("page", page)
-        .add("itemPerPage", this.itemPerPage)
-        .addIgnoreNull("searchKey", name)
-        .addIgnoreNull("userIDFind", userIDFind)
-        .addIgnoreNull("Address", address)
-        .addIgnoreNull("CityID", cityID)
-        .addIgnoreNull("CountryID", countryID)
-        .addIgnoreNull("Email", email)
-        .addIgnoreNull("Phone", phone)
-        .addIgnoreNull("Fax", fax)
-        .addIgnoreNull("Role", role)
-    );
-  }
-
-  //==============================
   public sendRequestSEARCH_ADDRESS_BOOK(page: number, data): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.SEARCH_ADDRESS_BOOK,

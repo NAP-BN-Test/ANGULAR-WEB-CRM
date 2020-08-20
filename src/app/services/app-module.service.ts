@@ -223,8 +223,10 @@ export class AppModuleService {
       if (params.contactID) array.push({ key: 'contactID', value: params.contactID })
       if (params.companyID) array.push({ key: 'companyID', value: params.companyID })
       if (params.activityID) array.push({ key: 'activityID', value: params.activityID })
-      if (params.mailMergeCampaignID) array.push({ key: 'mailMergeCampaignID', value: params.mailMergeCampaignID }) //GiHug
-      if (params.mailMergeTemplateID) array.push({ key: 'mailMergeTemplateID', value: params.mailMergeTemplateID }) //GiHug
+      // GiHug ===================================================================================================================================================
+      if (params.mailMergeCampaignID) array.push({ key: 'mailMergeCampaignID', value: params.mailMergeCampaignID })
+      if (params.mailMergeTemplateID) array.push({ key: 'mailMergeTemplateID', value: params.mailMergeTemplateID })
+      if (params.addressBookID) array.push({key:'addressBookID',value:params.addressBookID})
     });
 
     let paramsObj = {};

@@ -153,6 +153,7 @@ import { AddItemsToMailmergeCampaignComponent } from './dialogs/add-items-to-mai
 import { AddMailmergeTemplateComponent } from './dialogs/add-mailmerge-template/add-mailmerge-template.component';
 import { AddNewCustomerComponent } from './dialogs/add-new-customer/add-new-customer.component';
 import { DialogEmailErrorComponent } from './dialogs/dialog-email-error/dialog-email-error.component';
+import { AddressBookDetailComponent } from './components/address-book-detail/address-book-detail.component';
 
 @NgModule({
   declarations: [
@@ -275,6 +276,7 @@ import { DialogEmailErrorComponent } from './dialogs/dialog-email-error/dialog-e
     AddMailmergeTemplateComponent,
     AddNewCustomerComponent,
     DialogEmailErrorComponent,
+    AddressBookDetailComponent,
   ],
   imports: [
     BrowserModule,

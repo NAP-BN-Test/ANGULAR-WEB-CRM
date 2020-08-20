@@ -38,7 +38,7 @@
       </div>
       <div
         class="d-flex flex-column padding-left-right margin-bottom-20"
-        *ngIf="!hasSearch"
+        *ngIf="hasSearch"
       >
         <form
           [formGroup]="myForm"
@@ -146,6 +146,7 @@
               <button
                 mat-fab
                 color="primary"
+                type="button"
                 (click)="addNewItem()"
                 class="margin-left-100"
               >
@@ -167,13 +168,13 @@
             </button>
           </div>
         </form>
-        <div style="margin-top: 2%;">
-          <app-mat-table
+      </div>
+      <div style="margin-top: 2%;">
+        <app-mat-table
           (clickPagination)="onClickPagination($event)"
           (clickCell)="onClickCell($event)"
           (clickBtn)="onClickBtn($event)"
         ></app-mat-table>
-        </div>
       </div>
     </div>
   </div>

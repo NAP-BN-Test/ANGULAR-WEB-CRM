@@ -37,10 +37,6 @@ export interface Fields {
   styleUrls: ["./address-book.component.scss"],
 })
 export class AddressBookComponent implements OnInit {
-  @ViewChild("userSelect", { read: MatSelect }) userSelect: MatSelect;
-  @ViewChild("citySelect", { read: MatSelect }) citySelect: MatSelect;
-  @ViewChild("countrySelect", { read: MatSelect }) countrySelect: MatSelect;
-  @Output("sort") sort = new EventEmitter();
 
   mTitle: any;
   page: number = 1;
@@ -82,13 +78,6 @@ export class AddressBookComponent implements OnInit {
   filteredFields: Observable<Fields[]>[] = [];
   myForm: FormGroup;
 
-  //data for component fillter bar
-  toppingList = [
-    { id: SORT_TYPE.USER, name: "Phân công" },
-    { id: SORT_TYPE.CITY, name: "Tỉnh/TP" },
-    { id: SORT_TYPE.COUNTRY, name: "Quốc Gia" },
-  ];
-
   listTbData = {
     clickDetail: CLICK_DETAIL.ADDRESS_BOOK,
     listColum: [
@@ -103,20 +92,6 @@ export class AddressBookComponent implements OnInit {
     ],
     listButton: [{ id: BUTTON_TYPE.DELETE, name: "Xóa", color: "warn" }],
   };
-
-  sortName = false;
-  sortUser = false;
-  sortAddress = false;
-  sortCity = false;
-  sortCountry = false;
-  sortEmail = false;
-  sortPhone = false;
-  sortFax = false;
-  sortRole = false;
-
-  listUser = [];
-  listCity = [];
-  listCountry = [];
 
   // danh sách các lựa chọn bộ lọc
   toppingListSelected = [];
@@ -220,48 +195,9 @@ export class AddressBookComponent implements OnInit {
     this.mService.LoadAppConfig();
     let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
     this.mTitle = JSON.parse(languageData);
-    //
-    this.mService
-      .getApiService()
-      .sendRequestGET_LIST_USER(1)
-      .then((data) => {
-        if (data.status == STATUS.SUCCESS) {
-          this.listUser = data.array;
-          this.listUser.unshift({ id: -1, name: this.mTitle.all });
-        }
-      });
-    //
-    this.mService
-      .getApiService()
-      .sendRequestGET_LIST_CITY()
-      .then((data) => {
-        if (data.status == STATUS.SUCCESS) {
-          this.listCity = data.array;
-          this.listCity.unshift({ id: -1, name: this.mTitle.all });
-        }
-      });
-    //
-    this.mService
-      .getApiService()
-      .sendRequestGET_ALL_CATEGORY_COUNTRY()
-      .then((data) => {
-        if (data.status == STATUS.SUCCESS) {
-          this.listCountry = data.array;
-          this.listCountry.unshift({ id: -1, name: this.mTitle.all });
-        }
-      });
     if (this.mService.getUser()) {
       let params: any = this.mService.handleActivatedRoute();
       this.page = params.page;
-      if (params.name) this.name = params.name;
-      if (params.userIDFind) this.userIDFind = params.userIDFind;
-      if (params.address) this.address = params.address;
-      if (params.cityID) this.cityID = params.cityID;
-      if (params.countryID) this.countryID = params.countryID;
-      if (params.email) this.email = params.email;
-      if (params.phone) this.phone = params.phone;
-      if (params.fax) this.fax = params.fax;
-      if (params.role) this.role = params.role;
       this.onLoadData(
         this.page,
         this.name,
@@ -293,17 +229,9 @@ export class AddressBookComponent implements OnInit {
   ) {
     this.mService
       .getApiService()
-      .sendRequestGET_LIST_ADDRESS_BOOK(
+      .sendRequestSEARCH_ADDRESS_BOOK(
         page,
-        name,
-        userIDFind,
-        address,
-        cityID,
-        countryID,
-        email,
-        phone,
-        fax,
-        role
+        null
       )
       .then((data) => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
@@ -355,18 +283,9 @@ export class AddressBookComponent implements OnInit {
 
   onClickCell(event) {
     console.log(event);
-  }
-
-  onSortChange(event) {
-    this.sortName = event.value.includes(SORT_TYPE.SEARCH);
-    this.sortUser = event.value.includes(SORT_TYPE.USER);
-    this.sortAddress = event.value.includes(SORT_TYPE.ADDRESS);
-    this.sortCity = event.value.includes(SORT_TYPE.CITY);
-    this.sortCountry = event.value.includes(SORT_TYPE.COUNTRY);
-    this.sortEmail = event.value.includes(SORT_TYPE.EMAIL);
-    this.sortPhone = event.value.includes(SORT_TYPE.PHONE);
-    this.sortFax = event.value.includes(SORT_TYPE.FAX);
-    this.sortRole = event.value.includes(SORT_TYPE.ROLE);
+    this.mService.publishPageRoute("address-book-detail", {
+      addressBookID: event.data.id,
+    });
   }
 
   onClickSearch() {
@@ -470,11 +389,4 @@ export class AddressBookComponent implements OnInit {
         }
       });
   }
-}
-
-function toID(value): number {
-  if (value) {
-    if (!isNaN(value)) return Number(value);
-    else return null;
-  } else return null;
 }

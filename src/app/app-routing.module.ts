@@ -39,6 +39,7 @@ import { MailmergeTemplateDetailComponent } from "./components/mailmerge-templat
 import { AddItemsToMailmergeCampaignComponent } from "./dialogs/add-items-to-mailmerge-campaign/add-items-to-mailmerge-campaign.component";
 import { AddMailmergeTemplateComponent } from './dialogs/add-mailmerge-template/add-mailmerge-template.component';
 import { AddressBookComponent } from './components/address-book/address-book.component';
+import { AddressBookDetailComponent } from './components/address-book-detail/address-book-detail.component';
 
 //GiHug: Thêm đường dẫn route
 const routes: Routes = [
@@ -236,6 +237,11 @@ const routes: Routes = [
     path: "address-book",
     component: AddressBookComponent,
     data: { title: "AddressBook" },
+  },
+  {
+    path: "address-book-detail",
+    component: AddressBookDetailComponent,
+    data: { title: "AddressBookDetail" },
   },
   {
     path: "",

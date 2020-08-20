@@ -257,6 +257,5 @@ export class ApiCmd {
     public static DELETE_MAILMERGE_TEMPLATE: string="crm/delete_mailmerge_template";
     public static GET_DETAIL_MAILMERGE_TEMPLATE: string="crm/get_detail_mailmerge_template";
 
-    public static GET_LIST_ADDRESS_BOOK: string="crm/get_list_address_book";
     public static SEARCH_ADDRESS_BOOK: string="crm/search_address_book";
 }

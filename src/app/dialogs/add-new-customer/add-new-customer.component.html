@@ -9,11 +9,7 @@
         matInput
         formControlName="OldName"
         [(ngModel)]="OldNameChecked"
-        required
       ></mat-checkbox>
-      <mat-error *ngIf="myForm.hasError('required')">
-        Please press <strong>Old Name check box</strong>
-      </mat-error>
     </div>
     <mat-form-field width-100 appearance="fill">
       <mat-label>Full Name</mat-label>
