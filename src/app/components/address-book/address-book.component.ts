@@ -1,11 +1,5 @@
 // author: GiHug 12/08/2020
-import {
-  OnInit,
-  ViewChild,
-  Output,
-  EventEmitter,
-  Component,
-} from "@angular/core";
+import { OnInit, Component } from "@angular/core";
 import { AppModuleService } from "src/app/services/app-module.service";
 import {
   LOCAL_STORAGE_KEY,
@@ -13,15 +7,14 @@ import {
   STATUS,
   EVENT_PUSH,
   CLICK_DETAIL,
-  SORT_TYPE,
 } from "src/app/services/constant/app-constant";
-import { ParamsKey } from "src/app/services/constant/paramskey";
-import { MatSelect, MatInput, MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material";
 import { AddNewCustomerComponent } from "src/app/dialogs/add-new-customer/add-new-customer.component";
 import { DialogComponent } from "src/app/dialogs/dialog/dialog.component";
 import { Observable } from "rxjs";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import { startWith, map } from "rxjs/operators";
+import { ParamsKey } from "src/app/services/constant/paramskey";
 
 export interface ConditionFields {
   name: string;
@@ -37,23 +30,15 @@ export interface Fields {
   styleUrls: ["./address-book.component.scss"],
 })
 export class AddressBookComponent implements OnInit {
-
   mTitle: any;
   page: number = 1;
   collectionSize: number;
   paramsObj: any;
-  hasSort = false;
   hasSearch = false;
-
-  name = "";
-  address = "";
-  email = "";
-  phone = "";
-  fax = "";
-  userIDFind = null;
-  cityID = null;
-  countryID = null;
-  role = null;
+  data: any = {
+    search: "",
+    items: [{ conditionFields: "", fields: "", searchFields: "" }],
+  };
 
   listConditions: ConditionFields[] = [
     { name: "And" },
@@ -198,41 +183,16 @@ export class AddressBookComponent implements OnInit {
     if (this.mService.getUser()) {
       let params: any = this.mService.handleActivatedRoute();
       this.page = params.page;
-      this.onLoadData(
-        this.page,
-        this.name,
-        this.userIDFind,
-        this.address,
-        this.cityID,
-        this.countryID,
-        this.email,
-        this.phone,
-        this.fax,
-        this.role
-      );
+      this.onLoadData(this.page, this.data);
     } else {
       this.mService.publishPageRoute("login");
     }
   }
 
-  onLoadData(
-    page: number,
-    name: string,
-    userIDFind: number,
-    address: string,
-    cityID: number,
-    countryID: number,
-    email: string,
-    phone: string,
-    fax: string,
-    role: string
-  ) {
+  onLoadData(page: number, data: any) {
     this.mService
       .getApiService()
-      .sendRequestSEARCH_ADDRESS_BOOK(
-        page,
-        null
-      )
+      .sendRequestSEARCH_ADDRESS_BOOK(page, JSON.stringify(data))
       .then((data) => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
           this.collectionSize = data.all;
@@ -243,23 +203,6 @@ export class AddressBookComponent implements OnInit {
             listTbData: this.listTbData,
           });
           let listParams = [];
-          if (this.name != "")
-            listParams.push({ key: "name", value: this.name });
-          if (this.userIDFind != "")
-            listParams.push({ key: "userIDFind", value: this.userIDFind });
-          if (this.address != "")
-            listParams.push({ key: "address", value: this.address });
-          if (this.cityID != "")
-            listParams.push({ key: "cityID", value: this.cityID });
-          if (this.cityID != "")
-            listParams.push({ key: "countryID", value: this.countryID });
-          if (this.email != "")
-            listParams.push({ key: "email", value: this.email });
-          if (this.phone != "")
-            listParams.push({ key: "phone", value: this.phone });
-          if (this.fax != "") listParams.push({ key: "fax", value: this.fax });
-          if (this.role != "")
-            listParams.push({ key: "role", value: this.role });
           listParams.push({ key: "page", value: this.page });
           this.paramsObj = this.mService.handleParamsRoute(listParams);
         }
@@ -267,22 +210,10 @@ export class AddressBookComponent implements OnInit {
   }
 
   onClickPagination(event) {
-    this.onLoadData(
-      event,
-      this.name,
-      this.userIDFind,
-      this.address,
-      this.cityID,
-      this.countryID,
-      this.email,
-      this.phone,
-      this.fax,
-      this.role
-    );
+    this.onLoadData(event, this.data);
   }
 
   onClickCell(event) {
-    console.log(event);
     this.mService.publishPageRoute("address-book-detail", {
       addressBookID: event.data.id,
     });
@@ -310,26 +241,13 @@ export class AddressBookComponent implements OnInit {
           Note: res.Note,
           Role: res.Properties,
         };
-        console.log(obj);
-
         this.mService
           .getApiService()
           .sendRequestADD_COMPANY(null, obj)
           .then((data) => {
             this.mService.showSnackBar(data.message);
             if (data.status == STATUS.SUCCESS) {
-              this.onLoadData(
-                1,
-                this.name,
-                this.userIDFind,
-                this.address,
-                this.cityID,
-                this.countryID,
-                this.email,
-                this.phone,
-                this.fax,
-                this.role
-              );
+              this.onLoadData(1, this.data);
             }
           });
       }
@@ -348,18 +266,7 @@ export class AddressBookComponent implements OnInit {
             .sendRequestDELETE_COMPANY(event.data)
             .then((data) => {
               if (data.status == STATUS.SUCCESS) {
-                this.onLoadData(
-                  1,
-                  this.name,
-                  this.userIDFind,
-                  this.address,
-                  this.cityID,
-                  this.countryID,
-                  this.email,
-                  this.phone,
-                  this.fax,
-                  this.role
-                );
+                this.onLoadData(1, this.data);
               }
             });
         }
@@ -372,21 +279,6 @@ export class AddressBookComponent implements OnInit {
   }
 
   onSubmit(value) {
-    console.log(value);
-    console.log(JSON.stringify(value));
-    this.mService
-      .getApiService()
-      .sendRequestSEARCH_ADDRESS_BOOK(1, JSON.stringify(value))
-      .then((data) => {
-        if (data.status == STATUS.SUCCESS) {
-          this.collectionSize = data.all;
-          this.mService.publishEvent(EVENT_PUSH.TABLE, {
-            page: this.page,
-            collectionSize: this.collectionSize,
-            listData: data.array,
-            listTbData: this.listTbData,
-          });
-        }
-      });
+    this.onLoadData(1, value);
   }
 }

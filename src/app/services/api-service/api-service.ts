@@ -2601,4 +2601,26 @@ export class ApiService extends HttpClient {
         .add("data", data)
     );
   }
+
+  //==============================
+  public sendRequestUPDATE_ADDRESS_BOOK(data): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.UPDATE_ADDRESS_BOOK,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("companyID", data.id)
+
+        .addIgnoreNull("companyName", data.company)
+        .addIgnoreNull("companyPhone", data.phone)
+        .addIgnoreNull("companyEmail", data.email)
+        .addIgnoreNull("companyAddress", data.address)
+        .addIgnoreNull("Fax", data.fax)
+        .addIgnoreNull("Role", data.properties)
+        .addIgnoreNull("CountryID", data.CountryID)
+        .addIgnoreNull("Note", data.note)
+    );
+  }
 }

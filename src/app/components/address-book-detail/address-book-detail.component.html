@@ -1,1 +1,138 @@
-<p>address-book-detail works!</p>
+<div *ngIf="mTitle">
+  <div class="m-header">
+    <app-header-menu menuIndex="7"></app-header-menu>
+  </div>
+
+  <div class="padding m-content">
+    <span class="label-title">CUSTOMER INFORMATION</span>
+    <div no-wrap class="padding-content">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Customer Details">
+          <div class="padding-content">
+            <div class="d-flex justify-content-end padding1">
+              <button mat-raised-button color="warn" (click)="onClickEdit()" [disabled]="!hasEdit">
+                <mat-icon>edit</mat-icon> Edit
+              </button>
+            </div>
+            <form
+              [formGroup]="myForm"
+              #form="ngForm"
+              (submit)="onSubmit(form.value)"
+              width-100
+            >
+              <div class="d-flex flex-warp">
+                <mat-form-field appearance="fill">
+                  <mat-label>ID</mat-label>
+                  <input formControlName="id" matInput readonly />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Company</mat-label>
+                  <input
+                    formControlName="company"
+                    matInput
+                    placeholder="Nhập company"
+                    [readonly]="hasEdit"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Phone</mat-label>
+                  <input
+                    formControlName="phone"
+                    matInput
+                    placeholder="Nhập phone"
+                    readonly="{{ hasEdit }}"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Address</mat-label>
+                  <input
+                    formControlName="address"
+                    matInput
+                    placeholder="Nhập address"
+                    readonly="{{ hasEdit }}"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input
+                    formControlName="email"
+                    matInput
+                    placeholder="Nhập email"
+                    readonly="{{ hasEdit }}"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Fax</mat-label>
+                  <input
+                    formControlName="fax"
+                    matInput
+                    placeholder="Nhập fax"
+                    readonly="{{ hasEdit }}"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Nation</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="nation"
+                    [matAutocomplete]="auto"
+                    readonly="{{ hasEdit }}"
+                  />
+                  <mat-autocomplete
+                    autoActiveFirstOption
+                    #auto="matAutocomplete"
+                  >
+                    <mat-option
+                      *ngFor="let item of filterListNation | async"
+                      [value]="item.name"
+                    >
+                      {{ item.name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Properties</mat-label>
+                  <input
+                    formControlName="properties"
+                    matInput
+                    placeholder="Nhập properties"
+                    readonly="{{ hasEdit }}"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Note</mat-label>
+                  <input
+                    formControlName="note"
+                    matInput
+                    placeholder="Nhập note"
+                    readonly="{{ hasEdit }}"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="d-flex justify-content-end padding1">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="submit"
+                >
+                  <mat-icon>save</mat-icon> Save
+                </button>
+                <div style="width: 1%;"></div>
+                <button
+                  mat-raised-button
+                  color="accent"
+                  (click)="onClickCancel()"
+                >
+                  <mat-icon>close</mat-icon> Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-tab>
+        <mat-tab label="Contacts Person">Content 2</mat-tab>
+        <mat-tab label="Change Historys">Content 3</mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
