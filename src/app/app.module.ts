@@ -154,6 +154,7 @@ import { AddMailmergeTemplateComponent } from './dialogs/add-mailmerge-template/
 import { AddNewCustomerComponent } from './dialogs/add-new-customer/add-new-customer.component';
 import { DialogEmailErrorComponent } from './dialogs/dialog-email-error/dialog-email-error.component';
 import { AddressBookDetailComponent } from './components/address-book-detail/address-book-detail.component';
+import { TableAddressBookComponent } from './materials/table-address-book/table-address-book.component';
 
 @NgModule({
   declarations: [
@@ -277,6 +278,7 @@ import { AddressBookDetailComponent } from './components/address-book-detail/add
     AddNewCustomerComponent,
     DialogEmailErrorComponent,
     AddressBookDetailComponent,
+    TableAddressBookComponent,
   ],
   imports: [
     BrowserModule,

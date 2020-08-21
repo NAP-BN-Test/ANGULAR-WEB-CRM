@@ -2597,7 +2597,8 @@ export class ApiService extends HttpClient {
         .add("dbName", this.dbName)
         .add("secretKey", this.mSecretKey)
         .add("userID", this.userID)
-
+        .add("page", page)
+        .add("itemPerPage", this.itemPerPage)
         .add("data", data)
     );
   }

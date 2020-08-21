@@ -1,0 +1,75 @@
+<div class="m-container mat-elevation-z8">
+  <div
+    class="m-option"
+    [hidden]="selection.selected.length == 0"
+    *ngIf="listTbData"
+  >
+    <div padding-start *ngFor="let item of listTbData.listButton">
+      <button mat-flat-button [color]="item.color" (click)="onClickBtn(item)">
+        {{ item.name }}
+      </button>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Full Name Column -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef>Full Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
+    </ng-container>
+
+    <!-- Job Tile Column -->
+    <ng-container matColumnDef="jobTile">
+      <th mat-header-cell *matHeaderCellDef>Job Tile</th>
+      <td mat-cell *matCellDef="let element">{{ element.jobTile }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngFor="let row of element.email">
+          {{ row?.name }}
+          <hr />
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngFor="let row of element.phone">
+          {{ row?.name }}
+          <hr />
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Fax Column -->
+    <ng-container matColumnDef="fax">
+      <th mat-header-cell *matHeaderCellDef>Fax</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngFor="let row of element.fax">
+          {{ row?.name }}
+          <hr />
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="note">
+      <th mat-header-cell *matHeaderCellDef>Note</th>
+      <td mat-cell *matCellDef="let element">{{ element.note }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>

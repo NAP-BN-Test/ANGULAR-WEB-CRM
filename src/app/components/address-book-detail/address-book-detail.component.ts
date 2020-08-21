@@ -8,6 +8,7 @@ import {
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
+import { MatTabChangeEvent } from "@angular/material";
 
 @Component({
   selector: "app-address-book-detail",
@@ -30,15 +31,15 @@ export class AddressBookDetailComponent implements OnInit {
     public mService: AppModuleService
   ) {
     this.myForm = this.formBuilder.group({
-      id: "",
-      company: "",
-      address: "",
-      phone: "",
-      email: "",
-      fax: "",
-      nation: "",
-      note: "",
-      properties: "",
+      id: [""],
+      company: [""],
+      address: [""],
+      phone: [""],
+      email: [""],
+      fax: [""],
+      nation: [""],
+      note: [""],
+      properties: [""],
     });
   }
 
@@ -75,16 +76,18 @@ export class AddressBookDetailComponent implements OnInit {
       .then((data) => {
         if (data.status == STATUS.SUCCESS) {
           let addressBookData = data.obj;
+          console.log(addressBookData);
+
           this.myForm = this.formBuilder.group({
-            id: [addressBookData.id],
-            company: [addressBookData.name],
-            address: [addressBookData.address],
-            phone: [addressBookData.phone],
-            email: [addressBookData.email],
-            fax: [addressBookData.Fax],
-            nation: [addressBookData.Country],
-            note: [addressBookData.Note],
-            properties: [addressBookData.Role],
+            id: addressBookData.id,
+            company: addressBookData.name,
+            address: addressBookData.address,
+            phone: addressBookData.phone,
+            email: addressBookData.email,
+            fax: addressBookData.Fax,
+            nation: addressBookData.Country,
+            note: addressBookData.Note,
+            properties: addressBookData.Role,
           });
         }
       });
@@ -123,4 +126,9 @@ export class AddressBookDetailComponent implements OnInit {
   onClickCancel() {
     this.mService.publishPageRoute("address-book");
   }
+
+  tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
+    console.log("tabChangeEvent => ", tabChangeEvent);
+    console.log("index => ", tabChangeEvent.index);
+  };
 }
