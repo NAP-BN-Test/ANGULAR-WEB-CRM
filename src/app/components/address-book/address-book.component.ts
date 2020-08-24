@@ -15,6 +15,7 @@ import { Observable } from "rxjs";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import { startWith, map } from "rxjs/operators";
 import { ParamsKey } from "src/app/services/constant/paramskey";
+import { OptionColumnSelectedAddressBookComponent } from "src/app/dialogs/option-column-selected-address-book/option-column-selected-address-book.component";
 
 export interface ConditionFields {
   name: string;
@@ -280,5 +281,14 @@ export class AddressBookComponent implements OnInit {
 
   onSubmit(value) {
     this.onLoadData(1, value);
+  }
+
+  onClickOption(event) {
+    const dialogRef = this.dialog.open(
+      OptionColumnSelectedAddressBookComponent,
+      {
+        width: "900px",
+      }
+    );
   }
 }

@@ -156,6 +156,7 @@ import { DialogEmailErrorComponent } from './dialogs/dialog-email-error/dialog-e
 import { AddressBookDetailComponent } from './components/address-book-detail/address-book-detail.component';
 import { TableAddressBookComponent } from './materials/table-address-book/table-address-book.component';
 import { AddUpdateContactToAddressBookComponent } from './dialogs/add-update-contact-to-address-book/add-update-contact-to-address-book.component';
+import { OptionColumnSelectedAddressBookComponent } from './dialogs/option-column-selected-address-book/option-column-selected-address-book.component';
 
 @NgModule({
   declarations: [
@@ -281,6 +282,7 @@ import { AddUpdateContactToAddressBookComponent } from './dialogs/add-update-con
     AddressBookDetailComponent,
     TableAddressBookComponent,
     AddUpdateContactToAddressBookComponent,
+    OptionColumnSelectedAddressBookComponent,
   ],
   imports: [
     BrowserModule,
