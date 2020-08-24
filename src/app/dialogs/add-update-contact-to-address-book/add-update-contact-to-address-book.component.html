@@ -1,0 +1,73 @@
+<h2 mat-dialog-title *ngIf="!mData">ADD NEW CONTACT</h2>
+<h2 mat-dialog-title *ngIf="mData">EDIT CONTACT</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="myForm">
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Full Name</mat-label>
+      <input matInput type="text" formControlName="FullName" required />
+      <mat-error *ngIf="myForm.hasError('required')">
+        Please input <strong>full name</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Position</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="Position"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let item of filterPosition | async"
+          [value]="item.name"
+        >
+          {{ item.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" formControlName="Email" required />
+      <mat-error *ngIf="myForm.hasError('required')">
+        Please input <strong>email</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input matInput type="text" formControlName="Phone" />
+    </mat-form-field>
+
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Fax</mat-label>
+      <input matInput type="text" formControlName="Fax" />
+    </mat-form-field>
+
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Activity</mat-label>
+      <input matInput type="text" formControlName="Activity" />
+    </mat-form-field>
+
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Note</mat-label>
+      <textarea matInput type="text" formControlName="Note"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Hủy</button>
+  <button
+    name="OK"
+    mat-raised-button
+    color="primary"
+    (click)="onClickOk($event)"
+    [disabled]="!myForm.valid"
+    cdkFocusInitial
+  >
+    {{ mData ? "Lưu và đóng" : "Thêm và đóng" }}
+  </button>
+</mat-dialog-actions>

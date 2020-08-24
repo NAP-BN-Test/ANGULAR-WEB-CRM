@@ -11,26 +11,50 @@
     </div>
   </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="id" style="padding-right: 8px !important;">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
     <!-- Full Name Column -->
-    <ng-container matColumnDef="fullName">
+    <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Full Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
     <!-- Job Tile Column -->
-    <ng-container matColumnDef="jobTile">
+    <ng-container matColumnDef="JobTileName">
       <th mat-header-cell *matHeaderCellDef>Job Tile</th>
-      <td mat-cell *matCellDef="let element">{{ element.jobTile }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.JobTileName }}</td>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
       <td mat-cell *matCellDef="let element">
-        <span *ngFor="let row of element.email">
+        <li type="1" *ngFor="let row of element.email">
           {{ row?.name }}
-          <hr />
-        </span>
+          <hr
+            *ngIf="row.name !== element.email[element.email.length - 1].name"
+          />
+        </li>
       </td>
     </ng-container>
 
@@ -38,10 +62,12 @@
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef>Phone</th>
       <td mat-cell *matCellDef="let element">
-        <span *ngFor="let row of element.phone">
+        <li type="1" *ngFor="let row of element.phone">
           {{ row?.name }}
-          <hr />
-        </span>
+          <hr
+            *ngIf="row.name !== element.phone[element.phone.length - 1].name"
+          />
+        </li>
       </td>
     </ng-container>
 
@@ -49,23 +75,33 @@
     <ng-container matColumnDef="fax">
       <th mat-header-cell *matHeaderCellDef>Fax</th>
       <td mat-cell *matCellDef="let element">
-        <span *ngFor="let row of element.fax">
+        <li type="1" *ngFor="let row of element.fax">
           {{ row?.name }}
-          <hr />
-        </span>
+          <hr *ngIf="row.name !== element.fax[element.fax.length - 1].name" />
+        </li>
       </td>
     </ng-container>
 
     <!-- Status Column -->
-    <ng-container matColumnDef="status">
+    <ng-container matColumnDef="Status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.Status }}</td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="note">
+    <!-- Note Column -->
+    <ng-container matColumnDef="Note">
       <th mat-header-cell *matHeaderCellDef>Note</th>
-      <td mat-cell *matCellDef="let element">{{ element.note }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.Note }}</td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container [matColumnDef]="undefined">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="!element.cell" (click)="onClickEdit(element)">
+          <button mat-raised-button color="accent">Sửa</button>
+        </div>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

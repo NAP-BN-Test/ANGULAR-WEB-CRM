@@ -34,6 +34,7 @@ export class TableAddressBookComponent implements OnInit {
 
   displayedColumns: string[] = [];
   displayedColumnsAll: any[] = [];
+  displayedColumnsAction: any[] = [];
 
   dataSource: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);

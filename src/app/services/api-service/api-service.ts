@@ -2624,4 +2624,40 @@ export class ApiService extends HttpClient {
         .addIgnoreNull("Note", data.note)
     );
   }
+
+  //==============================
+  public sendRequestGET_LIST_CONTACT_FROM_ADDRESS_BOOK(
+    page: number,
+    CompanyID: string
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_CONTACT_FROM_ADDRESS_BOOK,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("CompanyID", CompanyID)
+        .add("page", page)
+        .add("itemPerPage", this.itemPerPage)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_LIST_HISTORY_CONTACT(
+    page: number,
+    CompanyID: string
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_HISTORY_CONTACT,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("CompanyID", CompanyID)
+        .add("page", page)
+        .add("itemPerPage", this.itemPerPage)
+    );
+  }
 }

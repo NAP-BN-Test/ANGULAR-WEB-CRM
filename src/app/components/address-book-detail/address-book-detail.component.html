@@ -6,7 +6,11 @@
   <div class="padding m-content">
     <span class="label-title">CUSTOMER INFORMATION</span>
     <div no-wrap class="padding-content">
-      <mat-tab-group mat-align-tabs="start" #tabGroup (selectedTabChange)="tabChanged($event)">
+      <mat-tab-group
+        mat-align-tabs="start"
+        #tabGroup
+        (selectedTabChange)="tabChanged($event)"
+      >
         <mat-tab label="Customer Details">
           <div class="padding-content">
             <div class="d-flex justify-content-end padding1">
@@ -143,6 +147,7 @@
                   color="primary"
                   type="button"
                   class="button-margin-right"
+                  (click)="onClickAddContact()"
                 >
                   <mat-icon>add_circle_outline</mat-icon> Add new
                 </button>
@@ -160,10 +165,21 @@
                 </button>
               </div>
             </div>
-            <app-table-address-book></app-table-address-book>
+            <app-table-address-book
+              (clickPagination)="onClickPaginationContact($event)"
+              (clickBtn)="onClickBtnContact($event)"
+              (clickEdit)="onClickEditContact($event)"
+            ></app-table-address-book>
           </div>
         </mat-tab>
-        <mat-tab label="Change Historys">Content 3</mat-tab>
+        <mat-tab label="Change Historys">
+          <div class="padding-content">
+            <div class="padding1">
+              <span class="span-custom">History Change List</span>
+            </div>
+            <app-table-category (clickPagination)="onClickPaginationHistory($event)"></app-table-category>
+          </div>
+        </mat-tab>
       </mat-tab-group>
     </div>
   </div>
