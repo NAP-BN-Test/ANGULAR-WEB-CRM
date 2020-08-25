@@ -156,9 +156,7 @@ export class AddressBookDetailComponent implements OnInit {
   }
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-    console.log("index => ", tabChangeEvent.index);
     if (tabChangeEvent.index === 1) {
-      console.log("tabChangeEvent => ", tabChangeEvent);
       this.onLoadDataContact(1, this.addressBookID);
     } else if (tabChangeEvent.index === 2) {
       this.onLoadDataHistory(1, this.addressBookID);
@@ -171,7 +169,6 @@ export class AddressBookDetailComponent implements OnInit {
       .sendRequestGET_LIST_CONTACT_FROM_ADDRESS_BOOK(page, addressBookID)
       .then((data) => {
         if (data.status == STATUS.SUCCESS) {
-          console.log(data);
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
             page: this.page,
             collectionSize: this.collectionSize,
@@ -220,24 +217,22 @@ export class AddressBookDetailComponent implements OnInit {
           Fax: res.Fax,
           Activity: res.Activity,
           Note: res.Note,
+          CompanyID: this.addressBookID
         };
-        // this.mService
-        //   .getApiService()
-        //   .sendRequestADD_CONTACT(this.addressBookID.toString(), obj, null)
-        //   .then((data) => {
-        //     console.log(data);
-        //     this.mService.showSnackBar(data.message);
-        //     if (data.status == STATUS.SUCCESS) {
-        //       this.onLoadDataContact(1, this.addressBookID);
-        //     }
-        //   });
+        this.mService
+          .getApiService()
+          .sendRequestADD_CONTACT_ADDRESS_BOOK(obj)
+          .then((data) => {
+            this.mService.showSnackBar(data.message);
+            if (data.status == STATUS.SUCCESS) {
+              this.onLoadDataContact(1, this.addressBookID);
+            }
+          });
       }
     });
   }
 
   onClickEditContact(event) {
-    console.log(event);
-
     const dialogRef = this.dialog.open(AddUpdateContactToAddressBookComponent, {
       width: "500px",
       data: {
@@ -253,7 +248,6 @@ export class AddressBookDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
-        console.log(res);
         let obj = {
           id: event.data.id,
           FullName: res.FullName,
@@ -264,32 +258,15 @@ export class AddressBookDetailComponent implements OnInit {
           Note: res.Note,
           Activity: res.Activity,
         };
-        // this.mService
-        //   .getApiService()
-        //   .sendRequestUPDATE_CONTACT(
-        //     obj.id,
-        //     obj.FullName,
-        //     null,
-        //     obj.Phone,
-        //     obj.Email,
-        //     obj
-        //   )
-        //   .then((data) => {
-        //     this.mService.showSnackBar(data.message);
-        //     if (
-        //       data.status == STATUS.SUCCESS &&
-        //       res.textContent !== "Thiết lập"
-        //     ) {
-        //       this.onLoadData(1, this.searchKey);
-        //     } else {
-        //       this.mService.publishPageRoute(
-        //         "setup-follow-mailmerge-campaign",
-        //         {
-        //           mailMergeCampaignID: event.data.id,
-        //         }
-        //       );
-        //     }
-        //   });
+        this.mService
+          .getApiService()
+          .sendRequestUPDATE_CONTACT_ADDRESS_BOOK(obj)
+          .then((data) => {
+            this.mService.showSnackBar(data.message);
+            if (data.status == STATUS.SUCCESS) {
+              this.onLoadDataContact(1, this.addressBookID);
+            }
+          });
       }
     });
   }
@@ -301,7 +278,6 @@ export class AddressBookDetailComponent implements OnInit {
       .sendRequestGET_LIST_HISTORY_CONTACT(page, addressBookID)
       .then((data) => {
         if (data.status == STATUS.SUCCESS) {
-          console.log(data);
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
             page: this.page,
             collectionSize: this.collectionSize,

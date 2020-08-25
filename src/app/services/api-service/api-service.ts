@@ -2660,4 +2660,55 @@ export class ApiService extends HttpClient {
         .add("itemPerPage", this.itemPerPage)
     );
   }
+  
+  //=========================================================
+  public sendRequestUPDATE_CONTACT_ADDRESS_BOOK(
+    obj:any
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.UPDATE_CONTACT,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("username", this.username)
+        .add("contactID", obj.id)
+        .addIgnoreNull("contactName", obj.FullName)
+        .addIgnoreNull("contactAddress", obj.contactAddress)
+        .addIgnoreNull("contactPhone", obj.Phone)
+        .addIgnoreNull("contactEmail", obj.Email)
+        .addIgnoreNull("contactJobTile", obj.Position)
+        .addIgnoreNull("Fax", obj.Fax)
+        .addIgnoreNull("Active", obj.Activity)
+        .addIgnoreNull("Note", obj.Note)
+        .addIgnoreNull("Status", obj.Status)
+    );
+  }
+
+  //=========================================================
+  public sendRequestADD_CONTACT_ADDRESS_BOOK(
+    obj:any
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.ADD_CONTACT,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("username", this.username)
+        .add("contactID", obj.id)
+        .add("name", obj.FullName)
+        .add("email", obj.Email)
+        .add("companyID",obj.CompanyID)
+        .addIgnoreNull("address", obj.contactAddress)
+        .addIgnoreNull("phone", obj.Phone)
+        .addIgnoreNull("jobTile", obj.Position)
+        .addIgnoreNull("Fax", obj.Fax)
+        .addIgnoreNull("Active", obj.Activity)
+        .addIgnoreNull("Note", obj.Note)
+        .addIgnoreNull("Status", obj.Status)
+    );
+  }
 }
