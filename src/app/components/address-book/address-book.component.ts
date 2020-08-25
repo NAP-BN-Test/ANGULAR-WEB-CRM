@@ -290,5 +290,13 @@ export class AddressBookComponent implements OnInit {
         width: "900px",
       }
     );
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        console.log(res);
+        console.log(res.listColum);
+        this.listTbData.listColum = res.listColum;
+        this.onLoadData(this.page, this.data);
+      }
+    });
   }
 }

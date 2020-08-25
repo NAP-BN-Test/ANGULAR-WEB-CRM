@@ -1,35 +1,46 @@
+<h2>Selected Columns</h2>
+<hr />
 <div cdkDropListGroup>
   <div class="example-container">
-    <h2>To do</h2>
+    <h2>Visible</h2>
 
     <div
       cdkDropList
-      [cdkDropListData]="todo"
+      [cdkDropListData]="Visible"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="example-box" *ngFor="let item of todo" cdkDrag>
-        {{ item }}
+      <div class="example-box" *ngFor="let item of Visible" cdkDrag>
+        {{ item.name }}
       </div>
     </div>
   </div>
 
   <div class="example-container">
-    <h2>Done</h2>
+    <h2>Invisible</h2>
 
     <div
       cdkDropList
-      [cdkDropListData]="done"
+      [cdkDropListData]="Invisible"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="example-box" *ngFor="let item of done" cdkDrag>
-        {{ item }}
+      <div class="example-box" *ngFor="let item of Invisible" cdkDrag>
+        {{ item.name }}
       </div>
     </div>
   </div>
 </div>
-
-<!-- Copyright 2020 Google LLC. All Rights Reserved.
-      Use of this source code is governed by an MIT-style license that
-      can be found in the LICENSE file at http://angular.io/license -->
+<div class="d-flex justify-content-end">
+  <button
+    mat-raised-button
+    (click)="onClick()"
+    color="primary"
+    style="margin-right: 1%;"
+  >
+    <mat-icon>save</mat-icon> Save
+  </button>
+  <button mat-raised-button color="warn" mat-dialog-close>
+    <mat-icon>close</mat-icon> Close
+  </button>
+</div>

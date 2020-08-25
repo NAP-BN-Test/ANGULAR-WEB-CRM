@@ -4,6 +4,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: "app-option-column-selected-address-book",
@@ -11,9 +12,22 @@ import {
   styleUrls: ["./option-column-selected-address-book.component.scss"],
 })
 export class OptionColumnSelectedAddressBookComponent {
-  todo = ["Get to work", "Pick up groceries", "Go home", "Fall asleep"];
+  Visible = [
+    { name: "Full Name", cell: "name" },
+    { name: "Address", cell: "address" },
+    { name: "City", cell: "city" },
+    { name: "Country", cell: "Country" },
+    { name: "Email", cell: "email" },
+    { name: "Phone", cell: "phone" },
+    { name: "Fax", cell: "Fax" },
+    { name: "Role", cell: "Role" },
+  ];
 
-  done = ["Get up", "Brush teeth", "Take a shower", "Check e-mail", "Walk dog"];
+  Invisible = [];
+
+  constructor(
+    public dialogRef: MatDialogRef<OptionColumnSelectedAddressBookComponent>,
+  ){}
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -30,5 +44,11 @@ export class OptionColumnSelectedAddressBookComponent {
         event.currentIndex
       );
     }
+  }
+
+  onClick() {
+    this.dialogRef.close({
+      listColum: this.Visible
+    });
   }
 }

@@ -157,6 +157,7 @@ import { AddressBookDetailComponent } from './components/address-book-detail/add
 import { TableAddressBookComponent } from './materials/table-address-book/table-address-book.component';
 import { AddUpdateContactToAddressBookComponent } from './dialogs/add-update-contact-to-address-book/add-update-contact-to-address-book.component';
 import { OptionColumnSelectedAddressBookComponent } from './dialogs/option-column-selected-address-book/option-column-selected-address-book.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -285,6 +286,7 @@ import { OptionColumnSelectedAddressBookComponent } from './dialogs/option-colum
     OptionColumnSelectedAddressBookComponent,
   ],
   imports: [
+    DragDropModule,
     BrowserModule,
     AppRoutingModule,
     HttpModule,
