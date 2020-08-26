@@ -48,8 +48,11 @@
     </mat-form-field>
 
     <mat-form-field width-100 appearance="fill">
-      <mat-label>Activity</mat-label>
-      <input matInput type="text" formControlName="Activity" />
+      <mat-label>Status</mat-label>
+      <mat-select [(value)]="Status" formControlName="Activity">
+        <mat-option value="Active">Active</mat-option>
+        <mat-option value="Deactive">Deactive</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field width-100 appearance="fill">

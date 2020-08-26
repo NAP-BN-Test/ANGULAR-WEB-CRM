@@ -110,6 +110,27 @@
                   />
                 </mat-form-field>
                 <mat-form-field appearance="fill">
+                  <mat-label>Relationship</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="relationship"
+                    [matAutocomplete]="auto1"
+                    readonly="{{ hasEdit }}"
+                  />
+                  <mat-autocomplete
+                    autoActiveFirstOption
+                    #auto1="matAutocomplete"
+                  >
+                    <mat-option
+                      *ngFor="let item of filterListRelationship | async"
+                      [value]="item.name"
+                    >
+                      {{ item.name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
                   <mat-label>Note</mat-label>
                   <input
                     formControlName="note"
@@ -165,7 +186,9 @@
             <div class="padding1">
               <span class="span-custom">History Change List</span>
             </div>
-            <app-table-category (clickPagination)="onClickPaginationHistory($event)"></app-table-category>
+            <app-table-category
+              (clickPagination)="onClickPaginationHistory($event)"
+            ></app-table-category>
           </div>
         </mat-tab>
       </mat-tab-group>

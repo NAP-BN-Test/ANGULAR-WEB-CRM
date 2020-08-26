@@ -16,6 +16,7 @@ export class AddUpdateContactToAddressBookComponent implements OnInit {
   myForm: FormGroup;
   filterPosition: Observable<string[]>;
   listPosition = [];
+  Status = "Active";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,7 +30,7 @@ export class AddUpdateContactToAddressBookComponent implements OnInit {
       Email: [mData ? mData.Email : ""],
       Phone: [mData ? mData.Phone : ""],
       Fax: [mData ? mData.Fax : ""],
-      Activity: [mData ? mData.Activity : ""],
+      Activity: [mData ? mData.Status : this.Status],
       Note: [mData ? mData.Note : ""],
     });
   }
@@ -60,15 +61,10 @@ export class AddUpdateContactToAddressBookComponent implements OnInit {
         item.name.toLowerCase() == this.myForm.value.Position.toLowerCase()
       );
     });
-    let PositionID = "-1";
-    if (obj) {
-      PositionID = obj.id;
-    }
-    console.log(obj);
-    
+
     this.dialogRef.close({
       FullName: this.myForm.value.FullName,
-      Position: PositionID,
+      Position: returnIDOrNull(obj),
       Email: this.myForm.value.Email,
       Phone: this.myForm.value.Phone,
       Fax: this.myForm.value.Fax,
@@ -76,4 +72,11 @@ export class AddUpdateContactToAddressBookComponent implements OnInit {
       Note: this.myForm.value.Note,
     });
   }
+}
+
+function returnIDOrNull(value) {
+  if (value) {
+    return value.id;
+  }
+  return null;
 }

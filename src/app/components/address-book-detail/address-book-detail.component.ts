@@ -30,6 +30,8 @@ export class AddressBookDetailComponent implements OnInit {
 
   filterListNation: Observable<string[]>;
   listNation = [];
+  filterListRelationship: Observable<string[]>;
+  listRelationship = [];
 
   //data for component table
   listTbDataContact = {
@@ -70,6 +72,7 @@ export class AddressBookDetailComponent implements OnInit {
       nation: [""],
       note: [""],
       properties: [""],
+      relationship: [""],
     });
   }
 
@@ -94,6 +97,16 @@ export class AddressBookDetailComponent implements OnInit {
             map((value) => this._filter(value))
           );
         });
+      this.mService
+        .getApiService()
+        .sendRequestGET_LIST_NAME_COMPANY()
+        .then((data) => {
+          this.listRelationship = data.array;
+          this.filterListRelationship = this.myForm.controls.relationship.valueChanges.pipe(
+            startWith(""),
+            map((value) => this._filterRelationship(value))
+          );
+        });
     } else {
       this.mService.publishPageRoute("login");
     }
@@ -116,6 +129,7 @@ export class AddressBookDetailComponent implements OnInit {
             nation: addressBookData.Country,
             note: addressBookData.Note,
             properties: addressBookData.Role,
+            relationship: addressBookData.ParentName,
           });
         }
       });
@@ -125,11 +139,12 @@ export class AddressBookDetailComponent implements OnInit {
     let obj = this.listNation.find((item) => {
       return item.name.toLowerCase() == this.myForm.value.nation.toLowerCase();
     });
-    let CountryID = "-1";
-    if (obj) {
-      CountryID = obj.id;
-    }
-    value["CountryID"] = CountryID;
+    let _obj = this.listRelationship.find((item) => {
+      return item.name.toLowerCase() == this.myForm.value.relationship.toLowerCase();
+    });
+    value["CountryID"] = returnIDOrNull(obj);
+    value["ChildID"] = returnIDOrNull(_obj);
+    console.log(value);
     this.mService
       .getApiService()
       .sendRequestUPDATE_ADDRESS_BOOK(value)
@@ -147,6 +162,13 @@ export class AddressBookDetailComponent implements OnInit {
   private _filter(value): string[] {
     const filterValue = value.toLowerCase();
     return this.listNation.filter((option: any) =>
+      option.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  private _filterRelationship(value): string[] {
+    const filterValue = value.toLowerCase();
+    return this.listRelationship.filter((option: any) =>
       option.name.toLowerCase().includes(filterValue)
     );
   }
@@ -215,9 +237,9 @@ export class AddressBookDetailComponent implements OnInit {
           Email: res.Email,
           Phone: res.Phone,
           Fax: res.Fax,
-          Activity: res.Activity,
+          Status: res.Activity,
           Note: res.Note,
-          CompanyID: this.addressBookID
+          CompanyID: this.addressBookID,
         };
         this.mService
           .getApiService()
@@ -241,7 +263,7 @@ export class AddressBookDetailComponent implements OnInit {
         Email: convertObjectToString(event.data.email),
         Phone: convertObjectToString(event.data.phone),
         Fax: convertObjectToString(event.data.fax),
-        Activity: event.data.Note,
+        Status: event.data.Activity,
         Note: event.data.Note,
       },
     });
@@ -256,7 +278,7 @@ export class AddressBookDetailComponent implements OnInit {
           Phone: res.Phone,
           Fax: res.Fax,
           Note: res.Note,
-          Activity: res.Activity,
+          Status: res.Activity,
         };
         this.mService
           .getApiService()
@@ -302,4 +324,11 @@ function convertObjectToString(values) {
   }
   let result = a.substring(0, a.length - 1);
   return result;
+}
+
+function returnIDOrNull(value) {
+  if (value) {
+    return value.id;
+  }
+  return null;
 }

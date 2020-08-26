@@ -241,7 +241,10 @@ export class AddressBookComponent implements OnInit {
           CountryID: res.National,
           Note: res.Note,
           Role: res.Properties,
+          ChildID: res.Relationship,
         };
+        console.log(obj);
+        
         this.mService
           .getApiService()
           .sendRequestADD_COMPANY(null, obj)

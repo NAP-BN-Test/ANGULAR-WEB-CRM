@@ -72,6 +72,23 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+    <mat-form-field width-100 appearance="fill">
+      <mat-label>Relationship</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="Relationship"
+        [matAutocomplete]="auto2"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+        <mat-option
+          *ngFor="let item of filterListRelationship | async"
+          [value]="item.name"
+        >
+          {{ item.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
     <mat-form-field width-100>
       <mat-label>Note</mat-label>
       <textarea matInput formControlName="Note"></textarea>

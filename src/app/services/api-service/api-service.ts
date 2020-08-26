@@ -824,6 +824,7 @@ export class ApiService extends HttpClient {
         .addIgnoreNull("CountryID", company.CountryID)
         .addIgnoreNull("Fax", company.Fax)
         .addIgnoreNull("Role", company.Role)
+        .addIgnoreNull("ChildID", company.ChildID)
     );
   }
 
@@ -2622,6 +2623,7 @@ export class ApiService extends HttpClient {
         .addIgnoreNull("Role", data.properties)
         .addIgnoreNull("CountryID", data.CountryID)
         .addIgnoreNull("Note", data.note)
+        .addIgnoreNull("ChildID", data.ChildID)
     );
   }
 
