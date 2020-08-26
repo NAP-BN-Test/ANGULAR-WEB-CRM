@@ -202,12 +202,6 @@ export class MatTableComponent implements OnInit {
         data: row
       });
     }
-    else if (this.listTbData.clickDetail == CLICK_DETAIL.ADDRESS_BOOK) {
-      this.clickCell.emit({
-        clickDetail: CLICK_DETAIL.ADDRESS_BOOK,
-        data: row
-      });
-    }
   }
 
 }

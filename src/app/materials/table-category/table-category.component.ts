@@ -29,7 +29,7 @@ export class TableCategoryComponent implements OnInit {
   @Output("clickPagination") clickPagination = new EventEmitter();
   @Output("clickBtn") clickBtn = new EventEmitter();
   @Output("clickEdit") clickEdit = new EventEmitter();
-  @Output('clickCell') clickCell = new EventEmitter();
+  @Output("clickCell") clickCell = new EventEmitter();
 
   listTbData: any;
   itemPerPage = localStorage.getItem("item-per-page")
@@ -157,23 +157,29 @@ export class TableCategoryComponent implements OnInit {
   /** Click vào ô và bắt event */
   // Gihug viết thêm click cell
   onClickCell(row, cell) {
-
     if (this.listTbData.clickDetail == CLICK_DETAIL.MAILMERGE_CAMPAIGN_LIST) {
       this.clickCell.emit({
         clickDetail: CLICK_DETAIL.MAILMERGE_CAMPAIGN_LIST,
-        data: row
+        data: row,
       });
-    }
-    else if (this.listTbData.clickDetail == CLICK_DETAIL.ADDITIONAL_INFORMATION) {
+    } else if (
+      this.listTbData.clickDetail == CLICK_DETAIL.ADDITIONAL_INFORMATION
+    ) {
       this.clickCell.emit({
         clickDetail: CLICK_DETAIL.ADDITIONAL_INFORMATION,
-        data: row
+        data: row,
       });
-    }
-    else if (this.listTbData.clickDetail == CLICK_DETAIL.MAILMERGE_TEMPLATE_LIST) {
+    } else if (
+      this.listTbData.clickDetail == CLICK_DETAIL.MAILMERGE_TEMPLATE_LIST
+    ) {
       this.clickCell.emit({
         clickDetail: CLICK_DETAIL.MAILMERGE_TEMPLATE_LIST,
-        data: row
+        data: row,
+      });
+    } else if (this.listTbData.clickDetail == CLICK_DETAIL.ADDRESS_BOOK) {
+      this.clickCell.emit({
+        clickDetail: CLICK_DETAIL.ADDRESS_BOOK,
+        data: row,
       });
     }
   }

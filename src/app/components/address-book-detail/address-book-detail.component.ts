@@ -263,7 +263,7 @@ export class AddressBookDetailComponent implements OnInit {
         Email: convertObjectToString(event.data.email),
         Phone: convertObjectToString(event.data.phone),
         Fax: convertObjectToString(event.data.fax),
-        Status: event.data.Activity,
+        Status: event.data.Status,
         Note: event.data.Note,
       },
     });
