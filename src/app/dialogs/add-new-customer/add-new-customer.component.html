@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>ADD NEW CUSTOMER</h2>
+<h2 mat-dialog-title align="center">ADD NEW CUSTOMER</h2>
 
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="myForm">
-    <div class="margin2" width-100>
+    <div class="padding-left6" width-100>
       <mat-label>Old Name&nbsp;&nbsp;</mat-label>
       <mat-checkbox
         class="margin-top-5"
@@ -11,107 +11,158 @@
         [(ngModel)]="OldNameChecked"
       ></mat-checkbox>
     </div>
-    <mat-form-field width-100 appearance="fill">
-      <mat-label>Full Name</mat-label>
-      <input matInput type="text" formControlName="FullName" required />
-      <mat-error *ngIf="myForm.hasError('required')">
-        Please input <strong>Full Name</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field width-100 appearance="fill">
-      <mat-label>Address</mat-label>
-      <input matInput type="text" formControlName="Address" required />
-      <mat-error *ngIf="myForm.hasError('required')">
-        Please input <strong>Address</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field width-100 appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput type="text" formControlName="Email" />
-    </mat-form-field>
-    <mat-form-field width-100 appearance="fill">
-      <mat-label>Phone</mat-label>
-      <input matInput type="text" formControlName="Phone" />
-    </mat-form-field>
-    <mat-form-field width-100 appearance="fill">
-      <mat-label>Fax</mat-label>
-      <input matInput type="text" formControlName="Fax" />
-    </mat-form-field>
-    <!-- <mat-form-field width-100 appearance="fill">
-      <mat-label>Customer Group</mat-label> -->
-    <!-- <input
-        matInput
-        type="text"
-        formControlName="Template_ID"
-        [matAutocomplete]="auto"
-        required
-      /> -->
-    <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option
-          *ngFor="let item of filterListTemplate | async"
-          [value]="item.name"
-        >
-          {{ item.name }}
-        </mat-option>
-      </mat-autocomplete> -->
-    <!-- </mat-form-field> -->
-    <mat-form-field width-100 appearance="fill">
-      <mat-label>National</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="National"
-        [matAutocomplete]="auto1"
-      />
-      <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
-        <mat-option
-          *ngFor="let item of filterListNational | async"
-          [value]="item.name"
-        >
-          {{ item.name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <mat-form-field width-100 appearance="fill">
-      <mat-label>Relationship</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="Relationship"
-        [matAutocomplete]="auto2"
-      />
-      <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-        <mat-option
-          *ngFor="let item of filterListRelationship | async"
-          [value]="item.name"
-        >
-          {{ item.name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <mat-form-field width-100>
-      <mat-label>Note</mat-label>
-      <textarea matInput formControlName="Note"></textarea>
-    </mat-form-field>
+    <p class="d-flex flex-row input-p">
+      <span align="end">Full Name*</span>
+      <mat-form-field width-100 appearance="outline">
+        <input
+          placeholder="Full Name"
+          matInput
+          type="text"
+          formControlName="FullName"
+          required
+        />
+        <mat-error *ngIf="myForm.hasError('required')">
+          Please input <strong>Full Name</strong>
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <p class="d-flex flex-row input-p">
+      <span align="end">Address*</span>
+      <mat-form-field width-100 appearance="outline">
+        <input
+          placeholder="Address"
+          matInput
+          type="text"
+          formControlName="Address"
+          required
+        />
+        <mat-error *ngIf="myForm.hasError('required')">
+          Please input <strong>Address</strong>
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <p class="d-flex flex-row input-p">
+      <span align="end">Email</span>
+      <mat-form-field width-100 appearance="outline">
+        <input
+          matInput
+          type="text"
+          formControlName="Email"
+          placeholder="Email (Many emails are separated by characters ;)"
+        />
+      </mat-form-field>
+    </p>
+    <p class="d-flex flex-row input-p">
+      <span align="end">Phone</span>
+      <mat-form-field width-100 appearance="outline">
+        <input
+          matInput
+          type="text"
+          formControlName="Phone"
+          placeholder="Phone (Many phones are separated by characters ;)"
+          pattern="^((\\+84-?)|0)?[0-9\\;]*$"
+        />
+        <mat-error>Invalid phone number.</mat-error>
+      </mat-form-field>
+    </p>
+    <p class="d-flex flex-row input-p">
+      <span align="end">Fax</span>
+      <mat-form-field width-100 appearance="outline">
+        <input
+          matInput
+          type="text"
+          formControlName="Fax"
+          placeholder="Fax (Many faxs are separated by characters ;)"
+          pattern="^[0-9\\;]*$"
+        />
+        <mat-error>Invalid fax.</mat-error>
+      </mat-form-field>
+    </p>
+    <p class="d-flex flex-row input-p">
+      <span align="end">Customer Group</span>
+      <mat-form-field width-100 appearance="outline">
+        <input
+          matInput
+          type="text"
+          formControlName="CustomerGroup"
+          [matAutocomplete]="auto"
+          placeholder="-- Select Customer Group"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let item of filterListCustomerGroup | async"
+            [value]="item.name"
+          >
+            {{ item.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </p>
+    <p class="d-flex flex-row input-p">
+      <span align="end">National</span>
+      <mat-form-field width-100 appearance="outline">
+        <input
+          matInput
+          type="text"
+          formControlName="National"
+          [matAutocomplete]="auto1"
+          placeholder="-- Select National"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+          <mat-option
+            *ngFor="let item of filterListNational | async"
+            [value]="item.name"
+          >
+            {{ item.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </p>
+    <p class="d-flex flex-row input-p">
+      <span align="end">Relationship</span>
+      <mat-form-field width-100 appearance="outline">
+        <input
+          matInput
+          type="text"
+          formControlName="Relationship"
+          [matAutocomplete]="auto2"
+          placeholder="-- Select Company"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+          <mat-option
+            *ngFor="let item of filterListRelationship | async"
+            [value]="item.name"
+          >
+            {{ item.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </p>
+    <p class="d-flex flex-row input-p">
+      <span align="end">Note</span>
+      <mat-form-field width-100 appearance="outline">
+        <textarea matInput formControlName="Note"></textarea>
+      </mat-form-field>
+    </p>
 
     <div width-100>
       <mat-label>Properties </mat-label>
-      <mat-radio-group
-        class="padding1 auto-down"
-        [(ngModel)]="labelPosition"
+      <mat-selection-list
+        class="selection-list"
         formControlName="Properties"
+        #properties
+        [(ngModel)]="selectedOptions"
+        (ngModelChange)="onNgModelChange($event)"
       >
-        <mat-radio-button value="Applicant">Applicant</mat-radio-button>
-        <mat-radio-button value="Representative"
-          >Representative</mat-radio-button
+        <mat-list-option
+          checkboxPosition="before"
+          class="width-33"
+          *ngFor="let properties of listProperties"
+          [value]="properties"
         >
-        <mat-radio-button value="Member">Member</mat-radio-button>
-        <mat-radio-button value="Author">Author</mat-radio-button>
-        <mat-radio-button value="GovermmentAgency"
-          >Govermment Agency</mat-radio-button
-        >
-        <mat-radio-button value="Other">Other</mat-radio-button>
-      </mat-radio-group>
+          {{ properties }}
+        </mat-list-option>
+      </mat-selection-list>
     </div>
   </form>
 </mat-dialog-content>
@@ -127,9 +178,7 @@
     cdkFocusInitial
     (click)="onClickSave()"
   >
-  <mat-icon>
-    save
-  </mat-icon>
+    <mat-icon> save </mat-icon>
     Save
   </button>
 </mat-dialog-actions>

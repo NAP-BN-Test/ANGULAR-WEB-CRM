@@ -1,0 +1,51 @@
+.m-container {
+  max-height: 650px;
+  overflow: auto;
+  position: relative;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  font-weight: bold !important;
+  font-size: 0.9rem !important;
+}
+
+td,
+th {
+  padding-right: 8px !important;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+.m-option {
+  position: fixed;
+  // box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.2); gihug edit
+  z-index: 999;
+  padding: 10px 32px;
+  background-color: rgba($color: #ffff, $alpha: 0.9);
+  right: 32px;
+  animation: fadeIn 300ms;
+  display: flex;
+  background-color: transparent !important; // Gihug edit
+}
+
+::ng-deep .mat-sort-header-container {
+  justify-content: center;
+}
+
+.mat-header-row {
+  background-color: #702c90 !important;
+}
+
+.mat-header-cell {
+  color: white;
+  text-align: center;
+}
+
+.mat-cell {
+  text-align: center;
+}

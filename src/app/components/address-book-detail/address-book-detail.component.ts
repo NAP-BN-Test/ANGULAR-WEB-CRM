@@ -22,16 +22,22 @@ import { AddUpdateContactToAddressBookComponent } from "src/app/dialogs/add-upda
 export class AddressBookDetailComponent implements OnInit {
   mTitle: any;
   page: number = 1;
+  pageContact: number = 1;
+  pageHistory: number = 1;
+
   myForm: FormGroup;
   hasEdit: boolean = true;
   addressBookID: number = -1;
   addressBookData: any;
-  collectionSize: number;
+  collectionSizeContact: number;
+  collectionSizeHistory: number;
 
   filterListNation: Observable<string[]>;
   listNation = [];
   filterListRelationship: Observable<string[]>;
   listRelationship = [];
+  filterListCustomerGroup: Observable<string[]>;
+  listCustomerGroup = [];
 
   //data for component table
   listTbDataContact = {
@@ -57,6 +63,44 @@ export class AddressBookDetailComponent implements OnInit {
     ],
   };
 
+  listTbDataEmailCampaign = {
+    listColum: [
+      { name: "No", cell: "stt" },
+      { name: "Email Campaign Name", cell: "name" },
+      { name: "Subject", cell: "subject" },
+      { name: "Email Send", cell: "mailSend" },
+      { name: "Date & Time Send Email", cell: "timeCreate" },
+      { name: "Total Emails", cell: "emailArray" },
+      { name: "Total Openings", cell: "totalOpenings" },
+      { name: "Second Openers", cell: "secondOpeners" },
+      { name: "Number Email Unsubscribe", cell: "numberEmailUnsubscribe" },
+    ],
+  };
+
+  listTbDataMailmerge = {
+    listColum: [
+      { name: "No", cell: "stt" },
+      { name: "Mailmerge Name", cell: "mailmergeName" },
+      { name: "Date & Time Send Email", cell: "dateAndTime" },
+      { name: "Email", cell: "email" },
+      { name: "Total Openings", cell: "totalOpenings" },
+      { name: "Second Openers", cell: "secondOpeners" },
+      { name: "Status", cell: "status" },
+      { name: "Note", cell: "note" },
+    ],
+  };
+
+  listProperties: string[] = [
+    "Applicant",
+    "Representative",
+    "Member",
+    "Author",
+    "Govermment Agency",
+    "Other",
+  ];
+  selectedOptions = [];
+  selectedOption;
+
   constructor(
     private formBuilder: FormBuilder,
     public mService: AppModuleService,
@@ -69,9 +113,10 @@ export class AddressBookDetailComponent implements OnInit {
       phone: [""],
       email: [""],
       fax: [""],
+      customerGroup: [""],
       nation: [""],
       note: [""],
-      properties: [""],
+      properties: this.selectedOptions,
       relationship: [""],
     });
   }
@@ -107,6 +152,16 @@ export class AddressBookDetailComponent implements OnInit {
             map((value) => this._filterRelationship(value))
           );
         });
+      this.mService
+        .getApiService()
+        .sendRequestGET_LIST_ALL_CUSTOMER_GROUP(null, null)
+        .then((data) => {
+          this.listCustomerGroup = data.array;
+          this.filterListCustomerGroup = this.myForm.controls.customerGroup.valueChanges.pipe(
+            startWith(""),
+            map((value) => this._filterCustomerGroup(value))
+          );
+        });
     } else {
       this.mService.publishPageRoute("login");
     }
@@ -119,6 +174,8 @@ export class AddressBookDetailComponent implements OnInit {
       .then((data) => {
         if (data.status == STATUS.SUCCESS) {
           let addressBookData = data.obj;
+          if (addressBookData.Role)
+            this.selectedOptions = addressBookData.Role.split(",");
           this.myForm = this.formBuilder.group({
             id: addressBookData.id,
             company: addressBookData.name,
@@ -126,9 +183,10 @@ export class AddressBookDetailComponent implements OnInit {
             phone: addressBookData.phone,
             email: addressBookData.email,
             fax: addressBookData.Fax,
+            customerGroup: addressBookData.CustomerGroup,
             nation: addressBookData.Country,
             note: addressBookData.Note,
-            properties: addressBookData.Role,
+            properties: [this.selectedOptions],
             relationship: addressBookData.ParentName,
           });
         }
@@ -140,11 +198,18 @@ export class AddressBookDetailComponent implements OnInit {
       return item.name.toLowerCase() == this.myForm.value.nation.toLowerCase();
     });
     let _obj = this.listRelationship.find((item) => {
-      return item.name.toLowerCase() == this.myForm.value.relationship.toLowerCase();
+      return (
+        item.name.toLowerCase() == this.myForm.value.relationship.toLowerCase()
+      );
     });
-    value["CountryID"] = returnIDOrNull(obj);
-    value["ChildID"] = returnIDOrNull(_obj);
-    console.log(value);
+    let __obj = this.listCustomerGroup.find((item) => {
+      return (
+        item.name.toLowerCase() == this.myForm.value.customerGroup.toLowerCase()
+      );
+    });
+    value["CountryID"] = returnIDOrQuotes(obj);
+    value["ChildID"] = returnIDOrQuotes(_obj);
+    value["CustomerGroupID"] = returnIDOrQuotes(__obj);
     this.mService
       .getApiService()
       .sendRequestUPDATE_ADDRESS_BOOK(value)
@@ -173,15 +238,27 @@ export class AddressBookDetailComponent implements OnInit {
     );
   }
 
+  private _filterCustomerGroup(value): string[] {
+    const filterValue = value.toLowerCase();
+    return this.listCustomerGroup.filter((option: any) =>
+      option.name.toLowerCase().includes(filterValue)
+    );
+  }
+
   onClickCancel() {
     this.mService.publishPageRoute("address-book");
   }
 
+  // Bắt sự kiện khi đổi tabs
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
     if (tabChangeEvent.index === 1) {
       this.onLoadDataContact(1, this.addressBookID);
     } else if (tabChangeEvent.index === 2) {
       this.onLoadDataHistory(1, this.addressBookID);
+    } else if (tabChangeEvent.index === 3) {
+      this.onLoadDataEmailCampaign(this.addressBookID);
+    } else if (tabChangeEvent.index === 4) {
+      this.onLoadDataMailmerge(this.addressBookID);
     }
   };
 
@@ -191,9 +268,10 @@ export class AddressBookDetailComponent implements OnInit {
       .sendRequestGET_LIST_CONTACT_FROM_ADDRESS_BOOK(page, addressBookID)
       .then((data) => {
         if (data.status == STATUS.SUCCESS) {
+          this.collectionSizeContact = data.all;
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
-            page: this.page,
-            collectionSize: this.collectionSize,
+            page: this.pageContact,
+            collectionSize: this.collectionSizeContact,
             listData: data.array,
             listTbData: this.listTbDataContact,
           });
@@ -202,6 +280,7 @@ export class AddressBookDetailComponent implements OnInit {
   }
 
   onClickPaginationContact(event) {
+    this.pageContact = event;
     this.onLoadDataContact(event, this.addressBookID);
   }
 
@@ -217,7 +296,7 @@ export class AddressBookDetailComponent implements OnInit {
             .sendRequestDELETE_CONTACT(event.data)
             .then((data) => {
               if (data.status == STATUS.SUCCESS) {
-                this.onLoadDataContact(1, this.addressBookID);
+                this.onLoadDataContact(this.pageContact, this.addressBookID);
               }
             });
         }
@@ -247,6 +326,7 @@ export class AddressBookDetailComponent implements OnInit {
           .then((data) => {
             this.mService.showSnackBar(data.message);
             if (data.status == STATUS.SUCCESS) {
+              this.pageContact = 1;
               this.onLoadDataContact(1, this.addressBookID);
             }
           });
@@ -286,11 +366,15 @@ export class AddressBookDetailComponent implements OnInit {
           .then((data) => {
             this.mService.showSnackBar(data.message);
             if (data.status == STATUS.SUCCESS) {
-              this.onLoadDataContact(1, this.addressBookID);
+              this.onLoadDataContact(this.pageContact, this.addressBookID);
             }
           });
       }
     });
+  }
+
+  onNgModelChange($event) {
+    this.selectedOption = $event;
   }
 
   //============================================== History ==================================
@@ -300,9 +384,10 @@ export class AddressBookDetailComponent implements OnInit {
       .sendRequestGET_LIST_HISTORY_CONTACT(page, addressBookID)
       .then((data) => {
         if (data.status == STATUS.SUCCESS) {
+          this.collectionSizeHistory = data.all;
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
-            page: this.page,
-            collectionSize: this.collectionSize,
+            page: this.pageHistory,
+            collectionSize: this.collectionSizeHistory,
             listData: data.array,
             listTbData: this.listTbDataHistory,
           });
@@ -311,7 +396,38 @@ export class AddressBookDetailComponent implements OnInit {
   }
 
   onClickPaginationHistory(event) {
+    this.pageHistory = event;
     this.onLoadDataHistory(event, this.addressBookID);
+  }
+
+  //============================================ Email Campaign ============================
+  onLoadDataEmailCampaign(addressBookID) {
+    this.mService
+      .getApiService()
+      .sendRequestGET_LIST_MAIL_CAMPAIGN(addressBookID)
+      .then((data) => {
+        if (data.status == STATUS.SUCCESS) {
+          this.mService.publishEvent(EVENT_PUSH.TABLE, {
+            listData: data.array,
+            listTbData: this.listTbDataEmailCampaign,
+          });
+        }
+      });
+  }
+
+  //============================================ Mailmerge ============================
+  onLoadDataMailmerge(addressBookID) {
+    this.mService
+      .getApiService()
+      .sendRequestGET_LIST_MAILMERGE(addressBookID)
+      .then((data) => {
+        if (data.status == STATUS.SUCCESS) {
+          this.mService.publishEvent(EVENT_PUSH.TABLE, {
+            listData: data.array,
+            listTbData: this.listTbDataMailmerge,
+          });
+        }
+      });
   }
 }
 
@@ -326,9 +442,9 @@ function convertObjectToString(values) {
   return result;
 }
 
-function returnIDOrNull(value) {
+function returnIDOrQuotes(value) {
   if (value) {
     return value.id;
   }
-  return null;
+  return "";
 }

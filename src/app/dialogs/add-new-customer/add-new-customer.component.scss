@@ -12,5 +12,29 @@
 }
 
 .margin2 {
-    margin: 2%;
-  }
+  margin: 2%;
+}
+
+.selection-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.width-33 {
+  width: 33%;
+}
+
+.input-p {
+  margin: unset;
+}
+
+.input-p span {
+  width: 20%;
+  padding-top: 3%;
+  padding-right: 1%;
+}
+
+// ::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+//   padding: 0.4em 0px !important;
+// }

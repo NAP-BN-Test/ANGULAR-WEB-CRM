@@ -1,10 +1,26 @@
 .m-header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 999;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
 }
 
 .m-content {
-    padding-top: 100px;
+  padding-top: 100px;
+}
+
+.padding-right1 {
+  padding-right: 1%;
+}
+
+.padding-left6 {
+  padding-left: 6%;
+}
+
+.padding-bottom1 {
+  padding-bottom: 1%;
+}
+
+.margin-bottom1 {
+  margin-bottom: 1%;
 }

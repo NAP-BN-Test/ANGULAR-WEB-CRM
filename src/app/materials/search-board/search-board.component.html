@@ -1,0 +1,159 @@
+<div no-wrap style="margin-bottom: 1%">
+  <div class="d-flex justify-content-between padding1">
+    <div>
+      <span class="span-custom">{{ title }}</span>
+    </div>
+    <div class="d-flex flex-row">
+      <button
+        mat-raised-button
+        class="button-margin-right"
+        (click)="onClickSearch()"
+        color="accent"
+      >
+        <mat-icon>search</mat-icon> Search
+      </button>
+      <button
+        *ngIf="!noOption"
+        mat-raised-button
+        class="button-margin-right"
+        (click)="onClickOption($event)"
+      >
+        <mat-icon>miscellaneous_services</mat-icon> Option
+      </button>
+      <button
+        *ngIf="!noAdd"
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="onClickAddNew()"
+      >
+        <mat-icon>add_circle_outline</mat-icon> Add new
+      </button>
+    </div>
+  </div>
+  <div
+    class="d-flex flex-row padding-left-right margin-bottom-20"
+    *ngIf="hasSearch"
+  >
+    <div width-20>
+      <div class="search-condition">Search Conditions</div>
+      <div class="title-input">
+        <button mat-button color="primary" (click)="searchNormal = true">
+          Search
+        </button>
+      </div>
+      <div class="title-input">
+        <button mat-button color="accent" (click)="searchNormal = false">
+          Advanced Search
+        </button>
+      </div>
+    </div>
+    <form
+      [formGroup]="myForm"
+      #form="ngForm"
+      (submit)="onSubmit(form.value)"
+      width-80
+      style="margin-top: 1%"
+    >
+      <table width-100>
+        <tr *ngIf="searchNormal">
+          <td width-70>
+            <mat-form-field width-70>
+              <mat-label>Search</mat-label>
+              <input
+                formControlName="search"
+                matInput
+                placeholder="Nhập từ khóa"
+                width-100
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr
+          formArrayName="items"
+          *ngFor="let item of myForm.get('items')['controls']; let i = index"
+        >
+          <ng-container [formGroupName]="i" *ngIf="!searchNormal">
+            <td>
+              <mat-form-field class="button-margin-right" style="width: 7%">
+                <input
+                  appearance="fill"
+                  type="text"
+                  placeholder="And/Or/Not"
+                  matInput
+                  formControlName="conditionFields"
+                  [matAutocomplete]="autoCondition"
+                />
+                <mat-autocomplete
+                  #autoCondition="matAutocomplete"
+                  [displayWith]="displayFnConditions"
+                >
+                  <mat-option
+                    *ngFor="let option of filteredConditions[i] | async"
+                    [value]="option"
+                  >
+                    {{ option.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-form-field class="button-margin-right">
+                <input
+                  type="text"
+                  placeholder="Fields"
+                  matInput
+                  formControlName="fields"
+                  [matAutocomplete]="autoFields"
+                />
+                <mat-autocomplete
+                  #autoFields="matAutocomplete"
+                  [displayWith]="displayFnFields"
+                >
+                  <mat-option
+                    *ngFor="let option of filteredFields[i] | async"
+                    [value]="option"
+                  >
+                    {{ option.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-form-field class="button-margin-right" style="width: 37%">
+                <input
+                  matInput
+                  placeholder="Write something..."
+                  formControlName="searchFields"
+                />
+              </mat-form-field>
+              <button
+                mat-fab
+                color="primary"
+                type="button"
+                (click)="removeItem(i)"
+                class="button-delete"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+        </tr>
+        <tr *ngIf="!searchNormal">
+          <button mat-fab color="primary" type="button" (click)="addNewItem()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </tr>
+      </table>
+      <div class="d-flex justify-content-center margin-top3">
+        <button
+          mat-raised-button
+          color="accent"
+          type="submit"
+          class="button-margin-right"
+        >
+          <mat-icon>search</mat-icon>Search
+        </button>
+        <button mat-raised-button color="warn" (click)="onClickClear()">
+          <mat-icon>close</mat-icon>Clear
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

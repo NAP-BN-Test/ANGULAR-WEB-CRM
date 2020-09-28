@@ -30,121 +30,185 @@
               width-100
             >
               <div class="d-flex flex-warp">
-                <mat-form-field appearance="fill">
-                  <mat-label>ID</mat-label>
-                  <input matInput formControlName="id" matInput readonly />
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Company</mat-label>
-                  <input
-                    formControlName="company"
-                    matInput
-                    placeholder="Nhập company"
-                    [readonly]="hasEdit"
-                  />
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Phone</mat-label>
-                  <input
-                    formControlName="phone"
-                    matInput
-                    placeholder="Nhập phone"
-                    readonly="{{ hasEdit }}"
-                  />
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Address</mat-label>
-                  <input
-                    formControlName="address"
-                    matInput
-                    placeholder="Nhập address"
-                    readonly="{{ hasEdit }}"
-                  />
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Email</mat-label>
-                  <input
-                    formControlName="email"
-                    matInput
-                    placeholder="Nhập email"
-                    readonly="{{ hasEdit }}"
-                  />
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Fax</mat-label>
-                  <input
-                    formControlName="fax"
-                    matInput
-                    placeholder="Nhập fax"
-                    readonly="{{ hasEdit }}"
-                  />
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Nation</mat-label>
-                  <input
-                    matInput
-                    type="text"
-                    formControlName="nation"
-                    [matAutocomplete]="auto"
-                    readonly="{{ hasEdit }}"
-                  />
-                  <mat-autocomplete
-                    autoActiveFirstOption
-                    #auto="matAutocomplete"
-                  >
-                    <mat-option
-                      *ngFor="let item of filterListNation | async"
-                      [value]="item.name"
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">ID</span>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="id" readonly />
+                  </mat-form-field>
+                </p>
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Company</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      formControlName="company"
+                      matInput
+                      placeholder="Nhập company"
+                      [readonly]="hasEdit"
+                    />
+                  </mat-form-field>
+                </p>
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Phone</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      type="text"
+                      formControlName="phone"
+                      matInput
+                      placeholder="Nhập phone"
+                      readonly="{{ hasEdit }}"
+                      pattern="^((\\+84-?)|0)?[0-9\\;]*$"
+                    />
+                    <mat-error>Invalid phone number.</mat-error>
+                  </mat-form-field>
+                </p>
+
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Address</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      formControlName="address"
+                      matInput
+                      placeholder="Nhập address"
+                      readonly="{{ hasEdit }}"
+                    />
+                  </mat-form-field>
+                </p>
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Email</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      formControlName="email"
+                      matInput
+                      placeholder="Nhập email"
+                      readonly="{{ hasEdit }}"
+                    />
+                  </mat-form-field>
+                </p>
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Fax</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      type="text"
+                      formControlName="fax"
+                      matInput
+                      placeholder="Nhập fax"
+                      readonly="{{ hasEdit }}"
+                      pattern="^[0-9\\;]*$"
+                    />
+                    <mat-error>Invalid fax.</mat-error>
+                  </mat-form-field>
+                </p>
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Customer Group</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      matInput
+                      type="text"
+                      formControlName="customerGroup"
+                      [matAutocomplete]="auto2"
+                      readonly="{{ hasEdit }}"
+                    />
+                    <mat-autocomplete
+                      autoActiveFirstOption
+                      #auto2="matAutocomplete"
                     >
-                      {{ item.name }}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Properties</mat-label>
-                  <input
+                      <mat-option
+                        *ngFor="let item of filterListCustomerGroup | async"
+                        [value]="item.name"
+                      >
+                        {{ item.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </p>
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Nation</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      matInput
+                      type="text"
+                      formControlName="nation"
+                      [matAutocomplete]="auto"
+                      readonly="{{ hasEdit }}"
+                    />
+                    <mat-autocomplete
+                      autoActiveFirstOption
+                      #auto="matAutocomplete"
+                    >
+                      <mat-option
+                        *ngFor="let item of filterListNation | async"
+                        [value]="item.name"
+                      >
+                        {{ item.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </p>
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Relationship</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      placeholder="Name Of Company"
+                      matInput
+                      type="text"
+                      formControlName="relationship"
+                      [matAutocomplete]="auto1"
+                      readonly="{{ hasEdit }}"
+                    />
+                    <mat-autocomplete
+                      autoActiveFirstOption
+                      #auto1="matAutocomplete"
+                    >
+                      <mat-option
+                        *ngFor="let item of filterListRelationship | async"
+                        [value]="item.name"
+                      >
+                        {{ item.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </p>
+                <p width-50 class="d-flex flex-row input-p padding-right1">
+                  <span align="end">Note</span>
+                  <mat-form-field appearance="outline">
+                    <input
+                      formControlName="note"
+                      matInput
+                      placeholder="Nhập note"
+                      readonly="{{ hasEdit }}"
+                    />
+                  </mat-form-field>
+                </p>
+                <div>
+                  <mat-label>Properties </mat-label>
+                  <mat-selection-list
+                    class="selection-list"
                     formControlName="properties"
-                    matInput
-                    placeholder="Nhập properties"
-                    readonly="{{ hasEdit }}"
-                  />
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Relationship</mat-label>
-                  <input
-                    matInput
-                    type="text"
-                    formControlName="relationship"
-                    [matAutocomplete]="auto1"
-                    readonly="{{ hasEdit }}"
-                  />
-                  <mat-autocomplete
-                    autoActiveFirstOption
-                    #auto1="matAutocomplete"
+                    #properties
+                    [(ngModel)]="selectedOptions"
+                    (ngModelChange)="onNgModelChange($event)"
                   >
-                    <mat-option
-                      *ngFor="let item of filterListRelationship | async"
-                      [value]="item.name"
+                    <mat-list-option
+                      checkboxPosition="before"
+                      class="width-33"
+                      *ngFor="let properties of listProperties"
+                      [value]="properties"
                     >
-                      {{ item.name }}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Note</mat-label>
-                  <input
-                    formControlName="note"
-                    matInput
-                    placeholder="Nhập note"
-                    readonly="{{ hasEdit }}"
-                  />
-                </mat-form-field>
+                      {{ properties }}
+                    </mat-list-option>
+                  </mat-selection-list>
+                </div>
               </div>
               <div class="d-flex justify-content-end padding1">
-                <button mat-raised-button color="primary" type="submit">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="!myForm.valid"
+                  type="submit"
+                >
                   <mat-icon>save</mat-icon> Save
                 </button>
-                <div style="width: 1%;"></div>
+                <div style="width: 1%"></div>
                 <button
                   mat-raised-button
                   color="accent"
@@ -189,6 +253,22 @@
             <app-table-category
               (clickPagination)="onClickPaginationHistory($event)"
             ></app-table-category>
+          </div>
+        </mat-tab>
+        <mat-tab label="Email Campaign">
+          <div class="padding-content">
+            <div class="padding1">
+              <span class="span-custom">Email Campaign</span>
+            </div>
+            <app-table-not-paginator></app-table-not-paginator>
+          </div>
+        </mat-tab>
+        <mat-tab label="Mailmerge">
+          <div class="padding-content">
+            <div class="padding1">
+              <span class="span-custom">Mailmerge</span>
+            </div>
+            <app-table-not-paginator></app-table-not-paginator>
           </div>
         </mat-tab>
       </mat-tab-group>

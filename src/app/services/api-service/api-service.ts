@@ -6,9 +6,9 @@ import * as md5 from "md5";
 import { LOCAL_STORAGE_KEY } from "../constant/app-constant";
 
 export class ApiService extends HttpClient {
-  mUrl: string = "http://192.168.1.101:3002/";
+  // mUrl: string = "http://192.168.1.101:3002/";
   // mUrl: string = "http://localhost:3002/";
-  // mUrl: string = "http://163.44.192.123:3002/";
+  mUrl: string = "http://118.27.192.106:3002/";
   mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
   userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)
@@ -2662,11 +2662,9 @@ export class ApiService extends HttpClient {
         .add("itemPerPage", this.itemPerPage)
     );
   }
-  
+
   //=========================================================
-  public sendRequestUPDATE_CONTACT_ADDRESS_BOOK(
-    obj:any
-  ): Promise<any> {
+  public sendRequestUPDATE_CONTACT_ADDRESS_BOOK(obj: any): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_CONTACT,
       ParamBuilder.builder()
@@ -2689,9 +2687,7 @@ export class ApiService extends HttpClient {
   }
 
   //=========================================================
-  public sendRequestADD_CONTACT_ADDRESS_BOOK(
-    obj:any
-  ): Promise<any> {
+  public sendRequestADD_CONTACT_ADDRESS_BOOK(obj: any): Promise<any> {
     return this.requestPost(
       this.mUrl + ApiCmd.ADD_CONTACT,
       ParamBuilder.builder()
@@ -2703,7 +2699,7 @@ export class ApiService extends HttpClient {
         .add("contactID", obj.id)
         .add("name", obj.FullName)
         .add("email", obj.Email)
-        .add("companyID",obj.CompanyID)
+        .add("companyID", obj.CompanyID)
         .addIgnoreNull("address", obj.contactAddress)
         .addIgnoreNull("phone", obj.Phone)
         .addIgnoreNull("jobTile", obj.Position)
@@ -2711,6 +2707,112 @@ export class ApiService extends HttpClient {
         .addIgnoreNull("Active", obj.Activity)
         .addIgnoreNull("Note", obj.Note)
         .addIgnoreNull("Status", obj.Status)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_LIST_ALL_CUSTOMER_GROUP(
+    page: number,
+    searchKey: string
+  ): Promise<any> {
+    let mSearchKey = searchKey != "" ? searchKey : null;
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_ALL_CUSTOMER_GROUP,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("page", page)
+        .addIgnoreNull("searchKey", mSearchKey)
+        .add("itemPerPage", this.itemPerPage)
+    );
+  }
+
+  //==============================
+  public sendRequestADD_CUSTOMER_GROUP(obj: any): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.ADD_CUSTOMER_GROUP,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("Name", obj.Name)
+    );
+  }
+
+  //==============================
+  public sendRequestDELETE_LIST_CUSTOMER_GROUP(listID: string): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.DELETE_LIST_CUSTOMER_GROUP,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("userID", this.userID)
+        .add("secretKey", this.mSecretKey)
+
+        .add("listID", listID)
+    );
+  }
+
+  //==============================
+  public sendRequestUPDATE_CUSTOMER_GROUP(
+    obj: any,
+    customerGroupID
+  ): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.UPDATE_CUSTOMER_GROUP,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+
+        .add("ID", customerGroupID)
+        .add("Name", obj.name)
+    );
+  }
+
+  //==============================
+  public sendRequestDELETE_IMAGE(nameImage: string): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.DELETE_IMAGE,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("userID", this.userID)
+        .add("secretKey", this.mSecretKey)
+
+        .add("nameImage", nameImage)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_LIST_MAIL_CAMPAIGN(CompanyID: string): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_MAIL_CAMPAIGN,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("companyID", CompanyID)
+    );
+  }
+
+  //==============================
+  public sendRequestGET_LIST_MAILMERGE(CompanyID: string): Promise<any> {
+    return this.requestPost(
+      this.mUrl + ApiCmd.GET_LIST_MAILMERGE,
+      ParamBuilder.builder()
+        .add("ip", this.ip)
+        .add("dbName", this.dbName)
+        .add("secretKey", this.mSecretKey)
+        .add("userID", this.userID)
+        .add("companyID", CompanyID)
     );
   }
 }

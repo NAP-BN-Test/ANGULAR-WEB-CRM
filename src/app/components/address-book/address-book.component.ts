@@ -16,6 +16,7 @@ import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import { startWith, map } from "rxjs/operators";
 import { ParamsKey } from "src/app/services/constant/paramskey";
 import { OptionColumnSelectedAddressBookComponent } from "src/app/dialogs/option-column-selected-address-book/option-column-selected-address-book.component";
+import { NgxSpinnerService } from "ngx-spinner";
 
 export interface ConditionFields {
   name: string;
@@ -36,6 +37,7 @@ export class AddressBookComponent implements OnInit {
   collectionSize: number;
   paramsObj: any;
   hasSearch = false;
+  searchNormal = true;
   data: any = {
     search: "",
     items: [{ conditionFields: "", fields: "", searchFields: "" }],
@@ -78,9 +80,6 @@ export class AddressBookComponent implements OnInit {
     ],
     listButton: [{ id: BUTTON_TYPE.DELETE, name: "Xóa", color: "warn" }],
   };
-
-  // danh sách các lựa chọn bộ lọc
-  toppingListSelected = [];
 
   constructor(
     public mService: AppModuleService,
@@ -211,6 +210,7 @@ export class AddressBookComponent implements OnInit {
   }
 
   onClickPagination(event) {
+    this.page = event;
     this.onLoadData(event, this.data);
   }
 
@@ -242,9 +242,8 @@ export class AddressBookComponent implements OnInit {
           Note: res.Note,
           Role: res.Properties,
           ChildID: res.Relationship,
+          CategoryID: res.CustomerGroup,
         };
-        console.log(obj);
-        
         this.mService
           .getApiService()
           .sendRequestADD_COMPANY(null, obj)
@@ -283,6 +282,7 @@ export class AddressBookComponent implements OnInit {
   }
 
   onSubmit(value) {
+    this.page = 1;
     this.onLoadData(1, value);
   }
 
@@ -295,8 +295,6 @@ export class AddressBookComponent implements OnInit {
     );
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
-        console.log(res);
-        console.log(res.listColum);
         this.listTbData.listColum = res.listColum;
         this.onLoadData(this.page, this.data);
       }

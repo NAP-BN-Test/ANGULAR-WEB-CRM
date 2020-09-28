@@ -53,8 +53,6 @@ export class HeaderMenuComponent implements OnInit {
         list: [
           { index: 1, name: menuTitle.contact },
           { index: 2, name: menuTitle.company },
-          // { index: 3, name: menuTitle.logistic },
-          // { index: 4, name: menuTitle.transport }
         ],
       },
       {

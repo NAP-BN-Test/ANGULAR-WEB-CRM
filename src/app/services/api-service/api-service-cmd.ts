@@ -261,4 +261,14 @@ export class ApiCmd {
     public static UPDATE_ADDRESS_BOOK: string="crm/update_company";
     public static GET_LIST_CONTACT_FROM_ADDRESS_BOOK: string="crm/get_list_contact_from_addressbook";
     public static GET_LIST_HISTORY_CONTACT: string="crm/get_list_history_contact";
+
+    public static GET_LIST_ALL_CUSTOMER_GROUP :string="crm/get_list_all_customer_group";
+    public static ADD_CUSTOMER_GROUP :string="crm/add_customer_group";
+    public static DELETE_LIST_CUSTOMER_GROUP :string="crm/delete_list_customer_group";
+    public static UPDATE_CUSTOMER_GROUP :string="crm/update_customer_group";
+
+    public static DELETE_IMAGE: string="crm/delete_image";
+
+    public static GET_LIST_MAIL_CAMPAIGN: string="crm/get_list_mail_campaign";
+    public static GET_LIST_MAILMERGE: string="crm/get_list_mailmerge";
 }

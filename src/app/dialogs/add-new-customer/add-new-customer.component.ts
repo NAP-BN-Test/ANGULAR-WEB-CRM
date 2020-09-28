@@ -18,13 +18,19 @@ export class AddNewCustomerComponent implements OnInit {
   listNational = [];
   filterListRelationship: Observable<string[]>;
   listRelationship = [];
-  labelPosition:
-    | "Applicant"
-    | "Representative"
-    | "Member"
-    | "Author"
-    | "Govermment Agency"
-    | "Other" = "Applicant";
+  filterListCustomerGroup: Observable<string[]>;
+  listCustomerGroup = [];
+
+  listProperties: string[] = [
+    "Applicant",
+    "Representative",
+    "Member",
+    "Author",
+    "Govermment Agency",
+    "Other",
+  ];
+  selectedOptions = [];
+  selectedOption;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,9 +45,10 @@ export class AddNewCustomerComponent implements OnInit {
         Email: [""],
         Phone: [""],
         Fax: [""],
+        CustomerGroup: [""],
         National: [""],
         Note: [""],
-        Properties: ["", [Validators.required]],
+        Properties: [""],
         Relationship: [""],
       },
       { validator: [this.checkRequire] }
@@ -78,6 +85,17 @@ export class AddNewCustomerComponent implements OnInit {
           map((value) => this._filterRelationship(value))
         );
       });
+
+    this.mService
+      .getApiService()
+      .sendRequestGET_LIST_ALL_CUSTOMER_GROUP(null, null)
+      .then((data) => {
+        this.listCustomerGroup = data.array;
+        this.filterListCustomerGroup = this.myForm.controls.CustomerGroup.valueChanges.pipe(
+          startWith(""),
+          map((value) => this._filterCustomerGroup(value))
+        );
+      });
   }
 
   private _filterNational(value): string[] {
@@ -94,6 +112,13 @@ export class AddNewCustomerComponent implements OnInit {
     );
   }
 
+  private _filterCustomerGroup(value): string[] {
+    const filterValue = value.toLowerCase();
+    return this.listCustomerGroup.filter((option: any) =>
+      option.name.toLowerCase().includes(filterValue)
+    );
+  }
+
   onClickSave() {
     let obj: any = this.listNational.find((item) => {
       return (
@@ -105,8 +130,11 @@ export class AddNewCustomerComponent implements OnInit {
         item.name.toLowerCase() == this.myForm.value.Relationship.toLowerCase()
       );
     });
-    console.log(returnIDOrNull(obj));
-    console.log(returnIDOrNull(_obj));
+    let __obj: any = this.listCustomerGroup.find((item) => {
+      return (
+        item.name.toLowerCase() == this.myForm.value.CustomerGroup.toLowerCase()
+      );
+    });
     this.dialogRef.close({
       OldName: this.OldNameChecked,
       FullName: this.myForm.value.FullName,
@@ -114,11 +142,16 @@ export class AddNewCustomerComponent implements OnInit {
       Email: this.myForm.value.Email,
       Phone: this.myForm.value.Phone,
       Fax: this.myForm.value.Fax,
+      CustomerGroup: returnIDOrNull(__obj),
       National: returnIDOrNull(obj),
       Relationship: returnIDOrNull(_obj),
       Note: this.myForm.value.Note,
       Properties: this.myForm.value.Properties,
     });
+  }
+
+  onNgModelChange($event) {
+    this.selectedOption = $event;
   }
 }
 

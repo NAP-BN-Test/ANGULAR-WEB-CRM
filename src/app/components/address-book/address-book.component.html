@@ -18,7 +18,11 @@
           >
             <mat-icon>search</mat-icon> Search
           </button>
-          <button mat-raised-button class="button-margin-right" (click)="onClickOption($event)">
+          <button
+            mat-raised-button
+            class="button-margin-right"
+            (click)="onClickOption($event)"
+          >
             <mat-icon>miscellaneous_services</mat-icon> Option
           </button>
           <button
@@ -32,23 +36,33 @@
         </div>
       </div>
       <div
-        class="d-flex flex-column padding-left-right margin-bottom-20"
+        class="d-flex flex-row padding-left-right margin-bottom-20"
         *ngIf="hasSearch"
       >
+        <div width-20>
+          <div class="search-condition">Search Conditions</div>
+          <div class="title-input">
+            <button mat-button color="primary" (click)="searchNormal = true">
+              Search
+            </button>
+          </div>
+          <div class="title-input">
+            <button mat-button color="accent" (click)="searchNormal = false">
+              Advanced Search
+            </button>
+          </div>
+        </div>
         <form
           [formGroup]="myForm"
           #form="ngForm"
           (submit)="onSubmit(form.value)"
-          width-100
+          width-80
+          style="margin-top: 1%"
         >
           <table width-100>
-            <tr>
-              <div class="search-condition">Search Conditions</div>
-            </tr>
-            <tr>
-              <td width-20 class="title-input"><Span>Search</Span></td>
-              <td width-80>
-                <mat-form-field width-60>
+            <tr *ngIf="searchNormal">
+              <td width-70>
+                <mat-form-field width-70>
                   <mat-label>Search</mat-label>
                   <input
                     formControlName="search"
@@ -66,15 +80,9 @@
                 let i = index
               "
             >
-              <ng-container [formGroupName]="i">
-                <td width-20 class="title-input">
-                  <Span *ngIf="i === 0">Advanced Search</Span>
-                </td>
-                <td width-80>
-                  <mat-form-field
-                    class="button-margin-right"
-                    style="width: 7%;"
-                  >
+              <ng-container [formGroupName]="i" *ngIf="!searchNormal">
+                <td>
+                  <mat-form-field class="button-margin-right" style="width: 7%">
                     <input
                       appearance="fill"
                       type="text"
@@ -117,7 +125,7 @@
                   </mat-form-field>
                   <mat-form-field
                     class="button-margin-right"
-                    style="width: 37%;"
+                    style="width: 37%"
                   >
                     <input
                       matInput
@@ -137,19 +145,18 @@
                 </td>
               </ng-container>
             </tr>
-            <tr>
+            <tr *ngIf="!searchNormal">
               <button
                 mat-fab
                 color="primary"
                 type="button"
                 (click)="addNewItem()"
-                class="margin-left-100"
               >
                 <mat-icon>add</mat-icon>
               </button>
             </tr>
           </table>
-          <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center margin-top3">
             <button
               mat-raised-button
               color="accent"
@@ -164,13 +171,22 @@
           </div>
         </form>
       </div>
-      <div style="margin-top: 2%;">
-        <app-table-category
+      <div style="margin-top: 2%">
+        <app-table-data
           (clickPagination)="onClickPagination($event)"
           (clickCell)="onClickCell($event)"
           (clickBtn)="onClickBtn($event)"
-        ></app-table-category>
+        ></app-table-data>
       </div>
     </div>
   </div>
 </div>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="large"
+  color="#9c0c76"
+  type="ball-climbing-dot"
+  [fullScreen]="true"
+>
+  <p style="color: white">Loading...</p>
+</ngx-spinner>
