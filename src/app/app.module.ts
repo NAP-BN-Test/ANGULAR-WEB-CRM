@@ -162,6 +162,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { TableDataComponent } from "./materials/table-data/table-data.component";
 import { MatListModule } from "@angular/material/list";
 import { SearchBoardComponent } from './materials/search-board/search-board.component';
+import { SalesSellingComponent } from './components/sales-selling/sales-selling.component';
+import { SalesSellingQuotationComponent } from './components/sales-selling-quotation/sales-selling-quotation.component';
+import { TableSalesSellingQuotationComponent } from './materials/table-sales-selling-quotation/table-sales-selling-quotation.component';
+import { AddNewSalesSellingQuotationComponent } from './dialogs/add-new-sales-selling-quotation/add-new-sales-selling-quotation.component';
 
 @NgModule({
   declarations: [
@@ -290,6 +294,10 @@ import { SearchBoardComponent } from './materials/search-board/search-board.comp
     OptionColumnSelectedAddressBookComponent,
     TableDataComponent,
     SearchBoardComponent,
+    SalesSellingComponent,
+    SalesSellingQuotationComponent,
+    TableSalesSellingQuotationComponent,
+    AddNewSalesSellingQuotationComponent,
   ],
   imports: [
     DragDropModule,

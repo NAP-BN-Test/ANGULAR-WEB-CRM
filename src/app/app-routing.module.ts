@@ -37,9 +37,11 @@ import { MailmergeCampaignListComponent } from "./components/mailmerge-campaign-
 import { SetupFollowMailmergeCampaignComponent } from "./components/setup-follow-mailmerge-campaign/setup-follow-mailmerge-campaign.component";
 import { MailmergeTemplateDetailComponent } from "./components/mailmerge-template-detail/mailmerge-template-detail.component";
 import { AddItemsToMailmergeCampaignComponent } from "./dialogs/add-items-to-mailmerge-campaign/add-items-to-mailmerge-campaign.component";
-import { AddMailmergeTemplateComponent } from './dialogs/add-mailmerge-template/add-mailmerge-template.component';
-import { AddressBookComponent } from './components/address-book/address-book.component';
-import { AddressBookDetailComponent } from './components/address-book-detail/address-book-detail.component';
+import { AddMailmergeTemplateComponent } from "./dialogs/add-mailmerge-template/add-mailmerge-template.component";
+import { AddressBookComponent } from "./components/address-book/address-book.component";
+import { AddressBookDetailComponent } from "./components/address-book-detail/address-book-detail.component";
+import { SalesSellingComponent } from "./components/sales-selling/sales-selling.component";
+import { AddNewSalesSellingQuotationComponent } from './dialogs/add-new-sales-selling-quotation/add-new-sales-selling-quotation.component';
 
 //GiHug: Thêm đường dẫn route
 const routes: Routes = [
@@ -242,6 +244,16 @@ const routes: Routes = [
     path: "address-book-detail",
     component: AddressBookDetailComponent,
     data: { title: "AddressBookDetail" },
+  },
+  {
+    path: "sales-selling",
+    component: SalesSellingComponent,
+    data: { title: "SalesSelling" },
+  },
+  {
+    path: "add-new-sales-selling-quotation",
+    component: AddNewSalesSellingQuotationComponent,
+    data: { title: "AddNewSalesSellingQuotation" },
   },
   {
     path: "",

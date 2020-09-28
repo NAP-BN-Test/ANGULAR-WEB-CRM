@@ -1,0 +1,182 @@
+<div class="m-container mat-elevation-z8">
+  <div
+    class="m-option"
+    [hidden]="selection.selected.length == 0"
+    *ngIf="listTbData"
+  >
+    <div padding-start *ngFor="let item of listTbData.listButton">
+      <button mat-flat-button [color]="item.color" (click)="onClickBtn(item)">
+        {{ item.name }}
+      </button>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="id" style="padding-right: 8px !important">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Icon Column -->
+    <ng-container matColumnDef="icon">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.icon === true" color="primary">
+          airplanemode_active
+        </mat-icon>
+        <mat-icon *ngIf="element.icon === false" color="accent">
+          directions_boat
+        </mat-icon>
+      </td>
+    </ng-container>
+
+    <!-- Báo giá số Column -->
+    <ng-container matColumnDef="quoteNumber">
+      <th mat-header-cell *matHeaderCellDef>Báo giá số</th>
+      <td mat-cell *matCellDef="let element">{{ element.quoteNumber }}</td>
+    </ng-container>
+
+    <!-- Hiệu lực từ Column -->
+    <ng-container matColumnDef="activeFromDate">
+      <th mat-header-cell *matHeaderCellDef>Hiệu lực từ</th>
+      <td mat-cell *matCellDef="let element">{{ element.activeFromDate }}</td>
+    </ng-container>
+
+    <!-- Hiệu lực đến Column -->
+    <ng-container matColumnDef="activeToDate">
+      <th mat-header-cell *matHeaderCellDef>Hiệu lực đến</th>
+      <td mat-cell *matCellDef="let element">{{ element.activeToDate }}</td>
+    </ng-container>
+
+    <!-- Dịch vụ Column -->
+    <ng-container matColumnDef="service">
+      <th mat-header-cell *matHeaderCellDef>Dịch Vụ</th>
+      <td mat-cell *matCellDef="let element">{{ element.service }}</td>
+    </ng-container>
+
+    <!-- Loại Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Loại</th>
+      <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+    </ng-container>
+
+    <!-- Tuyến Column -->
+    <ng-container matColumnDef="route">
+      <th mat-header-cell *matHeaderCellDef>Tuyến</th>
+      <td mat-cell *matCellDef="let element">{{ element.route }}</td>
+    </ng-container>
+
+    <!-- Khách hàng Column -->
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef>Khách hàng</th>
+      <td mat-cell *matCellDef="let element">{{ element.customer }}</td>
+    </ng-container>
+
+    <!-- Hướng Column -->
+    <ng-container matColumnDef="direction">
+      <th mat-header-cell *matHeaderCellDef>Hướng</th>
+      <td mat-cell *matCellDef="let element">{{ element.direction }}</td>
+    </ng-container>
+
+    <!-- Thanh toán Column -->
+    <ng-container matColumnDef="payment">
+      <th mat-header-cell *matHeaderCellDef>Thanh toán</th>
+      <td mat-cell *matCellDef="let element">{{ element.payment }}</td>
+    </ng-container>
+
+    <!-- Cước VC Column -->
+    <ng-container matColumnDef="postageVC">
+      <th mat-header-cell *matHeaderCellDef>Cước VC</th>
+      <td mat-cell *matCellDef="let element">{{ element.postageVC }}</td>
+    </ng-container>
+
+    <!-- Chí phí khác Column -->
+    <ng-container matColumnDef="otherFee">
+      <th mat-header-cell *matHeaderCellDef>Chí phí khác</th>
+      <td mat-cell *matCellDef="let element">{{ element.otherFee }}</td>
+    </ng-container>
+
+    <!-- Phí NĐ & NN Column -->
+    <ng-container matColumnDef="feeNDNN">
+      <th mat-header-cell *matHeaderCellDef>Phí NĐ & NN</th>
+      <td mat-cell *matCellDef="let element">{{ element.feeNDNN }}</td>
+    </ng-container>
+
+    <!-- Chia sẻ & HH Column -->
+    <ng-container matColumnDef="shareHH">
+      <th mat-header-cell *matHeaderCellDef>Chia sẻ & HH</th>
+      <td mat-cell *matCellDef="let element">{{ element.shareHH }}</td>
+    </ng-container>
+
+    <!-- Phê duyệt Column -->
+    <ng-container matColumnDef="approval">
+      <th mat-header-cell *matHeaderCellDef>Phê duyệt</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox
+          class="example-margin"
+          [(ngModel)]="element.approval"
+        ></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Người duyệt Column -->
+    <ng-container matColumnDef="approvedBy">
+      <th mat-header-cell *matHeaderCellDef>Người duyệt</th>
+      <td mat-cell *matCellDef="let element">{{ element.approvedBy }}</td>
+    </ng-container>
+
+    <!-- Người tạo Column -->
+    <ng-container matColumnDef="creater">
+      <th mat-header-cell *matHeaderCellDef>Người tạo</th>
+      <td mat-cell *matCellDef="let element">{{ element.creater }}</td>
+    </ng-container>
+
+    <!-- Ngày tạo Column -->
+    <ng-container matColumnDef="createDate">
+      <th mat-header-cell *matHeaderCellDef>Ngày tạo</th>
+      <td mat-cell *matCellDef="let element">{{ element.createDate }}</td>
+    </ng-container>
+
+    <!-- Người sửa Column -->
+    <ng-container matColumnDef="editer">
+      <th mat-header-cell *matHeaderCellDef>Người sửa</th>
+      <td mat-cell *matCellDef="let element">{{ element.editer }}</td>
+    </ng-container>
+
+    <!-- Ngày sửa Column -->
+    <ng-container matColumnDef="editDate">
+      <th mat-header-cell *matHeaderCellDef>Ngày sửa</th>
+      <td mat-cell *matCellDef="let element">{{ element.editDate }}</td>
+    </ng-container>
+
+    <!-- Thao tác Column -->
+    <ng-container [matColumnDef]="undefined">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Thao tác</th>
+      <td tappable mat-cell *matCellDef="let row">
+        <div (click)="onClickEdit(row)">
+          <button mat-raised-button color="accent">Sửa</button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>

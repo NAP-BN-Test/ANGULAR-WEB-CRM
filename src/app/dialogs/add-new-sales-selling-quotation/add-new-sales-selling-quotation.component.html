@@ -1,0 +1,54 @@
+<div>
+  <div class="m-header">
+    <app-header-menu menuIndex="8"></app-header-menu>
+  </div>
+
+  <div class="padding m-content">
+    <span class="label-title">New Quote</span>
+    <form
+      [formGroup]="myForm"
+      #form="ngForm"
+      (submit)="onSubmit(form.value)"
+      width-100
+      class="form-padding"
+    >
+      <div>
+        <span class="title-form">GENERAL INFORMATION</span>
+        <div class="d-flex flex-warp padding-top2">
+          <p width-50 class="d-flex flex-row input-p padding-right1">
+            <span align="end">ID</span>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="id" readonly />
+            </mat-form-field>
+          </p>
+          <p width-50 class="d-flex flex-row input-p padding-right1">
+            <span align="end">Company</span>
+            <mat-form-field appearance="outline">
+              <input
+                formControlName="company"
+                matInput
+                placeholder="Nhập company"
+              />
+            </mat-form-field>
+          </p>
+          <p width-50 class="d-flex flex-row input-p padding-right1">
+            <span align="end">Phone</span>
+            <mat-form-field appearance="outline">
+              <input
+                type="text"
+                formControlName="phone"
+                matInput
+                placeholder="Nhập phone"
+              />
+              <mat-error>Invalid phone number.</mat-error>
+            </mat-form-field>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <span class="title-form">ROUTER</span>
+      </div>
+    </form>
+  </div>
+</div>

@@ -69,8 +69,17 @@ export class HeaderMenuComponent implements OnInit {
       {
         index: 7,
         name: menuTitle.address_book,
+        list: [{ index: 1, name: menuTitle.address_book }],
+      },
+      {
+        index: 8,
+        name: "Sales",
         list: [
-          { index: 1, name: menuTitle.address_book },],
+          { index: 1, name: "Booking" },
+          { index: 2, name: "Selling" },
+          { index: 3, name: "Buying" },
+          { index: 4, name: "Work order" },
+        ],
       },
       {
         index: 3,
@@ -180,16 +189,19 @@ export class HeaderMenuComponent implements OnInit {
         } else if (indexChild == 6) {
           this.router.navigate(["mail-outcome"]);
         }
-      }else if (index == 6) {
+      } else if (index == 6) {
         if (indexChild == 1) {
           this.router.navigate(["mailmerge-campaign-list"]);
         } else if (indexChild == 2) {
           this.router.navigate(["mailmerge-template-list"]);
         }
-      }
-      else if (index == 7) {
+      } else if (index == 7) {
         if (indexChild == 1) {
           this.router.navigate(["address-book"]);
+        }
+      } else if (index == 8) {
+        if (indexChild == 2) {
+          this.router.navigate(["sales-selling"]);
         }
       }
     }
