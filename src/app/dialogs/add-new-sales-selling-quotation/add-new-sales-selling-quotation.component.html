@@ -3,52 +3,495 @@
     <app-header-menu menuIndex="8"></app-header-menu>
   </div>
 
-  <div class="padding m-content">
-    <span class="label-title">New Quote</span>
-    <form
-      [formGroup]="myForm"
-      #form="ngForm"
-      (submit)="onSubmit(form.value)"
-      width-100
-      class="form-padding"
-    >
-      <div>
-        <span class="title-form">GENERAL INFORMATION</span>
-        <div class="d-flex flex-warp padding-top2">
-          <p width-50 class="d-flex flex-row input-p padding-right1">
-            <span align="end">ID</span>
+  <form
+    [formGroup]="myForm"
+    #form="ngForm"
+    (submit)="onSubmit(form.value)"
+    width-100
+    class="form-padding"
+  >
+    <div class="d-flex flex-row justify-content-between">
+      <div class="d-flex justify-content-between">
+        <button
+          class="margin-right2"
+          mat-raised-button
+          (click)="accordion.openAll()"
+          color="primary"
+        >
+          Mở tất cả
+        </button>
+        <button mat-raised-button (click)="accordion.closeAll()" color="accent">
+          Đóng tất cả
+        </button>
+      </div>
+
+      <span class="label-title">New Quote</span>
+    </div>
+
+    <mat-accordion class="example-headers-align" multi>
+      <!-- ========================================================================================= -->
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title-form">
+            GENERAL INFORMATION
+          </mat-panel-title>
+          <mat-panel-description>
+            Click để mở hoặc đóng nhập thông tin chung
+            <mat-icon>description</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="d-flex flex-warp">
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Số BG.</span>
             <mat-form-field appearance="outline">
-              <input matInput formControlName="id" readonly />
+              <input matInput formControlName="quoteNumber" />
             </mat-form-field>
           </p>
-          <p width-50 class="d-flex flex-row input-p padding-right1">
-            <span align="end">Company</span>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Loại KH</span>
             <mat-form-field appearance="outline">
-              <input
-                formControlName="company"
-                matInput
-                placeholder="Nhập company"
-              />
+              <input formControlName="customer" matInput />
             </mat-form-field>
           </p>
-          <p width-50 class="d-flex flex-row input-p padding-right1">
-            <span align="end">Phone</span>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Hướng</span>
             <mat-form-field appearance="outline">
-              <input
-                type="text"
-                formControlName="phone"
-                matInput
-                placeholder="Nhập phone"
-              />
-              <mat-error>Invalid phone number.</mat-error>
+              <input type="text" formControlName="direction" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Ngày tạo</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="createDate" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Báo giá đến</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="quoteNumberTo" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Loại hàng hóa</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="type" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Hiệu lực đến</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="activeToDate" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Người liên hệ</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="contactPerson" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Phương thức thanh toán</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="paymentMethod" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Gia hạn</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="extend" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Số điện thoại</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="phone" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Thời hạn tín dụng (Ngày)</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="creditTerm" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33"></p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Email</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="email" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Trạng thái BG</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="statusBG" matInput />
             </mat-form-field>
           </p>
         </div>
-      </div>
+      </mat-expansion-panel>
 
-      <div>
-        <span class="title-form">ROUTER</span>
-      </div>
-    </form>
-  </div>
+      <!-- ======================================================================================================================================================== -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title-form"> ROUTER </mat-panel-title>
+          <mat-panel-description>
+            Click để mở hoặc đóng nhập thông tin lộ trình
+            <mat-icon>alt_route</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="d-flex flex-warp">
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Loại hình VC</span>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="icon" />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Quốc gia</span>
+            <mat-form-field appearance="outline">
+              <input formControlName="nationalFrom" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Quốc Gia</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="nationalTo" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Dịch vụ</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="service" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Cảng</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="portFrom" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Cảng</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="portTo" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">ĐV. Vận chuyển</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="shippingUnit" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Bãi</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="parkFrom" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Bãi</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="parkTo" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">ETC</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="etc" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Kho CFS</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="cfsFrom" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Kho CFS</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="cfsTo" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">ETD</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="etd" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Nơi nhận</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="receiver" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Nơi giao</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="placeOfDelivery" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row width-33 double-input">
+            <span align="end" style="width: 25%">Thời gian VC</span>
+            <mat-form-field appearance="outline" style="width: 26%">
+              <input type="text" formControlName="timeShipping" matInput />
+            </mat-form-field>
+            <span align="end">Lịch trình</span>
+            <mat-form-field appearance="outline" style="width: 25%">
+              <input type="text" formControlName="receiver" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Quốc gia quá cảnh</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="countryInTransit" matInput />
+            </mat-form-field>
+          </p>
+          <p class="d-flex flex-row input-p padding-right1 width-33">
+            <span align="end">Cảng quá cảnh</span>
+            <mat-form-field appearance="outline">
+              <input type="text" formControlName="portTransit" matInput />
+            </mat-form-field>
+          </p>
+          <div
+            class="d-flex justify-content-between flex-row check-box"
+            width-100
+          >
+            <mat-checkbox formControlName="hideCarrier">
+              Hide Carrier
+            </mat-checkbox>
+            <div class="d-flex justify-content-between" width-40>
+              <button mat-raised-button color="primary">
+                <mat-icon>add</mat-icon> Thêm tuyến mới
+              </button>
+              <button mat-raised-button color="accent">
+                <mat-icon>save</mat-icon> Save
+              </button>
+              <button mat-raised-button color="warn">
+                <mat-icon>money_off</mat-icon>Báo giá cũ
+              </button>
+              <button mat-raised-button>
+                <mat-icon>local_atm</mat-icon>Báo giá liên quan
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <!-- =========================================================================================== -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title-form"> CHARGES </mat-panel-title>
+          <mat-panel-description>
+            Click để mở hoặc đóng nhập thông tin phí
+            <mat-icon>request_page</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="d-flex justify-content-center flex-row check-box" width-100>
+          <mat-checkbox class="margin-right2" formControlName="share">
+            Share
+          </mat-checkbox>
+          <mat-checkbox class="margin-right2" formControlName="atCost">
+            At Cost
+          </mat-checkbox>
+          <mat-checkbox formControlName="hideOnPrint">
+            Hide On Print
+          </mat-checkbox>
+        </div>
+
+        <div class="d-flex flex-row">
+          <div class="d-flex flex-warp width-6666">
+            <p class="d-flex flex-row input-p padding-right1 width-50">
+              <span align="end">Loại HH. VC.</span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="typeHHVC" value="FCL">
+                  <mat-option value="FCL">FCL</mat-option>
+                  <mat-option value="LCL">LCL</mat-option>
+                  <mat-option value="AIR">AIR</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p class="d-flex flex-row input-p padding-right1 width-50">
+              <span align="end" class="width-36">Giá bán</span>
+              <mat-form-field appearance="outline" class="width-46-i">
+                <input formControlName="priceSell" matInput />
+              </mat-form-field>
+              <mat-form-field appearance="outline" width-20>
+                <mat-select formControlName="unitPriceSell" value="VND">
+                  <mat-option value="VND">VND</mat-option>
+                  <mat-option value="ER">ER</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p class="d-flex flex-row input-p padding-right1 width-50">
+              <span align="end">Cước/Phí</span>
+              <mat-form-field appearance="outline">
+                <input type="text" formControlName="postageFee" matInput />
+              </mat-form-field>
+            </p>
+            <p class="d-flex flex-row input-p padding-right1 width-50">
+              <span align="end" class="width-36">Giá Mua</span>
+              <mat-form-field appearance="outline" class="width-46-i">
+                <mat-select
+                  formControlName="priceBuy"
+                  value="Main Freight Charges"
+                >
+                  <mat-option value="Main Freight Charges">
+                    Main Freight Charges
+                  </mat-option>
+                  <mat-option value="Main Freight Charges 1"
+                    >Main Freight Charges 1
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" width-20>
+                <mat-select formControlName="unitPriceBuy" value="VND">
+                  <mat-option value="VND">VND</mat-option>
+                  <mat-option value="ER">ER</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p
+              class="d-flex flex-row input-p padding-right1 width-50 padding-right1x5"
+            >
+              <span align="end" class="width-36">Đơn vị tính</span>
+              <mat-form-field appearance="outline" class="width-46-i">
+                <mat-select formControlName="unit" value="40 DC">
+                  <mat-option value="40 DC">40 DC</mat-option>
+                  <mat-option value="50 DC">50 DC</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button mat-raised-button color="accent" class="button-unit">
+                Many Units
+              </button>
+            </p>
+            <p class="d-flex flex-row input-p padding-right1 width-50">
+              <span align="end" class="width-36">Mã VAT</span>
+              <mat-form-field appearance="outline" class="width-46-i">
+                <mat-select formControlName="codeVAT" value="Include VAT 2.5%">
+                  <mat-option value="Include VAT 2.5%">
+                    Include VAT 2.5%
+                  </mat-option>
+                  <mat-option value="Include VAT 5%">
+                    Include VAT 5%
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" width-20>
+                <input type="text" formControlName="unitCodeVAT" matInput />
+              </mat-form-field>
+            </p>
+            <p
+              *ngIf="myForm.get('typeHHVC').value === 'FCL'"
+              class="d-flex flex-row input-p padding-right1 width-50"
+            >
+              <span align="end" class="width-36">Trọng lượng tối đa</span>
+              <mat-form-field appearance="outline" class="width-46-i">
+                <input formControlName="maxWeight" matInput />
+              </mat-form-field>
+              <mat-form-field appearance="outline" width-20>
+                <mat-select formControlName="unitMaxWeight" value="KG">
+                  <mat-option value="KG">KG</mat-option>
+                  <mat-option value="T">T</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p
+              *ngIf="myForm.get('typeHHVC').value === 'FCL'"
+              class="d-flex flex-row input-p padding-right1 width-50"
+            >
+              <span align="end" class="width-36">Giới hạn trọng lượng</span>
+              <mat-form-field appearance="outline" class="width-46-i">
+                <input formControlName="limitWeight" matInput />
+              </mat-form-field>
+              <mat-form-field appearance="outline" width-20>
+                <mat-select formControlName="unitLimitWeight" value="KG">
+                  <mat-option value="KG">KG</mat-option>
+                  <mat-option value="T">T</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p
+              *ngIf="myForm.get('typeHHVC').value !== 'FCL'"
+              class="d-flex flex-row input-p padding-right1 width-50"
+            >
+              <span align="end" class="width-36">Hóa đơn tối thiểu</span>
+              <mat-form-field appearance="outline" class="width-44-i">
+                <input formControlName="minInvoice" matInput />
+              </mat-form-field>
+              <mat-form-field appearance="outline" width-20>
+                <mat-select formControlName="unitMinInvoice" value="VND">
+                  <mat-option value="VND">VNG</mat-option>
+                  <mat-option value="ER">ER</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p
+              *ngIf="myForm.get('typeHHVC').value !== 'FCL'"
+              class="d-flex flex-row input-p padding-right1 width-50"
+            >
+              <span align="end" class="width-36">Chi phí tối thiểu</span>
+              <mat-form-field appearance="outline" class="width-44-i">
+                <input formControlName="minFee" matInput />
+              </mat-form-field>
+              <mat-form-field appearance="outline" width-20>
+                <mat-select formControlName="unitMinFee" value="VND">
+                  <mat-option value="VND">VNG</mat-option>
+                  <mat-option value="ER">ER</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p
+              *ngIf="myForm.get('typeHHVC').value !== 'FCL'"
+              class="d-flex flex-row input-p padding-right1 width-50"
+            ></p>
+            <p
+              *ngIf="myForm.get('typeHHVC').value !== 'FCL'"
+              class="d-flex flex-row input-p padding-right1 width-50"
+            >
+              <span align="end" class="width-36">Giới hạn trọng lượng</span>
+              <mat-form-field appearance="outline" class="width-44-i">
+                <input formControlName="limitWeightLA" matInput />
+              </mat-form-field>
+              <mat-form-field appearance="outline" width-20>
+                <mat-select formControlName="unitLimitWeightLA" value="KG">
+                  <mat-option value="KG">KG</mat-option>
+                  <mat-option value="T">T</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+          </div>
+          <div
+            width-33
+            class="padding-right1"
+            *ngIf="myForm.get('typeHHVC').value === 'FCL'"
+          >
+            <p class="d-flex flex-row input-p padding-right1" width-100>
+              <span align="end" class="width-36">Chia sẻ/Hoa hồng</span>
+              <mat-checkbox
+                align="center"
+                width-10
+                formControlName="shareCheck"
+                class="padding-top2"
+              ></mat-checkbox>
+              <mat-form-field appearance="outline" class="width-56-i">
+                <mat-select formControlName="shareSelect" value="PROFIT SHARE">
+                  <mat-option value="PROFIT SHARE">PROFIT SHARE</mat-option>
+                  <mat-option value="PROFIT SHARE 1">PROFIT SHARE 1</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p class="d-flex flex-row input-p padding-right1" width-100>
+              <span align="end" class="width-36">Chia sẻ cho</span>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="shareFor" value="">
+                  <mat-option value="Share For 1">Share For 1</mat-option>
+                  <mat-option value="Share For 2">Share For 2</mat-option>
+                  <mat-option value="Share For 3">Share For 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
 </div>

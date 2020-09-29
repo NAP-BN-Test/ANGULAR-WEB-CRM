@@ -161,11 +161,12 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { TableDataComponent } from "./materials/table-data/table-data.component";
 import { MatListModule } from "@angular/material/list";
-import { SearchBoardComponent } from './materials/search-board/search-board.component';
-import { SalesSellingComponent } from './components/sales-selling/sales-selling.component';
-import { SalesSellingQuotationComponent } from './components/sales-selling-quotation/sales-selling-quotation.component';
-import { TableSalesSellingQuotationComponent } from './materials/table-sales-selling-quotation/table-sales-selling-quotation.component';
-import { AddNewSalesSellingQuotationComponent } from './dialogs/add-new-sales-selling-quotation/add-new-sales-selling-quotation.component';
+import { SearchBoardComponent } from "./materials/search-board/search-board.component";
+import { SalesSellingComponent } from "./components/sales-selling/sales-selling.component";
+import { SalesSellingQuotationComponent } from "./components/sales-selling-quotation/sales-selling-quotation.component";
+import { TableSalesSellingQuotationComponent } from "./materials/table-sales-selling-quotation/table-sales-selling-quotation.component";
+import { AddNewSalesSellingQuotationComponent } from "./dialogs/add-new-sales-selling-quotation/add-new-sales-selling-quotation.component";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -330,6 +331,7 @@ import { AddNewSalesSellingQuotationComponent } from './dialogs/add-new-sales-se
     AngularEditorModule,
     NgxSpinnerModule,
     MatListModule,
+    MatExpansionModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

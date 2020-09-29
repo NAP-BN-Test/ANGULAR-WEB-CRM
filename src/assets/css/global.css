@@ -13,6 +13,14 @@
   padding-right: 1%;
 }
 
+.padding-right2 {
+  padding-right: 2%;
+}
+
+.padding-right3 {
+  padding-right: 3%;
+}
+
 .padding-left6 {
   padding-left: 6%;
 }
@@ -31,3 +39,16 @@
 .padding-top2 {
   padding-top: 2%;
 }
+
+.margin-right2 {
+  margin-right: 2%;
+}
+
+.margin-right3 {
+  margin-right: 3%;
+}
+
+.width-36 {
+  width: 36%;
+}
+

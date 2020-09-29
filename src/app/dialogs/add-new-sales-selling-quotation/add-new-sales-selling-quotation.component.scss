@@ -5,7 +5,16 @@
   padding-left: 2%;
 }
 .form-padding {
-  padding: 0% 10% 0% 10%;
+  padding: 4% 5% 0% 5%;
+}
+
+.flex-warp {
+  flex-wrap: wrap;
+}
+
+.flex-warp mat-form-field {
+  width: 50%;
+  padding: 0% 1% 0% 1%;
 }
 
 .title-form {
@@ -13,14 +22,97 @@
   color: #702c90;
 }
 .input-p span {
-  width: 20%;
-  padding-top: 3%;
+  width: 40%;
+  padding-top: 2%;
+  padding-right: 1%;
 }
 
 .input-p mat-form-field {
-  width: 80%;
+  width: 70%;
 }
 
 .input-p {
   margin: unset;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.4em 0px !important;
+}
+
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.5em;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}
+
+.double-input {
+  justify-content: flex-end;
+  padding-right: 1%;
+  margin-bottom: unset;
+}
+
+.double-input span {
+  padding-top: 2%;
+  padding-right: 1%;
+}
+
+.check-box {
+  padding-left: 12%;
+  padding-right: 1.5%;
+}
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.margin-right2 {
+  margin-right: 2%;
+}
+
+.margin-right3 {
+  margin-right: 3%;
+}
+
+.width-6666 {
+  width: 66.66%;
+}
+
+.width-46-i {
+  width: 46% !important;
+}
+
+.width-44-i {
+  width: 44% !important;
+}
+
+.button-unit {
+  width: 23%;
+  height: fit-content;
+}
+
+.padding-right1x5 {
+  padding-right: 1.5%;
+}
+
+.width-56-i {
+  width: 56% !important;
 }
