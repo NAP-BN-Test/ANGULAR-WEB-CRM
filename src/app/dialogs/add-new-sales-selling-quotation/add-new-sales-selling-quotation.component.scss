@@ -88,6 +88,10 @@
   margin-right: 2%;
 }
 
+.margin-right0x5 {
+  margin-right: 0.5%;
+}
+
 .margin-right3 {
   margin-right: 3%;
 }
@@ -109,10 +113,34 @@
   height: fit-content;
 }
 
+.fit-content {
+  height: fit-content;
+}
+
 .padding-right1x5 {
   padding-right: 1.5%;
 }
 
 .width-56-i {
   width: 56% !important;
+}
+
+.width-65-i {
+  width: 65% !important;
+}
+
+.padding-right3-i {
+  padding-right: 3% !important;
+}
+
+.width-14-i {
+  width: 14% !important;
+}
+
+.width-35-i {
+  width: 35% !important;
+}
+
+.table-shipment-type {
+  padding: 1% 10% 0% 10%;
 }

@@ -167,6 +167,7 @@ import { SalesSellingQuotationComponent } from "./components/sales-selling-quota
 import { TableSalesSellingQuotationComponent } from "./materials/table-sales-selling-quotation/table-sales-selling-quotation.component";
 import { AddNewSalesSellingQuotationComponent } from "./dialogs/add-new-sales-selling-quotation/add-new-sales-selling-quotation.component";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { TableShipmentTypeComponent } from './materials/table-shipment-type/table-shipment-type.component';
 
 @NgModule({
   declarations: [
@@ -299,6 +300,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
     SalesSellingQuotationComponent,
     TableSalesSellingQuotationComponent,
     AddNewSalesSellingQuotationComponent,
+    TableShipmentTypeComponent,
   ],
   imports: [
     DragDropModule,

@@ -36,6 +36,10 @@
   padding: 1%;
 }
 
+.padding-top1 {
+  padding-top: 1%;
+}
+
 .padding-top2 {
   padding-top: 2%;
 }
@@ -52,3 +56,9 @@
   width: 36%;
 }
 
+.width-65 {
+  width: 65%;
+}
+.margin-bottom2 {
+  margin-bottom: 2%;
+}
