@@ -79,11 +79,14 @@
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Báo giá đến</span>
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="width-62-i">
             <mat-select formControlName="quoteNumberTo">
               <mat-option value="Outbound">Outbound</mat-option>
             </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Loại hàng hóa</span>
@@ -94,7 +97,16 @@
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Hiệu lực đến</span>
           <mat-form-field appearance="outline">
-            <input type="text" formControlName="activeToDate" matInput />
+            <input
+              matInput
+              [matDatepicker]="datePickerActiveToDate"
+              formControlName="activeToDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="datePickerActiveToDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datePickerActiveToDate></mat-datepicker>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
@@ -106,13 +118,24 @@
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Phương thức thanh toán</span>
           <mat-form-field appearance="outline">
-            <input type="text" formControlName="paymentMethod" matInput />
+            <mat-select formControlName="paymentMethod">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Gia hạn</span>
           <mat-form-field appearance="outline">
-            <input type="text" formControlName="extend" matInput />
+            <input
+              matInput
+              [matDatepicker]="datePickerExtend"
+              formControlName="extend"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="datePickerExtend"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datePickerExtend></mat-datepicker>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
@@ -153,59 +176,95 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="d-flex flex-warp">
+        <p class="d-flex flex-row input-p padding-right1 width-33"></p>
+        <p class="d-flex flex-row input-p padding-right1 width-33 p-text">FROM</p>
+        <p class="d-flex flex-row input-p padding-right1 width-33 p-text">TO</p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Loại hình VC</span>
           <mat-form-field appearance="outline">
-            <input matInput formControlName="icon" />
+            <mat-select formControlName="icon">
+              <mat-option value="SEA">SEA</mat-option>
+            </mat-select>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Quốc gia</span>
           <mat-form-field appearance="outline">
-            <input formControlName="nationalFrom" matInput />
+            <mat-select formControlName="nationalFrom">
+              <mat-option value="SEA">SEA</mat-option>
+            </mat-select>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Quốc Gia</span>
           <mat-form-field appearance="outline">
-            <input type="text" formControlName="nationalTo" matInput />
+            <mat-select formControlName="nationalTo">
+              <mat-option value="SEA">SEA</mat-option>
+            </mat-select>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Dịch vụ</span>
           <mat-form-field appearance="outline">
-            <input type="text" formControlName="service" matInput />
+            <mat-select formControlName="service">
+              <mat-option value="SEA">SEA</mat-option>
+            </mat-select>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Cảng</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="portFrom" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="portFrom">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Cảng</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="portTo" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="portTo">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">ĐV. Vận chuyển</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="shippingUnit" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="shippingUnit">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Bãi</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="parkFrom" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="parkFrom">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Bãi</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="parkTo" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="parkTo">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">ETC</span>
@@ -215,15 +274,25 @@
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Kho CFS</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="cfsFrom" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="cfsFrom">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Kho CFS</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="cfsTo" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="cfsTo">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">ETD</span>
@@ -233,15 +302,25 @@
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Nơi nhận</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="receiver" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="receiver">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Nơi giao</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="placeOfDelivery" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="placeOfDelivery">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <p class="d-flex flex-row width-33 double-input">
           <span align="end" style="width: 25%">Thời gian VC</span>
@@ -250,20 +329,29 @@
           </mat-form-field>
           <span align="end">Lịch trình</span>
           <mat-form-field appearance="outline" style="width: 25%">
-            <input type="text" formControlName="receiver" matInput />
+            <mat-select formControlName="receiver">
+              <mat-option value="SEA">SEA</mat-option>
+            </mat-select>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Quốc gia quá cảnh</span>
           <mat-form-field appearance="outline">
-            <input type="text" formControlName="countryInTransit" matInput />
+            <mat-select formControlName="countryInTransit">
+              <mat-option value="SEA">SEA</mat-option>
+            </mat-select>
           </mat-form-field>
         </p>
         <p class="d-flex flex-row input-p padding-right1 width-33">
           <span align="end">Cảng quá cảnh</span>
-          <mat-form-field appearance="outline">
-            <input type="text" formControlName="portTransit" matInput />
+          <mat-form-field appearance="outline" class="width-62-i">
+            <mat-select formControlName="portTransit">
+              <mat-option value="Outbound">Outbound</mat-option>
+            </mat-select>
           </mat-form-field>
+          <button mat-button matSuffix mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
         </p>
         <div
           class="d-flex justify-content-between flex-row check-box"
