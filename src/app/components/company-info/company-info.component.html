@@ -1,82 +1,142 @@
-<div *ngIf="mTitle&&mObj">
-    <div padding center>
-
-        <div color-primary bold center-line>
-            <button matTooltip="Hành động" mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>fact_check</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="onClickFollow()">{{mObj.follow?'Follow': 'UnFollow'}}</button>
-                <button mat-menu-item (click)="onClickDelete()">{{mTitle.delete}}</button>
-            </mat-menu>
-        </div>
-
-        <div class="bold font3 padding8-end text-center">{{mObj.name}}</div>
+<div *ngIf="mTitle && mObj">
+  <div padding center>
+    <div color-primary bold center-line>
+      <button matTooltip="Hành động" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>fact_check</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onClickFollow()">
+          {{ mObj.follow ? "Follow" : "UnFollow" }}
+        </button>
+        <button mat-menu-item (click)="onClickDelete()">
+          {{ mTitle.delete }}
+        </button>
+      </mat-menu>
     </div>
 
-    <div padding32 border-bottom center>
-        <div padding8 *ngFor="let item of mTitle.list_icon">
+    <div class="bold font3 padding8-end text-center">{{ mObj.name }}</div>
+  </div>
 
-            <button [matTooltip]="item.name" mat-icon-button color="primary" (click)="onClickItem(item.index)">
-                <mat-icon mat-icon-size color-primary [svgIcon]="item.icon"></mat-icon>
-            </button>
-
-        </div>
+  <div padding32 border-bottom center>
+    <div padding8 *ngFor="let item of mTitle.list_icon">
+      <button
+        [matTooltip]="item.name"
+        mat-icon-button
+        color="primary"
+        (click)="onClickItem(item.index)"
+      >
+        <mat-icon mat-icon-size color-primary [svgIcon]="item.icon"></mat-icon>
+      </button>
     </div>
+  </div>
 
-    <div padding>
-        <div bold>{{mTitle.info.title}}</div>
+  <div padding>
+    <div bold>{{ mTitle.info.title }}</div>
 
-        <mat-form-field width-100>
-            <mat-label>Tên</mat-label>
-            <input matInput type="text" [value]="mObj.name" (change)="onInputChange($event, 1)">
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Tên</mat-label>
+      <input
+        matInput
+        type="text"
+        [value]="mObj.name"
+        (change)="onInputChange($event, 1)"
+      />
+    </mat-form-field>
 
-        <mat-form-field width-100>
-            <mat-label>Tên viết tắt</mat-label>
-            <input matInput type="text" [value]="mObj.shortName" (change)="onInputChange($event, 2)">
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Tên viết tắt</mat-label>
+      <input
+        matInput
+        type="text"
+        [value]="mObj.shortName"
+        (change)="onInputChange($event, 2)"
+      />
+    </mat-form-field>
 
-        <mat-form-field width-100>
-            <mat-label>Địa chỉ</mat-label>
-            <input matInput type="text" [value]="mObj.address" (change)="onInputChange($event, 3)">
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Địa chỉ</mat-label>
+      <input
+        matInput
+        type="text"
+        [value]="mObj.address"
+        (change)="onInputChange($event, 3)"
+      />
+    </mat-form-field>
 
-        <mat-form-field width-100>
-            <mat-label>Số ĐT</mat-label>
-            <input matInput type="text" [value]="mObj.phone" (change)="onInputChange($event, 4)">
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Số ĐT</mat-label>
+      <input
+        matInput
+        type="text"
+        [value]="mObj.phone"
+        (change)="onInputChange($event, 4)"
+      />
+    </mat-form-field>
 
-        <mat-form-field width-100>
-            <mat-label>Email</mat-label>
-            <input matInput type="text" [value]="mObj.email" (change)="onInputChange($event, 5)">
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="text"
+        [value]="mObj.email"
+        (change)="onInputChange($event, 5)"
+      />
+    </mat-form-field>
 
-        <mat-form-field width-100>
-            <mat-label>Ngày hoạt động</mat-label>
-            <input matInput [matDatepicker]="picker2" [value]="mObj.timeActive" (dateChange)="onInputChange($event, 9)">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Ngày hoạt động</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        [value]="mObj.timeActive"
+        (dateChange)="onInputChange($event, 9)"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
 
-        <mat-form-field width-100>
-            <mat-label>Tỉnh/TP</mat-label>
-            <mat-select [(ngModel)]="mObj.cityID" (selectionChange)="onInputChange($event, 6)">
-                <mat-option *ngFor="let item of listCity" [value]="item.id">{{item.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Tỉnh/TP</mat-label>
+      <mat-select
+        [(ngModel)]="mObj.cityID"
+        (selectionChange)="onInputChange($event, 6)"
+      >
+        <mat-option *ngFor="let item of listCity" [value]="item.id">{{
+          item.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-        <mat-form-field width-100>
-            <mat-label>Bước</mat-label>
-            <mat-select [(ngModel)]="mObj.stageID" (selectionChange)="onInputChange($event, 8)">
-                <mat-option *ngFor="let item of listStep" [value]="item.id">{{item.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Bước</mat-label>
+      <mat-select
+        [(ngModel)]="mObj.stageID"
+        (selectionChange)="onInputChange($event, 8)"
+      >
+        <mat-option *ngFor="let item of listStep" [value]="item.id">{{
+          item.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-        <mat-form-field width-100>
-            <mat-label>Website</mat-label>
-            <input matInput type="text" [value]="mObj.website" (change)="onInputChange($event, 7)">
-        </mat-form-field>
+    <mat-form-field width-100>
+      <mat-label>Website</mat-label>
+      <input
+        matInput
+        type="text"
+        [value]="mObj.website"
+        (change)="onInputChange($event, 7)"
+      />
+    </mat-form-field>
 
-    </div>
+    <mat-form-field width-100>
+      <mat-label>Ghi chú</mat-label>
+      <input
+        matInput
+        type="text"
+        [value]="mObj.note"
+        (change)="onInputChange($event, 10)"
+      />
+    </mat-form-field>
+  </div>
 </div>

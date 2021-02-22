@@ -9,8 +9,8 @@ import {
 } from "src/app/services/constant/app-constant";
 import { AppModuleService } from "src/app/services/app-module.service";
 import { ParamsKey } from "src/app/services/constant/paramskey";
-import { AddMailmergeTemplateComponent } from 'src/app/dialogs/add-mailmerge-template/add-mailmerge-template.component';
-import { DialogComponent } from 'src/app/dialogs/dialog/dialog.component';
+import { AddMailmergeTemplateComponent } from "src/app/dialogs/add-mailmerge-template/add-mailmerge-template.component";
+import { DialogComponent } from "src/app/dialogs/dialog/dialog.component";
 
 @Component({
   selector: "app-mailmerge-template-list",
@@ -76,7 +76,7 @@ export class MailmergeTemplateListComponent implements OnInit {
     this.onLoadData(event, this.searchKey);
   }
 
-  onClickAddNew(){
+  onClickAddNew() {
     const dialogRef = this.dialog.open(AddMailmergeTemplateComponent, {
       width: "500px",
     });
@@ -96,19 +96,16 @@ export class MailmergeTemplateListComponent implements OnInit {
             ) {
               this.onLoadData(1, this.searchKey);
             } else {
-              this.mService.publishPageRoute(
-                "mailmerge-template-detail",
-                {
-                  mailMergeTemplateID: data.obj.ID,
-                }
-              );
+              this.mService.publishPageRoute("mailmerge-template-detail", {
+                mailMergeTemplateID: data.obj.ID,
+              });
             }
           });
       }
     });
   }
 
-  onClickEdit(event){
+  onClickEdit(event) {
     const dialogRef = this.dialog.open(AddMailmergeTemplateComponent, {
       width: "500px",
       data: {
@@ -132,20 +129,16 @@ export class MailmergeTemplateListComponent implements OnInit {
             ) {
               this.onLoadData(1, this.searchKey);
             } else {
-              this.mService.publishPageRoute(
-                "mailmerge-template-detail",
-                {
-                  mailMergeTemplateID: obj.ID,
-                }
-              );
+              this.mService.publishPageRoute("mailmerge-template-detail", {
+                mailMergeTemplateID: obj.ID,
+              });
             }
           });
       }
     });
   }
 
-  onClickBtn(event){
-    console.log(event)
+  onClickBtn(event) {
     if (event.btnType == BUTTON_TYPE.DELETE) {
       const dialogRef = this.dialog.open(DialogComponent, {
         width: "500px",
@@ -165,16 +158,12 @@ export class MailmergeTemplateListComponent implements OnInit {
     }
   }
 
-  onClickCell(event){
+  onClickCell(event) {
     if (event) {
-      console.log(event)
       if (event.clickDetail == CLICK_DETAIL.MAILMERGE_TEMPLATE_LIST) {
-        this.mService.publishPageRoute(
-          "mailmerge-template-detail",
-          {
-            mailMergeTemplateID: event.data.ID,
-          }
-        );
+        this.mService.publishPageRoute("mailmerge-template-detail", {
+          mailMergeTemplateID: event.data.ID,
+        });
       }
     }
   }

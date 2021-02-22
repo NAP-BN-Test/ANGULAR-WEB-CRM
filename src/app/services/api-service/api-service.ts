@@ -8,7 +8,8 @@ import { LOCAL_STORAGE_KEY } from "../constant/app-constant";
 export class ApiService extends HttpClient {
   // mUrl: string = "http://192.168.1.101:3002/";
   // mUrl: string = "http://localhost:3002/";
-  mUrl: string = "http://118.27.192.106:3002/";
+  // mUrl: string = "http://118.27.192.106:3002/";
+  mUrl: string = "http://163.44.192.123:3302/";
   mSecretKey: string = "00a2152372fa8e0e62edbb45dd82831a";
 
   userID = localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO)
@@ -631,6 +632,7 @@ export class ApiService extends HttpClient {
     companyEmail?: string,
     companyCity?: string,
     website?: string,
+    note?: string,
     stageID?: string,
     timeActive?: string
   ): Promise<any> {
@@ -649,6 +651,7 @@ export class ApiService extends HttpClient {
         .addIgnoreNull("companyEmail", companyEmail)
         .addIgnoreNull("companyCity", companyCity)
         .addIgnoreNull("website", website)
+        .addIgnoreNull("note", note)
         .addIgnoreNull("stageID", stageID)
         .addIgnoreNull("timeActive", timeActive)
     );
@@ -1698,7 +1701,6 @@ export class ApiService extends HttpClient {
 
   //==============================
   public sendRequestDELETE_MAIL_LIST(listID: string): Promise<any> {
-    console.log(listID);
     return this.requestPost(
       this.mUrl + ApiCmd.DELETE_MAIL_LIST,
       ParamBuilder.builder()
@@ -1783,7 +1785,6 @@ export class ApiService extends HttpClient {
   public sendRequestUPDATE_MAIL_CAMPAIN(obj: any): Promise<any> {
     let body: string;
     if (obj.body) body = obj.body.replace(/&/g, "%26");
-    console.log(body);
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_MAIL_CAMPAIN,
       ParamBuilder.builder()
@@ -2009,8 +2010,6 @@ export class ApiService extends HttpClient {
 
   //==============================
   public sendRequestUPDATE_CATEGORY_COUNTRY(obj: any, countryID): Promise<any> {
-    console.log(countryID);
-
     return this.requestPost(
       this.mUrl + ApiCmd.UPDATE_CATEGORY_COUNTRY,
       ParamBuilder.builder()

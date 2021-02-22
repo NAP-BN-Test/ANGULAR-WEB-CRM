@@ -93,12 +93,10 @@ export class MailmergeTemplateDetailComponent implements OnInit {
       ID: this.mailMergeTemplateID,
       body: this.mObj.body,
     };
-    console.log(obj.body);
     this.mService
       .getApiService()
       .sendRequestUPDATE_MAILMERGE_TEMPLATE(obj)
       .then((data) => {
-        console.log(data);
         if (data.status == STATUS.SUCCESS) {
           this.mService.showSnackBar(data.message);
         }

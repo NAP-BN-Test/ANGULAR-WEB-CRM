@@ -1,39 +1,48 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
-import { AppModuleService } from 'src/app/services/app-module.service';
-import { STATUS, SORT_TYPE, LOCAL_STORAGE_KEY } from 'src/app/services/constant/app-constant';
-import { MatInput, MatSelect, MatDialog } from '@angular/material';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ViewChild,
+} from "@angular/core";
+import { AppModuleService } from "src/app/services/app-module.service";
+import {
+  STATUS,
+  SORT_TYPE,
+  LOCAL_STORAGE_KEY,
+} from "src/app/services/constant/app-constant";
+import { MatInput, MatSelect, MatDialog } from "@angular/material";
 
-import * as moment from 'moment';
-import { AddHistoryComponent } from 'src/app/dialogs/add-history/add-history.component';
+import * as moment from "moment";
+import { AddHistoryComponent } from "src/app/dialogs/add-history/add-history.component";
 
 @Component({
-  selector: 'app-filter-bar',
-  templateUrl: './filter-bar.component.html',
-  styleUrls: ['./filter-bar.component.scss']
+  selector: "app-filter-bar",
+  templateUrl: "./filter-bar.component.html",
+  styleUrls: ["./filter-bar.component.scss"],
 })
 export class FilterBarComponent implements OnInit {
+  @ViewChild("dateStartInput", { read: MatInput }) dateStartInput: MatInput;
+  @ViewChild("dateEndInput", { read: MatInput }) dateEndInput: MatInput;
+  @ViewChild("searchKeyInput", { read: MatInput }) searchKeyInput: MatInput;
 
-  @ViewChild('dateStartInput', { read: MatInput }) dateStartInput: MatInput;
-  @ViewChild('dateEndInput', { read: MatInput }) dateEndInput: MatInput;
-  @ViewChild('searchKeyInput', { read: MatInput }) searchKeyInput: MatInput;
+  @ViewChild("userSelect", { read: MatSelect }) userSelect: MatSelect;
+  @ViewChild("stepSelect", { read: MatSelect }) stepSelect: MatSelect;
+  @ViewChild("citySelect", { read: MatSelect }) citySelect: MatSelect;
+  @ViewChild("timeTypeSelect", { read: MatSelect }) timeTypeSelect: MatSelect;
 
-  @ViewChild('userSelect', { read: MatSelect }) userSelect: MatSelect;
-  @ViewChild('stepSelect', { read: MatSelect }) stepSelect: MatSelect;
-  @ViewChild('citySelect', { read: MatSelect }) citySelect: MatSelect;
-  @ViewChild('timeTypeSelect', { read: MatSelect }) timeTypeSelect: MatSelect;
+  @Input("noAdd") noAdd = false;
+  @Input("noImport") noImport = false;
 
-  @Input('noAdd') noAdd = false;
-  @Input('noImport') noImport = false;
+  @Input("toppingList") toppingList = [];
 
-  @Input('toppingList') toppingList = [];
+  @Input("paramsObj") paramsObj: any;
 
-  @Input('paramsObj') paramsObj: any;
-
-
-  @Output('searchChange') searchChange = new EventEmitter();
-  @Output('clickAdd') clickAdd = new EventEmitter();
-  @Output('clickImport') clickImport = new EventEmitter();
-  @Output('sort') sort = new EventEmitter();
+  @Output("searchChange") searchChange = new EventEmitter();
+  @Output("clickAdd") clickAdd = new EventEmitter();
+  @Output("clickImport") clickImport = new EventEmitter();
+  @Output("sort") sort = new EventEmitter();
 
   hasSort = false;
 
@@ -54,8 +63,6 @@ export class FilterBarComponent implements OnInit {
   // timeFrom = null;
   // timeTo = null;
 
-
-
   sortUser = false;
   sortStep = false;
   sortCity = false;
@@ -64,48 +71,43 @@ export class FilterBarComponent implements OnInit {
   sortSearch = false;
   sortTimeType = false;
 
-  constructor(
-    public mService: AppModuleService,
-    public dialog: MatDialog
-  ) { }
+  constructor(public mService: AppModuleService, public dialog: MatDialog) {}
 
   ngOnInit() {
     let languageData = localStorage.getItem(LOCAL_STORAGE_KEY.LANGUAGE_DATA);
     this.mTitle = JSON.parse(languageData);
 
-    this.mService.getApiService().sendRequestGET_LIST_USER(
+    this.mService
+      .getApiService()
+      .sendRequestGET_LIST_USER(1)
+      .then((data) => {
+        if (data.status == STATUS.SUCCESS) {
+          this.listUser = data.array;
+          this.listUser.unshift({ id: -1, name: this.mTitle.all });
+        }
+      });
 
+    this.mService
+      .getApiService()
+      .sendRequestGET_DEAL_STAGE()
+      .then((data) => {
+        if (data.status == STATUS.SUCCESS) {
+          this.listStep = data.array;
+          this.listStep.unshift({ id: -1, name: this.mTitle.all });
+        }
+      });
 
-      1
-    ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.listUser = data.array;
-        this.listUser.unshift({ id: -1, name: this.mTitle.all })
-      }
-    })
-
-    this.mService.getApiService().sendRequestGET_DEAL_STAGE(
-
-
-    ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.listStep = data.array;
-        this.listStep.unshift({ id: -1, name: this.mTitle.all })
-      }
-    })
-
-    this.mService.getApiService().sendRequestGET_LIST_CITY(
-
-
-    ).then(data => {
-      if (data.status == STATUS.SUCCESS) {
-        this.listCity = data.array;
-        this.listCity.unshift({ id: -1, name: this.mTitle.all })
-      }
-    })
+    this.mService
+      .getApiService()
+      .sendRequestGET_LIST_CITY()
+      .then((data) => {
+        if (data.status == STATUS.SUCCESS) {
+          this.listCity = data.array;
+          this.listCity.unshift({ id: -1, name: this.mTitle.all });
+        }
+      });
 
     this.handleParams();
-
   }
 
   onClickAdd() {
@@ -117,13 +119,15 @@ export class FilterBarComponent implements OnInit {
   }
 
   onClickSort() {
-    console.log("1")
-    if (this.userSelect.value ||
+    if (
+      this.userSelect.value ||
       this.stepSelect.value ||
       this.citySelect.value ||
       this.dateStartInput.value ||
       this.dateEndInput.value ||
-      this.searchKeyInput.value != '') this.hasSort = true;
+      this.searchKeyInput.value != ""
+    )
+      this.hasSort = true;
     else this.hasSort = false;
 
     this.sort.emit({
@@ -133,43 +137,47 @@ export class FilterBarComponent implements OnInit {
       timeType: this.timeType,
       timeFrom: toDate(this.dateStartInput.value),
       timeTo: toDate(this.dateEndInput.value),
-      searchKey: this.searchKeyInput.value
-    })
-
+      searchKey: this.searchKeyInput.value,
+    });
   }
 
   onClickHistory() {
-    this.mService.publishPageRoute('history');
+    this.mService.publishPageRoute("history");
   }
 
   onClickSave() {
     const dialogRef = this.dialog.open(AddHistoryComponent, {
-      width: '500px'
+      width: "500px",
     });
 
-    dialogRef.afterClosed().subscribe(res => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         let params: any = this.mService.handleActivatedRoute();
 
-        this.mService.getApiService().sendRequestADD_HISTORY(res.name, this.mService.getRouterUrl(), JSON.stringify(params)).then(data => {
-          this.mService.showSnackBar(data.message);
-        })
+        this.mService
+          .getApiService()
+          .sendRequestADD_HISTORY(
+            res.name,
+            this.mService.getRouterUrl(),
+            JSON.stringify(params)
+          )
+          .then((data) => {
+            this.mService.showSnackBar(data.message);
+          });
       }
-
     });
   }
 
   onClickClear() {
-    this.dateStartInput.value = '';
-    this.dateEndInput.value = '';
-    this.searchKeyInput.value = '';
-    this.userSelect.value = '';
-    this.stepSelect.value = '';
-    this.citySelect.value = '';
-    this.timeTypeSelect.value = '';
+    this.dateStartInput.value = "";
+    this.dateEndInput.value = "";
+    this.searchKeyInput.value = "";
+    this.userSelect.value = "";
+    this.stepSelect.value = "";
+    this.citySelect.value = "";
+    this.timeTypeSelect.value = "";
 
     this.hasSort = false;
-
   }
 
   onSortChange(event) {
@@ -187,7 +195,6 @@ export class FilterBarComponent implements OnInit {
     setTimeout(() => {
       this.toppingListSelected = [];
       if (this.paramsObj) {
-
         if (this.paramsObj.stepID) {
           this.stepSelect.value = this.paramsObj.stepID;
           this.sortStep = true;
@@ -220,20 +227,16 @@ export class FilterBarComponent implements OnInit {
         }
       }
     }, 500);
-
   }
-
 }
 
 function toDate(time): string {
-  if (time)
-    return moment(time).format("YYYY-MM-DD")
+  if (time) return moment(time).format("YYYY-MM-DD");
   else return null;
 }
 function toID(value): number {
   if (value) {
-    if (!isNaN(value))
-      return Number(value)
+    if (!isNaN(value)) return Number(value);
     else return null;
   } else return null;
 }

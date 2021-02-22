@@ -145,7 +145,6 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
   }
 
   onClickBtn(event) {
-    console.log(event);
     this.mService
       .getApiService()
       .sendRequestDELETE_ADDITIONAL_INFORMATION(event.data)
@@ -175,7 +174,6 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
       )
       .then((data) => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-          console.log(data);
           this.mObj = data.array;
         }
       });
@@ -183,7 +181,6 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
 
   // Hàm lưu thông tin add infor
   onClickSave() {
-    console.log(this.mObj);
     let obj = {
       ID: this.mObj.ID ? this.mObj.ID : null,
       OurRef: this.mObj.OurRef ? this.mObj.OurRef : null,
@@ -220,8 +217,7 @@ export class SetupFollowMailmergeCampaignComponent implements OnInit {
             width: "500px",
           });
           this.onLoadData(this.mailMergeCampaignID);
-        }
-        else {
+        } else {
           this.mService.showSnackBar(data.message);
           this.onLoadData(this.mailMergeCampaignID);
           this.resetInfoLeft();

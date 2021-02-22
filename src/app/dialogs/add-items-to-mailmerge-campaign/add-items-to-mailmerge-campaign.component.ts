@@ -97,7 +97,6 @@ export class AddItemsToMailmergeCampaignComponent implements OnInit {
 
   // Bắt sự kiện khi tích vào ô ở bảng
   onClickBtn(event) {
-    console.log(event.data);
     this.mService
       .getApiService()
       .sendRequestADD_INFORMATION_FROM_CONTACT(
@@ -120,13 +119,11 @@ export class AddItemsToMailmergeCampaignComponent implements OnInit {
         item.name.toLowerCase() == this.myControlCompany.value.toLowerCase()
       );
     });
-    console.log(obj);
     this.mService
       .getApiService()
       .sendRequestGET_LIST_CONTACT_FROM_COMPANY(obj.id)
       .then((data) => {
         if (data[ParamsKey.STATUS] == STATUS.SUCCESS) {
-          console.log(data);
           this.collectionSize = data.count;
           this.mService.publishEvent(EVENT_PUSH.TABLE, {
             page: this.page,
